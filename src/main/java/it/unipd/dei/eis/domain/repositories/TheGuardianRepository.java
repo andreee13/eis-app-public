@@ -5,6 +5,7 @@ import it.unipd.dei.eis.core.utils.Either;
 import it.unipd.dei.eis.data.entities.TheGuardianIDataEntity;
 import it.unipd.dei.eis.data.sources.TheGuardianDataSource;
 import it.unipd.dei.eis.domain.models.Article;
+import org.apache.commons.cli.CommandLine;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,18 +27,9 @@ public class TheGuardianRepository extends Repository<TheGuardianDataSource> {
     }
 
     @Override
-    public Either<Failure, List<Article>> search(String query) {
+    public Either<Failure, List<Article>> fetch(CommandLine cmd) {
         try {
-            return Either.success(dataSource.findOne(query).response.results.stream().map(this::resultToArticle).collect(Collectors.toList()));
-        } catch (Exception e) {
-            return Either.failure(new Failure(e));
-        }
-    }
-
-    @Override
-    public Either<Failure, List<Article>> all() {
-        try {
-            return Either.success(dataSource.findAll().get(0).response.results.stream().map(this::resultToArticle).collect(Collectors.toList()));
+            return Either.success(dataSource.get(cmd).get(0).response.results.stream().map(this::resultToArticle).collect(Collectors.toList()));
         } catch (Exception e) {
             return Either.failure(new Failure(e));
         }

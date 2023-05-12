@@ -1,17 +1,18 @@
 package it.unipd.dei.eis.domain.controllers;
 
 import it.unipd.dei.eis.core.constants.CommandConstants;
-import it.unipd.dei.eis.presentation.Argument;
-
-import java.util.List;
+import org.apache.commons.cli.CommandLine;
 
 public class ControllerFactory {
-    public static Controller create(List<Argument> arguments) {
-        switch (arguments.get(0).key) {
+    private ControllerFactory() {
+    }
+
+    public static Controller create(String command, CommandLine cmd) {
+        switch (command) {
             case CommandConstants.DOWNLOAD:
-                return new DownloadController(arguments);
+                return new DownloadController(cmd);
             case CommandConstants.EXTRACT:
-                return new TermsExtractorController(arguments);
+                return new TermsExtractorController(cmd);
             default:
                 throw new IllegalArgumentException("Invalid argument");
         }

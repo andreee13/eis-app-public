@@ -1,8 +1,9 @@
 package it.unipd.dei.eis.presentation;
 
 import it.unipd.dei.eis.domain.controllers.ControllerFactory;
-
-import java.util.ArrayList;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.Options;
 
 public class Bootstrapper {
     private final String[] args;
@@ -12,18 +13,19 @@ public class Bootstrapper {
     }
 
     public void launch() {
-        ArrayList<Argument> arguments = parseArguments();
-        if (!verifyArguments(arguments)) {
-            throw new IllegalArgumentException("Invalid arguments");
+        Options options = new Options();
+        options.addOption("h", "help", false, "Print this message");
+        options.addOption("o", "output", true, "Output file");
+        options.addOption("q", "query", true, "Query");
+        options.addOption("c", "count", true, "Number of results");
+        options.addOption("s", "source", true, "Source");
+        options.addOption("f", "from", true, "From date");
+        options.addOption("t", "to", true, "To date");
+        try {
+            CommandLine cmd = new DefaultParser().parse(options, args);
+            ControllerFactory.create(args[0], cmd).run();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
-        ControllerFactory.create(arguments).run();
-    }
-
-    private ArrayList<Argument> parseArguments() {
-        return new ArrayList<>();
-    }
-
-    private boolean verifyArguments(ArrayList<Argument> arguments) {
-        return true;
     }
 }

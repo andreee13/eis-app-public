@@ -1,17 +1,14 @@
 package it.unipd.dei.eis.domain.use_cases;
 
-import it.unipd.dei.eis.data.sources.DataSource;
 import it.unipd.dei.eis.domain.repositories.Repository;
-import it.unipd.dei.eis.presentation.Argument;
-
-import java.util.List;
+import org.apache.commons.cli.CommandLine;
 
 public abstract class UseCase {
-    List<Argument> arguments;
     Repository repository;
+    final CommandLine cmd;
 
-    public UseCase(List<Argument> arguments) {
-        this.arguments = arguments;
+    public UseCase(CommandLine cmd) {
+        this.cmd = cmd;
     }
 
     public abstract void execute();

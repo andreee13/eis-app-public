@@ -2,17 +2,14 @@ package it.unipd.dei.eis.domain.use_cases;
 
 import it.unipd.dei.eis.data.sources.DataSource;
 import it.unipd.dei.eis.domain.repositories.Repository;
-import it.unipd.dei.eis.domain.repositories.TheGuardianRepository;
-import it.unipd.dei.eis.presentation.Argument;
-
-import java.util.List;
+import org.apache.commons.cli.CommandLine;
 
 // priority queue
 
 public class TermsExtractor extends UseCase {
 
-    public TermsExtractor(List<Argument> arguments) {
-        super(arguments);
+    public TermsExtractor(CommandLine cmd) {
+        super(cmd);
         repository = resolveRepository();
     }
 
