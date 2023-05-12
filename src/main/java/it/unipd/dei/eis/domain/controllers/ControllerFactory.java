@@ -7,14 +7,14 @@ public class ControllerFactory {
     private ControllerFactory() {
     }
 
-    public static Controller create(String command, CommandLine cmd) {
+    public static Controller create(String command, CommandLine cmd) throws IllegalArgumentException {
         switch (command) {
             case CommandConstants.DOWNLOAD:
                 return new DownloadController(cmd);
             case CommandConstants.EXTRACT:
                 return new TermsExtractorController(cmd);
             default:
-                throw new IllegalArgumentException("Invalid argument");
+                throw new IllegalArgumentException("Invalid command");
         }
     }
 }

@@ -1,9 +1,7 @@
 package it.unipd.dei.eis.presentation;
 
 import it.unipd.dei.eis.domain.controllers.ControllerFactory;
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.Options;
+import org.apache.commons.cli.*;
 
 public class Bootstrapper {
     private final String[] args;
@@ -14,17 +12,18 @@ public class Bootstrapper {
 
     public void launch() {
         Options options = new Options();
-        options.addOption("h", "help", false, "Print this message");
-        options.addOption("o", "output", true, "Output file");
-        options.addOption("q", "query", true, "Query");
-        options.addOption("c", "count", true, "Number of results");
-        options.addOption("s", "source", true, "Source");
-        options.addOption("f", "from", true, "From date");
-        options.addOption("t", "to", true, "To date");
+        options.addOption(Option.builder().option("h").longOpt("help").desc("Print this message").build());
+        options.addOption(Option.builder().option("s").longOpt("source").desc("Data source").hasArg().argName("source|file").required().build());
+        options.addOption(Option.builder().option("o").longOpt("output").desc("Output file name").hasArg().argName("file").build());
+        options.addOption(Option.builder().option("q").longOpt("query").desc("Search query").hasArg().argName("string").build());
+        options.addOption(Option.builder().option("c").longOpt("count").desc("Number of results").hasArg().argName("integer").type(Number.class).build());
+        options.addOption(Option.builder().option("f").longOpt("from").desc("From date").hasArg().argName("date").build());
+        options.addOption(Option.builder().option("t").longOpt("to").desc("To date").hasArg().argName("date").build());
         try {
-            CommandLine cmd = new DefaultParser().parse(options, args);
-            ControllerFactory.create(args[0], cmd).run();
-        } catch (Exception e) {
+            ControllerFactory.create(args[0], new DefaultParser().parse(options, args)).run();
+        } catch (ParseException e) {
+            new HelpFormatter().printHelp("java -jar <jarfile> <download|extract|all> [options]", options);
+        } catch (IllegalArgumentException e) {
             System.err.println(e.getMessage());
         }
     }

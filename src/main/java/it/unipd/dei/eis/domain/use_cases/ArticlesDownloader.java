@@ -39,15 +39,8 @@ public class ArticlesDownloader extends UseCase {
         } else {
             List<Article> articles = result.getSuccess();
             JsonEncoder jsonEncoder = new JsonEncoder();
-            StringBuilder stringBuilder = new StringBuilder("{ \"articles\": [");
-            for (Article article : articles) {
-                stringBuilder.append(jsonEncoder.encode(article));
-                stringBuilder.append(",");
-            }
-            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-            stringBuilder.append("]}");
             try (FileWriter fileWriter = new FileWriter(cmd.hasOption("output") ? cmd.getOptionValue("output") : "articles.json")) {
-                fileWriter.write(stringBuilder.toString());
+                fileWriter.write(jsonEncoder.encode(articles));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
