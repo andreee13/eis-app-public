@@ -10,10 +10,10 @@ import org.apache.commons.cli.CommandLine;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CsvRepository extends Repository<CsvDataSource> {
+public class CsvRepository extends Repository<CsvDataSource, Article> {
 
-    public CsvRepository() {
-        super(new CsvDataSource());
+    public CsvRepository(CommandLine cmd) {
+        super(cmd, new CsvDataSource());
     }
 
     private Article resultToArticle(CsvDataEntity result) {

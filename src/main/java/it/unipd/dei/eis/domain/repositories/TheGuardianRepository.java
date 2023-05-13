@@ -10,9 +10,9 @@ import org.apache.commons.cli.CommandLine;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TheGuardianRepository extends Repository<TheGuardianDataSource> {
-    public TheGuardianRepository() {
-        super(new TheGuardianDataSource());
+public class TheGuardianRepository extends Repository<TheGuardianDataSource, Article> {
+    public TheGuardianRepository(CommandLine cmd) {
+        super(cmd, new TheGuardianDataSource());
     }
 
     private Article resultToArticle(TheGuardianIDataEntity.Response.Result result) {
@@ -25,6 +25,7 @@ public class TheGuardianRepository extends Repository<TheGuardianDataSource> {
                 dataSource.id
         );
     }
+
 
     @Override
     public Either<Failure, List<Article>> fetch(CommandLine cmd) {

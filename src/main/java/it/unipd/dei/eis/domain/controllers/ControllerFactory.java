@@ -1,14 +1,17 @@
 package it.unipd.dei.eis.domain.controllers;
 
 import it.unipd.dei.eis.core.constants.CommandConstants;
+import it.unipd.dei.eis.core.utils.Factory;
 import org.apache.commons.cli.CommandLine;
 
-public class ControllerFactory {
-    private ControllerFactory() {
+public class ControllerFactory extends Factory<Controller> {
+    public ControllerFactory(CommandLine cmd) {
+        super(cmd);
     }
 
-    public static Controller create(String command, CommandLine cmd) throws IllegalArgumentException {
-        switch (command) {
+    @Override
+    public Controller create(String name) throws IllegalArgumentException {
+        switch (name) {
             case CommandConstants.DOWNLOAD:
                 return new DownloadController(cmd);
             case CommandConstants.EXTRACT:

@@ -1,6 +1,5 @@
 package it.unipd.dei.eis.data.sources;
 
-
 import it.unipd.dei.eis.data.entities.TheGuardianIDataEntity;
 import it.unipd.dei.eis.data.serialization.JsonDecoder;
 import okhttp3.HttpUrl;
@@ -40,8 +39,10 @@ public class TheGuardianDataSource extends DataSource {
         if (cmd.hasOption("query")) urlBuilder.addQueryParameter("q", cmd.getOptionValue("query"));
         if (cmd.hasOption("tag")) urlBuilder.addQueryParameter("tag", cmd.getOptionValue("tag"));
         if (cmd.hasOption("section")) urlBuilder.addQueryParameter("section", cmd.getOptionValue("section"));
-        if (cmd.hasOption("from-date")) urlBuilder.addQueryParameter("from-date", dateFormat.format(cmd.getOptionValue("from-date")));
-        if (cmd.hasOption("to-date")) urlBuilder.addQueryParameter("to-date", dateFormat.format(cmd.getOptionValue("to-date")));
+        if (cmd.hasOption("from-date"))
+            urlBuilder.addQueryParameter("from-date", dateFormat.format(cmd.getOptionValue("from-date")));
+        if (cmd.hasOption("to-date"))
+            urlBuilder.addQueryParameter("to-date", dateFormat.format(cmd.getOptionValue("to-date")));
         if (cmd.hasOption("count")) urlBuilder.addQueryParameter("page-size", cmd.getOptionValue("count"));
         try (Response response = httpClient.newCall(new Request.Builder().url(urlBuilder.build()).build()).execute()) {
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);

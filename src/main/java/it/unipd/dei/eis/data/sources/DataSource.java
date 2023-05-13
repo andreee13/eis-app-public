@@ -9,7 +9,7 @@ import java.util.List;
 public abstract class DataSource {
     public final String id;
 
-    final IDecoder decoder;
+    protected final IDecoder decoder;
 
     protected DataSource(String id, IDecoder decoder) {
         this.id = id;

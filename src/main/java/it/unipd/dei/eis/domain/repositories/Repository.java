@@ -8,12 +8,14 @@ import org.apache.commons.cli.CommandLine;
 
 import java.util.List;
 
-public abstract class Repository<T extends DataSource> {
-    final T dataSource;
+public abstract class Repository<T extends DataSource, M extends IModel> {
+    protected final CommandLine cmd;
+    protected final T dataSource;
 
-    protected Repository(T dataSource) {
+    protected Repository(CommandLine cmd, T dataSource) {
+        this.cmd = cmd;
         this.dataSource = dataSource;
     }
 
-    public abstract <M extends IModel> Either<Failure, ? extends List<M>> fetch(CommandLine cmd);
+    public abstract Either<Failure, List<M>> fetch(CommandLine cmd);
 }

@@ -4,9 +4,9 @@ import it.unipd.dei.eis.domain.use_cases.UseCase;
 import org.apache.commons.cli.CommandLine;
 
 public abstract class Controller {
-    final CommandLine cmd;
+    protected final CommandLine cmd;
 
-    final UseCase[] useCases;
+    protected final UseCase[] useCases;
 
     public Controller(CommandLine cmd, UseCase[] useCases) {
         this.cmd = cmd;

@@ -1,8 +1,8 @@
 package it.unipd.dei.eis.core.utils;
 
 public class Either<Failure, T> {
-    private final Failure failure;
-    private final T success;
+    public final Failure failure;
+    public final T success;
 
     private Either(Failure failure, T success) {
         this.failure = failure;
@@ -23,13 +23,5 @@ public class Either<Failure, T> {
 
     public boolean isSuccess() {
         return success != null;
-    }
-
-    public Failure getFailure() {
-        return failure;
-    }
-
-    public T getSuccess() {
-        return success;
     }
 }

@@ -1,8 +1,8 @@
 package it.unipd.dei.eis.core.errors;
 
 public class Failure {
-    private final String message;
-    private final Exception exception;
+    public final String message;
+    public final Exception exception;
 
     public Failure(Exception exception, String message) {
         this.exception = exception;
@@ -17,13 +17,5 @@ public class Failure {
     public Failure(Exception exception) {
         this.exception = exception;
         this.message = exception.getMessage();
-    }
-
-    public Exception getException() {
-        return exception;
-    }
-
-    public String getMessage() {
-        return message;
     }
 }

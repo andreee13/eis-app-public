@@ -20,7 +20,7 @@ public class Bootstrapper {
         options.addOption(Option.builder().option("f").longOpt("from").desc("From date").hasArg().argName("date").build());
         options.addOption(Option.builder().option("t").longOpt("to").desc("To date").hasArg().argName("date").build());
         try {
-            ControllerFactory.create(args[0], new DefaultParser().parse(options, args)).run();
+            new ControllerFactory(new DefaultParser().parse(options, args)).create(args[0]).run();
         } catch (ParseException e) {
             new HelpFormatter().printHelp("java -jar <jarfile> <download|extract|all> [options]", options);
         } catch (IllegalArgumentException e) {
