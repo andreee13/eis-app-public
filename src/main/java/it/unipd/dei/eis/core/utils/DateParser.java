@@ -1,17 +1,16 @@
 package it.unipd.dei.eis.core.utils;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateParser {
-    public static final String DATE_FORMAT = "yyyy-MM-dd'";
+    public static final String DATE_FORMAT = "yyyy-MM-dd:HH:mm:ss";
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
 
-    public static Date parse(String date) {
+    public static Date tryParse(String date) {
         try {
             return dateFormat.parse(date);
-        } catch (ParseException e) {
+        } catch (Exception e) {
             return null;
         }
     }

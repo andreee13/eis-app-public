@@ -1,7 +1,10 @@
 package it.unipd.dei.eis.presentation;
 
 import it.unipd.dei.eis.domain.controllers.ControllerFactory;
-import org.apache.commons.cli.*;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
 
 public class Bootstrapper {
     private final String[] args;
@@ -20,11 +23,10 @@ public class Bootstrapper {
         options.addOption(Option.builder().option("f").longOpt("from").desc("From date").hasArg().argName("date").build());
         options.addOption(Option.builder().option("t").longOpt("to").desc("To date").hasArg().argName("date").build());
         try {
-            new ControllerFactory(new DefaultParser().parse(options, args)).create(args[0]).run();
-        } catch (ParseException e) {
+            Context context = new Context(new DefaultParser().parse(options, args));
+            ControllerFactory.create(context.command).run(context);
+        } catch (Exception e) {
             new HelpFormatter().printHelp("java -jar <jarfile> <download|extract|all> [options]", options);
-        } catch (IllegalArgumentException e) {
-            System.err.println(e.getMessage());
         }
     }
 }

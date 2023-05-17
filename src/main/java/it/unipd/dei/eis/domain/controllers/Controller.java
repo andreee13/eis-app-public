@@ -1,21 +1,18 @@
 package it.unipd.dei.eis.domain.controllers;
 
 import it.unipd.dei.eis.domain.use_cases.UseCase;
-import org.apache.commons.cli.CommandLine;
+import it.unipd.dei.eis.presentation.Context;
 
 public abstract class Controller {
-    protected final CommandLine cmd;
+    final UseCase[] useCases;
 
-    protected final UseCase[] useCases;
-
-    public Controller(CommandLine cmd, UseCase[] useCases) {
-        this.cmd = cmd;
+    public Controller(UseCase[] useCases) {
         this.useCases = useCases;
     }
 
-    public void run() {
+    public void run(Context context) {
         for (UseCase useCase : useCases) {
-            useCase.execute();
+            useCase.execute(context);
         }
     }
 }

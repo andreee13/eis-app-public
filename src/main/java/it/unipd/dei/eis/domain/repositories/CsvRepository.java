@@ -1,19 +1,19 @@
 package it.unipd.dei.eis.domain.repositories;
 
 import it.unipd.dei.eis.core.errors.Failure;
+import it.unipd.dei.eis.presentation.Context;
 import it.unipd.dei.eis.core.utils.Either;
 import it.unipd.dei.eis.data.entities.CsvDataEntity;
 import it.unipd.dei.eis.data.sources.CsvDataSource;
 import it.unipd.dei.eis.domain.models.Article;
-import org.apache.commons.cli.CommandLine;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class CsvRepository extends Repository<CsvDataSource, Article> {
 
-    public CsvRepository(CommandLine cmd) {
-        super(cmd, new CsvDataSource());
+    public CsvRepository() {
+        super(new CsvDataSource());
     }
 
     private Article resultToArticle(CsvDataEntity result) {
@@ -28,9 +28,9 @@ public class CsvRepository extends Repository<CsvDataSource, Article> {
     }
 
     @Override
-    public Either<Failure, List<Article>> fetch(CommandLine cmd) {
+    public Either<Failure, List<Article>> fetch(Context context) {
         try {
-            return Either.success(dataSource.get(cmd).stream().map(this::resultToArticle).collect(Collectors.toList()));
+            return Either.success(dataSource.get(context).stream().map(this::resultToArticle).collect(Collectors.toList()));
         } catch (Exception e) {
             return Either.failure(new Failure(e));
         }

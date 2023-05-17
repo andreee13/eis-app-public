@@ -1,11 +1,11 @@
 package it.unipd.dei.eis.data.sources;
 
-import it.unipd.dei.eis.core.utils.DateParser;
+import it.unipd.dei.eis.presentation.Context;
 import it.unipd.dei.eis.data.entities.CsvDataEntity;
 import it.unipd.dei.eis.data.serialization.CsvDecoder;
-import org.apache.commons.cli.CommandLine;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CsvDataSource extends DataSource {
     private static final String ID = "CSV";
@@ -15,17 +15,17 @@ public class CsvDataSource extends DataSource {
     }
 
     @Override
-    public List<? extends CsvDataEntity> get(CommandLine cmd) throws Exception {
-        List<CsvDataEntity> data = new CsvDecoder().decode(cmd.getOptionValue("source"));
-        if (cmd.hasOption("query")) {
-            data = data.stream().filter(article -> article.title.contains(cmd.getOptionValue("query")) || article.body.contains(cmd.getOptionValue("query"))).collect(java.util.stream.Collectors.toList());
+    public List<? extends CsvDataEntity> get(Context context) throws Exception {
+        List<CsvDataEntity> data = new CsvDecoder().decode(context.source);
+        if (context.query != null) {
+            data = data.stream().filter(article -> article.title.contains(context.query) || article.body.contains(context.query)).collect(Collectors.toList());
         }
-        if (cmd.hasOption("from")) {
-            data = data.stream().filter(article -> article.date.after(DateParser.parse(cmd.getOptionValue("from")))).collect(java.util.stream.Collectors.toList());
+        if (context.fromDate != null) {
+            data = data.stream().filter(article -> article.date.after(context.fromDate)).collect(java.util.stream.Collectors.toList());
         }
-        if (cmd.hasOption("to")) {
-            data = data.stream().filter(article -> article.date.before(DateParser.parse(cmd.getOptionValue("to")))).collect(java.util.stream.Collectors.toList());
+        if (context.toDate != null) {
+            data = data.stream().filter(article -> article.date.before(context.toDate)).collect(java.util.stream.Collectors.toList());
         }
-        return data.subList(0, cmd.hasOption("count") ? Integer.parseInt(cmd.getOptionValue("count")) : Integer.MAX_VALUE);
+        return data.subList(0, context.count != null ? context.count : Integer.MAX_VALUE);
     }
 }

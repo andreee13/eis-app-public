@@ -1,8 +1,8 @@
 package it.unipd.dei.eis.data.sources;
 
+import it.unipd.dei.eis.presentation.Context;
 import it.unipd.dei.eis.data.entities.IDataEntity;
 import it.unipd.dei.eis.data.serialization.IDecoder;
-import org.apache.commons.cli.CommandLine;
 
 import java.util.List;
 
@@ -16,6 +16,6 @@ public abstract class DataSource {
         this.decoder = decoder;
     }
 
-    public abstract List<? extends IDataEntity> get(CommandLine cmd) throws Exception;
+    public abstract List<? extends IDataEntity> get(Context context) throws Exception;
 }
 

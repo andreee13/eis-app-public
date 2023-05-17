@@ -30,7 +30,7 @@ public class CsvDataEntity implements IDataEntity {
                 record.get(1),
                 record.get(2),
                 record.get(3),
-                DateParser.parse(record.get(4)),
+                DateParser.tryParse(record.get(4)),
                 record.get(5),
                 record.get(6)
         );

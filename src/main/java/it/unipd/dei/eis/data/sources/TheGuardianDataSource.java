@@ -1,12 +1,12 @@
 package it.unipd.dei.eis.data.sources;
 
+import it.unipd.dei.eis.presentation.Context;
 import it.unipd.dei.eis.data.entities.TheGuardianIDataEntity;
 import it.unipd.dei.eis.data.serialization.JsonDecoder;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.apache.commons.cli.CommandLine;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -30,20 +30,16 @@ public class TheGuardianDataSource extends DataSource {
     }
 
     @Override
-    public List<TheGuardianIDataEntity> get(CommandLine cmd) throws Exception {
+    public List<TheGuardianIDataEntity> get(Context context) throws Exception {
         final HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse(BASE_URL)).newBuilder()
                 .addPathSegment(SEARCH_ENDPOINT)
                 .addQueryParameter("api-key", API_KEY)
                 .addQueryParameter("format", RESPONSE_FORMAT)
                 .addQueryParameter("show-fields", FIELDS);
-        if (cmd.hasOption("query")) urlBuilder.addQueryParameter("q", cmd.getOptionValue("query"));
-        if (cmd.hasOption("tag")) urlBuilder.addQueryParameter("tag", cmd.getOptionValue("tag"));
-        if (cmd.hasOption("section")) urlBuilder.addQueryParameter("section", cmd.getOptionValue("section"));
-        if (cmd.hasOption("from-date"))
-            urlBuilder.addQueryParameter("from-date", dateFormat.format(cmd.getOptionValue("from-date")));
-        if (cmd.hasOption("to-date"))
-            urlBuilder.addQueryParameter("to-date", dateFormat.format(cmd.getOptionValue("to-date")));
-        if (cmd.hasOption("count")) urlBuilder.addQueryParameter("page-size", cmd.getOptionValue("count"));
+        if (context.query != null) urlBuilder.addQueryParameter("q", context.query);
+        if (context.fromDate != null) urlBuilder.addQueryParameter("from-date", dateFormat.format(context.fromDate));
+        if (context.toDate != null) urlBuilder.addQueryParameter("to-date", dateFormat.format(context.toDate));
+        if (context.count != null) urlBuilder.addQueryParameter("page-size", context.count.toString());
         try (Response response = httpClient.newCall(new Request.Builder().url(urlBuilder.build()).build()).execute()) {
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
             if (response.body() == null) throw new IOException("Response body is null");

@@ -1,18 +1,11 @@
 package it.unipd.dei.eis.domain.use_cases;
 
-import org.apache.commons.cli.CommandLine;
+import it.unipd.dei.eis.presentation.Context;
 
 // priority queue
 
 public class TermsExtractor extends UseCase {
-
-    public TermsExtractor(CommandLine cmd) {
-        super(cmd);
-        repository = null;
-    }
-
     @Override
-    public void execute() {
-
+    public void execute(Context context) {
     }
 }
