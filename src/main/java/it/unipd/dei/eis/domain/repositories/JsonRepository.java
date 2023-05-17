@@ -1,24 +1,23 @@
 package it.unipd.dei.eis.domain.repositories;
 
 import it.unipd.dei.eis.core.errors.Failure;
-import it.unipd.dei.eis.presentation.Context;
 import it.unipd.dei.eis.core.utils.Either;
-import it.unipd.dei.eis.data.entities.CsvDataEntity;
-import it.unipd.dei.eis.data.sources.CsvDataSource;
+import it.unipd.dei.eis.data.entities.JsonDataEntity;
+import it.unipd.dei.eis.data.sources.JsonDataSource;
 import it.unipd.dei.eis.domain.models.Article;
+import it.unipd.dei.eis.presentation.Context;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CsvRepository extends Repository<CsvDataSource, Article> {
-
-    CsvRepository() {
-        super(new CsvDataSource());
+public class JsonRepository extends Repository<JsonDataSource, Article> {
+    JsonRepository() {
+        super(new JsonDataSource());
     }
 
-    private Article resultToArticle(CsvDataEntity result) {
+    private Article resultToArticle(JsonDataEntity result) {
         return new Article(
-                result.identifier,
+                result.id,
                 result.title,
                 result.body,
                 result.url,

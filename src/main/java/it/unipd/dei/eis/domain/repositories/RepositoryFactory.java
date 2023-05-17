@@ -9,6 +9,8 @@ public class RepositoryFactory {
             return new TheGuardianRepository();
         } else if (source.endsWith(".csv")) {
             return new CsvRepository();
+        } else if (source.endsWith(".json")) {
+            return new JsonRepository();
         } else {
             throw new IllegalArgumentException("Invalid repository");
         }

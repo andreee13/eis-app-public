@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TheGuardianRepository extends Repository<TheGuardianDataSource, Article> {
-    public TheGuardianRepository() {
+    TheGuardianRepository() {
         super(new TheGuardianDataSource());
     }
 
