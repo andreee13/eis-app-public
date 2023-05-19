@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class TheGuardianDataSource extends DataSource {
+public class TheGuardianDataSource extends DataSource<TheGuardianIDataEntity> {
     private static final String ID = "THEGUARDIAN";
     // private static final String API_KEY = System.getenv("THE_GUARDIAN_API_KEY");
     private static final String API_KEY = "***REMOVED***";
@@ -31,6 +31,7 @@ public class TheGuardianDataSource extends DataSource {
 
     @Override
     public List<TheGuardianIDataEntity> get(Context context) throws Exception {
+        assert decoder != null;
         final HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse(BASE_URL)).newBuilder()
                 .addPathSegment(SEARCH_ENDPOINT)
                 .addQueryParameter("api-key", API_KEY)

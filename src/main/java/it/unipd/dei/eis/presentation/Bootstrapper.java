@@ -1,10 +1,7 @@
 package it.unipd.dei.eis.presentation;
 
 import it.unipd.dei.eis.domain.controllers.ControllerFactory;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
+import org.apache.commons.cli.*;
 
 public class Bootstrapper {
     private final String[] args;
@@ -25,7 +22,7 @@ public class Bootstrapper {
         try {
             Context context = new Context(new DefaultParser().parse(options, args));
             ControllerFactory.create(context.command).run(context);
-        } catch (Exception e) {
+        } catch (ParseException e) {
             new HelpFormatter().printHelp("java -jar <jarfile> <download|extract|all> [options]", options);
         }
     }

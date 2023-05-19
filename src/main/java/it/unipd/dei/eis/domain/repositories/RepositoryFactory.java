@@ -1,15 +1,19 @@
 package it.unipd.dei.eis.domain.repositories;
 
+import it.unipd.dei.eis.data.entities.IDataEntity;
 import it.unipd.dei.eis.data.sources.DataSource;
 import it.unipd.dei.eis.domain.models.IModel;
 
 public class RepositoryFactory {
-    public static Repository<? extends DataSource, ? extends IModel> create(String source) throws IllegalArgumentException {
-        if (source.equals("theguardian")) {
+    public static Repository<? extends DataSource<? extends IDataEntity>, ? extends IModel> create(String option) throws IllegalArgumentException {
+        if (option.equals("extract")) {
+            return new TermsExtractionRepository();
+        } else if (option.equals("theguardian")) {
             return new TheGuardianRepository();
-        } else if (source.endsWith(".csv")) {
+        } else if (option.endsWith(".csv")) {
             return new CsvRepository();
-        } else if (source.endsWith(".json")) {
+        } else if (option.endsWith(".json")) {
+            System.out.println("JsonRepository");
             return new JsonRepository();
         } else {
             throw new IllegalArgumentException("Invalid repository");

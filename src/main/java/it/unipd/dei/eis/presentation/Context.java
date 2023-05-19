@@ -18,7 +18,7 @@ public class Context {
     public Context(CommandLine cmd) {
         this.command = cmd.getArgs()[0];
         source = cmd.getOptionValue("source");
-        output = cmd.getOptionValue("output");
+        output = cmd.getOptionValue("output") != null ? cmd.getOptionValue("output") : "output.json";
         query = cmd.getOptionValue("query");
         count = IntegerParser.tryParse(cmd.getOptionValue("count"));
         fromDate = DateParser.tryParse(cmd.getOptionValue("from"));

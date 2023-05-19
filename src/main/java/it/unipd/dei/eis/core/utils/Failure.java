@@ -1,4 +1,4 @@
-package it.unipd.dei.eis.core.errors;
+package it.unipd.dei.eis.core.utils;
 
 public class Failure {
     public final String message;

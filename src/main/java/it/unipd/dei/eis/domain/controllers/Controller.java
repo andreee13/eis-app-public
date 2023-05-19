@@ -12,7 +12,10 @@ public abstract class Controller {
 
     public void run(Context context) {
         for (UseCase useCase : useCases) {
-            useCase.execute(context);
+            if (useCase.execute(context).isFailure()) {
+                //TODO: log failure
+                break;
+            }
         }
     }
 }

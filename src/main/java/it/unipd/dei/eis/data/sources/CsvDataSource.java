@@ -7,15 +7,15 @@ import it.unipd.dei.eis.data.serialization.CsvDecoder;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CsvDataSource extends DataSource {
+public class CsvDataSource extends DataSource<CsvDataEntity> {
     private static final String ID = "CSV";
 
     public CsvDataSource() {
-        super(ID, null);
+        super(ID, new CsvDecoder());
     }
 
     @Override
-    public List<? extends CsvDataEntity> get(Context context) throws Exception {
+    public List<CsvDataEntity> get(Context context) throws Exception {
         List<CsvDataEntity> data = new CsvDecoder().decode(context.source);
         if (context.query != null) {
             data = data.stream().filter(article -> article.title.contains(context.query) || article.body.contains(context.query)).collect(Collectors.toList());

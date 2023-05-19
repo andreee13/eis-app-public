@@ -1,6 +1,6 @@
 package it.unipd.dei.eis.domain.repositories;
 
-import it.unipd.dei.eis.core.errors.Failure;
+import it.unipd.dei.eis.core.utils.Failure;
 import it.unipd.dei.eis.presentation.Context;
 import it.unipd.dei.eis.core.utils.Either;
 import it.unipd.dei.eis.data.entities.CsvDataEntity;
@@ -28,7 +28,7 @@ public class CsvRepository extends Repository<CsvDataSource, Article> {
     }
 
     @Override
-    public Either<Failure, List<Article>> fetch(Context context) {
+    public Either<Failure, List<Article>> pull(Context context) {
         try {
             return Either.success(dataSource.get(context).stream().map(this::resultToArticle).collect(Collectors.toList()));
         } catch (Exception e) {
