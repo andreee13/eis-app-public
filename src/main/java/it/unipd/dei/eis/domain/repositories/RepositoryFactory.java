@@ -13,7 +13,6 @@ public class RepositoryFactory {
         } else if (option.endsWith(".csv")) {
             return new CsvRepository();
         } else if (option.endsWith(".json")) {
-            System.out.println("JsonRepository");
             return new JsonRepository();
         } else {
             throw new IllegalArgumentException("Invalid repository");
