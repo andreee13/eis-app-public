@@ -1,11 +1,11 @@
 package it.unipd.dei.eis.domain.repositories;
 
-import it.unipd.dei.eis.core.utils.Failure;
-import it.unipd.dei.eis.presentation.Context;
 import it.unipd.dei.eis.core.utils.Either;
+import it.unipd.dei.eis.core.utils.Failure;
 import it.unipd.dei.eis.data.entities.CsvDataEntity;
 import it.unipd.dei.eis.data.sources.CsvDataSource;
 import it.unipd.dei.eis.domain.models.Article;
+import it.unipd.dei.eis.presentation.Context;
 
 import java.util.List;
 import java.util.stream.Collectors;

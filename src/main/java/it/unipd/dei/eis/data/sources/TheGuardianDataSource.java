@@ -1,8 +1,8 @@
 package it.unipd.dei.eis.data.sources;
 
-import it.unipd.dei.eis.presentation.Context;
 import it.unipd.dei.eis.data.entities.TheGuardianIDataEntity;
 import it.unipd.dei.eis.data.serialization.JsonDecoder;
+import it.unipd.dei.eis.presentation.Context;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -40,7 +40,7 @@ public class TheGuardianDataSource extends DataSource<TheGuardianIDataEntity> {
         if (context.query != null) urlBuilder.addQueryParameter("q", context.query);
         if (context.fromDate != null) urlBuilder.addQueryParameter("from-date", dateFormat.format(context.fromDate));
         if (context.toDate != null) urlBuilder.addQueryParameter("to-date", dateFormat.format(context.toDate));
-        if (context.count != null) urlBuilder.addQueryParameter("page-size", context.count.toString());
+        urlBuilder.addQueryParameter("page-size", context.countArticles.toString());
         try (Response response = httpClient.newCall(new Request.Builder().url(urlBuilder.build()).build()).execute()) {
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
             if (response.body() == null) throw new IOException("Response body is null");

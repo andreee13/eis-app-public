@@ -1,5 +1,6 @@
 package it.unipd.dei.eis.domain.use_cases;
 
+import it.unipd.dei.eis.core.constants.DefaultSettings;
 import it.unipd.dei.eis.core.utils.Either;
 import it.unipd.dei.eis.core.utils.Failure;
 import it.unipd.dei.eis.core.utils.Success;
@@ -17,7 +18,7 @@ public class ArticlesDownloader extends UseCase {
         if (result1.isFailure()) {
             return Either.failure(result1.failure);
         }
-        Either<Failure, Success> result2 = RepositoryFactory.create(context.output).push(context, (List) result1.success);
+        Either<Failure, Success> result2 = RepositoryFactory.create(context.output != null ? context.output : DefaultSettings.OUTPUT_FILE_JSON).push(context, (List) result1.success);
         if (result2.isFailure()) {
             return Either.failure(result2.failure);
         }

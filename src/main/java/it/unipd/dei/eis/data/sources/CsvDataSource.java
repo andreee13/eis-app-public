@@ -27,6 +27,6 @@ public class CsvDataSource extends DataSource<CsvDataEntity> {
         if (context.toDate != null) {
             data = data.stream().filter(article -> article.date.before(context.toDate)).collect(Collectors.toList());
         }
-        return data.subList(0, context.count != null ? context.count : Integer.MAX_VALUE);
+        return data.subList(0, context.countArticles < data.size() ? context.countArticles : data.size());
     }
 }

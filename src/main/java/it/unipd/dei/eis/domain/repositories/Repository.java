@@ -21,7 +21,7 @@ public abstract class Repository<T extends DataSource<? extends IDataEntity>, M 
         throw new UnsupportedOperationException();
     }
 
-    public Either<Failure, Success> push(Context context,  List<M> models) {
+    public Either<Failure, Success> push(Context context, List<M> models) {
         throw new UnsupportedOperationException();
     }
 }

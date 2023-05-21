@@ -9,6 +9,8 @@ public interface ControllerFactory {
                 return new DownloadController();
             case CommandConstants.EXTRACT:
                 return new TermsExtractorController();
+            case CommandConstants.BOTH:
+                return new BothController();
             default:
                 throw new IllegalArgumentException("Invalid command");
         }

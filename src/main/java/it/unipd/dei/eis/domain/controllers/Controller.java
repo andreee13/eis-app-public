@@ -14,7 +14,7 @@ public abstract class Controller {
         for (UseCase useCase : useCases) {
             if (useCase.execute(context).isFailure()) {
                 //TODO: log failure
-                break;
+                return;
             }
         }
     }

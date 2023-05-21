@@ -1,5 +1,6 @@
 package it.unipd.dei.eis.presentation;
 
+import it.unipd.dei.eis.core.constants.DefaultSettings;
 import it.unipd.dei.eis.core.utils.DateParser;
 import it.unipd.dei.eis.core.utils.IntegerParser;
 import org.apache.commons.cli.CommandLine;
@@ -11,16 +12,20 @@ public class Context {
     public final String source;
     public final String output;
     public final String query;
-    public final Integer count;
+    public final Integer countArticles;
+    public final Integer countTerms;
     public final Date fromDate;
     public final Date toDate;
 
     public Context(CommandLine cmd) {
         this.command = cmd.getArgs()[0];
         source = cmd.getOptionValue("source");
-        output = cmd.getOptionValue("output") != null ? cmd.getOptionValue("output") : "output.json";
+        output = cmd.getOptionValue("output");
         query = cmd.getOptionValue("query");
-        count = IntegerParser.tryParse(cmd.getOptionValue("count"));
+        Integer ca = IntegerParser.tryParse(cmd.getOptionValue("count-articles"));
+        countArticles = ca == null ? DefaultSettings.ARTICLES_COUNT : ca;
+        Integer ct = IntegerParser.tryParse(cmd.getOptionValue("count-terms"));
+        countTerms = ct == null ? DefaultSettings.TERMS_COUNT : ct;
         fromDate = DateParser.tryParse(cmd.getOptionValue("from"));
         toDate = DateParser.tryParse(cmd.getOptionValue("to"));
     }

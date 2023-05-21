@@ -7,14 +7,18 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import it.unipd.dei.eis.data.entities.ArticleTermsDataEntity;
 import it.unipd.dei.eis.presentation.Context;
 
+import java.io.FileWriter;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+import static it.unipd.dei.eis.core.constants.DefaultSettings.OUTPUT_FILE_TXT;
 
 public class TermsDataSource extends DataSource<ArticleTermsDataEntity> {
-    private static final Pattern pattern = Pattern.compile("\\p{Punct}");
+    private static final Pattern pattern = Pattern.compile("[\\p{Punct}–“”‑‘'…]");
     private static final Properties props = new Properties() {{
         setProperty("annotators", "tokenize");
     }};
@@ -30,14 +34,21 @@ public class TermsDataSource extends DataSource<ArticleTermsDataEntity> {
         List<Future<Annotation>> futures = new ArrayList<>(entities.size());
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         for (ArticleTermsDataEntity s : entities) {
-            futures.add(executorService.submit(() -> pipeline.process(s.toString())));
+            futures.add(executorService.submit(() -> pipeline.process(s.toString().toLowerCase())));
         }
         for (Future<Annotation> future : futures) {
-            future.get().get(CoreAnnotations.TokensAnnotation.class).stream().map(CoreLabel::word).filter(word -> !pattern.matcher(word).matches()).forEach(frequencyCounter::add);
+            future.get().get(CoreAnnotations.TokensAnnotation.class).stream().map(CoreLabel::word).filter(word -> !pattern.matcher(word).find()).forEach(frequencyCounter::add);
         }
         executorService.shutdown();
-        //TODO: save to file
-        System.out.println(frequencyCounter.getMapSortedByValueAndKey());
+        Map<String, Integer> map = frequencyCounter.getMapSortedByValueAndKey();
+        List<String> keys = frequencyCounter.getMapSortedByValueAndKey().keySet().stream().limit(context.countTerms).collect(Collectors.toList());
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String key : keys) {
+            stringBuilder.append(key).append(" ").append(map.get(key)).append("\n");
+        }
+        try (FileWriter fileWriter = new FileWriter(OUTPUT_FILE_TXT)) {
+            fileWriter.write(stringBuilder.toString());
+        }
     }
 
 }
