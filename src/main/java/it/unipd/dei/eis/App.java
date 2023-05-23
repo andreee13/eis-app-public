@@ -7,3 +7,5 @@ public class App {
         new Bootstrapper(args).launch();
     }
 }
+
+//TODO: stopwords, if, commenti

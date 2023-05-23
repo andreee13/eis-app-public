@@ -1,16 +1,16 @@
-package it.unipd.dei.eis.domain.controllers;
+package it.unipd.dei.eis.domain.use_cases;
 
 import it.unipd.dei.eis.core.constants.CommandConstants;
 
-public interface ControllerFactory {
-    static Controller create(String command) throws IllegalArgumentException {
+public interface UseCaseFactory {
+    static UseCase create(String command) throws IllegalArgumentException {
         switch (command) {
             case CommandConstants.DOWNLOAD:
-                return new DownloadController();
+                return new ArticlesDownloader();
             case CommandConstants.EXTRACT:
-                return new TermsExtractorController();
+                return new TermsExtractor();
             case CommandConstants.BOTH:
-                return new BothController();
+                return new DownloadAndExtract();
             default:
                 throw new IllegalArgumentException("Invalid command");
         }

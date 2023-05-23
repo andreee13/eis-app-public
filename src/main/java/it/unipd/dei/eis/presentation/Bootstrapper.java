@@ -1,6 +1,6 @@
 package it.unipd.dei.eis.presentation;
 
-import it.unipd.dei.eis.domain.controllers.ControllerFactory;
+import it.unipd.dei.eis.domain.use_cases.UseCaseFactory;
 import org.apache.commons.cli.*;
 
 public class Bootstrapper {
@@ -22,7 +22,7 @@ public class Bootstrapper {
         options.addOption(Option.builder().option("t").longOpt("to").desc("To date").hasArg().argName("date").build());
         try {
             Context context = new Context(new DefaultParser().parse(options, args));
-            ControllerFactory.create(context.command).run(context);
+            UseCaseFactory.create(context.command).run(context);
         } catch (ParseException e) {
             new HelpFormatter().printHelp("java -jar <jarfile> <download|extract|all> [options]", options);
         }

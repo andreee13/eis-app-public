@@ -1,10 +1,21 @@
 package it.unipd.dei.eis.domain.use_cases;
 
-import it.unipd.dei.eis.core.utils.Either;
-import it.unipd.dei.eis.core.utils.Failure;
-import it.unipd.dei.eis.core.utils.Success;
+import it.unipd.dei.eis.domain.controllers.Controller;
 import it.unipd.dei.eis.presentation.Context;
 
 public abstract class UseCase {
-    public abstract Either<Failure, Success> execute(Context context);
+    final Controller[] controllers;
+
+    protected UseCase(Controller[] controllers) {
+        this.controllers = controllers;
+    }
+
+    public void run(Context context) {
+        for (Controller controller : controllers) {
+            if (controller.execute(context).isFailure()) {
+                //TODO: log failure
+                return;
+            }
+        }
+    }
 }
