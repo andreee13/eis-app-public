@@ -119,7 +119,7 @@ public class ControllerExecutor {
      *
      * @return the loading thread
      */
-    @SuppressWarnings("all")
+    @SuppressWarnings("BusyWait")
     private Thread getLoadingThread() {
         return new Thread(() -> {
             int animIndex = 0;
