@@ -1,7 +1,7 @@
 package it.unipd.dei.eis.data.entities;
 
 /**
- * ArticleTermsDataEntity
+ * ArticleTermsDataEntity.
  */
 public class ArticleTermsDataEntity implements IDataEntity {
 

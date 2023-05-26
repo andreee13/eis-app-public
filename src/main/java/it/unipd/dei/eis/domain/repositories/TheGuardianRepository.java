@@ -12,8 +12,6 @@ import java.util.stream.Collectors;
 
 /**
  * A repository for models from a data source.
- * @param <T> The type of the data source
- * @param <M> The type of the model
  */
 public class TheGuardianRepository extends Repository<TheGuardianDataSource, Article> {
 
