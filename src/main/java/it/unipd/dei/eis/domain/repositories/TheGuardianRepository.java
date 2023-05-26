@@ -24,6 +24,7 @@ public class TheGuardianRepository extends Repository<TheGuardianDataSource, Art
 
     /**
      * Converts a data entity to an article.
+     *
      * @param result The data entity to convert
      * @return The article
      */
@@ -40,6 +41,7 @@ public class TheGuardianRepository extends Repository<TheGuardianDataSource, Art
 
     /**
      * Pulls the articles from the data source.
+     *
      * @param context The context to use
      * @return Either a Failure or a List of Articles
      */

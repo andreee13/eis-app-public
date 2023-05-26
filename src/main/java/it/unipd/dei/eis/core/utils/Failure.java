@@ -19,7 +19,7 @@ public class Failure {
      * Creates a new failure.
      *
      * @param exception the exception that caused the failure
-     * @param message the message of the failure
+     * @param message   the message of the failure
      */
     public Failure(Exception exception, String message) {
         this.exception = exception;

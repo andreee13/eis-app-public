@@ -16,6 +16,7 @@ public class CsvDecoder implements IDecoder {
 
     /**
      * The decode method is used to decode the CSV file.
+     *
      * @param data the CSV file
      * @param args the arguments
      * @return the list of CsvDataEntity

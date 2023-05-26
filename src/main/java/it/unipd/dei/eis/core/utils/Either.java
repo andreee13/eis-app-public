@@ -2,8 +2,9 @@ package it.unipd.dei.eis.core.utils;
 
 /**
  * A class that represents an Either type.
+ *
  * @param <Failure> The type of the failure
- * @param <T> The type of the success
+ * @param <T>       The type of the success
  */
 public class Either<Failure, T> {
     public final Failure failure;
@@ -11,6 +12,7 @@ public class Either<Failure, T> {
 
     /**
      * Creates a new Either.
+     *
      * @param failure The failure
      * @param success The success
      */
@@ -21,6 +23,7 @@ public class Either<Failure, T> {
 
     /**
      * Creates a new Either (Failure).
+     *
      * @param failure The failure
      * @return The new Either
      */
@@ -30,6 +33,7 @@ public class Either<Failure, T> {
 
     /**
      * Creates a new Either (Success).
+     *
      * @param success The success
      * @return The new Either
      */
@@ -38,7 +42,8 @@ public class Either<Failure, T> {
     }
 
     /**
-     * Check if a Either is a Failure.
+     * Check if an Either is a Failure.
+     *
      * @return true if the Either is a Failure, false otherwise
      */
     public boolean isFailure() {
@@ -46,7 +51,8 @@ public class Either<Failure, T> {
     }
 
     /**
-     * Check if a Either is a Success.
+     * Check if an Either is a Success.
+     *
      * @return true if the Either is a Success, false otherwise
      */
     public boolean isSuccess() {

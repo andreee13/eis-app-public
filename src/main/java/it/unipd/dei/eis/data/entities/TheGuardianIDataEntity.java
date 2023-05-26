@@ -19,6 +19,7 @@ public class TheGuardianIDataEntity implements IDataEntity {
     /**
      * TheGuardianIDataEntity constructor.
      * It is used by the Gson library to parse the JSON response.
+     *
      * @param response the JSON response
      */
     private TheGuardianIDataEntity(Response response) {
@@ -44,15 +45,16 @@ public class TheGuardianIDataEntity implements IDataEntity {
         /**
          * The Response constructor.
          * It is used by the Gson library to parse the JSON response.
-         * @param status the status field
-         * @param userTier the userTier field
-         * @param total the total field
-         * @param startIndex the startIndex field
-         * @param pageSize the pageSize field
+         *
+         * @param status      the status field
+         * @param userTier    the userTier field
+         * @param total       the total field
+         * @param startIndex  the startIndex field
+         * @param pageSize    the pageSize field
          * @param currentPage the currentPage field
-         * @param pages the pages field
-         * @param orderBy the orderBy field
-         * @param results the results field
+         * @param pages       the pages field
+         * @param orderBy     the orderBy field
+         * @param results     the results field
          */
         private Response(String status, String userTier, int total, int startIndex, int pageSize, int currentPage, int pages, String orderBy, ArrayList<Result> results) {
             this.status = status;

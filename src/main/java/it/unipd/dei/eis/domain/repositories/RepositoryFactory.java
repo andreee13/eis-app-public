@@ -11,6 +11,7 @@ public class RepositoryFactory {
 
     /**
      * Creates a new repository.
+     *
      * @param option The option (command) to use
      * @return The repository
      * @throws IllegalArgumentException If the option (command) is invalid

@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * A repository for models from a data source.
+ *
  * @param <T> The type of the data source
  * @param <M> The type of the model
  */
@@ -24,6 +25,7 @@ public abstract class Repository<T extends DataSource<? extends IDataEntity>, M 
 
     /**
      * Creates a new Repository.
+     *
      * @param dataSource The data source
      */
     protected Repository(T dataSource) {
@@ -32,6 +34,7 @@ public abstract class Repository<T extends DataSource<? extends IDataEntity>, M 
 
     /**
      * Pulls the articles from the data source.
+     *
      * @param context The context to use
      * @return Either a Failure or a List of Articles
      */
@@ -41,8 +44,9 @@ public abstract class Repository<T extends DataSource<? extends IDataEntity>, M 
 
     /**
      * Pushes the articles to the data source.
+     *
      * @param context The context to use
-     * @param models The articles to push
+     * @param models  The articles to push
      * @return Either a Failure or a Success
      */
     public Either<Failure, Success> push(Context context, List<M> models) {

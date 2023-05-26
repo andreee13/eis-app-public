@@ -29,7 +29,8 @@ public abstract class DataSource<T extends IDataEntity> {
 
     /**
      * DataSource constructor.
-     * @param id the ID of the data source
+     *
+     * @param id      the ID of the data source
      * @param decoder the decoder of the data source
      * @param encoder the encoder of the data source
      */
@@ -41,7 +42,8 @@ public abstract class DataSource<T extends IDataEntity> {
 
     /**
      * DataSource constructor.
-     * @param id the ID of the data source
+     *
+     * @param id      the ID of the data source
      * @param decoder the decoder of the data source
      */
     DataSource(String id, IDecoder decoder) {
@@ -52,7 +54,8 @@ public abstract class DataSource<T extends IDataEntity> {
 
     /**
      * DataSource constructor.
-     * @param id the ID of the data source
+     *
+     * @param id      the ID of the data source
      * @param encoder the encoder of the data source
      */
     DataSource(String id, IEncoder encoder) {
@@ -63,6 +66,7 @@ public abstract class DataSource<T extends IDataEntity> {
 
     /**
      * DataSource constructor.
+     *
      * @param id the ID of the data source
      */
     DataSource(String id) {
@@ -73,6 +77,7 @@ public abstract class DataSource<T extends IDataEntity> {
 
     /**
      * Returns the list of data entities.
+     *
      * @param context the context of the request
      * @return the list of data entities
      * @throws UnsupportedOperationException if an error occurs
@@ -83,8 +88,9 @@ public abstract class DataSource<T extends IDataEntity> {
 
     /**
      * Sets the list of data entities.
+     *
      * @param context the context of the request
-     * @param data the list of data entities
+     * @param data    the list of data entities
      * @throws UnsupportedOperationException if an error occurs
      */
     public void set(Context context, List<T> data) throws Exception {

@@ -10,6 +10,7 @@ public interface UseCaseFactory {
 
     /**
      * Create the use case based on the command line argument.
+     *
      * @param command the command line argument
      * @return the use case
      * @throws IllegalArgumentException if the command line argument is invalid

@@ -19,7 +19,7 @@ public class ArticleTermsDataEntity implements IDataEntity {
      * Constructs an ArticleTermsDataEntity object.
      *
      * @param title the title of the article
-     * @param body the body of the article
+     * @param body  the body of the article
      */
     public ArticleTermsDataEntity(String title, String body) {
         this.title = title;

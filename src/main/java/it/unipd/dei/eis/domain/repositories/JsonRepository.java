@@ -25,6 +25,7 @@ public class JsonRepository extends Repository<JsonDataSource, Article> {
 
     /**
      * Converts a JsonDataEntity to an Article.
+     *
      * @param result The JsonDataEntity to convert
      * @return The Article
      */
@@ -41,6 +42,7 @@ public class JsonRepository extends Repository<JsonDataSource, Article> {
 
     /**
      * Converts an Article to a JsonDataEntity.
+     *
      * @param article The article to convert
      * @return The JsonDataEntity
      */
@@ -57,6 +59,7 @@ public class JsonRepository extends Repository<JsonDataSource, Article> {
 
     /**
      * Pulls the articles from the data source.
+     *
      * @param context The context to use
      * @return Either a Failure or a List of Articles
      */
@@ -74,7 +77,8 @@ public class JsonRepository extends Repository<JsonDataSource, Article> {
 
     /**
      * Pushes the given articles to the data source.
-     * @param context The context to use
+     *
+     * @param context  The context to use
      * @param articles The articles to push
      * @return Either a Failure or a Success
      */

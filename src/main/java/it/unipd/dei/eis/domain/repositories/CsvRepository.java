@@ -24,6 +24,7 @@ public class CsvRepository extends Repository<CsvDataSource, Article> {
 
     /**
      * Converts a CsvDataEntity to an Article.
+     *
      * @param result The CsvDataEntity to convert
      * @return The Article
      */
@@ -40,6 +41,7 @@ public class CsvRepository extends Repository<CsvDataSource, Article> {
 
     /**
      * Pulls the articles from the data source.
+     *
      * @param context The context to use
      * @return Either a Failure or a List of Articles
      */

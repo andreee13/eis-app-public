@@ -71,6 +71,7 @@ public class TheGuardianDataSource extends DataSource<TheGuardianIDataEntity> {
 
     /**
      * The get method is used to get the data from The Guardian API.
+     *
      * @param context the context of the request
      * @return the list of TheGuardianIDataEntity objects
      * @throws Exception if the request fails

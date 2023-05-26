@@ -49,12 +49,12 @@ public class CsvDataEntity implements IDataEntity {
      * Creates a new CSV data entity.
      *
      * @param identifier the identifier of the record
-     * @param url the URL of the record
-     * @param title the title of the record
-     * @param body the body of the record
-     * @param date the date of the record
-     * @param sourceSet the source set of the record
-     * @param source the source of the record
+     * @param url        the URL of the record
+     * @param title      the title of the record
+     * @param body       the body of the record
+     * @param date       the date of the record
+     * @param sourceSet  the source set of the record
+     * @param source     the source of the record
      */
     public CsvDataEntity(String identifier, String url, String title, String body, Date date, String sourceSet, String source) {
         this.identifier = identifier;

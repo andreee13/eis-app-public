@@ -40,11 +40,11 @@ public class JsonDataEntity implements IDataEntity {
     /**
      * Creates a new JSON data entity.
      *
-     * @param id the identifier of the record
-     * @param title the title of the record
-     * @param body the body of the record
-     * @param url the URL of the record
-     * @param date the date of the record
+     * @param id     the identifier of the record
+     * @param title  the title of the record
+     * @param body   the body of the record
+     * @param url    the URL of the record
+     * @param date   the date of the record
      * @param source the source of the record
      */
     public JsonDataEntity(String id, String title, String body, String url, Date date, String source) {

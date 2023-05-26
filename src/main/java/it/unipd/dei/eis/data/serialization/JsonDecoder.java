@@ -14,6 +14,7 @@ public class JsonDecoder implements IDecoder {
 
     /**
      * The decode method is used to decode the JSON response.
+     *
      * @param data the JSON response
      * @param args the arguments
      * @return the data entity

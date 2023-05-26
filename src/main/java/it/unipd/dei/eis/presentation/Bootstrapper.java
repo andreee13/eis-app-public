@@ -16,6 +16,7 @@ public class Bootstrapper {
 
     /**
      * The Bootstrapper constructor.
+     *
      * @param args the command line arguments
      */
     public Bootstrapper(String[] args) {

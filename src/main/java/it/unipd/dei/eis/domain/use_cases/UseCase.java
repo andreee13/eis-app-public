@@ -17,6 +17,7 @@ public abstract class UseCase {
 
     /**
      * UseCase constructor.
+     *
      * @param controllers the controllers that are executed by the use case
      */
     UseCase(Controller[] controllers) {
@@ -25,6 +26,7 @@ public abstract class UseCase {
 
     /**
      * UseCase constructor.
+     *
      * @param controller the controller that is executed by the use case
      */
     UseCase(Controller controller) {
@@ -33,11 +35,13 @@ public abstract class UseCase {
 
     /**
      * Executes the use case.
+     *
      * @param context the context
      */
     public void run(Context context) {
         for (Controller controller : controllers) {
-            ControllerExecutor.getInstance().execute(controller, context);
+            ControllerExecutor.getInstance()
+                    .execute(controller, context);
         }
     }
 }

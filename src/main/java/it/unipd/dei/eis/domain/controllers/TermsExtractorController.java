@@ -26,6 +26,7 @@ public class TermsExtractorController extends Controller {
 
     /**
      * Executes the terms extraction use case.
+     *
      * @param context the context
      * @return the result of the use case
      */

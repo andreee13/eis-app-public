@@ -25,6 +25,7 @@ public class TermsExtractionRepository extends Repository<TermsDataSource, Artic
 
     /**
      * Converts an Article to an ArticleTermsDataEntity.
+     *
      * @param article The Article to convert
      * @return The ArticleTermsDataEntity
      */
@@ -37,8 +38,9 @@ public class TermsExtractionRepository extends Repository<TermsDataSource, Artic
 
     /**
      * Pushes the articles to the data source.
+     *
      * @param context The context to use
-     * @param models The articles to push
+     * @param models  The articles to push
      * @return Either a Failure or a Success
      */
     @Override

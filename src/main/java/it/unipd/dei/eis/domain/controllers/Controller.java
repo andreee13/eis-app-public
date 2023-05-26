@@ -18,6 +18,7 @@ public abstract class Controller {
 
     /**
      * Controller constructor.
+     *
      * @param name the name of the controller
      */
     Controller(String name) {
@@ -26,6 +27,7 @@ public abstract class Controller {
 
     /**
      * The execute method is used to execute the controller.
+     *
      * @param context the context of the controller
      * @return the result of the controller
      */

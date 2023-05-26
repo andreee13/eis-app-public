@@ -40,11 +40,12 @@ public class Article implements IModel {
 
     /**
      * Article constructor.
-     * @param id the id of the article
-     * @param title the title of the article
-     * @param body the body of the article
-     * @param url the url of the article
-     * @param date the date of the article
+     *
+     * @param id     the id of the article
+     * @param title  the title of the article
+     * @param body   the body of the article
+     * @param url    the url of the article
+     * @param date   the date of the article
      * @param source the source of the article
      */
     public Article(String id, String title, String body, String url, Date date, String source) {

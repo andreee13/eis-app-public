@@ -33,6 +33,7 @@ public class JsonDataSource extends DataSource<JsonDataEntity> {
 
     /**
      * Returns the list of articles.
+     *
      * @param context the context of the request
      * @return the list of articles
      * @throws Exception if an error occurs
@@ -45,8 +46,9 @@ public class JsonDataSource extends DataSource<JsonDataEntity> {
 
     /**
      * Sets the list of articles.
+     *
      * @param context the context of the request
-     * @param data the list of articles
+     * @param data    the list of articles
      * @throws Exception if an error occurs
      */
     @Override

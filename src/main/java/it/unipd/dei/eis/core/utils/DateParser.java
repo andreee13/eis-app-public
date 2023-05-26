@@ -20,6 +20,7 @@ public class DateParser {
 
     /**
      * Parses a date.
+     *
      * @param date The date to parse
      * @return The parsed date
      */

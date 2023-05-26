@@ -27,6 +27,10 @@ import static it.unipd.dei.eis.core.constants.DefaultSettings.OUTPUT_FILE_TXT;
 public class TermsDataSource extends DataSource<ArticleTermsDataEntity> {
 
     /**
+     * The ID of the data source.
+     */
+    private static final String ID = "TERMS";
+    /**
      * The pattern is used to check if a word is a punctuation or other special symbols.
      */
     private static final Pattern pattern = Pattern.compile("[\\p{Punct}–“”‑‘'…]");
@@ -58,7 +62,7 @@ public class TermsDataSource extends DataSource<ArticleTermsDataEntity> {
      * It is used to initialize the data source.
      */
     public TermsDataSource() {
-        super("TERMS");
+        super(ID);
         RedwoodConfiguration.current()
                 .clear()
                 .apply();
@@ -72,7 +76,8 @@ public class TermsDataSource extends DataSource<ArticleTermsDataEntity> {
 
     /**
      * The set method is used to set the data source.
-     * @param context the context
+     *
+     * @param context  the context
      * @param entities the list of entities
      * @throws Exception if an error occurs
      */
@@ -127,6 +132,7 @@ class SynchronizedTermsFrequencyCounter {
 
     /**
      * The add method is used to add a term to the map.
+     *
      * @param word the term
      */
     public synchronized void add(String word) {
@@ -135,6 +141,7 @@ class SynchronizedTermsFrequencyCounter {
 
     /**
      * The getMapSortedByValueAndKey method is used to sort the map by value and key.
+     *
      * @return the sorted map
      */
     @SuppressWarnings("SuspiciousMethodCalls")

@@ -48,6 +48,7 @@ public class ControllerExecutor {
 
     /**
      * The getInstance method returns the instance of the ControllerExecutor class.
+     *
      * @return the instance of the ControllerExecutor class
      */
     public static ControllerExecutor getInstance() {
@@ -59,8 +60,9 @@ public class ControllerExecutor {
 
     /**
      * The abort method aborts the loading thread.
+     *
      * @param loadingThread the loading thread
-     * @param result the result of the controller
+     * @param result        the result of the controller
      */
     private void abort(Thread loadingThread, Either<Failure, Success> result) {
         abort(loadingThread, result.failure.message + "\n\t-> Caused by " + result.failure.exception.getMessage());
@@ -68,8 +70,9 @@ public class ControllerExecutor {
 
     /**
      * The abort method aborts the loading thread.
+     *
      * @param loadingThread the loading thread
-     * @param e the exception
+     * @param e             the exception
      */
     private void abort(Thread loadingThread, Exception e) {
         abort(loadingThread, e.getMessage());
@@ -77,8 +80,9 @@ public class ControllerExecutor {
 
     /**
      * The abort method aborts the loading thread.
+     *
      * @param loadingThread the loading thread
-     * @param s the string of the error
+     * @param s             the string of the error
      */
     private void abort(Thread loadingThread, String s) {
         loadingThread.interrupt();
@@ -88,8 +92,9 @@ public class ControllerExecutor {
 
     /**
      * The execute method executes the controller.
+     *
      * @param controller the controller
-     * @param context the context of the controller
+     * @param context    the context of the controller
      */
     public void execute(Controller controller, Context context) {
         System.out.print(controller.name.toUpperCase() + ":\n");
@@ -111,6 +116,7 @@ public class ControllerExecutor {
 
     /**
      * The getLoadingThread method returns the loading thread.
+     *
      * @return the loading thread
      */
     @SuppressWarnings("all")

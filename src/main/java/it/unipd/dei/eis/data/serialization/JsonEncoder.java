@@ -15,8 +15,9 @@ public class JsonEncoder implements IEncoder {
 
     /**
      * The encode method is used to encode objects in JSON format.
+     *
      * @param object the object to encode
-     * @param args the arguments
+     * @param args   the arguments
      * @return the JSON string
      */
     @Override
