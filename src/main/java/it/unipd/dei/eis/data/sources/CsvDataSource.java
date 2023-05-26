@@ -19,13 +19,19 @@ public class CsvDataSource extends DataSource<CsvDataEntity> {
         assert decoder != null;
         List<CsvDataEntity> data = decoder.decode(context.source);
         if (context.query != null) {
-            data = data.stream().filter(article -> article.title.contains(context.query) || article.body.contains(context.query)).collect(Collectors.toList());
+            data = data.stream()
+                    .filter(article -> article.title.contains(context.query) || article.body.contains(context.query))
+                    .collect(Collectors.toList());
         }
         if (context.fromDate != null) {
-            data = data.stream().filter(article -> article.date.after(context.fromDate)).collect(Collectors.toList());
+            data = data.stream()
+                    .filter(article -> article.date.after(context.fromDate))
+                    .collect(Collectors.toList());
         }
         if (context.toDate != null) {
-            data = data.stream().filter(article -> article.date.before(context.toDate)).collect(Collectors.toList());
+            data = data.stream()
+                    .filter(article -> article.date.before(context.toDate))
+                    .collect(Collectors.toList());
         }
         return data.subList(0, context.countArticles < data.size() ? context.countArticles : data.size());
     }

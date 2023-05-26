@@ -30,9 +30,12 @@ public class CsvRepository extends Repository<CsvDataSource, Article> {
     @Override
     public Either<Failure, List<Article>> pull(Context context) {
         try {
-            return Either.success(dataSource.get(context).stream().map(this::resultToArticle).collect(Collectors.toList()));
+            return Either.success(dataSource.get(context)
+                    .stream()
+                    .map(this::resultToArticle)
+                    .collect(Collectors.toList()));
         } catch (Exception e) {
-            return Either.failure(new Failure(e));
+            return Either.failure(new Failure(e, "Failed to get data from data source"));
         }
     }
 }

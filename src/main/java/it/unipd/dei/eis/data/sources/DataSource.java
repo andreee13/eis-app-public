@@ -7,7 +7,7 @@ import it.unipd.dei.eis.presentation.Context;
 
 import java.util.List;
 
-public abstract class DataSource<T extends IDataEntity>{
+public abstract class DataSource<T extends IDataEntity> {
     public final String id;
 
     protected final IDecoder decoder;

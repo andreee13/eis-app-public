@@ -8,4 +8,4 @@ public class App {
     }
 }
 
-//TODO: stopwords, if, commenti
+//TODO: test, javadoc, adapters

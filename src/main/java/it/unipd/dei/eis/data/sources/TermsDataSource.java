@@ -4,10 +4,13 @@ import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.util.logging.RedwoodConfiguration;
 import it.unipd.dei.eis.data.entities.ArticleTermsDataEntity;
 import it.unipd.dei.eis.presentation.Context;
 
 import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -22,29 +25,54 @@ public class TermsDataSource extends DataSource<ArticleTermsDataEntity> {
     private static final Properties props = new Properties() {{
         setProperty("annotators", "tokenize");
     }};
-    private static final StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
+    private static StanfordCoreNLP pipeline;
     private final SynchronizedTermsFrequencyCounter frequencyCounter = new SynchronizedTermsFrequencyCounter();
+    private List<String> stoplist;
 
     public TermsDataSource() {
         super("TERMS");
+        RedwoodConfiguration.current()
+                .clear()
+                .apply();
+        pipeline = new StanfordCoreNLP(props);
+        try {
+            stoplist = Files.readAllLines(Paths.get("src/main/resources/stoplist.txt"));
+        } catch (Exception e) {
+            stoplist = Collections.emptyList();
+        }
     }
 
     @Override
     public void set(Context context, List<ArticleTermsDataEntity> entities) throws Exception {
         List<Future<Annotation>> futures = new ArrayList<>(entities.size());
-        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime()
+                .availableProcessors());
         for (ArticleTermsDataEntity s : entities) {
-            futures.add(executorService.submit(() -> pipeline.process(s.toString().toLowerCase())));
+            futures.add(executorService.submit(() -> pipeline.process(s.toString()
+                    .toLowerCase())));
         }
         for (Future<Annotation> future : futures) {
-            future.get().get(CoreAnnotations.TokensAnnotation.class).stream().map(CoreLabel::word).filter(word -> !pattern.matcher(word).find()).forEach(frequencyCounter::add);
+            future.get()
+                    .get(CoreAnnotations.TokensAnnotation.class)
+                    .stream()
+                    .map(CoreLabel::word)
+                    .filter(word -> !pattern.matcher(word)
+                            .find() && !stoplist.contains(word))
+                    .forEach(frequencyCounter::add);
         }
         executorService.shutdown();
         Map<String, Integer> map = frequencyCounter.getMapSortedByValueAndKey();
-        List<String> keys = frequencyCounter.getMapSortedByValueAndKey().keySet().stream().limit(context.countTerms).collect(Collectors.toList());
+        List<String> keys = frequencyCounter.getMapSortedByValueAndKey()
+                .keySet()
+                .stream()
+                .limit(context.countTerms)
+                .collect(Collectors.toList());
         StringBuilder stringBuilder = new StringBuilder();
         for (String key : keys) {
-            stringBuilder.append(key).append(" ").append(map.get(key)).append("\n");
+            stringBuilder.append(key)
+                    .append(" ")
+                    .append(map.get(key))
+                    .append("\n");
         }
         try (FileWriter fileWriter = new FileWriter(OUTPUT_FILE_TXT)) {
             fileWriter.write(stringBuilder.toString());
@@ -62,7 +90,9 @@ class SynchronizedTermsFrequencyCounter {
 
     @SuppressWarnings("SuspiciousMethodCalls")
     public Map<String, Integer> getMapSortedByValueAndKey() {
-        Map<String, Integer> map = new TreeMap<>(Comparator.comparingInt(this.map::get).reversed().thenComparing(Object::toString));
+        Map<String, Integer> map = new TreeMap<>(Comparator.comparingInt(this.map::get)
+                .reversed()
+                .thenComparing(Object::toString));
         map.putAll(this.map);
         return map;
     }

@@ -1,15 +1,15 @@
 package it.unipd.dei.eis.domain.use_cases;
 
-import it.unipd.dei.eis.core.constants.CommandConstants;
+import it.unipd.dei.eis.core.constants.UseCaseConstants;
 
 public interface UseCaseFactory {
     static UseCase create(String command) throws IllegalArgumentException {
         switch (command) {
-            case CommandConstants.DOWNLOAD:
+            case UseCaseConstants.DOWNLOAD:
                 return new ArticlesDownloader();
-            case CommandConstants.EXTRACT:
+            case UseCaseConstants.EXTRACT:
                 return new TermsExtractor();
-            case CommandConstants.BOTH:
+            case UseCaseConstants.BOTH:
                 return new DownloadAndExtract();
             default:
                 throw new IllegalArgumentException("Invalid command");

@@ -5,7 +5,7 @@ import it.unipd.dei.eis.domain.controllers.DownloadController;
 import it.unipd.dei.eis.domain.controllers.TermsExtractorController;
 
 public class DownloadAndExtract extends UseCase {
-    protected DownloadAndExtract() {
+    DownloadAndExtract() {
         super(new Controller[]{new DownloadController(), new TermsExtractorController()});
     }
 }

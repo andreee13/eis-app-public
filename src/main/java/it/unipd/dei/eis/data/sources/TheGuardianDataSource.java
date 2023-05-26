@@ -32,7 +32,8 @@ public class TheGuardianDataSource extends DataSource<TheGuardianIDataEntity> {
     @Override
     public List<TheGuardianIDataEntity> get(Context context) throws Exception {
         assert decoder != null;
-        final HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse(BASE_URL)).newBuilder()
+        final HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse(BASE_URL))
+                .newBuilder()
                 .addPathSegment(SEARCH_ENDPOINT)
                 .addQueryParameter("api-key", API_KEY)
                 .addQueryParameter("format", RESPONSE_FORMAT)
@@ -41,10 +42,13 @@ public class TheGuardianDataSource extends DataSource<TheGuardianIDataEntity> {
         if (context.fromDate != null) urlBuilder.addQueryParameter("from-date", dateFormat.format(context.fromDate));
         if (context.toDate != null) urlBuilder.addQueryParameter("to-date", dateFormat.format(context.toDate));
         urlBuilder.addQueryParameter("page-size", context.countArticles.toString());
-        try (Response response = httpClient.newCall(new Request.Builder().url(urlBuilder.build()).build()).execute()) {
+        try (Response response = httpClient.newCall(new Request.Builder().url(urlBuilder.build())
+                        .build())
+                .execute()) {
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
             if (response.body() == null) throw new IOException("Response body is null");
-            return Collections.singletonList(decoder.decode(response.body().string(), TheGuardianIDataEntity.class));
+            return Collections.singletonList(decoder.decode(response.body()
+                    .string(), TheGuardianIDataEntity.class));
         }
     }
 }

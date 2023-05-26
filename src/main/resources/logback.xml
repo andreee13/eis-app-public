@@ -1,0 +1,3 @@
+<configuration>
+    <logger name="edu.stanford.nlp" level="OFF"/>
+</configuration>

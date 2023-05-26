@@ -1,6 +1,7 @@
 package it.unipd.dei.eis.data.sources;
 
-import it.unipd.dei.eis.core.constants.CommandConstants;
+import it.unipd.dei.eis.core.constants.UseCaseConstants;
+import it.unipd.dei.eis.core.constants.DefaultSettings;
 import it.unipd.dei.eis.data.entities.JsonDataEntity;
 import it.unipd.dei.eis.data.serialization.JsonDecoder;
 import it.unipd.dei.eis.data.serialization.JsonEncoder;
@@ -22,13 +23,13 @@ public class JsonDataSource extends DataSource<JsonDataEntity> {
     @Override
     public List<JsonDataEntity> get(Context context) throws Exception {
         assert decoder != null;
-        return Arrays.asList(decoder.decode(new String(Files.readAllBytes(Paths.get(context.command.equals(CommandConstants.BOTH) ? "output.json" : context.source))), JsonDataEntity[].class));
+        return Arrays.asList(decoder.decode(new String(Files.readAllBytes(Paths.get(context.command.equals(UseCaseConstants.BOTH) ? DefaultSettings.OUTPUT_FILE_JSON : context.source))), JsonDataEntity[].class));
     }
 
     @Override
     public void set(Context context, List<JsonDataEntity> data) throws Exception {
         assert encoder != null;
-        try (FileWriter fileWriter = new FileWriter(context.output != null ? context.output : "output.json")) {
+        try (FileWriter fileWriter = new FileWriter(context.output != null ? context.output : DefaultSettings.OUTPUT_FILE_JSON)) {
             fileWriter.write(encoder.encode(data));
         }
     }

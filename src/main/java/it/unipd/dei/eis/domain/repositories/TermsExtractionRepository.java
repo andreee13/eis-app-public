@@ -26,10 +26,12 @@ public class TermsExtractionRepository extends Repository<TermsDataSource, Artic
     @Override
     public Either<Failure, Success> push(Context context, List<Article> models) {
         try {
-            dataSource.set(context, models.stream().map(this::articleToResult).collect(Collectors.toList()));
+            dataSource.set(context, models.stream()
+                    .map(this::articleToResult)
+                    .collect(Collectors.toList()));
             return Either.success(new Success());
         } catch (Exception e) {
-            return Either.failure(new Failure(e));
+            return Either.failure(new Failure(e, "Failed to set data to data source"));
         }
     }
 }
