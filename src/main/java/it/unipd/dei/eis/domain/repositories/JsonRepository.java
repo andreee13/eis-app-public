@@ -11,11 +11,23 @@ import it.unipd.dei.eis.presentation.Context;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * A repository for articles from a JSON data source.
+ */
 public class JsonRepository extends Repository<JsonDataSource, Article> {
+
+    /**
+     * Creates a new Repository.
+     */
     JsonRepository() {
         super(new JsonDataSource());
     }
 
+    /**
+     * Converts a JsonDataEntity to an Article.
+     * @param result The JsonDataEntity to convert
+     * @return The Article
+     */
     private Article resultToArticle(JsonDataEntity result) {
         return new Article(
                 result.id,
@@ -27,6 +39,11 @@ public class JsonRepository extends Repository<JsonDataSource, Article> {
         );
     }
 
+    /**
+     * Converts an Article to a JsonDataEntity.
+     * @param article The article to convert
+     * @return The JsonDataEntity
+     */
     private JsonDataEntity articleToResult(Article article) {
         return new JsonDataEntity(
                 article.id,
@@ -38,6 +55,11 @@ public class JsonRepository extends Repository<JsonDataSource, Article> {
         );
     }
 
+    /**
+     * Pulls the articles from the data source.
+     * @param context The context to use
+     * @return Either a Failure or a List of Articles
+     */
     @Override
     public Either<Failure, List<Article>> pull(Context context) {
         try {

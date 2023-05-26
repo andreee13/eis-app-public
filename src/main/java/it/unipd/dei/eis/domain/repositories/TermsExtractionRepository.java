@@ -11,11 +11,25 @@ import it.unipd.dei.eis.presentation.Context;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * A repository for models from a data source.
+ * @param <T> The type of the data source
+ * @param <M> The type of the model
+ */
 public class TermsExtractionRepository extends Repository<TermsDataSource, Article> {
+
+    /**
+     * Creates a new Repository.
+     */
     TermsExtractionRepository() {
         super(new TermsDataSource());
     }
 
+    /**
+     * Converts an Article to an ArticleTermsDataEntity.
+     * @param article The Article to convert
+     * @return The ArticleTermsDataEntity
+     */
     private ArticleTermsDataEntity articleToResult(Article article) {
         return new ArticleTermsDataEntity(
                 article.title,
@@ -23,6 +37,12 @@ public class TermsExtractionRepository extends Repository<TermsDataSource, Artic
         );
     }
 
+    /**
+     * Pushes the articles to the data source.
+     * @param context The context to use
+     * @param models The articles to push
+     * @return Either a Failure or a Success
+     */
     @Override
     public Either<Failure, Success> push(Context context, List<Article> models) {
         try {

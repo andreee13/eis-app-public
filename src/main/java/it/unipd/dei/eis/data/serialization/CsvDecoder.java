@@ -9,7 +9,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * CsvDecoder is the decoder for CSV data.
+ */
 public class CsvDecoder implements IDecoder {
+
+    /**
+     * The decode method is used to decode the CSV file.
+     * @param data the CSV file
+     * @param args the arguments
+     * @return the list of CsvDataEntity
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     @SuppressWarnings("unchecked")
     public List<CsvDataEntity> decode(String data, Object... args) throws IOException {

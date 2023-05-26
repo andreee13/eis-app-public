@@ -3,13 +3,28 @@ package it.unipd.dei.eis.presentation;
 import it.unipd.dei.eis.domain.use_cases.UseCaseFactory;
 import org.apache.commons.cli.*;
 
+/**
+ * Bootstrapper is the class that starts the application.
+ * It parses the command line arguments and calls the correct use case.
+ */
 public class Bootstrapper {
+
+    /**
+     * The args field contains the command line arguments.
+     */
     private final String[] args;
 
+    /**
+     * The Bootstrapper constructor.
+     * @param args the command line arguments
+     */
     public Bootstrapper(String[] args) {
         this.args = args;
     }
 
+    /**
+     * The launch method parses the command line arguments and calls the correct use case.
+     */
     public void launch() {
         Options options = new Options();
         options.addOption(Option.builder()

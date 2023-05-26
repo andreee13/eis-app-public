@@ -5,15 +5,57 @@ import org.apache.commons.csv.CSVRecord;
 
 import java.util.Date;
 
+/**
+ * A data entity that represents a CSV record.
+ */
 public class CsvDataEntity implements IDataEntity {
+
+    /**
+     * The identifier of the record.
+     */
     public final String identifier;
+
+    /**
+     * The URL of the record.
+     */
     public final String url;
+
+    /**
+     * The title of the record.
+     */
     public final String title;
+
+    /**
+     * The body of the record.
+     */
     public final String body;
+
+    /**
+     * The date of the record.
+     */
     public final Date date;
+
+    /**
+     * The source set of the record.
+     */
     public final String sourceSet;
+
+    /**
+     * The source of the record.
+     */
     public final String source;
 
+    /**
+     * Creates a new CSV data entity.
+     *
+     * @param identifier the identifier of the record
+     * @param url the URL of the record
+     * @param title the title of the record
+     * @param body the body of the record
+     * @param date the date of the record
+     * @param sourceSet the source set of the record
+     * @param source the source of the record
+     */
     public CsvDataEntity(String identifier, String url, String title, String body, Date date, String sourceSet, String source) {
         this.identifier = identifier;
         this.url = url;
@@ -24,6 +66,12 @@ public class CsvDataEntity implements IDataEntity {
         this.source = source;
     }
 
+    /**
+     * Creates a new CSV data entity from a CSV record.
+     *
+     * @param record the CSV record
+     * @return the CSV data entity
+     */
     public static CsvDataEntity fromCsvRecord(CSVRecord record) {
         return new CsvDataEntity(
                 record.get(0),

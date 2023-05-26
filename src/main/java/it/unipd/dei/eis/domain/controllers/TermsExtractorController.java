@@ -11,11 +11,24 @@ import it.unipd.dei.eis.presentation.Context;
 
 import java.util.List;
 
+/**
+ * TermsExtractorController is the controller for the terms extraction use case.
+ * It is used to extract terms from the data source.
+ */
 public class TermsExtractorController extends Controller {
+
+    /**
+     * TermsExtractorController constructor.
+     */
     public TermsExtractorController() {
         super(UseCaseConstants.EXTRACT);
     }
 
+    /**
+     * Executes the terms extraction use case.
+     * @param context the context
+     * @return the result of the use case
+     */
     @Override
     @SuppressWarnings("unchecked, rawtypes")
     public Either<Failure, Success> execute(Context context) {

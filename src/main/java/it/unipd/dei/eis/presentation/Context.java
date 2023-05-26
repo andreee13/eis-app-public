@@ -7,16 +7,56 @@ import org.apache.commons.cli.CommandLine;
 
 import java.util.Date;
 
+/**
+ * The Context class contains the context of the command line.
+ */
 public class Context {
+
+    /**
+     * The command field contains the command.
+     */
     public final String command;
+
+    /**
+     * The source field contains the source from which the data are retrieved.
+     */
     public final String source;
+
+    /**
+     * The output field contains the output file.
+     */
     public final String output;
+
+    /**
+     * The query field contains the query to be searched.
+     */
     public final String query;
+
+    /**
+     * The countArticles field contains the number of articles to be retrieved.
+     */
     public final Integer countArticles;
+
+    /**
+     * The countTerms field contains the number of terms to be extracted.
+     */
     public final Integer countTerms;
+
+    /**
+     * The fromDate field contains the date from which the articles are retrieved.
+     */
     public final Date fromDate;
+
+    /**
+     * The toDate field contains the limit date to which the articles are retrieved.
+     */
     public final Date toDate;
 
+    /**
+     * The Context constructor.
+     * It is used to parse the command line.
+     * @param cmd the command line
+     */
     public Context(CommandLine cmd) {
         this.command = cmd.getArgs()[0];
         source = cmd.getOptionValue("source");

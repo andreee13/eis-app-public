@@ -10,12 +10,23 @@ import it.unipd.dei.eis.presentation.Context;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * A repository for articles from a CSV data source.
+ */
 public class CsvRepository extends Repository<CsvDataSource, Article> {
 
+    /**
+     * Creates a new CsvRepository.
+     */
     CsvRepository() {
         super(new CsvDataSource());
     }
 
+    /**
+     * Converts a CsvDataEntity to an Article.
+     * @param result The CsvDataEntity to convert
+     * @return The Article
+     */
     private Article resultToArticle(CsvDataEntity result) {
         return new Article(
                 result.identifier,
@@ -27,6 +38,11 @@ public class CsvRepository extends Repository<CsvDataSource, Article> {
         );
     }
 
+    /**
+     * Pulls the articles from the data source.
+     * @param context The context to use
+     * @return Either a Failure or a List of Articles
+     */
     @Override
     public Either<Failure, List<Article>> pull(Context context) {
         try {

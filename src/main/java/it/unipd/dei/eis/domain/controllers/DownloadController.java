@@ -11,11 +11,24 @@ import it.unipd.dei.eis.presentation.Context;
 
 import java.util.List;
 
+/**
+ * The DownloadController class is the controller for the download use case.
+ * It is used to retrieve data from a source and write them to a file.
+ */
 public class DownloadController extends Controller {
+
+    /**
+     * DownloadController constructor.
+     */
     public DownloadController() {
         super(UseCaseConstants.DOWNLOAD);
     }
 
+    /**
+     * The execute method is used to retrieve data from a source and write them to a file.
+     * @param context the context
+     * @return the result of the operation
+     */
     @Override
     @SuppressWarnings("unchecked, rawtypes")
     public Either<Failure, Success> execute(Context context) {
