@@ -88,7 +88,6 @@ public class TheGuardianDataSource extends DataSource<TheGuardianDataEntity> {
      */
     @Override
     public List<TheGuardianDataEntity> get(Context context) throws Exception {
-        assert decoder != null;
         String apiKey = context.apiKey != null ? context.apiKey : ENV_API_KEY;
         if (apiKey == null) {
             throw new IllegalArgumentException("TheGuardian API key is missing");
@@ -125,7 +124,7 @@ public class TheGuardianDataSource extends DataSource<TheGuardianDataEntity> {
                     if (response.body() == null) {
                         throw new IOException("Response body is empty");
                     }
-                    return decoder.decode(response.body().string(), TheGuardianDataEntity.class);
+                    return Objects.requireNonNull(decoder).decode(response.body().string(), TheGuardianDataEntity.class);
                 }
             }));
         }

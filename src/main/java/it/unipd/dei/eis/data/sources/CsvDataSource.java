@@ -5,6 +5,7 @@ import it.unipd.dei.eis.data.serialization.CsvDecoder;
 import it.unipd.dei.eis.presentation.Context;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -34,8 +35,7 @@ public class CsvDataSource extends DataSource<CsvDataEntity> {
      */
     @Override
     public List<CsvDataEntity> get(Context context) throws Exception {
-        assert decoder != null;
-        List<CsvDataEntity> data = decoder.decode(context.source);
+        List<CsvDataEntity> data = Objects.requireNonNull(decoder).decode(context.source);
         if (context.query != null) {
             data = data.stream()
                     .filter(article -> article.title.contains(context.query) || article.body.contains(context.query))
