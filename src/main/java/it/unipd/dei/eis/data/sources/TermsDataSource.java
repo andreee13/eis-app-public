@@ -5,6 +5,7 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.logging.RedwoodConfiguration;
+import it.unipd.dei.eis.core.utils.SynchronizedStringFrequencyCounter;
 import it.unipd.dei.eis.data.entities.ArticleTermsDataEntity;
 import it.unipd.dei.eis.presentation.Context;
 
@@ -18,7 +19,7 @@ import java.util.concurrent.Future;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import static it.unipd.dei.eis.core.constants.DefaultSettings.OUTPUT_FILE_TXT;
+import static it.unipd.dei.eis.core.constants.DefaultSettings.TXT_FILE_NAME;
 
 /**
  * TermsDataSource is the data source for the terms.
@@ -29,16 +30,16 @@ public class TermsDataSource extends DataSource<ArticleTermsDataEntity> {
     /**
      * The ID of the data source.
      */
-    private static final String ID = "TERMS";
+    public static final String ID = "TERMS";
     /**
-     * The pattern is used to check if a word is a punctuation or other special symbols.
+     * The PATTERN is used to check if a word is a punctuation or other special symbols.
      */
-    private static final Pattern pattern = Pattern.compile("[\\p{Punct}–“”‑‘'…]");
+    private static final Pattern PATTERN = Pattern.compile("[\\p{Punct}–“”‑‘'…]");
 
     /**
-     * The props field is used to set the StanfordCoreNLP pipeline.
+     * The PROPERTIES field is used to set the StanfordCoreNLP pipeline.
      */
-    private static final Properties props = new Properties() {{
+    private static final Properties PROPERTIES = new Properties() {{
         setProperty("annotators", "tokenize");
     }};
 
@@ -50,7 +51,7 @@ public class TermsDataSource extends DataSource<ArticleTermsDataEntity> {
     /**
      * The frequencyCounter field is used to count the frequency of the terms.
      */
-    private final SynchronizedTermsFrequencyCounter frequencyCounter = new SynchronizedTermsFrequencyCounter();
+    private final SynchronizedStringFrequencyCounter frequencyCounter = new SynchronizedStringFrequencyCounter();
 
     /**
      * The stoplist field is used to store the stoplist.
@@ -66,7 +67,7 @@ public class TermsDataSource extends DataSource<ArticleTermsDataEntity> {
         RedwoodConfiguration.current()
                 .clear()
                 .apply();
-        pipeline = new StanfordCoreNLP(props);
+        pipeline = new StanfordCoreNLP(PROPERTIES);
         try {
             stoplist = Files.readAllLines(Paths.get("src/main/resources/stoplist.txt"));
         } catch (Exception e) {
@@ -95,7 +96,7 @@ public class TermsDataSource extends DataSource<ArticleTermsDataEntity> {
                     .get(CoreAnnotations.TokensAnnotation.class)
                     .stream()
                     .map(CoreLabel::word)
-                    .filter(word -> !pattern.matcher(word)
+                    .filter(word -> !PATTERN.matcher(word)
                             .find() && !stoplist.contains(word))
                     .forEach(frequencyCounter::add);
         }
@@ -113,43 +114,9 @@ public class TermsDataSource extends DataSource<ArticleTermsDataEntity> {
                     .append(map.get(key))
                     .append("\n");
         }
-        try (FileWriter fileWriter = new FileWriter(OUTPUT_FILE_TXT)) {
+        try (FileWriter fileWriter = new FileWriter(TXT_FILE_NAME)) {
             fileWriter.write(stringBuilder.toString());
         }
     }
 
-}
-
-/**
- * SynchronizedTermsFrequencyCounter is the class used to count the frequency of the terms.
- */
-class SynchronizedTermsFrequencyCounter {
-
-    /**
-     * The map field is used to store the terms and their frequency.
-     */
-    final private Map<String, Integer> map = new HashMap<>();
-
-    /**
-     * The add method is used to add a term to the map.
-     *
-     * @param word the term
-     */
-    public synchronized void add(String word) {
-        map.put(word, map.getOrDefault(word, 0) + 1);
-    }
-
-    /**
-     * The getMapSortedByValueAndKey method is used to sort the map by value and key.
-     *
-     * @return the sorted map
-     */
-    @SuppressWarnings("SuspiciousMethodCalls")
-    public Map<String, Integer> getMapSortedByValueAndKey() {
-        Map<String, Integer> map = new TreeMap<>(Comparator.comparingInt(this.map::get)
-                .reversed()
-                .thenComparing(Object::toString));
-        map.putAll(this.map);
-        return map;
-    }
 }

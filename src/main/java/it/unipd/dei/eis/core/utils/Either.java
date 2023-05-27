@@ -7,7 +7,14 @@ package it.unipd.dei.eis.core.utils;
  * @param <T>       The type of the success
  */
 public class Either<Failure, T> {
+
+    /**
+     * The failure.
+     */
     public final Failure failure;
+    /**
+     * The success.
+     */
     public final T success;
 
     /**

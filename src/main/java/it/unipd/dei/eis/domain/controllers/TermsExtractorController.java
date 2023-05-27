@@ -33,7 +33,7 @@ public class TermsExtractorController extends Controller {
     @Override
     @SuppressWarnings("unchecked, rawtypes")
     public Either<Failure, Success> execute(Context context) {
-        String source = context.command.equals(UseCaseConstants.BOTH) ? DefaultSettings.OUTPUT_FILE_JSON : context.source;
+        String source = context.command.equals(UseCaseConstants.BOTH) ? DefaultSettings.JSON_FILE_NAME : context.source;
         System.out.println("Reading data from " + source + "...");
         Either<Failure, ? extends List<? extends IModel>> result1 = RepositoryFactory.create(source)
                 .pull(context);
@@ -44,7 +44,7 @@ public class TermsExtractorController extends Controller {
         System.out.println("Extracting terms...");
         RepositoryFactory.create(UseCaseConstants.EXTRACT)
                 .push(context, (List) result1.success);
-        System.out.println("Terms extracted and written to " + (context.output != null ? context.output : DefaultSettings.OUTPUT_FILE_TXT));
+        System.out.println("Terms extracted and written to " + (context.output != null ? context.output : DefaultSettings.TXT_FILE_NAME));
         return Either.success(new Success());
     }
 }

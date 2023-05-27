@@ -1,6 +1,6 @@
 package it.unipd.dei.eis.data.sources;
 
-import it.unipd.dei.eis.data.entities.TheGuardianIDataEntity;
+import it.unipd.dei.eis.data.entities.TheGuardianDataEntity;
 import it.unipd.dei.eis.data.serialization.JsonDecoder;
 import it.unipd.dei.eis.presentation.Context;
 import okhttp3.HttpUrl;
@@ -18,18 +18,18 @@ import java.util.Objects;
  * TheGuardianDataSource is the data source for The Guardian records.
  * It contains the data source logic.
  */
-public class TheGuardianDataSource extends DataSource<TheGuardianIDataEntity> {
+public class TheGuardianDataSource extends DataSource<TheGuardianDataEntity> {
 
     /**
      * The ID field is used to identify the data source.
      */
-    private static final String ID = "THEGUARDIAN";
-    // private static final String API_KEY = System.getenv("THE_GUARDIAN_API_KEY");
+    public static final String ID = "THEGUARDIAN";
 
     /**
-     * The API_KEY field is used to authenticate the requests to The Guardian API.
+     * The ENV_API_KEY field is used to get the API key from the environment variables.
      */
-    private static final String API_KEY = "***REMOVED***";
+    private static final String ENV_API_KEY = System.getenv("THE_GUARDIAN_API_KEY");
+    // private static final String API_KEY = "***REMOVED***";
 
     /**
      * The BASE_URL field is used to build the URL of the request.
@@ -54,7 +54,7 @@ public class TheGuardianDataSource extends DataSource<TheGuardianIDataEntity> {
     /**
      * The dateFormat field is used to format the date.
      */
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
      * The httpClient field is used to send the HTTP request.
@@ -73,29 +73,31 @@ public class TheGuardianDataSource extends DataSource<TheGuardianIDataEntity> {
      * The get method is used to get the data from The Guardian API.
      *
      * @param context the context of the request
-     * @return the list of TheGuardianIDataEntity objects
+     * @return the list of TheGuardianDataEntity objects
      * @throws Exception if the request fails
      */
     @Override
-    public List<TheGuardianIDataEntity> get(Context context) throws Exception {
+    public List<TheGuardianDataEntity> get(Context context) throws Exception {
         assert decoder != null;
+        String apiKey = context.apiKey != null ? context.apiKey : ENV_API_KEY;
+        if (apiKey == null) throw new IllegalArgumentException("TheGuardian API key is missing");
         final HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse(BASE_URL))
                 .newBuilder()
                 .addPathSegment(SEARCH_ENDPOINT)
-                .addQueryParameter("api-key", API_KEY)
+                .addQueryParameter("api-key", apiKey)
                 .addQueryParameter("format", RESPONSE_FORMAT)
                 .addQueryParameter("show-fields", FIELDS);
         if (context.query != null) urlBuilder.addQueryParameter("q", context.query);
-        if (context.fromDate != null) urlBuilder.addQueryParameter("from-date", dateFormat.format(context.fromDate));
-        if (context.toDate != null) urlBuilder.addQueryParameter("to-date", dateFormat.format(context.toDate));
+        if (context.fromDate != null) urlBuilder.addQueryParameter("from-date", DATE_FORMAT.format(context.fromDate));
+        if (context.toDate != null) urlBuilder.addQueryParameter("to-date", DATE_FORMAT.format(context.toDate));
         urlBuilder.addQueryParameter("page-size", context.countArticles.toString());
         try (Response response = httpClient.newCall(new Request.Builder().url(urlBuilder.build())
                         .build())
                 .execute()) {
-            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-            if (response.body() == null) throw new IOException("Response body is null");
+            if (!response.isSuccessful()) throw new IOException(String.format("Unexpected response code %s", response));
+            if (response.body() == null) throw new IOException("Response body is empty");
             return Collections.singletonList(decoder.decode(response.body()
-                    .string(), TheGuardianIDataEntity.class));
+                    .string(), TheGuardianDataEntity.class));
         }
     }
 }

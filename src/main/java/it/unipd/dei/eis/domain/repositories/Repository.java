@@ -28,7 +28,7 @@ public abstract class Repository<T extends DataSource<? extends IDataEntity>, M 
      *
      * @param dataSource The data source
      */
-    protected Repository(T dataSource) {
+    Repository(T dataSource) {
         this.dataSource = dataSource;
     }
 

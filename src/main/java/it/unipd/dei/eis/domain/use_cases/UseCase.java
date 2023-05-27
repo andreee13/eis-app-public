@@ -13,7 +13,7 @@ public abstract class UseCase {
     /**
      * The controllers that are executed by the use case.
      */
-    final Controller[] controllers;
+    private final Controller[] controllers;
 
     /**
      * UseCase constructor.

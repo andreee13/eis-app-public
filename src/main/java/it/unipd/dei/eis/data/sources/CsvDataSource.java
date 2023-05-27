@@ -16,7 +16,7 @@ public class CsvDataSource extends DataSource<CsvDataEntity> {
     /**
      * The ID of the data source.
      */
-    private static final String ID = "CSV";
+    public static final String ID = "CSV";
 
     /**
      * CsvDataSource constructor.

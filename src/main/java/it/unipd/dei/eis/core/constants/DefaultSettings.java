@@ -18,10 +18,10 @@ public interface DefaultSettings {
     /**
      * The default .json file where to push the articles.
      */
-    String OUTPUT_FILE_JSON = "articles.json";
+    String JSON_FILE_NAME = "articles.json";
 
     /**
      * The default .txt file where to push the articles.
      */
-    String OUTPUT_FILE_TXT = "terms.txt";
+    String TXT_FILE_NAME = "terms.txt";
 }

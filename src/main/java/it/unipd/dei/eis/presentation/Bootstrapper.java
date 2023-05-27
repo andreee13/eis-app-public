@@ -85,6 +85,13 @@ public class Bootstrapper {
                 .hasArg()
                 .argName("date")
                 .build());
+        options.addOption(Option.builder()
+                .option("k")
+                .longOpt("api-key")
+                .desc("API key")
+                .hasArg()
+                .argName("string")
+                .build());
         try {
             Context context = new Context(new DefaultParser().parse(options, args));
             UseCaseFactory.create(context.command)

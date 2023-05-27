@@ -2,7 +2,7 @@ package it.unipd.dei.eis.domain.repositories;
 
 import it.unipd.dei.eis.core.utils.Either;
 import it.unipd.dei.eis.core.utils.Failure;
-import it.unipd.dei.eis.data.entities.TheGuardianIDataEntity;
+import it.unipd.dei.eis.data.entities.TheGuardianDataEntity;
 import it.unipd.dei.eis.data.sources.TheGuardianDataSource;
 import it.unipd.dei.eis.domain.models.Article;
 import it.unipd.dei.eis.presentation.Context;
@@ -28,7 +28,7 @@ public class TheGuardianRepository extends Repository<TheGuardianDataSource, Art
      * @param result The data entity to convert
      * @return The article
      */
-    private Article resultToArticle(TheGuardianIDataEntity.Response.Result result) {
+    private Article resultToArticle(TheGuardianDataEntity.Response.Result result) {
         return new Article(
                 result.id,
                 result.webTitle,

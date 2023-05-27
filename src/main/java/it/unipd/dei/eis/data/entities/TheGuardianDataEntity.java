@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * TheGuardianIDataEntity is the data entity for The Guardian records.
+ * TheGuardianDataEntity is the data entity for The Guardian records.
  * It contains the data structure of the JSON response.
  * It is used by the Gson library to parse the JSON response.
  */
-public class TheGuardianIDataEntity implements IDataEntity {
+public class TheGuardianDataEntity implements IDataEntity {
 
     /**
      * The Response class contains the data structure of the JSON response.
@@ -17,12 +17,12 @@ public class TheGuardianIDataEntity implements IDataEntity {
     public final Response response;
 
     /**
-     * TheGuardianIDataEntity constructor.
+     * TheGuardianDataEntity constructor.
      * It is used by the Gson library to parse the JSON response.
      *
      * @param response the JSON response
      */
-    private TheGuardianIDataEntity(Response response) {
+    private TheGuardianDataEntity(Response response) {
         this.response = response;
     }
 

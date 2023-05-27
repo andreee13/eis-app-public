@@ -53,6 +53,11 @@ public class Context {
     public final Date toDate;
 
     /**
+     * The apiKey field contains the API key.
+     */
+    public final String apiKey;
+
+    /**
      * The Context constructor.
      * It is used to parse the command line.
      *
@@ -69,5 +74,6 @@ public class Context {
         countTerms = ct == null ? DefaultSettings.TERMS_COUNT : ct;
         fromDate = DateParser.tryParse(cmd.getOptionValue("from"));
         toDate = DateParser.tryParse(cmd.getOptionValue("to"));
+        apiKey = cmd.getOptionValue("api-key");
     }
 }

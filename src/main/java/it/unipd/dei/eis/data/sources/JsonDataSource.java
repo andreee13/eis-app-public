@@ -1,7 +1,7 @@
 package it.unipd.dei.eis.data.sources;
 
-import it.unipd.dei.eis.core.constants.UseCaseConstants;
 import it.unipd.dei.eis.core.constants.DefaultSettings;
+import it.unipd.dei.eis.core.constants.UseCaseConstants;
 import it.unipd.dei.eis.data.entities.JsonDataEntity;
 import it.unipd.dei.eis.data.serialization.JsonDecoder;
 import it.unipd.dei.eis.data.serialization.JsonEncoder;
@@ -22,7 +22,7 @@ public class JsonDataSource extends DataSource<JsonDataEntity> {
     /**
      * The ID of the data source.
      */
-    private static final String ID = "JSON";
+    public static final String ID = "JSON";
 
     /**
      * JsonDataSource constructor.
@@ -41,7 +41,7 @@ public class JsonDataSource extends DataSource<JsonDataEntity> {
     @Override
     public List<JsonDataEntity> get(Context context) throws Exception {
         assert decoder != null;
-        return Arrays.asList(decoder.decode(new String(Files.readAllBytes(Paths.get(context.command.equals(UseCaseConstants.BOTH) ? DefaultSettings.OUTPUT_FILE_JSON : context.source))), JsonDataEntity[].class));
+        return Arrays.asList(decoder.decode(new String(Files.readAllBytes(Paths.get(context.command.equals(UseCaseConstants.BOTH) ? DefaultSettings.JSON_FILE_NAME : context.source))), JsonDataEntity[].class));
     }
 
     /**
@@ -54,7 +54,7 @@ public class JsonDataSource extends DataSource<JsonDataEntity> {
     @Override
     public void set(Context context, List<JsonDataEntity> data) throws Exception {
         assert encoder != null;
-        try (FileWriter fileWriter = new FileWriter(context.output != null ? context.output : DefaultSettings.OUTPUT_FILE_JSON)) {
+        try (FileWriter fileWriter = new FileWriter(context.output != null ? context.output : DefaultSettings.JSON_FILE_NAME)) {
             fileWriter.write(encoder.encode(data));
         }
     }

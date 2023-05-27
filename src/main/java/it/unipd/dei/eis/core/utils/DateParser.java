@@ -9,24 +9,24 @@ import java.util.Date;
 public class DateParser {
 
     /**
-     * The date format tipo.
+     * The date format pattern.
      */
-    public static final String DATE_FORMAT = "yyyy-MM-dd";
+    public static final String PATTERN = "yyyy-MM-dd";
 
     /**
-     * The date format.
+     * The date format object.
      */
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(PATTERN);
 
     /**
      * Parses a date.
      *
      * @param date The date to parse
-     * @return The parsed date
+     * @return The parsed date or null if the date is not valid
      */
     public static Date tryParse(String date) {
         try {
-            return dateFormat.parse(date);
+            return DATE_FORMAT.parse(date);
         } catch (Exception e) {
             return null;
         }

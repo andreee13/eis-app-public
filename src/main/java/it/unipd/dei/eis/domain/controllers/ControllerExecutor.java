@@ -9,7 +9,7 @@ import java.io.PrintStream;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * The ControllerExecutor class is the class that executes the controllers.
+ * The ControllerExecutor class is the singleton class that executes the controllers.
  * It contains the execute method.
  */
 public class ControllerExecutor {
@@ -41,7 +41,7 @@ public class ControllerExecutor {
              */
             @Override
             public void println(String x) {
-                super.println("\r" + " - " + x);
+                super.printf("\r - %s%n", x);
             }
         });
     }
@@ -51,7 +51,7 @@ public class ControllerExecutor {
      *
      * @return the instance of the ControllerExecutor class
      */
-    public static ControllerExecutor getInstance() {
+    public static synchronized ControllerExecutor getInstance() {
         if (instance == null) {
             instance = new ControllerExecutor();
         }
@@ -65,7 +65,7 @@ public class ControllerExecutor {
      * @param result        the result of the controller
      */
     private void abort(Thread loadingThread, Either<Failure, Success> result) {
-        abort(loadingThread, result.failure.message + "\n\t-> Caused by " + result.failure.exception.getMessage());
+        abort(loadingThread, String.format("%s\n\t-> Caused by %s", result.failure.message, result.failure.exception.getMessage()));
     }
 
     /**
@@ -97,7 +97,7 @@ public class ControllerExecutor {
      * @param context    the context of the controller
      */
     public void execute(Controller controller, Context context) {
-        System.out.print(controller.name.toUpperCase() + ":\n");
+        System.out.printf("%s:\n", controller.name.toUpperCase());
         CompletableFuture<Either<Failure, Success>> completableFuture = CompletableFuture.supplyAsync(() -> controller.execute(context));
         Thread loadingThread = getLoadingThread();
         loadingThread.start();
@@ -107,11 +107,10 @@ public class ControllerExecutor {
                 abort(loadingThread, result);
             }
             loadingThread.interrupt();
-            System.out.println("\r[✓] Success");
+            System.out.println("\r[✓] Success\n");
         } catch (Exception e) {
             abort(loadingThread, e);
         }
-        System.out.println();
     }
 
     /**
@@ -125,7 +124,7 @@ public class ControllerExecutor {
             int animIndex = 0;
             while (!Thread.currentThread()
                     .isInterrupted()) {
-                System.out.print("\r[" + ANIMATION[animIndex] + "] Loading");
+                System.out.printf("\r[%s] Loading", ANIMATION[animIndex]);
                 animIndex = (animIndex + 1) % ANIMATION.length;
                 try {
                     Thread.sleep(ANIMATION_INTERVAL);
