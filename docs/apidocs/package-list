@@ -1,0 +1,11 @@
+it.unipd.dei.eis
+it.unipd.dei.eis.core.constants
+it.unipd.dei.eis.core.utils
+it.unipd.dei.eis.data.entities
+it.unipd.dei.eis.data.serialization
+it.unipd.dei.eis.data.sources
+it.unipd.dei.eis.domain.controllers
+it.unipd.dei.eis.domain.models
+it.unipd.dei.eis.domain.repositories
+it.unipd.dei.eis.domain.use_cases
+it.unipd.dei.eis.presentation
