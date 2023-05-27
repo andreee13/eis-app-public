@@ -34,7 +34,7 @@ public class TermsDataSource extends DataSource<ArticleTermsDataEntity> {
     /**
      * The PATTERN is used to check if a word is a punctuation or other special symbols.
      */
-    private static final Pattern PATTERN = Pattern.compile("[\\p{Punct}–“”‑‘'…]");
+    private static final Pattern PATTERN = Pattern.compile("[\\p{Punct}–“”‑‘'…’]");
 
     /**
      * The PROPERTIES field is used to set the StanfordCoreNLP pipeline.
@@ -44,15 +44,17 @@ public class TermsDataSource extends DataSource<ArticleTermsDataEntity> {
     }};
 
     /**
+     * The STOPLIST_FILE_PATH field is used to set the path of the stoplist.
+     */
+    private static final String STOPLIST_FILE_PATH = "src/main/resources/stoplist.txt";
+    /**
      * The pipeline field is used to process the text.
      */
     private static StanfordCoreNLP pipeline;
-
     /**
      * The frequencyCounter field is used to count the frequency of the terms.
      */
     private final SynchronizedStringFrequencyCounter frequencyCounter = new SynchronizedStringFrequencyCounter();
-
     /**
      * The stoplist field is used to store the stoplist.
      */
@@ -69,7 +71,7 @@ public class TermsDataSource extends DataSource<ArticleTermsDataEntity> {
                 .apply();
         pipeline = new StanfordCoreNLP(PROPERTIES);
         try {
-            stoplist = Files.readAllLines(Paths.get("src/main/resources/stoplist.txt"));
+            stoplist = Files.readAllLines(Paths.get(STOPLIST_FILE_PATH));
         } catch (Exception e) {
             stoplist = Collections.emptyList();
         }
@@ -77,6 +79,8 @@ public class TermsDataSource extends DataSource<ArticleTermsDataEntity> {
 
     /**
      * The set method is used to set the data source.
+     * It is used to process the text and count the frequency of the terms.
+     * Multi threading is used to speed up the process.
      *
      * @param context  the context
      * @param entities the list of entities

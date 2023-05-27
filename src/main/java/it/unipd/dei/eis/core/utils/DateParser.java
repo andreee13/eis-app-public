@@ -19,6 +19,12 @@ public class DateParser {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(PATTERN);
 
     /**
+     * Private constructor to avoid instantiation.
+     */
+    private DateParser() {
+    }
+
+    /**
      * Parses a date.
      *
      * @param date The date to parse

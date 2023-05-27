@@ -10,7 +10,7 @@ public class JsonDecoder implements IDecoder {
     /**
      * The Gson object is used to parse the JSON response.
      */
-    private static final Gson gson = new Gson();
+    private static final Gson GSON = new Gson();
 
     /**
      * The decode method is used to decode the JSON response.
@@ -22,6 +22,6 @@ public class JsonDecoder implements IDecoder {
     @Override
     @SuppressWarnings("unchecked")
     public <T> T decode(String data, Object... args) {
-        return gson.fromJson(data, (Class<T>) args[0]);
+        return GSON.fromJson(data, (Class<T>) args[0]);
     }
 }

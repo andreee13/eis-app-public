@@ -39,3 +39,7 @@ build/
 
 ### Env ###
 *.env
+
+### App ###
+*.json
+*.txt

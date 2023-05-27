@@ -7,7 +7,7 @@ import it.unipd.dei.eis.domain.models.IModel;
 /**
  * A factory for repositories.
  */
-public class RepositoryFactory {
+public interface RepositoryFactory {
 
     /**
      * Creates a new repository.
@@ -16,7 +16,7 @@ public class RepositoryFactory {
      * @return The repository
      * @throws IllegalArgumentException If the option (command) is invalid
      */
-    public static Repository<? extends DataSource<? extends IDataEntity>, ? extends IModel> create(String option) throws IllegalArgumentException {
+    static Repository<? extends DataSource<? extends IDataEntity>, ? extends IModel> create(String option) throws IllegalArgumentException {
         if (option.equals("extract")) {
             return new TermsExtractionRepository();
         } else if (option.equals("theguardian")) {

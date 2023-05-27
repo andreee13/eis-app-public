@@ -10,9 +10,13 @@ import okhttp3.Response;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 /**
  * TheGuardianDataSource is the data source for The Guardian records.
@@ -57,6 +61,11 @@ public class TheGuardianDataSource extends DataSource<TheGuardianDataEntity> {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
+     * The MAX_PAGE_SIZE field is used to limit the number of articles per page.
+     */
+    private static final int MAX_PAGE_SIZE = 200;
+
+    /**
      * The httpClient field is used to send the HTTP request.
      */
     private final OkHttpClient httpClient = new OkHttpClient();
@@ -70,7 +79,8 @@ public class TheGuardianDataSource extends DataSource<TheGuardianDataEntity> {
     }
 
     /**
-     * The get method is used to get the data from The Guardian API.
+     * The get method is used to get the data from The Guardian API and deserialize it.
+     * Pagination is processed in an asynchronous way using multiple threads.
      *
      * @param context the context of the request
      * @return the list of TheGuardianDataEntity objects
@@ -80,24 +90,52 @@ public class TheGuardianDataSource extends DataSource<TheGuardianDataEntity> {
     public List<TheGuardianDataEntity> get(Context context) throws Exception {
         assert decoder != null;
         String apiKey = context.apiKey != null ? context.apiKey : ENV_API_KEY;
-        if (apiKey == null) throw new IllegalArgumentException("TheGuardian API key is missing");
-        final HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse(BASE_URL))
-                .newBuilder()
-                .addPathSegment(SEARCH_ENDPOINT)
-                .addQueryParameter("api-key", apiKey)
-                .addQueryParameter("format", RESPONSE_FORMAT)
-                .addQueryParameter("show-fields", FIELDS);
-        if (context.query != null) urlBuilder.addQueryParameter("q", context.query);
-        if (context.fromDate != null) urlBuilder.addQueryParameter("from-date", DATE_FORMAT.format(context.fromDate));
-        if (context.toDate != null) urlBuilder.addQueryParameter("to-date", DATE_FORMAT.format(context.toDate));
-        urlBuilder.addQueryParameter("page-size", context.countArticles.toString());
-        try (Response response = httpClient.newCall(new Request.Builder().url(urlBuilder.build())
-                        .build())
-                .execute()) {
-            if (!response.isSuccessful()) throw new IOException(String.format("Unexpected response code %s", response));
-            if (response.body() == null) throw new IOException("Response body is empty");
-            return Collections.singletonList(decoder.decode(response.body()
-                    .string(), TheGuardianDataEntity.class));
+        if (apiKey == null) {
+            throw new IllegalArgumentException("TheGuardian API key is missing");
         }
+        ArrayList<Future<TheGuardianDataEntity>> futures = new ArrayList<>();
+        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime()
+                .availableProcessors());
+        for (int i = 0; i <= context.countArticles / MAX_PAGE_SIZE; i++) {
+            int tempIndex = i;
+            futures.add(executorService.submit(() -> {
+                final HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse(BASE_URL))
+                        .newBuilder()
+                        .addPathSegment(SEARCH_ENDPOINT)
+                        .addQueryParameter("api-key", apiKey)
+                        .addQueryParameter("format", RESPONSE_FORMAT)
+                        .addQueryParameter("show-fields", FIELDS)
+                        .addQueryParameter("page-size", String.valueOf(tempIndex == context.countArticles / MAX_PAGE_SIZE ? context.countArticles % MAX_PAGE_SIZE : MAX_PAGE_SIZE))
+                        .addQueryParameter("page", String.valueOf(tempIndex + 1));
+                if (context.query != null) {
+                    urlBuilder.addQueryParameter("q", context.query);
+                }
+                if (context.fromDate != null) {
+                    urlBuilder.addQueryParameter("from-date", DATE_FORMAT.format(context.fromDate));
+                }
+                if (context.toDate != null) {
+                    urlBuilder.addQueryParameter("to-date", DATE_FORMAT.format(context.toDate));
+                }
+                try (Response response = httpClient.newCall(new Request.Builder().url(urlBuilder.build())
+                                .build())
+                        .execute()) {
+                    if (!response.isSuccessful()) {
+                        throw new IOException(String.format("Unexpected response code %s", response));
+                    }
+                    if (response.body() == null) {
+                        throw new IOException("Response body is empty");
+                    }
+                    return decoder.decode(response.body().string(), TheGuardianDataEntity.class);
+                }
+            }));
+        }
+        executorService.shutdown();
+        return futures.stream().map(future -> {
+            try {
+                return future.get();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }).collect(Collectors.toList());
     }
 }

@@ -11,7 +11,7 @@ public class JsonEncoder implements IEncoder {
     /**
      * The Gson object.
      */
-    private static final Gson gson = new Gson();
+    private static final Gson GSON = new Gson();
 
     /**
      * The encode method is used to encode objects in JSON format.
@@ -22,6 +22,6 @@ public class JsonEncoder implements IEncoder {
      */
     @Override
     public <T> String encode(T object, Object... args) {
-        return gson.toJson(object);
+        return GSON.toJson(object);
     }
 }

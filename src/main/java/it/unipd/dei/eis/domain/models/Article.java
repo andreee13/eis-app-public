@@ -56,19 +56,4 @@ public class Article implements IModel {
         this.date = date;
         this.source = source;
     }
-
-    /**
-     * Converts the article to a string.
-     */
-    @Override
-    public String toString() {
-        return "Article{" +
-                "id='" + id + '\'' +
-                ", title='" + title + '\'' +
-                ", body='" + body + '\'' +
-                ", url='" + url + '\'' +
-                ", date=" + date +
-                ", source='" + source + '\'' +
-                '}';
-    }
 }

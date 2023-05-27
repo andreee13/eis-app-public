@@ -37,6 +37,7 @@ public abstract class Repository<T extends DataSource<? extends IDataEntity>, M 
      *
      * @param context The context to use
      * @return Either a Failure or a List of Articles
+     * @throws UnsupportedOperationException if not implemented
      */
     public Either<Failure, List<M>> pull(Context context) {
         throw new UnsupportedOperationException();
@@ -48,6 +49,7 @@ public abstract class Repository<T extends DataSource<? extends IDataEntity>, M 
      * @param context The context to use
      * @param models  The articles to push
      * @return Either a Failure or a Success
+     * @throws UnsupportedOperationException if not implemented
      */
     public Either<Failure, Success> push(Context context, List<M> models) {
         throw new UnsupportedOperationException();

@@ -64,7 +64,7 @@ public class Context {
      * @param cmd the command line
      */
     public Context(CommandLine cmd) {
-        this.command = cmd.getArgs()[0];
+        command = cmd.getArgs()[0];
         source = cmd.getOptionValue("source");
         output = cmd.getOptionValue("output");
         query = cmd.getOptionValue("query");

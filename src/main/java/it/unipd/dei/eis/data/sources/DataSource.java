@@ -80,7 +80,7 @@ public abstract class DataSource<T extends IDataEntity> {
      *
      * @param context the context of the request
      * @return the list of data entities
-     * @throws UnsupportedOperationException if an error occurs
+     * @throws UnsupportedOperationException if not implemented
      */
     public List<T> get(Context context) throws Exception {
         throw new UnsupportedOperationException();
@@ -91,7 +91,7 @@ public abstract class DataSource<T extends IDataEntity> {
      *
      * @param context the context of the request
      * @param data    the list of data entities
-     * @throws UnsupportedOperationException if an error occurs
+     * @throws UnsupportedOperationException if not implemented
      */
     public void set(Context context, List<T> data) throws Exception {
         throw new UnsupportedOperationException();
