@@ -16,17 +16,20 @@ public interface RepositoryFactory {
      * @return The repository
      * @throws IllegalArgumentException If the option (command) is invalid
      */
-    static Repository<? extends DataSource<? extends IDataEntity>, ? extends IModel> create(String option) throws IllegalArgumentException {
+    @SuppressWarnings("unchecked")
+    static <S extends DataSource<E>, E extends IDataEntity, M extends IModel> Repository<S, E, M> create(String option) throws IllegalArgumentException {
+        final Repository<? extends DataSource<? extends IDataEntity>, ? extends IDataEntity, ? extends IModel> repository;
         if (option.equals("extract")) {
-            return new TermsExtractionRepository();
+            repository = new TermsExtractionRepository();
         } else if (option.equals("theguardian")) {
-            return new TheGuardianRepository();
+            repository = new TheGuardianRepository();
         } else if (option.endsWith(".csv")) {
-            return new CsvRepository();
+            repository = new CsvRepository();
         } else if (option.endsWith(".json")) {
-            return new JsonRepository();
+            repository = new JsonRepository();
         } else {
             throw new IllegalArgumentException("Invalid repository");
         }
+        return (Repository<S, E, M>) repository;
     }
 }

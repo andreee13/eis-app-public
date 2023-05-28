@@ -3,6 +3,7 @@ package it.unipd.dei.eis.data.sources;
 import it.unipd.dei.eis.data.entities.CsvDataEntity;
 import it.unipd.dei.eis.data.serialization.CsvDecoder;
 import it.unipd.dei.eis.presentation.Context;
+import org.apache.commons.csv.CSVRecord;
 
 import java.util.List;
 import java.util.Objects;
@@ -34,8 +35,13 @@ public class CsvDataSource extends DataSource<CsvDataEntity> {
      * @throws Exception if an error occurs
      */
     @Override
+    @SuppressWarnings("unchecked")
     public List<CsvDataEntity> get(Context context) throws Exception {
-        List<CsvDataEntity> data = Objects.requireNonNull(decoder).decode(context.source);
+        List<CsvDataEntity> data = ((List<CSVRecord>) Objects.requireNonNull(decoder)
+                .decode(context.source)).stream()
+                .map(CsvDataEntity::fromCsvRecord)
+                .collect(Collectors.toList());
+        data = data.subList(1, data.size());
         if (context.query != null) {
             data = data.stream()
                     .filter(article -> article.title.contains(context.query) || article.body.contains(context.query))
@@ -51,6 +57,6 @@ public class CsvDataSource extends DataSource<CsvDataEntity> {
                     .filter(article -> article.date.before(context.toDate))
                     .collect(Collectors.toList());
         }
-        return data.subList(0, context.countArticles < data.size() ? context.countArticles : data.size());
+        return data.subList(0, Math.min(context.countArticles, data.size()));
     }
 }

@@ -9,8 +9,10 @@ import java.util.List;
 
 /**
  * DataSource is the abstract class for data sources.
+ *
+ * @param <E> the type of the data entity
  */
-public abstract class DataSource<T extends IDataEntity> {
+public abstract class DataSource<E extends IDataEntity> {
 
     /**
      * The ID of the data source.
@@ -82,7 +84,7 @@ public abstract class DataSource<T extends IDataEntity> {
      * @return the list of data entities
      * @throws UnsupportedOperationException if not implemented
      */
-    public List<T> get(Context context) throws Exception {
+    public List<E> get(Context context) throws Exception {
         throw new UnsupportedOperationException();
     }
 
@@ -93,7 +95,7 @@ public abstract class DataSource<T extends IDataEntity> {
      * @param data    the list of data entities
      * @throws UnsupportedOperationException if not implemented
      */
-    public void set(Context context, List<T> data) throws Exception {
+    public void set(Context context, List<E> data) throws Exception {
         throw new UnsupportedOperationException();
     }
 }

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 /**
  * A repository for articles from a JSON data source.
  */
-public class JsonRepository extends Repository<JsonDataSource, Article> {
+public class JsonRepository extends Repository<JsonDataSource, JsonDataEntity, Article> {
 
     /**
      * Creates a new Repository.
@@ -24,36 +24,38 @@ public class JsonRepository extends Repository<JsonDataSource, Article> {
     }
 
     /**
-     * Converts a JsonDataEntity to an Article.
+     * Adapts a data entity to a model.
      *
-     * @param result The JsonDataEntity to convert
-     * @return The Article
+     * @param dataEntity The data entity
+     * @return The model
      */
-    private Article resultToArticle(JsonDataEntity result) {
+    @Override
+    Article adapt(JsonDataEntity dataEntity) {
         return new Article(
-                result.id,
-                result.title,
-                result.body,
-                result.url,
-                result.date,
+                dataEntity.id,
+                dataEntity.title,
+                dataEntity.body,
+                dataEntity.url,
+                dataEntity.date,
                 dataSource.id
         );
     }
 
     /**
-     * Converts an Article to a JsonDataEntity.
+     * Adapts a model to a data entity.
      *
-     * @param article The article to convert
-     * @return The JsonDataEntity
+     * @param model The model
+     * @return The data entity
      */
-    private JsonDataEntity articleToResult(Article article) {
+    @Override
+    JsonDataEntity adapt(Article model) {
         return new JsonDataEntity(
-                article.id,
-                article.title,
-                article.body,
-                article.url,
-                article.date,
-                article.source
+                model.id,
+                model.title,
+                model.body,
+                model.url,
+                model.date,
+                model.source
         );
     }
 
@@ -68,7 +70,7 @@ public class JsonRepository extends Repository<JsonDataSource, Article> {
         try {
             return Either.success(dataSource.get(context)
                     .stream()
-                    .map(this::resultToArticle)
+                    .map(this::adapt)
                     .collect(Collectors.toList()));
         } catch (Exception e) {
             return Either.failure(new Failure(e, "Failed to get data from data source"));
@@ -86,7 +88,7 @@ public class JsonRepository extends Repository<JsonDataSource, Article> {
     public Either<Failure, Success> push(Context context, List<Article> articles) {
         try {
             dataSource.set(context, articles.stream()
-                    .map(this::articleToResult)
+                    .map(this::adapt)
                     .collect(Collectors.toList()));
             return Either.success(new Success());
         } catch (Exception e) {

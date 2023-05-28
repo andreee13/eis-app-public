@@ -14,30 +14,13 @@ import java.util.stream.Collectors;
 /**
  * A repository for models from a data source.
  */
-public class TheGuardianRepository extends Repository<TheGuardianDataSource, Article> {
+public class TheGuardianRepository extends Repository<TheGuardianDataSource, TheGuardianDataEntity, Article> {
 
     /**
      * Creates a new Repository.
      */
     TheGuardianRepository() {
         super(new TheGuardianDataSource());
-    }
-
-    /**
-     * Converts a data entity to an article.
-     *
-     * @param result The data entity to convert
-     * @return The article
-     */
-    private Article resultToArticle(TheGuardianDataEntity.Response.Result result) {
-        return new Article(
-                result.id,
-                result.webTitle,
-                result.fields.bodyText,
-                result.webUrl,
-                result.webPublicationDate,
-                dataSource.id
-        );
     }
 
     /**
@@ -56,7 +39,16 @@ public class TheGuardianRepository extends Repository<TheGuardianDataSource, Art
                                     ArrayList::new,
                                     (list, response) -> list.addAll(
                                             response.response.results.stream()
-                                                    .map(this::resultToArticle)
+                                                    .map(
+                                                            (result) -> new Article(
+                                                                    result.id,
+                                                                    result.webTitle,
+                                                                    result.fields.bodyText,
+                                                                    result.webUrl,
+                                                                    result.webPublicationDate,
+                                                                    dataSource.id
+                                                            )
+                                                    )
                                                     .collect(Collectors.toList())
                                     ),
                                     ArrayList::addAll

@@ -11,24 +11,25 @@ import it.unipd.dei.eis.presentation.Context;
 import java.util.List;
 
 /**
- * A repository for models from a data source.
+ * Repository is the abstract class for repositories.
  *
- * @param <T> The type of the data source
- * @param <M> The type of the model
+ * @param <S> The data source
+ * @param <E> The data entity
+ * @param <M> The model
  */
-public abstract class Repository<T extends DataSource<? extends IDataEntity>, M extends IModel> {
+public abstract class Repository<S extends DataSource<E>, E extends IDataEntity, M extends IModel> {
 
     /**
      * The data source.
      */
-    protected final T dataSource;
+    final S dataSource;
 
     /**
      * Creates a new Repository.
      *
      * @param dataSource The data source
      */
-    Repository(T dataSource) {
+    Repository(S dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -52,6 +53,28 @@ public abstract class Repository<T extends DataSource<? extends IDataEntity>, M 
      * @throws UnsupportedOperationException if not implemented
      */
     public Either<Failure, Success> push(Context context, List<M> models) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Adapts a data entity to a model.
+     *
+     * @param dataEntity The data entity
+     * @return The model
+     * @throws UnsupportedOperationException if not implemented
+     */
+    M adapt(E dataEntity) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Adapts a model to a data entity.
+     *
+     * @param model The model
+     * @return The data entity
+     * @throws UnsupportedOperationException if not implemented
+     */
+    E adapt(M model) {
         throw new UnsupportedOperationException();
     }
 }

@@ -41,7 +41,8 @@ public class JsonDataSource extends DataSource<JsonDataEntity> {
      */
     @Override
     public List<JsonDataEntity> get(Context context) throws Exception {
-        return Arrays.asList(Objects.requireNonNull(decoder).decode(new String(Files.readAllBytes(Paths.get(context.command.equals(UseCaseConstants.BOTH) ? DefaultSettings.JSON_FILE_NAME : context.source))), JsonDataEntity[].class));
+        return Arrays.asList(Objects.requireNonNull(decoder)
+                .decode(new String(Files.readAllBytes(Paths.get(context.command.equals(UseCaseConstants.BOTH) ? DefaultSettings.JSON_FILE_NAME : context.source))), JsonDataEntity[].class));
     }
 
     /**
@@ -54,7 +55,8 @@ public class JsonDataSource extends DataSource<JsonDataEntity> {
     @Override
     public void set(Context context, List<JsonDataEntity> data) throws Exception {
         try (FileWriter fileWriter = new FileWriter(context.output != null ? context.output : DefaultSettings.JSON_FILE_NAME)) {
-            fileWriter.write(Objects.requireNonNull(encoder).encode(data));
+            fileWriter.write(Objects.requireNonNull(encoder)
+                    .encode(data));
         }
     }
 }

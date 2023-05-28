@@ -31,10 +31,9 @@ public class DownloadController extends Controller {
      * @return the result of the operation
      */
     @Override
-    @SuppressWarnings("unchecked, rawtypes")
     public Either<Failure, Success> execute(Context context) {
         System.out.println("Retrieving data from " + context.source + "...");
-        Either<Failure, ? extends List<? extends IModel>> result1 = RepositoryFactory.create(context.source)
+        Either<Failure, List<IModel>> result1 = RepositoryFactory.create(context.source)
                 .pull(context);
         if (result1.isFailure()) {
             return Either.failure(result1.failure);
@@ -42,7 +41,7 @@ public class DownloadController extends Controller {
         System.out.println("Retrieved " + (result1.success != null ? result1.success.size() : 0) + " items");
         System.out.println("Writing data to " + (context.output != null ? context.output : DefaultSettings.JSON_FILE_NAME) + "...");
         Either<Failure, Success> result2 = RepositoryFactory.create(context.output != null ? context.output : DefaultSettings.JSON_FILE_NAME)
-                .push(context, (List) result1.success);
+                .push(context, result1.success);
         if (result2.isFailure()) {
             return Either.failure(result2.failure);
         }

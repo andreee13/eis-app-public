@@ -124,17 +124,21 @@ public class TheGuardianDataSource extends DataSource<TheGuardianDataEntity> {
                     if (response.body() == null) {
                         throw new IOException("Response body is empty");
                     }
-                    return Objects.requireNonNull(decoder).decode(response.body().string(), TheGuardianDataEntity.class);
+                    return Objects.requireNonNull(decoder)
+                            .decode(response.body()
+                                    .string(), TheGuardianDataEntity.class);
                 }
             }));
         }
         executorService.shutdown();
-        return futures.stream().map(future -> {
-            try {
-                return future.get();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }).collect(Collectors.toList());
+        return futures.stream()
+                .map(future -> {
+                    try {
+                        return future.get();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .collect(Collectors.toList());
     }
 }

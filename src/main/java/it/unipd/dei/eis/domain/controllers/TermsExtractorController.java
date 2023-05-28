@@ -1,7 +1,7 @@
 package it.unipd.dei.eis.domain.controllers;
 
-import it.unipd.dei.eis.core.constants.UseCaseConstants;
 import it.unipd.dei.eis.core.constants.DefaultSettings;
+import it.unipd.dei.eis.core.constants.UseCaseConstants;
 import it.unipd.dei.eis.core.utils.Either;
 import it.unipd.dei.eis.core.utils.Failure;
 import it.unipd.dei.eis.core.utils.Success;
@@ -31,19 +31,18 @@ public class TermsExtractorController extends Controller {
      * @return the result of the use case
      */
     @Override
-    @SuppressWarnings("unchecked, rawtypes")
     public Either<Failure, Success> execute(Context context) {
         String source = context.command.equals(UseCaseConstants.BOTH) ? DefaultSettings.JSON_FILE_NAME : context.source;
         System.out.println("Reading data from " + source + "...");
-        Either<Failure, ? extends List<? extends IModel>> result1 = RepositoryFactory.create(source)
+        Either<Failure, List<IModel>> result1 = RepositoryFactory.create(source)
                 .pull(context);
         if (result1.isFailure()) {
             return Either.failure(result1.failure);
         }
         System.out.println("Read " + (result1.success != null ? result1.success.size() : 0) + " items");
-        System.out.println("Extracting terms...");
+        System.out.println("Extracting " + context.countTerms + " terms...");
         RepositoryFactory.create(UseCaseConstants.EXTRACT)
-                .push(context, (List) result1.success);
+                .push(context, result1.success);
         System.out.println("Terms extracted and written to " + (context.output != null ? context.output : DefaultSettings.TXT_FILE_NAME));
         return Either.success(new Success());
     }

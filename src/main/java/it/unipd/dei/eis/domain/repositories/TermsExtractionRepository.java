@@ -3,7 +3,7 @@ package it.unipd.dei.eis.domain.repositories;
 import it.unipd.dei.eis.core.utils.Either;
 import it.unipd.dei.eis.core.utils.Failure;
 import it.unipd.dei.eis.core.utils.Success;
-import it.unipd.dei.eis.data.entities.ArticleTermsDataEntity;
+import it.unipd.dei.eis.data.entities.TermsDataEntity;
 import it.unipd.dei.eis.data.sources.TermsDataSource;
 import it.unipd.dei.eis.domain.models.Article;
 import it.unipd.dei.eis.presentation.Context;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 /**
  * A repository for models from a data source.
  */
-public class TermsExtractionRepository extends Repository<TermsDataSource, Article> {
+public class TermsExtractionRepository extends Repository<TermsDataSource, TermsDataEntity, Article> {
 
     /**
      * Creates a new Repository.
@@ -24,15 +24,16 @@ public class TermsExtractionRepository extends Repository<TermsDataSource, Artic
     }
 
     /**
-     * Converts an Article to an ArticleTermsDataEntity.
+     * Adapts a model to a data entity.
      *
-     * @param article The Article to convert
-     * @return The ArticleTermsDataEntity
+     * @param model The model
+     * @return The data entity
      */
-    private ArticleTermsDataEntity articleToResult(Article article) {
-        return new ArticleTermsDataEntity(
-                article.title,
-                article.body
+    @Override
+    TermsDataEntity adapt(Article model) {
+        return new TermsDataEntity(
+                model.title,
+                model.body
         );
     }
 
@@ -47,7 +48,7 @@ public class TermsExtractionRepository extends Repository<TermsDataSource, Artic
     public Either<Failure, Success> push(Context context, List<Article> models) {
         try {
             dataSource.set(context, models.stream()
-                    .map(this::articleToResult)
+                    .map(this::adapt)
                     .collect(Collectors.toList()));
             return Either.success(new Success());
         } catch (Exception e) {

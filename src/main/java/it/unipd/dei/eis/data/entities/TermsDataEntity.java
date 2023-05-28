@@ -1,9 +1,9 @@
 package it.unipd.dei.eis.data.entities;
 
 /**
- * ArticleTermsDataEntity.
+ * TermsDataEntity.
  */
-public class ArticleTermsDataEntity implements IDataEntity {
+public class TermsDataEntity implements IDataEntity {
 
     /**
      * The title of the article.
@@ -16,12 +16,12 @@ public class ArticleTermsDataEntity implements IDataEntity {
     final public String body;
 
     /**
-     * Constructs an ArticleTermsDataEntity object.
+     * Constructs an TermsDataEntity object.
      *
      * @param title the title of the article
      * @param body  the body of the article
      */
-    public ArticleTermsDataEntity(String title, String body) {
+    public TermsDataEntity(String title, String body) {
         this.title = title;
         this.body = body;
     }

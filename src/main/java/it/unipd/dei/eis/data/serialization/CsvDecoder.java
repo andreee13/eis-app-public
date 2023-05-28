@@ -1,12 +1,10 @@
 package it.unipd.dei.eis.data.serialization;
 
-import it.unipd.dei.eis.data.entities.CsvDataEntity;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,17 +24,13 @@ public class CsvDecoder implements IDecoder {
      *
      * @param data the CSV file
      * @param args the arguments
-     * @return the list of CsvDataEntity
+     * @return the list of CSVRecord
      * @throws IOException if an I/O error occurs
      */
     @Override
     @SuppressWarnings("unchecked")
-    public List<CsvDataEntity> decode(String data, Object... args) throws IOException {
-        Iterable<CSVRecord> records = CSV_FORMAT.parse(new FileReader(data));
-        List<CsvDataEntity> entities = new ArrayList<>();
-        for (CSVRecord record : records) {
-            entities.add(CsvDataEntity.fromCsvRecord(record));
-        }
-        return entities.subList(1, entities.size());
+    public List<CSVRecord> decode(String data, Object... args) throws IOException {
+        return CSV_FORMAT.parse(new FileReader(data))
+                .getRecords();
     }
 }

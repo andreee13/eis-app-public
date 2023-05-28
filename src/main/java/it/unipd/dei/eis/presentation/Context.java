@@ -35,12 +35,12 @@ public class Context {
     /**
      * The countArticles field contains the number of articles to be retrieved.
      */
-    public final Integer countArticles;
+    public final int countArticles;
 
     /**
      * The countTerms field contains the number of terms to be extracted.
      */
-    public final Integer countTerms;
+    public final int countTerms;
 
     /**
      * The fromDate field contains the date from which the articles are retrieved.

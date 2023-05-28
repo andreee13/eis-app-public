@@ -2,6 +2,8 @@ package it.unipd.dei.eis.data.serialization;
 
 import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
+
 /**
  * JsonDecoder is the decoder for JSON data.
  */
@@ -20,8 +22,7 @@ public class JsonDecoder implements IDecoder {
      * @return the data entity
      */
     @Override
-    @SuppressWarnings("unchecked")
     public <T> T decode(String data, Object... args) {
-        return GSON.fromJson(data, (Class<T>) args[0]);
+        return GSON.fromJson(data, (Type) args[0]);
     }
 }

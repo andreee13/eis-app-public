@@ -6,7 +6,7 @@ import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.logging.RedwoodConfiguration;
 import it.unipd.dei.eis.core.utils.SynchronizedStringFrequencyCounter;
-import it.unipd.dei.eis.data.entities.ArticleTermsDataEntity;
+import it.unipd.dei.eis.data.entities.TermsDataEntity;
 import it.unipd.dei.eis.presentation.Context;
 
 import java.io.FileWriter;
@@ -25,7 +25,7 @@ import static it.unipd.dei.eis.core.constants.DefaultSettings.TXT_FILE_NAME;
  * TermsDataSource is the data source for the terms.
  * It contains the data structure of the terms.
  */
-public class TermsDataSource extends DataSource<ArticleTermsDataEntity> {
+public class TermsDataSource extends DataSource<TermsDataEntity> {
 
     /**
      * The ID of the data source.
@@ -87,11 +87,11 @@ public class TermsDataSource extends DataSource<ArticleTermsDataEntity> {
      * @throws Exception if an error occurs
      */
     @Override
-    public void set(Context context, List<ArticleTermsDataEntity> entities) throws Exception {
+    public void set(Context context, List<TermsDataEntity> entities) throws Exception {
         List<Future<Annotation>> futures = new ArrayList<>(entities.size());
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime()
                 .availableProcessors());
-        for (ArticleTermsDataEntity s : entities) {
+        for (TermsDataEntity s : entities) {
             futures.add(executorService.submit(() -> pipeline.process(s.toString()
                     .toLowerCase())));
         }

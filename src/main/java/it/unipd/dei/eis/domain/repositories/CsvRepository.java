@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 /**
  * A repository for articles from a CSV data source.
  */
-public class CsvRepository extends Repository<CsvDataSource, Article> {
+public class CsvRepository extends Repository<CsvDataSource, CsvDataEntity, Article> {
 
     /**
      * Creates a new CsvRepository.
@@ -23,18 +23,19 @@ public class CsvRepository extends Repository<CsvDataSource, Article> {
     }
 
     /**
-     * Converts a CsvDataEntity to an Article.
+     * Adapts a data entity to a model.
      *
-     * @param result The CsvDataEntity to convert
-     * @return The Article
+     * @param dataEntity The data entity
+     * @return The model
      */
-    private Article resultToArticle(CsvDataEntity result) {
+    @Override
+    Article adapt(CsvDataEntity dataEntity) {
         return new Article(
-                result.identifier,
-                result.title,
-                result.body,
-                result.url,
-                result.date,
+                dataEntity.identifier,
+                dataEntity.title,
+                dataEntity.body,
+                dataEntity.url,
+                dataEntity.date,
                 dataSource.id
         );
     }
@@ -50,7 +51,7 @@ public class CsvRepository extends Repository<CsvDataSource, Article> {
         try {
             return Either.success(dataSource.get(context)
                     .stream()
-                    .map(this::resultToArticle)
+                    .map(this::adapt)
                     .collect(Collectors.toList()));
         } catch (Exception e) {
             return Either.failure(new Failure(e, "Failed to get data from data source"));
