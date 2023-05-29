@@ -84,10 +84,9 @@ public class TheGuardianDataSource extends DataSource<TheGuardianDataEntity> {
      *
      * @param context the context of the request
      * @return the list of TheGuardianDataEntity objects
-     * @throws Exception if the request fails
      */
     @Override
-    public List<TheGuardianDataEntity> get(Context context) throws Exception {
+    public List<TheGuardianDataEntity> get(Context context) {
         String apiKey = context.apiKey != null ? context.apiKey : ENV_API_KEY;
         if (apiKey == null) {
             throw new IllegalArgumentException("TheGuardian API key is missing");

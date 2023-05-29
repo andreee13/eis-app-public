@@ -22,7 +22,7 @@ public class ControllerExecutor {
     /**
      * The ANIMATION_INTERVAL field is the interval between two frames of the animation.
      */
-    private static final int ANIMATION_INTERVAL = 150;
+    private static final int ANIMATION_INTERVAL = 100;
 
     /**
      * The instance field is the instance of the ControllerExecutor class.
@@ -99,7 +99,8 @@ public class ControllerExecutor {
     public void execute(Controller controller, Context context) {
         System.out.printf("%s:\n", controller.name.toUpperCase());
         CompletableFuture<Either<Failure, Success>> completableFuture = CompletableFuture.supplyAsync(() -> controller.execute(context));
-        Thread loadingThread = getLoadingThread();
+        long start = System.currentTimeMillis();
+        Thread loadingThread = getLoadingThread(start);
         loadingThread.start();
         try {
             Either<Failure, Success> result = completableFuture.get();
@@ -107,7 +108,7 @@ public class ControllerExecutor {
                 abort(loadingThread, result);
             }
             loadingThread.interrupt();
-            System.out.println("\r[✓] Success\n");
+            System.out.printf("\r[✓] Success • %s\n\n", getLoadingTime(start));
         } catch (Exception e) {
             abort(loadingThread, e);
         }
@@ -119,12 +120,12 @@ public class ControllerExecutor {
      * @return the loading thread
      */
     @SuppressWarnings("BusyWait")
-    private Thread getLoadingThread() {
+    private Thread getLoadingThread(long start) {
         return new Thread(() -> {
             int animIndex = 0;
             while (!Thread.currentThread()
                     .isInterrupted()) {
-                System.out.printf("\r[%s] Loading", ANIMATION[animIndex]);
+                System.out.printf("\r[%s] Loading • %s", ANIMATION[animIndex], getLoadingTime(start));
                 animIndex = (animIndex + 1) % ANIMATION.length;
                 try {
                     Thread.sleep(ANIMATION_INTERVAL);
@@ -136,4 +137,14 @@ public class ControllerExecutor {
         });
     }
 
+    /**
+     * The getLoadingTime method returns the loading time as string.
+     *
+     * @param time the time
+     * @return the loading time
+     */
+    private String getLoadingTime(long time) {
+        long milliseconds = System.currentTimeMillis() - time;
+        return String.format("%d.%01ds", milliseconds / 1000, (milliseconds % 1000) / 100);
+    }
 }
