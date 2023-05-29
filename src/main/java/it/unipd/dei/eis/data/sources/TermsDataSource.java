@@ -2,7 +2,6 @@ package it.unipd.dei.eis.data.sources;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
-import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.logging.RedwoodConfiguration;
 import it.unipd.dei.eis.core.utils.SynchronizedStringFrequencyCounter;
@@ -88,23 +87,25 @@ public class TermsDataSource extends DataSource<TermsDataEntity> {
      */
     @Override
     public void set(Context context, List<TermsDataEntity> entities) throws Exception {
-        List<Future<Annotation>> futures = new ArrayList<>(entities.size());
+        List<Future<?>> futures = new ArrayList<>(entities.size());
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime()
                 .availableProcessors());
         for (TermsDataEntity s : entities) {
             futures.add(executorService.submit(() -> pipeline.process(s.toString()
-                    .toLowerCase())));
-        }
-        for (Future<Annotation> future : futures) {
-            future.get()
+                            .toLowerCase())
                     .get(CoreAnnotations.TokensAnnotation.class)
                     .stream()
                     .map(CoreLabel::word)
+                    .collect(Collectors.toSet())
+                    .stream()
                     .filter(word -> !PATTERN.matcher(word)
                             .find() && !stoplist.contains(word))
-                    .forEach(frequencyCounter::add);
+                    .forEach(frequencyCounter::add)));
         }
         executorService.shutdown();
+        for (Future<?> future : futures) {
+            future.get();
+        }
         Map<String, Integer> map = frequencyCounter.getMapSortedByValueAndKey();
         List<String> keys = frequencyCounter.getMapSortedByValueAndKey()
                 .keySet()
