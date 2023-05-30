@@ -9,7 +9,7 @@ services:
     volumes:
       - ./output:/app/output
     command: [
-      "download",
+      "both",
       "-s", "theguardian",
       "-q", "nuclear power",
       "-f", "2022-01-01",
