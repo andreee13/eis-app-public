@@ -1,9 +1,21 @@
 version: '3'
 services:
-  app:
+  both:
     build:
       context: .
       dockerfile: Dockerfile
+    image: eis-app
+    container_name: eis-app-both
     volumes:
-      - ./:/app/output
-    command: [ "download", "-s", "theguardian", "-k", "API-KEY" ]
+      - ./output:/app/output
+    command: [
+      "download",
+      "-s", "theguardian",
+      "-q", "nuclear power",
+      "-f", "2022-01-01",
+      "-t", "2023-01-01",
+      "-o", "output/data",
+      "-ca", "1000",
+      "-ct", "1000",
+      "-k", "***REMOVED***"
+    ]

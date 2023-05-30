@@ -46,7 +46,7 @@ public class DownloadController extends Controller {
         if (result2.isFailure()) {
             return Either.failure(result2.failure);
         }
-        System.out.println("File written");
+        System.out.println("File written successfully");
         return Either.success(new Success());
     }
 }
