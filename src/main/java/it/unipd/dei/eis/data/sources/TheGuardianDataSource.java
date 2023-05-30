@@ -118,7 +118,7 @@ public class TheGuardianDataSource extends DataSource<TheGuardianDataEntity> {
                                 .build())
                         .execute()) {
                     if (!response.isSuccessful()) {
-                        throw new IOException(String.format("Unexpected response code %s", response));
+                        throw new IOException(String.format("Unexpected response code %s", response.code()));
                     }
                     if (response.body() == null) {
                         throw new IOException("Response body is empty");

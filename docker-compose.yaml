@@ -5,5 +5,5 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./output:/app/output
+      - ./:/app/output
     command: [ "download", "-s", "theguardian", "-k", "API-KEY" ]
