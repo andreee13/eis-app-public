@@ -20,6 +20,8 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build with Maven
+        env:
+          THE_GUARDIAN_API_KEY: ${{ secrets.THE_GUARDIAN_API_KEY }}
         run: mvn -B package
       - name: Archive artifacts
         uses: actions/upload-artifact@v3
