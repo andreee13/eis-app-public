@@ -58,15 +58,17 @@ public class Article implements IModel {
         this.source = source;
     }
 
+    /**
+     * Equals method for the Article class.
+     *
+     * @param object the object to compare
+     * @return true if the objects are equal, false otherwise
+     */
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        Article other = (Article) obj;
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Article other = (Article) object;
         return Objects.equals(id, other.id)
                 && Objects.equals(title, other.title)
                 && Objects.equals(body, other.body)
