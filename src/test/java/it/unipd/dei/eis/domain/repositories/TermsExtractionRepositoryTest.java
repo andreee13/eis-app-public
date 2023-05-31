@@ -14,16 +14,29 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Test the terms extraction repository.
+ */
 @Tag("TermsExtraction-repository")
 public class TermsExtractionRepositoryTest {
+
+    /**
+     * The repository to test.
+     */
     private final TermsExtractionRepository repository = new TermsExtractionRepository();
+
+    /**
+     * The context to use.
+     */
     private final Context context = new ContextBuilder()
             .setSource("articles.json")
-            .setCountArticles(10)
+            .setCountArticles(1)
             .setCommand("extract")
             .build();
 
-
+    /**
+     * Test the push method.
+     */
     @Test
     void testPush() {
         Either<Failure, Success> result = repository.push(context, Collections.singletonList(new Article("id",
@@ -32,7 +45,7 @@ public class TermsExtractionRepositoryTest {
                 "url",
                 DateParser.tryParse("2023-01-01"),
                 "source")));
-        assertTrue(result.isSuccess());
+        assertTrue(result.isSuccess(), result.failure.message);
     }
 }
 
