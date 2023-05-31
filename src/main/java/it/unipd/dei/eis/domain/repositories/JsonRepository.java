@@ -37,7 +37,7 @@ public class JsonRepository extends Repository<JsonDataSource, JsonDataEntity, A
                 dataEntity.body,
                 dataEntity.url,
                 dataEntity.date,
-                dataSource.id
+                dataEntity.source
         );
     }
 
