@@ -45,7 +45,7 @@ public class TermsExtractionRepositoryTest {
                 "url",
                 DateParser.tryParse("2023-01-01"),
                 "source")));
-        assertTrue(result.isSuccess(), result.failure.message);
+        assertTrue(result.isSuccess());
     }
 }
 

@@ -43,7 +43,7 @@ public class TheGuardianRepositoryTest {
     @Test
     void testPull() {
         Either<Failure, List<Article>> result = repository.pull(context);
-        assertTrue(result.isSuccess(), result.failure.message);
+        assertTrue(result.isSuccess());
         assertEquals(result.success.size(), context.countArticles);
         String articleId = "world/2023/jan/01/kim-jong-un-north-korea-exponentially-increase-nuclear-warhead-production";
         assertEquals(articleId, result.success.get(0).id);
