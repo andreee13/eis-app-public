@@ -1,7 +1,6 @@
 package it.unipd.dei.eis.data.entities;
 
 import java.util.Date;
-import java.util.Objects;
 
 /**
  * A data entity that represents a JSON record.
@@ -55,25 +54,6 @@ public class JsonDataEntity implements IDataEntity {
         this.url = url;
         this.date = date;
         this.source = source;
-    }
-
-    /**
-     * Equals method for JsonDataEntity
-     *
-     * @param object Object to compare
-     * @return true if the two objects are equal, false otherwise
-     */
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        JsonDataEntity that = (JsonDataEntity) object;
-        return Objects.equals(id, that.id)
-                && Objects.equals(title, that.title)
-                && Objects.equals(body, that.body)
-                && Objects.equals(url, that.url)
-                && Objects.equals(date, that.date)
-                && Objects.equals(source, that.source);
     }
 }
 
