@@ -33,7 +33,6 @@ public class TheGuardianDataSource extends DataSource<TheGuardianDataEntity> {
      * The ENV_API_KEY field is used to get the API key from the environment variables.
      */
     private static final String ENV_API_KEY = System.getenv("THE_GUARDIAN_API_KEY");
-    // private static final String API_KEY = "***REMOVED***";
 
     /**
      * The BASE_URL field is used to build the URL of the request.
@@ -94,6 +93,8 @@ public class TheGuardianDataSource extends DataSource<TheGuardianDataEntity> {
         ArrayList<Future<TheGuardianDataEntity>> futures = new ArrayList<>();
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime()
                 .availableProcessors());
+        String fromDate = context.fromDate != null ? DATE_FORMAT.format(context.fromDate) : null;
+        String toDate = context.toDate != null ? DATE_FORMAT.format(context.toDate) : null;
         for (int i = 0; i <= context.countArticles / MAX_PAGE_SIZE; i++) {
             int tempIndex = i;
             futures.add(executorService.submit(() -> {
@@ -108,11 +109,11 @@ public class TheGuardianDataSource extends DataSource<TheGuardianDataEntity> {
                 if (context.query != null) {
                     urlBuilder.addQueryParameter("q", context.query);
                 }
-                if (context.fromDate != null) {
-                    urlBuilder.addQueryParameter("from-date", DATE_FORMAT.format(context.fromDate));
+                if (fromDate != null) {
+                    urlBuilder.addQueryParameter("from-date", fromDate);
                 }
-                if (context.toDate != null) {
-                    urlBuilder.addQueryParameter("to-date", DATE_FORMAT.format(context.toDate));
+                if (toDate != null) {
+                    urlBuilder.addQueryParameter("to-date", toDate);
                 }
                 try (Response response = httpClient.newCall(new Request.Builder().url(urlBuilder.build())
                                 .build())

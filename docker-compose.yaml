@@ -5,17 +5,16 @@ services:
       context: .
       dockerfile: Dockerfile
     image: eis-app
-    container_name: eis-app-both
+    container_name: eis-app-container
     volumes:
       - ./output:/app/output
-    command: [
-      "both",
-      "-s", "theguardian",
-      "-q", "nuclear power",
-      "-f", "2022-01-01",
-      "-t", "2023-01-01",
-      "-o", "output/data",
-      "-ca", "1000",
-      "-ct", "1000",
-      "-k", "***REMOVED***"
-    ]
+    command: >
+      both
+      --source theguardian
+      --query nuclear power
+      --from 2022-01-01
+      --to 2023-01-01
+      --output output/data
+      --count-articles 100
+      --count-terms 100
+      --api-key ***REMOVED***
