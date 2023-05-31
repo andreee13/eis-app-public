@@ -51,11 +51,35 @@ public class Context {
      * The toDate field contains the limit date to which the articles are retrieved.
      */
     public final Date toDate;
-
     /**
      * The apiKey field contains the API key.
      */
     public final String apiKey;
+
+    /**
+     * The Context constructor.
+     *
+     * @param command       the command
+     * @param source        the source
+     * @param output        the output file
+     * @param query         the query
+     * @param countArticles the number of articles to be retrieved
+     * @param countTerms    the number of terms to be extracted
+     * @param fromDate      the date from which the articles are retrieved
+     * @param toDate        the limit date to which the articles are retrieved
+     * @param apiKey        the API key
+     */
+    public Context(String command, String source, String output, String query, int countArticles, int countTerms, Date fromDate, Date toDate, String apiKey) {
+        this.command = command;
+        this.source = source;
+        this.output = output;
+        this.query = query;
+        this.countArticles = countArticles;
+        this.countTerms = countTerms;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        this.apiKey = apiKey;
+    }
 
     /**
      * The Context constructor.

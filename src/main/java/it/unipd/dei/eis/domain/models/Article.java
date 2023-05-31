@@ -1,6 +1,7 @@
 package it.unipd.dei.eis.domain.models;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Article is the model for the articles.
@@ -55,5 +56,22 @@ public class Article implements IModel {
         this.url = url;
         this.date = date;
         this.source = source;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Article other = (Article) obj;
+        return Objects.equals(id, other.id)
+                && Objects.equals(title, other.title)
+                && Objects.equals(body, other.body)
+                && Objects.equals(url, other.url)
+                && Objects.equals(date, other.date)
+                && Objects.equals(source, other.source);
     }
 }
