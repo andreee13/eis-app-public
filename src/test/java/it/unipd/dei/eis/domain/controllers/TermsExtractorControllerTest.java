@@ -14,8 +14,10 @@ public class TermsExtractorControllerTest {
     public void execute() {
         Context context = new ContextBuilder()
                 .setCommand(UseCaseConstants.EXTRACT)
-                .setSource("articles.json")
+                .setSource("src/test/resources/articles.json")
+                .setOutput("src/test/resources/articles")
                 .setCountTerms(10)
+                .setCountArticles(10)
                 .build();
         new TermsExtractorController().execute(context);
     }
