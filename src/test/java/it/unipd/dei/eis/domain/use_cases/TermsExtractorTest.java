@@ -5,6 +5,9 @@ import it.unipd.dei.eis.presentation.Context;
 import it.unipd.dei.eis.presentation.ContextBuilder;
 import org.junit.Test;
 
+/**
+ * Test the terms extractor use case.
+ */
 public class TermsExtractorTest {
 
     /**
@@ -16,6 +19,7 @@ public class TermsExtractorTest {
                 .setCommand(UseCaseConstants.EXTRACT)
                 .setSource("articles.json")
                 .setCountTerms(10)
+                .setCountArticles(10)
                 .build();
         UseCaseFactory.create(context.command)
                 .run(context);

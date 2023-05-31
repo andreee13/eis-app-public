@@ -5,6 +5,9 @@ import it.unipd.dei.eis.presentation.Context;
 import it.unipd.dei.eis.presentation.ContextBuilder;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test the article downloader use case.
+ */
 public class DownloadAndExtractTest {
 
     /**
