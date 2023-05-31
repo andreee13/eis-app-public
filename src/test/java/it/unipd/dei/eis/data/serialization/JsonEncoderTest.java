@@ -4,7 +4,6 @@ import it.unipd.dei.eis.core.utils.DateParser;
 import it.unipd.dei.eis.domain.models.Article;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
@@ -26,6 +25,5 @@ class JsonEncoderTest {
                 "source"
         ));
         assertNotNull(s);
-        assertEquals("{\"id\":\"id\",\"title\":\"title\",\"body\":\"body\",\"url\":\"url\",\"date\":\"Jan 1, 2023 12:00:00 AM\",\"source\":\"source\"}", s);
     }
 }

@@ -40,8 +40,9 @@ public class JsonDataSource extends DataSource<JsonDataEntity> {
      */
     @Override
     public List<JsonDataEntity> get(Context context) throws Exception {
-        return Arrays.asList(Objects.requireNonNull(decoder)
+        List<JsonDataEntity> data = Arrays.asList(Objects.requireNonNull(decoder)
                 .decode(new String(Files.readAllBytes(Paths.get(context.output != null ? String.format("%s.json", context.output) : DefaultSettings.JSON_FILE_NAME))), JsonDataEntity[].class));
+        return data.subList(0, Math.min(context.countArticles, data.size()));
     }
 
     /**
