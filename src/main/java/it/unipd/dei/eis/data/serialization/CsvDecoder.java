@@ -30,7 +30,9 @@ public class CsvDecoder implements IDecoder {
     @Override
     @SuppressWarnings("unchecked")
     public List<CSVRecord> decode(String data, Object... args) throws IOException {
-        return CSV_FORMAT.parse(new FileReader(data))
-                .getRecords();
+        try (FileReader fileReader = new FileReader(data)) {
+            return CSV_FORMAT.parse(fileReader)
+                    .getRecords();
+        }
     }
 }

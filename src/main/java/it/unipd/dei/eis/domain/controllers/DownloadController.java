@@ -39,13 +39,14 @@ public class DownloadController extends Controller {
             return Either.failure(result1.failure);
         }
         System.out.println("Retrieved " + (result1.success != null ? result1.success.size() : 0) + " items");
-        System.out.println("Writing data to " + (context.output != null ? context.output : DefaultSettings.JSON_FILE_NAME) + "...");
-        Either<Failure, Success> result2 = RepositoryFactory.create(context.output != null ? context.output : DefaultSettings.JSON_FILE_NAME)
+        String source = context.output != null ? String.format("%s.json", context.output) : DefaultSettings.JSON_FILE_NAME;
+        System.out.println("Writing data to " + source + "...");
+        Either<Failure, Success> result2 = RepositoryFactory.create(source)
                 .push(context, result1.success);
         if (result2.isFailure()) {
             return Either.failure(result2.failure);
         }
-        System.out.println("File written");
+        System.out.println("File written successfully");
         return Either.success(new Success());
     }
 }

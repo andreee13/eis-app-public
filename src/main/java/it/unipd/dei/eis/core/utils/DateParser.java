@@ -38,4 +38,17 @@ public class DateParser {
         }
     }
 
+    /**
+     * Formats a date.
+     *
+     * @param date The date to format
+     * @return The formatted date or null if the date is not valid
+     */
+    public static String tryFormat(Date date) {
+        try {
+            return DATE_FORMAT.format(date);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

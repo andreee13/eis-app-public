@@ -32,7 +32,7 @@ public class TermsExtractorController extends Controller {
      */
     @Override
     public Either<Failure, Success> execute(Context context) {
-        String source = context.command.equals(UseCaseConstants.BOTH) ? DefaultSettings.JSON_FILE_NAME : context.source;
+        String source = context.output != null ? String.format("%s.json", context.output) : DefaultSettings.JSON_FILE_NAME;
         System.out.println("Reading data from " + source + "...");
         Either<Failure, List<IModel>> result1 = RepositoryFactory.create(source)
                 .pull(context);
@@ -41,8 +41,11 @@ public class TermsExtractorController extends Controller {
         }
         System.out.println("Read " + (result1.success != null ? result1.success.size() : 0) + " items");
         System.out.println("Extracting " + context.countTerms + " terms...");
-        RepositoryFactory.create(UseCaseConstants.EXTRACT)
+        Either<Failure, Success> result2 = RepositoryFactory.create(UseCaseConstants.EXTRACT)
                 .push(context, result1.success);
+        if (result2.isFailure()) {
+            return Either.failure(result2.failure);
+        }
         System.out.println("Terms extracted and written to " + (context.output != null ? context.output : DefaultSettings.TXT_FILE_NAME));
         return Either.success(new Success());
     }
