@@ -1,5 +1,6 @@
 package it.unipd.dei.eis.core.utils;
 
+import org.joda.time.DateTime;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
@@ -19,7 +20,7 @@ class DateParserTest {
     void tryParse() {
         Date date = DateParser.tryParse("2023-01-01");
         assertNotNull(date);
-        assertEquals(1672527600000L, date.getTime());
+        assertEquals(new DateTime(2023, 1, 1, 0, 0).getMillis(), date.getTime());
     }
 
     /**
