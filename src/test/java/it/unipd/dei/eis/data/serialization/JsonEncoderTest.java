@@ -1,7 +1,7 @@
 package it.unipd.dei.eis.data.serialization;
 
 import it.unipd.dei.eis.core.utils.DateParser;
-import it.unipd.dei.eis.domain.models.Article;
+import it.unipd.dei.eis.domain.models.ArticleModel;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -16,8 +16,7 @@ class JsonEncoderTest {
      */
     @Test
     void encode() {
-        String s = new JsonEncoder().encode(new Article(
-                "id",
+        String s = new JsonEncoder().encode(new ArticleModel(
                 "title",
                 "body",
                 "url",

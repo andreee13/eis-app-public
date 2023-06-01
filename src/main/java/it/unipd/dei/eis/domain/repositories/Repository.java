@@ -1,12 +1,9 @@
 package it.unipd.dei.eis.domain.repositories;
 
-import it.unipd.dei.eis.core.utils.Either;
-import it.unipd.dei.eis.core.utils.Failure;
-import it.unipd.dei.eis.core.utils.Success;
-import it.unipd.dei.eis.data.entities.IDataEntity;
+import it.unipd.dei.eis.core.common.Context;
+import it.unipd.dei.eis.data.entities.DataEntity;
 import it.unipd.dei.eis.data.sources.DataSource;
 import it.unipd.dei.eis.domain.models.IModel;
-import it.unipd.dei.eis.presentation.Context;
 
 import java.util.List;
 
@@ -17,7 +14,7 @@ import java.util.List;
  * @param <E> The data entity
  * @param <M> The model
  */
-public abstract class Repository<S extends DataSource<E>, E extends IDataEntity, M extends IModel> {
+public abstract class Repository<S extends DataSource<E>, E extends DataEntity, M extends IModel> {
 
     /**
      * The data source.
@@ -37,10 +34,11 @@ public abstract class Repository<S extends DataSource<E>, E extends IDataEntity,
      * Pulls the articles from the data source.
      *
      * @param context The context to use
-     * @return Either a Failure or a List of Articles
+     * @return List of models
      * @throws UnsupportedOperationException if not implemented
+     * @throws Exception                     if an error occurs
      */
-    public Either<Failure, List<M>> pull(Context context) {
+    public List<M> pull(Context context) throws Exception {
         throw new UnsupportedOperationException();
     }
 
@@ -49,15 +47,16 @@ public abstract class Repository<S extends DataSource<E>, E extends IDataEntity,
      *
      * @param context The context to use
      * @param models  The articles to push
-     * @return Either a Failure or a Success
      * @throws UnsupportedOperationException if not implemented
+     * @throws Exception                     if an error occurs
      */
-    public Either<Failure, Success> push(Context context, List<M> models) {
+    public void push(Context context, List<M> models) throws Exception {
         throw new UnsupportedOperationException();
     }
 
     /**
      * Adapts a data entity to a model.
+     * Internally used by {@link #pull(Context)}.
      *
      * @param dataEntity The data entity
      * @return The model
@@ -69,6 +68,7 @@ public abstract class Repository<S extends DataSource<E>, E extends IDataEntity,
 
     /**
      * Adapts a model to a data entity.
+     * Internally used by {@link #push(Context, List)}.
      *
      * @param model The model
      * @return The data entity

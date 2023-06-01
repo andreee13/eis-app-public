@@ -1,8 +1,8 @@
 package it.unipd.dei.eis.domain.controllers;
 
-import it.unipd.dei.eis.core.constants.UseCaseConstants;
-import it.unipd.dei.eis.presentation.Context;
-import it.unipd.dei.eis.presentation.ContextBuilder;
+import it.unipd.dei.eis.core.constants.UseCases;
+import it.unipd.dei.eis.core.common.Context;
+import it.unipd.dei.eis.core.utils.ContextBuilder;
 import org.junit.jupiter.api.Test;
 
 public class TermsExtractorControllerTest {
@@ -13,9 +13,9 @@ public class TermsExtractorControllerTest {
     @Test
     public void execute() {
         Context context = new ContextBuilder()
-                .setCommand(UseCaseConstants.EXTRACT)
+                .setCommand(UseCases.EXTRACT)
                 .setSource("src/test/resources/articles.json")
-                .setOutput("src/test/resources/articles")
+                .setOutputTerms("src/test/resources/terms.txt")
                 .setCountTerms(10)
                 .setCountArticles(10)
                 .build();

@@ -1,6 +1,6 @@
 package it.unipd.dei.eis.domain.repositories;
 
-import it.unipd.dei.eis.data.entities.IDataEntity;
+import it.unipd.dei.eis.data.entities.DataEntity;
 import it.unipd.dei.eis.data.sources.DataSource;
 import it.unipd.dei.eis.domain.models.IModel;
 
@@ -12,23 +12,26 @@ public interface RepositoryFactory {
     /**
      * Creates a new repository.
      *
-     * @param option The option (command) to use
+     * @param option The option to use
+     * @param <S>    The data source
+     * @param <E>    The data entity
+     * @param <M>    The model
      * @return The repository
-     * @throws IllegalArgumentException If the option (command) is invalid
+     * @throws IllegalArgumentException If the option is invalid
      */
     @SuppressWarnings("unchecked")
-    static <S extends DataSource<E>, E extends IDataEntity, M extends IModel> Repository<S, E, M> create(String option) throws IllegalArgumentException {
-        final Repository<? extends DataSource<? extends IDataEntity>, ? extends IDataEntity, ? extends IModel> repository;
-        if (option.equals("extract")) {
-            repository = new TermsExtractionRepository();
-        } else if (option.equals("theguardian")) {
+    static <S extends DataSource<E>, E extends DataEntity, M extends IModel> Repository<S, E, M> create(String option) throws IllegalArgumentException {
+        final Repository<? extends DataSource<? extends DataEntity>, ? extends DataEntity, ? extends IModel> repository;
+        if (option.equals("theguardian")) {
             repository = new TheGuardianRepository();
+        } else if (option.endsWith(".txt")) {
+            repository = new TermsExtractionRepository();
         } else if (option.endsWith(".csv")) {
             repository = new CsvRepository();
         } else if (option.endsWith(".json")) {
             repository = new JsonRepository();
         } else {
-            throw new IllegalArgumentException("Invalid repository");
+            throw new IllegalArgumentException(String.format("\"%s\" is not a valid option", option));
         }
         return (Repository<S, E, M>) repository;
     }

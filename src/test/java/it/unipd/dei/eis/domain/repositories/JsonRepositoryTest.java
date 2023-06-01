@@ -1,17 +1,13 @@
 package it.unipd.dei.eis.domain.repositories;
 
-import it.unipd.dei.eis.core.utils.Either;
-import it.unipd.dei.eis.core.utils.Failure;
-import it.unipd.dei.eis.core.utils.Success;
-import it.unipd.dei.eis.domain.models.Article;
-import it.unipd.dei.eis.presentation.Context;
-import it.unipd.dei.eis.presentation.ContextBuilder;
+import it.unipd.dei.eis.core.common.Context;
+import it.unipd.dei.eis.core.utils.ContextBuilder;
+import it.unipd.dei.eis.domain.models.ArticleModel;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Test the json repository.
@@ -27,7 +23,8 @@ public class JsonRepositoryTest {
      * The context to use.
      */
     private final Context context = new ContextBuilder()
-            .setSource("articles.json")
+            .setSource("src/test/resources/articles.json")
+            .setOutputArticles("articles.json")
             .setCountArticles(1)
             .setCommand("download")
             .build();
@@ -36,20 +33,17 @@ public class JsonRepositoryTest {
      * Test the pull method.
      */
     @Test
-    void testPull() {
-        Either<Failure, List<Article>> result = repository.pull(context);
-        assertTrue(result.isSuccess());
-        assertEquals(result.success.size(), context.countArticles);
+    void testPull() throws Exception {
+        List<ArticleModel> result = repository.pull(context);
+        assertEquals(result.size(), context.countArticles);
     }
 
     /**
      * Test the push method.
      */
     @Test
-    void testPush() {
-        Either<Failure, List<Article>> result = repository.pull(context);
-        assertTrue(result.isSuccess());
-        Either<Failure, Success> result1 = repository.push(context, result.success);
-        assertTrue(result1.isSuccess());
+    void testPush() throws Exception {
+        List<ArticleModel> result = repository.pull(context);
+        repository.push(context, result);
     }
 }

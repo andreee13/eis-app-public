@@ -1,13 +1,12 @@
 package it.unipd.dei.eis.domain.controllers;
 
-import it.unipd.dei.eis.core.constants.DefaultSettings;
-import it.unipd.dei.eis.core.constants.UseCaseConstants;
-import it.unipd.dei.eis.core.utils.Either;
-import it.unipd.dei.eis.core.utils.Failure;
-import it.unipd.dei.eis.core.utils.Success;
+import it.unipd.dei.eis.core.common.Context;
+import it.unipd.dei.eis.core.common.Either;
+import it.unipd.dei.eis.core.common.Failure;
+import it.unipd.dei.eis.core.common.Success;
+import it.unipd.dei.eis.core.constants.UseCases;
 import it.unipd.dei.eis.domain.models.IModel;
 import it.unipd.dei.eis.domain.repositories.RepositoryFactory;
-import it.unipd.dei.eis.presentation.Context;
 
 import java.util.List;
 
@@ -21,32 +20,36 @@ public class TermsExtractorController extends Controller {
      * TermsExtractorController constructor.
      */
     public TermsExtractorController() {
-        super(UseCaseConstants.EXTRACT);
+        super(UseCases.EXTRACT);
     }
 
     /**
      * Executes the terms extraction use case.
      *
      * @param context the context
-     * @return the result of the use case
+     * @return Either a Failure or a Success
      */
     @Override
+    @SuppressWarnings("unchecked")
     public Either<Failure, Success> execute(Context context) {
-        String source = context.output != null ? String.format("%s.json", context.output) : DefaultSettings.JSON_FILE_NAME;
-        System.out.println("Reading data from " + source + "...");
-        Either<Failure, List<IModel>> result1 = RepositoryFactory.create(source)
-                .pull(context);
-        if (result1.isFailure()) {
-            return Either.failure(result1.failure);
+        List<IModel> models;
+        try {
+            if (context.sharedData.get(UseCases.DOWNLOAD) != null) {
+                System.out.println("Reading data from memory...");
+                models = (List<IModel>) context.sharedData.get(UseCases.DOWNLOAD);
+            } else {
+                System.out.println("Reading data from " + context.source + "...");
+                models = RepositoryFactory.create(context.source)
+                        .pull(context);
+            }
+            System.out.println("Read " + models.size() + " items");
+            System.out.println("Extracting " + context.countTerms + " terms...");
+            RepositoryFactory.create(context.outputTerms)
+                    .push(context, models);
+            System.out.println("Terms extracted and written to ".concat(context.outputTerms));
+            return Either.success(new Success());
+        } catch (Exception e) {
+            return Either.failure(new Failure(e));
         }
-        System.out.println("Read " + (result1.success != null ? result1.success.size() : 0) + " items");
-        System.out.println("Extracting " + context.countTerms + " terms...");
-        Either<Failure, Success> result2 = RepositoryFactory.create(UseCaseConstants.EXTRACT)
-                .push(context, result1.success);
-        if (result2.isFailure()) {
-            return Either.failure(result2.failure);
-        }
-        System.out.println("Terms extracted and written to " + (context.output != null ? context.output : DefaultSettings.TXT_FILE_NAME));
-        return Either.success(new Success());
     }
 }

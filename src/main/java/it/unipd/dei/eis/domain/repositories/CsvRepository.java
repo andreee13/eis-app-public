@@ -1,11 +1,9 @@
 package it.unipd.dei.eis.domain.repositories;
 
-import it.unipd.dei.eis.core.utils.Either;
-import it.unipd.dei.eis.core.utils.Failure;
+import it.unipd.dei.eis.core.common.Context;
 import it.unipd.dei.eis.data.entities.CsvDataEntity;
 import it.unipd.dei.eis.data.sources.CsvDataSource;
-import it.unipd.dei.eis.domain.models.Article;
-import it.unipd.dei.eis.presentation.Context;
+import it.unipd.dei.eis.domain.models.ArticleModel;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,7 +11,7 @@ import java.util.stream.Collectors;
 /**
  * A repository for articles from a CSV data source.
  */
-public class CsvRepository extends Repository<CsvDataSource, CsvDataEntity, Article> {
+public class CsvRepository extends Repository<CsvDataSource, CsvDataEntity, ArticleModel> {
 
     /**
      * Creates a new CsvRepository.
@@ -24,14 +22,14 @@ public class CsvRepository extends Repository<CsvDataSource, CsvDataEntity, Arti
 
     /**
      * Adapts a data entity to a model.
+     * Internally used by {@link #pull(Context)}.
      *
      * @param dataEntity The data entity
      * @return The model
      */
     @Override
-    Article adapt(CsvDataEntity dataEntity) {
-        return new Article(
-                dataEntity.identifier,
+    ArticleModel adapt(CsvDataEntity dataEntity) {
+        return new ArticleModel(
                 dataEntity.title,
                 dataEntity.body,
                 dataEntity.url,
@@ -44,17 +42,13 @@ public class CsvRepository extends Repository<CsvDataSource, CsvDataEntity, Arti
      * Pulls the articles from the data source.
      *
      * @param context The context to use
-     * @return Either a Failure or a List of Articles
+     * @return List of articles
      */
     @Override
-    public Either<Failure, List<Article>> pull(Context context) {
-        try {
-            return Either.success(dataSource.get(context)
-                    .stream()
-                    .map(this::adapt)
-                    .collect(Collectors.toList()));
-        } catch (Exception e) {
-            return Either.failure(new Failure(e, "Failed to get data from data source"));
-        }
+    public List<ArticleModel> pull(Context context) throws Exception {
+        return dataSource.get(context)
+                .stream()
+                .map(this::adapt)
+                .collect(Collectors.toList());
     }
 }

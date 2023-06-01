@@ -3,7 +3,7 @@ package it.unipd.dei.eis.core.constants;
 /**
  * Constants for use cases.
  */
-public interface UseCaseConstants {
+public interface UseCases {
 
     /**
      * The use case for downloading articles.

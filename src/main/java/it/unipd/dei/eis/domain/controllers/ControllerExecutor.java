@@ -1,9 +1,9 @@
 package it.unipd.dei.eis.domain.controllers;
 
-import it.unipd.dei.eis.core.utils.Either;
-import it.unipd.dei.eis.core.utils.Failure;
-import it.unipd.dei.eis.core.utils.Success;
-import it.unipd.dei.eis.presentation.Context;
+import it.unipd.dei.eis.core.common.Context;
+import it.unipd.dei.eis.core.common.Either;
+import it.unipd.dei.eis.core.common.Failure;
+import it.unipd.dei.eis.core.common.Success;
 
 import java.io.PrintStream;
 import java.util.concurrent.CompletableFuture;
@@ -86,6 +86,10 @@ public class ControllerExecutor {
      */
     private void abort(Thread loadingThread, String s) {
         loadingThread.interrupt();
+        try {
+            Thread.sleep(ANIMATION_INTERVAL);
+        } catch (InterruptedException ignored) {
+        }
         System.out.println("\r[X] Error: " + s);
         System.exit(1);
     }
@@ -140,11 +144,14 @@ public class ControllerExecutor {
     /**
      * The getLoadingTime method returns the loading time as string.
      *
-     * @param time the time
+     * @param start the start time
      * @return the loading time
      */
-    private String getLoadingTime(long time) {
-        long milliseconds = System.currentTimeMillis() - time;
-        return String.format("%d.%01ds", milliseconds / 1000, (milliseconds % 1000) / 100);
+    private String getLoadingTime(long start) {
+        long time = System.currentTimeMillis() - start;
+        if (time < 1000) {
+            return String.format("%d ms", time);
+        }
+        return String.format("%d.%01ds", time / 1000, (time % 1000) / 100);
     }
 }

@@ -1,10 +1,9 @@
 package it.unipd.dei.eis.data.sources;
 
-import it.unipd.dei.eis.core.constants.DefaultSettings;
+import it.unipd.dei.eis.core.common.Context;
 import it.unipd.dei.eis.data.entities.JsonDataEntity;
 import it.unipd.dei.eis.data.serialization.JsonDecoder;
 import it.unipd.dei.eis.data.serialization.JsonEncoder;
-import it.unipd.dei.eis.presentation.Context;
 
 import java.io.FileWriter;
 import java.nio.file.Files;
@@ -41,8 +40,8 @@ public class JsonDataSource extends DataSource<JsonDataEntity> {
     @Override
     public List<JsonDataEntity> get(Context context) throws Exception {
         List<JsonDataEntity> data = Arrays.asList(Objects.requireNonNull(decoder)
-                .decode(new String(Files.readAllBytes(Paths.get(context.output != null ? String.format("%s.json", context.output) : DefaultSettings.JSON_FILE_NAME))), JsonDataEntity[].class));
-        return data.subList(0, Math.min(context.countArticles, data.size()));
+                .decode(new String(Files.readAllBytes(Paths.get(context.source))), JsonDataEntity[].class));
+        return filter(context, data);
     }
 
     /**
@@ -54,7 +53,7 @@ public class JsonDataSource extends DataSource<JsonDataEntity> {
      */
     @Override
     public void set(Context context, List<JsonDataEntity> data) throws Exception {
-        try (FileWriter fileWriter = new FileWriter(context.output != null ? String.format("%s.json", context.output) : DefaultSettings.JSON_FILE_NAME)) {
+        try (FileWriter fileWriter = new FileWriter(context.outputArticles)) {
             fileWriter.write(Objects.requireNonNull(encoder)
                     .encode(data));
         }

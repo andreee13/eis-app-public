@@ -1,9 +1,9 @@
 package it.unipd.dei.eis.core.constants;
 
 /**
- * Default settings.
+ * Default configuration values.
  */
-public interface DefaultSettings {
+public interface DefaultConfig {
 
     /**
      * The default number of articles to pull.

@@ -1,6 +1,7 @@
 package it.unipd.dei.eis.presentation;
 
-import it.unipd.dei.eis.core.constants.UseCaseConstants;
+import it.unipd.dei.eis.core.common.Context;
+import it.unipd.dei.eis.core.constants.UseCases;
 import it.unipd.dei.eis.domain.use_cases.UseCaseFactory;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
@@ -23,6 +24,11 @@ public class Bootstrapper {
      */
     private static final DefaultParser PARSER = new DefaultParser();
 
+    /**
+     * The HELP_MESSAGE field contains the help message.
+     */
+    private static final String HELP_MESSAGE = "java -jar <jarfile> <%s|%s|%s> [options]";
+
     static {
         OPTIONS.addOption(Option.builder()
                 .option("h")
@@ -38,9 +44,16 @@ public class Bootstrapper {
                 .required()
                 .build());
         OPTIONS.addOption(Option.builder()
-                .option("o")
-                .longOpt("output")
-                .desc("Output file name")
+                .option("oa")
+                .longOpt("output-articles")
+                .desc("Output articles file name")
+                .hasArg()
+                .argName("file")
+                .build());
+        OPTIONS.addOption(Option.builder()
+                .option("ot")
+                .longOpt("output-terms")
+                .desc("Output terms file name")
                 .hasArg()
                 .argName("file")
                 .build());
@@ -115,10 +128,10 @@ public class Bootstrapper {
         } catch (Exception e) {
             new HelpFormatter().printHelp(
                     String.format(
-                            "java -jar <jarfile> <%s|%s|%s> [options]",
-                            UseCaseConstants.DOWNLOAD,
-                            UseCaseConstants.EXTRACT,
-                            UseCaseConstants.BOTH
+                            HELP_MESSAGE,
+                            UseCases.DOWNLOAD,
+                            UseCases.EXTRACT,
+                            UseCases.BOTH
                     ),
                     OPTIONS
             );

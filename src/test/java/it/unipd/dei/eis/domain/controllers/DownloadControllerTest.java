@@ -1,8 +1,8 @@
 package it.unipd.dei.eis.domain.controllers;
 
-import it.unipd.dei.eis.core.constants.UseCaseConstants;
-import it.unipd.dei.eis.presentation.Context;
-import it.unipd.dei.eis.presentation.ContextBuilder;
+import it.unipd.dei.eis.core.constants.UseCases;
+import it.unipd.dei.eis.core.common.Context;
+import it.unipd.dei.eis.core.utils.ContextBuilder;
 import org.junit.jupiter.api.Test;
 
 public class DownloadControllerTest {
@@ -13,7 +13,7 @@ public class DownloadControllerTest {
     @Test
     public void execute() {
         Context context = new ContextBuilder()
-                .setCommand(UseCaseConstants.DOWNLOAD)
+                .setCommand(UseCases.DOWNLOAD)
                 .setSource("file.csv")
                 .setCountArticles(10)
                 .build();

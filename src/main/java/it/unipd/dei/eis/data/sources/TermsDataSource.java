@@ -4,15 +4,18 @@ import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.logging.RedwoodConfiguration;
-import it.unipd.dei.eis.core.constants.DefaultSettings;
-import it.unipd.dei.eis.core.utils.SynchronizedStringFrequencyCounter;
+import it.unipd.dei.eis.core.utils.SynchronizedFrequencyCounter;
 import it.unipd.dei.eis.data.entities.TermsDataEntity;
-import it.unipd.dei.eis.presentation.Context;
+import it.unipd.dei.eis.data.serialization.TxtEncoder;
+import it.unipd.dei.eis.core.common.Context;
 
 import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -32,7 +35,7 @@ public class TermsDataSource extends DataSource<TermsDataEntity> {
     /**
      * The PATTERN is used to check if a word is a punctuation or other special symbols.
      */
-    private static final Pattern PATTERN = Pattern.compile("[\\p{Punct}–“”‑‘'…’—]");
+    private static final Pattern PATTERN = Pattern.compile("[\\p{Punct}–“”‑‘'…’—−·]");
 
     /**
      * The PROPERTIES field is used to set the StanfordCoreNLP pipeline.
@@ -60,7 +63,8 @@ public class TermsDataSource extends DataSource<TermsDataEntity> {
     /**
      * The frequencyCounter field is used to count the frequency of the terms.
      */
-    private final SynchronizedStringFrequencyCounter frequencyCounter = new SynchronizedStringFrequencyCounter();
+    private final SynchronizedFrequencyCounter<String> frequencyCounter = new SynchronizedFrequencyCounter<>();
+
     /**
      * The stoplist field is used to store the stoplist.
      */
@@ -71,7 +75,7 @@ public class TermsDataSource extends DataSource<TermsDataEntity> {
      * It is used to initialize the data source.
      */
     public TermsDataSource() {
-        super(ID);
+        super(ID, new TxtEncoder());
         try {
             stoplist = Files.readAllLines(Paths.get(STOPLIST_FILE_PATH));
         } catch (Exception e) {
@@ -100,30 +104,19 @@ public class TermsDataSource extends DataSource<TermsDataEntity> {
                     .stream()
                     .map(CoreLabel::word)
                     .collect(Collectors.toSet())
-                    .stream()
-                    .filter(word -> !PATTERN.matcher(word)
-                            .find() && !stoplist.contains(word))
-                    .forEach(frequencyCounter::add)));
+                    .forEach(word -> {
+                        if (!PATTERN.matcher(word).find() && !stoplist.contains(word)) {
+                            frequencyCounter.add(word);
+                        }
+                    }))
+            );
         }
         executorService.shutdown();
         for (Future<?> future : futures) {
             future.get();
         }
-        Map<String, Integer> map = frequencyCounter.getMapSortedByValueAndKey();
-        List<String> keys = frequencyCounter.getMapSortedByValueAndKey()
-                .keySet()
-                .stream()
-                .limit(context.countTerms)
-                .collect(Collectors.toList());
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String key : keys) {
-            stringBuilder.append(key)
-                    .append(' ')
-                    .append(map.get(key))
-                    .append('\n');
-        }
-        try (FileWriter fileWriter = new FileWriter(context.output != null ? String.format("%s.txt", context.output) : DefaultSettings.TXT_FILE_NAME)) {
-            fileWriter.write(stringBuilder.toString());
+        try (FileWriter fileWriter = new FileWriter(context.outputTerms)) {
+            fileWriter.write(encoder.encode(frequencyCounter.getMapSortedByValueAndKey(), context.countTerms));
         }
     }
 

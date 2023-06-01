@@ -2,7 +2,7 @@ package it.unipd.dei.eis.domain.use_cases;
 
 import it.unipd.dei.eis.domain.controllers.Controller;
 import it.unipd.dei.eis.domain.controllers.ControllerExecutor;
-import it.unipd.dei.eis.presentation.Context;
+import it.unipd.dei.eis.core.common.Context;
 
 /**
  * UseCase is the abstract class for all the use cases.

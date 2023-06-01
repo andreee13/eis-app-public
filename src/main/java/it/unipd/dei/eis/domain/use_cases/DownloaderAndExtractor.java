@@ -5,10 +5,10 @@ import it.unipd.dei.eis.domain.controllers.DownloadController;
 import it.unipd.dei.eis.domain.controllers.TermsExtractorController;
 
 /**
- * DownloadAndExtract is the use case for downloading and extracting the terms.
+ * DownloaderAndExtractor is the use case for downloading and extracting the terms.
  */
-public class DownloadAndExtract extends UseCase {
-    DownloadAndExtract() {
+public class DownloaderAndExtractor extends UseCase {
+    DownloaderAndExtractor() {
         super(new Controller[]{new DownloadController(), new TermsExtractorController()});
     }
 }

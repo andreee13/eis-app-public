@@ -1,17 +1,18 @@
 package it.unipd.dei.eis.domain.models;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
- * Article is the model for the articles.
+ * ArticleModel is the model for the articles.
  * It contains the data structure of the articles.
  */
-public class Article implements IModel {
+public class ArticleModel implements IModel {
 
     /**
      * The id field is the id of the article.
      */
-    final public String id;
+    final public int id;
 
     /**
      * The title field is the title of the article.
@@ -39,17 +40,16 @@ public class Article implements IModel {
     final public String source;
 
     /**
-     * Article constructor.
+     * ArticleModel constructor.
      *
-     * @param id     the id of the article
      * @param title  the title of the article
      * @param body   the body of the article
      * @param url    the url of the article
      * @param date   the date of the article
      * @param source the source of the article
      */
-    public Article(String id, String title, String body, String url, Date date, String source) {
-        this.id = id;
+    public ArticleModel(String title, String body, String url, Date date, String source) {
+        this.id = Objects.hash(title, body, url, date, source);
         this.title = title;
         this.body = body;
         this.url = url;

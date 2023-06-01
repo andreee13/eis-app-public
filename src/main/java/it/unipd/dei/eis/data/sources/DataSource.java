@@ -1,9 +1,9 @@
 package it.unipd.dei.eis.data.sources;
 
-import it.unipd.dei.eis.data.entities.IDataEntity;
+import it.unipd.dei.eis.core.common.Context;
+import it.unipd.dei.eis.data.entities.DataEntity;
 import it.unipd.dei.eis.data.serialization.IDecoder;
 import it.unipd.dei.eis.data.serialization.IEncoder;
-import it.unipd.dei.eis.presentation.Context;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @param <E> the type of the data entity
  */
-public abstract class DataSource<E extends IDataEntity> {
+public abstract class DataSource<E extends DataEntity> {
 
     /**
      * The ID of the data source.
@@ -22,12 +22,12 @@ public abstract class DataSource<E extends IDataEntity> {
     /**
      * The decoder of the data source.
      */
-    protected final IDecoder decoder;
+    final IDecoder decoder;
 
     /**
      * The encoder of the data source.
      */
-    protected final IEncoder encoder;
+    final IEncoder encoder;
 
     /**
      * DataSource constructor.
@@ -67,22 +67,12 @@ public abstract class DataSource<E extends IDataEntity> {
     }
 
     /**
-     * DataSource constructor.
-     *
-     * @param id the ID of the data source
-     */
-    DataSource(String id) {
-        this.id = id;
-        this.decoder = null;
-        this.encoder = null;
-    }
-
-    /**
      * Returns the list of data entities.
      *
      * @param context the context of the request
      * @return the list of data entities
      * @throws UnsupportedOperationException if not implemented
+     * @throws Exception                     if an error occurs
      */
     public List<E> get(Context context) throws Exception {
         throw new UnsupportedOperationException();
@@ -94,9 +84,36 @@ public abstract class DataSource<E extends IDataEntity> {
      * @param context the context of the request
      * @param data    the list of data entities
      * @throws UnsupportedOperationException if not implemented
+     * @throws Exception                     if an error occurs
      */
     public void set(Context context, List<E> data) throws Exception {
         throw new UnsupportedOperationException();
     }
-}
 
+    /**
+     * Filters the list of data entities.
+     * Internally used by {@link #get(Context)}.
+     *
+     * @param context the context of the request
+     * @param data    the list of data entities
+     * @return the filtered list of data entities
+     */
+    List<E> filter(Context context, List<E> data) {
+        if (context.query != null) {
+            data = data.stream()
+                    .filter(entity -> entity.contains(context.query))
+                    .collect(java.util.stream.Collectors.toList());
+        }
+        if (context.fromDate != null) {
+            data = data.stream()
+                    .filter(entity -> entity.after(context.fromDate))
+                    .collect(java.util.stream.Collectors.toList());
+        }
+        if (context.toDate != null) {
+            data = data.stream()
+                    .filter(entity -> entity.before(context.toDate))
+                    .collect(java.util.stream.Collectors.toList());
+        }
+        return data.subList(0, Math.min(context.countArticles, data.size()));
+    }
+}

@@ -2,7 +2,7 @@ package it.unipd.dei.eis.data.sources;
 
 import it.unipd.dei.eis.data.entities.TheGuardianDataEntity;
 import it.unipd.dei.eis.data.serialization.JsonDecoder;
-import it.unipd.dei.eis.presentation.Context;
+import it.unipd.dei.eis.core.common.Context;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

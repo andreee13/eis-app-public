@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 
 /**
  * JsonEncoder is the encoder for JSON format.
- * It uses the Gson library to encode objects in JSON format.
  */
 public class JsonEncoder implements IEncoder {
 

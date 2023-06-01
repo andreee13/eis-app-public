@@ -1,9 +1,9 @@
 package it.unipd.dei.eis.domain.controllers;
 
-import it.unipd.dei.eis.core.utils.Either;
-import it.unipd.dei.eis.core.utils.Failure;
-import it.unipd.dei.eis.core.utils.Success;
-import it.unipd.dei.eis.presentation.Context;
+import it.unipd.dei.eis.core.common.Either;
+import it.unipd.dei.eis.core.common.Failure;
+import it.unipd.dei.eis.core.common.Success;
+import it.unipd.dei.eis.core.common.Context;
 
 /**
  * The Controller class is the abstract class for all the controllers.
@@ -29,7 +29,7 @@ public abstract class Controller {
      * The execute method is used to execute the controller.
      *
      * @param context the context of the controller
-     * @return the result of the controller
+     * @return Either a Failure or a Success
      */
     public abstract Either<Failure, Success> execute(Context context);
 }

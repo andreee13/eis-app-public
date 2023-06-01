@@ -1,4 +1,5 @@
 it.unipd.dei.eis
+it.unipd.dei.eis.core.common
 it.unipd.dei.eis.core.constants
 it.unipd.dei.eis.core.utils
 it.unipd.dei.eis.data.entities

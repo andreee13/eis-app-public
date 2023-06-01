@@ -7,16 +7,16 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Test class for the SynchronizedStringFrequencyCounter class.
+ * Test class for the SynchronizedFrequencyCounter class.
  */
-class SynchronizedStringFrequencyCounterTest {
+class SynchronizedFrequencyCounterTest {
 
     /**
      * Test the add method.
      */
     @Test
     void add() {
-        SynchronizedStringFrequencyCounter counter = new SynchronizedStringFrequencyCounter();
+        SynchronizedFrequencyCounter<String> counter = new SynchronizedFrequencyCounter<>();
         counter.add("a");
         counter.add("a");
         counter.add("b");
@@ -28,7 +28,7 @@ class SynchronizedStringFrequencyCounterTest {
      */
     @Test
     void getMapSortedByValueAndKey() {
-        SynchronizedStringFrequencyCounter counter = new SynchronizedStringFrequencyCounter();
+        SynchronizedFrequencyCounter<String> counter = new SynchronizedFrequencyCounter<>();
         counter.add("a");
         counter.add("a");
         counter.add("b");

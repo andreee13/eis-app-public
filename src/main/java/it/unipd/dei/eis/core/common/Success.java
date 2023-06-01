@@ -1,4 +1,4 @@
-package it.unipd.dei.eis.core.utils;
+package it.unipd.dei.eis.core.common;
 
 /**
  * A class that represents a success.

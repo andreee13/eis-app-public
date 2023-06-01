@@ -1,17 +1,12 @@
 package it.unipd.dei.eis.domain.repositories;
 
+import it.unipd.dei.eis.core.common.Context;
+import it.unipd.dei.eis.core.utils.ContextBuilder;
 import it.unipd.dei.eis.core.utils.DateParser;
-import it.unipd.dei.eis.core.utils.Either;
-import it.unipd.dei.eis.core.utils.Failure;
-import it.unipd.dei.eis.core.utils.Success;
-import it.unipd.dei.eis.domain.models.Article;
-import it.unipd.dei.eis.presentation.Context;
-import it.unipd.dei.eis.presentation.ContextBuilder;
+import it.unipd.dei.eis.domain.models.ArticleModel;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Test the terms extraction repository.
@@ -27,8 +22,9 @@ public class TermsExtractionRepositoryTest {
      * The context to use.
      */
     private final Context context = new ContextBuilder()
-            .setSource("articles.json")
-            .setCountArticles(1)
+            .setSource("src/test/resources/articles.json")
+            .setCountArticles(10)
+            .setOutputTerms("terms.txt")
             .setCommand("extract")
             .build();
 
@@ -36,14 +32,19 @@ public class TermsExtractionRepositoryTest {
      * Test the push method.
      */
     @Test
-    void testPush() {
-        Either<Failure, Success> result = repository.push(context, Collections.singletonList(new Article("id",
-                "title",
-                "body",
-                "url",
-                DateParser.tryParse("2023-01-01"),
-                "source")));
-        assertTrue(result.isSuccess());
+    void testPush() throws Exception {
+        repository.push(
+                context,
+                Collections.singletonList(
+                        new ArticleModel(
+                                "title",
+                                "body",
+                                "url",
+                                DateParser.tryParse("2023-01-01"),
+                                "source"
+                        )
+                )
+        );
     }
 }
 

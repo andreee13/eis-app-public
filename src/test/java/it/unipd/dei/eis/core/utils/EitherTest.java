@@ -1,5 +1,8 @@
 package it.unipd.dei.eis.core.utils;
 
+import it.unipd.dei.eis.core.common.Either;
+import it.unipd.dei.eis.core.common.Failure;
+import it.unipd.dei.eis.core.common.Success;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

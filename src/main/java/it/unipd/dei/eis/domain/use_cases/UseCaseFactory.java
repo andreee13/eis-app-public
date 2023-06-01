@@ -1,6 +1,6 @@
 package it.unipd.dei.eis.domain.use_cases;
 
-import it.unipd.dei.eis.core.constants.UseCaseConstants;
+import it.unipd.dei.eis.core.constants.UseCases;
 
 /**
  * UseCaseFactory is the factory for the use cases.
@@ -17,12 +17,12 @@ public interface UseCaseFactory {
      */
     static UseCase create(String command) throws IllegalArgumentException {
         switch (command) {
-            case UseCaseConstants.DOWNLOAD:
+            case UseCases.DOWNLOAD:
                 return new ArticlesDownloader();
-            case UseCaseConstants.EXTRACT:
+            case UseCases.EXTRACT:
                 return new TermsExtractor();
-            case UseCaseConstants.BOTH:
-                return new DownloadAndExtract();
+            case UseCases.BOTH:
+                return new DownloaderAndExtractor();
             default:
                 throw new IllegalArgumentException("Invalid command");
         }
