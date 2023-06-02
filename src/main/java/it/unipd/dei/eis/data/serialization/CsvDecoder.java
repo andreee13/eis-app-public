@@ -24,7 +24,7 @@ public class CsvDecoder implements IDecoder {
      *
      * @param data the CSV file
      * @param args the arguments
-     * @return the list of CSVRecord
+     * @return the list of CSV Records
      * @throws IOException if an I/O error occurs
      */
     @Override
