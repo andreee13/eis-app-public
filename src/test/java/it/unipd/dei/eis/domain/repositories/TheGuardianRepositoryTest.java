@@ -36,7 +36,7 @@ public class TheGuardianRepositoryTest {
      * Test the pull method.
      */
     @Test
-    void testPull() {
+    void pull() {
         List<ArticleModel> result = repository.pull(context);
         assertEquals(result.size(), context.countArticles);
     }

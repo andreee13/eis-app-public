@@ -33,7 +33,7 @@ public class JsonRepositoryTest {
      * Test the pull method.
      */
     @Test
-    void testPull() throws Exception {
+    void pull() throws Exception {
         List<ArticleModel> result = repository.pull(context);
         assertEquals(result.size(), context.countArticles);
     }
@@ -42,7 +42,7 @@ public class JsonRepositoryTest {
      * Test the push method.
      */
     @Test
-    void testPush() throws Exception {
+    void push() throws Exception {
         List<ArticleModel> result = repository.pull(context);
         repository.push(context, result);
     }

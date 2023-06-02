@@ -32,7 +32,7 @@ public class TermsExtractionRepositoryTest {
      * Test the push method.
      */
     @Test
-    void testPush() throws Exception {
+    void push() throws Exception {
         repository.push(
                 context,
                 Collections.singletonList(

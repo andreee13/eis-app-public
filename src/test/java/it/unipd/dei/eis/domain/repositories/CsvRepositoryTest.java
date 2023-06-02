@@ -32,7 +32,7 @@ public class CsvRepositoryTest {
      * Test the pull method.
      */
     @Test
-    void testPull() throws Exception {
+    void pull() throws Exception {
         List<ArticleModel> result = repository.pull(context);
         assertEquals(result.size(), context.countArticles);
     }
