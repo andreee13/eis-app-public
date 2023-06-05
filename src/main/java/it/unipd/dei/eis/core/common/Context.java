@@ -1,13 +1,13 @@
 package it.unipd.dei.eis.core.common;
 
 import it.unipd.dei.eis.core.constants.DefaultConfig;
+import it.unipd.dei.eis.core.constants.UseCases;
 import it.unipd.dei.eis.core.utils.DateParser;
 import it.unipd.dei.eis.core.utils.IntegerParser;
 import org.apache.commons.cli.CommandLine;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Objects;
 
 /**
  * The Context class contains the context of the command line.
@@ -15,9 +15,9 @@ import java.util.Map;
 public class Context {
 
     /**
-     * The command field contains the command.
+     * The useCase field contains the UseCase.
      */
-    public final String command;
+    public final UseCases useCase;
 
     /**
      * The source field contains the source from which the data are retrieved.
@@ -64,14 +64,9 @@ public class Context {
     public final String apiKey;
 
     /**
-     * The sharedData field contains the shared data during the execution.
-     */
-    public final Map<String, Object> sharedData;
-
-    /**
      * The Context constructor.
      *
-     * @param command        the command
+     * @param useCase        the useCase
      * @param source         the source
      * @param outputArticles the output articles file name
      * @param outputTerms    the output terms file name
@@ -81,10 +76,9 @@ public class Context {
      * @param fromDate       the date from which the articles are retrieved
      * @param toDate         the limit date to which the articles are retrieved
      * @param apiKey         the API key
-     * @param sharedData     the shared data during the execution
      */
-    public Context(String command, String source, String outputArticles, String outputTerms, String query, int countArticles, int countTerms, Date fromDate, Date toDate, String apiKey, Map<String, Object> sharedData) {
-        this.command = command;
+    public Context(UseCases useCase, String source, String outputArticles, String outputTerms, String query, int countArticles, int countTerms, Date fromDate, Date toDate, String apiKey) {
+        this.useCase = useCase;
         this.source = source;
         this.outputArticles = outputArticles;
         this.outputTerms = outputTerms;
@@ -94,28 +88,60 @@ public class Context {
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.apiKey = apiKey;
-        this.sharedData = sharedData;
     }
 
     /**
-     * The Context constructor.
+     * The Context factory constructor.
      * It is used to parse the command line.
      *
      * @param cmd the command line
      */
-    public Context(CommandLine cmd) {
-        command = cmd.getArgs()[0];
-        source = cmd.getOptionValue("source");
-        outputArticles = cmd.getOptionValue("output-articles") == null ? DefaultConfig.JSON_FILE_NAME : cmd.getOptionValue("output-articles");
-        outputTerms = cmd.getOptionValue("output-terms") == null ? DefaultConfig.TXT_FILE_NAME : cmd.getOptionValue("output-terms");
-        query = cmd.getOptionValue("query");
+    public static Context fromCommandLine(CommandLine cmd) {
+        if (cmd.getArgs().length == 0) {
+            throw new IllegalArgumentException("The source is required");
+        }
         Integer ca = IntegerParser.tryParse(cmd.getOptionValue("count-articles"));
-        countArticles = ca == null ? DefaultConfig.ARTICLES_COUNT : ca;
         Integer ct = IntegerParser.tryParse(cmd.getOptionValue("count-terms"));
-        countTerms = ct == null ? DefaultConfig.TERMS_COUNT : ct;
-        fromDate = DateParser.tryParse(cmd.getOptionValue("from"));
-        toDate = DateParser.tryParse(cmd.getOptionValue("to"));
-        apiKey = cmd.getOptionValue("api-key");
-        sharedData = new HashMap<>();
+        String oa = cmd.getOptionValue("output-articles");
+        String ot = cmd.getOptionValue("output-terms");
+        Date from = DateParser.tryParse(cmd.getOptionValue("from"));
+        Date to = DateParser.tryParse(cmd.getOptionValue("to"));
+        if (from != null && to != null && from.after(to)) {
+            throw new IllegalArgumentException("The from date must be before the to date");
+        }
+        return new Context(
+                UseCases.fromCommandLine(cmd),
+                cmd.getArgs()[0],
+                oa == null ? DefaultConfig.JSON_FILE_NAME : oa,
+                ot == null ? DefaultConfig.TXT_FILE_NAME : ot,
+                cmd.getOptionValue("query"),
+                ca == null ? DefaultConfig.ARTICLES_COUNT : ca,
+                ct == null ? DefaultConfig.TERMS_COUNT : ct,
+                DateParser.tryParse(cmd.getOptionValue("from")),
+                DateParser.tryParse(cmd.getOptionValue("to")),
+                cmd.getOptionValue("api-key")
+        );
+    }
+
+    /**
+     * The Context hashCode method.
+     * It is used to compare two Context objects.
+     *
+     * @return the hash code
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                useCase,
+                source,
+                outputArticles,
+                outputTerms,
+                query,
+                countArticles,
+                countTerms,
+                fromDate,
+                toDate,
+                apiKey
+        );
     }
 }

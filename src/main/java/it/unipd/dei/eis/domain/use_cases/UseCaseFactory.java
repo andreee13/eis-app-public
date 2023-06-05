@@ -11,20 +11,20 @@ public interface UseCaseFactory {
     /**
      * Create the use case based on the command line argument.
      *
-     * @param command the command line argument
+     * @param useCase the use case
      * @return the use case
      * @throws IllegalArgumentException if the command line argument is invalid
      */
-    static UseCase create(String command) throws IllegalArgumentException {
-        switch (command) {
-            case UseCases.DOWNLOAD:
+    static UseCase create(UseCases useCase) throws IllegalArgumentException {
+        switch (useCase) {
+            case DOWNLOAD:
                 return new ArticlesDownloader();
-            case UseCases.EXTRACT:
+            case EXTRACT:
                 return new TermsExtractor();
-            case UseCases.BOTH:
+            case DOWNLOAD_AND_EXTRACT:
                 return new DownloaderAndExtractor();
             default:
-                throw new IllegalArgumentException("Invalid command");
+                throw new IllegalArgumentException("Invalid use case");
         }
     }
 }

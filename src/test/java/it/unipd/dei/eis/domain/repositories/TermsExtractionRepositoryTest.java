@@ -1,6 +1,7 @@
 package it.unipd.dei.eis.domain.repositories;
 
 import it.unipd.dei.eis.core.common.Context;
+import it.unipd.dei.eis.core.constants.UseCases;
 import it.unipd.dei.eis.core.utils.ContextBuilder;
 import it.unipd.dei.eis.core.utils.DateParser;
 import it.unipd.dei.eis.domain.models.ArticleModel;
@@ -16,7 +17,7 @@ public class TermsExtractionRepositoryTest {
     /**
      * The repository to test.
      */
-    private final TermsExtractionRepository repository = new TermsExtractionRepository();
+    private final TermsExtractionRepository repository = TermsExtractionRepository.getInstance();
 
     /**
      * The context to use.
@@ -25,7 +26,7 @@ public class TermsExtractionRepositoryTest {
             .setSource("src/test/resources/articles.json")
             .setCountArticles(10)
             .setOutputTerms("terms.txt")
-            .setCommand("extract")
+            .setUseCase(UseCases.EXTRACT)
             .build();
 
     /**

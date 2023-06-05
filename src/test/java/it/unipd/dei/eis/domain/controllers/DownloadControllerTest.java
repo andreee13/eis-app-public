@@ -13,7 +13,7 @@ public class DownloadControllerTest {
     @Test
     public void execute() {
         Context context = new ContextBuilder()
-                .setCommand(UseCases.DOWNLOAD)
+                .setUseCase(UseCases.DOWNLOAD)
                 .setSource("file.csv")
                 .setCountArticles(10)
                 .build();

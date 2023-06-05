@@ -6,7 +6,7 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.logging.RedwoodConfiguration;
 import it.unipd.dei.eis.core.utils.SynchronizedFrequencyCounter;
 import it.unipd.dei.eis.data.entities.TermsDataEntity;
-import it.unipd.dei.eis.data.serialization.TxtEncoder;
+import it.unipd.dei.eis.data.codecs.TxtEncoder;
 import it.unipd.dei.eis.core.common.Context;
 
 import java.io.FileWriter;

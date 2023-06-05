@@ -1,7 +1,7 @@
 package it.unipd.dei.eis.data.entities;
 
 import it.unipd.dei.eis.core.utils.DateParser;
-import it.unipd.dei.eis.data.serialization.CsvDecoder;
+import it.unipd.dei.eis.data.codecs.CsvDecoder;
 import org.apache.commons.csv.CSVRecord;
 import org.junit.jupiter.api.Test;
 

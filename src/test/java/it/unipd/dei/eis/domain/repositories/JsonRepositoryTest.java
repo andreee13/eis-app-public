@@ -1,6 +1,7 @@
 package it.unipd.dei.eis.domain.repositories;
 
 import it.unipd.dei.eis.core.common.Context;
+import it.unipd.dei.eis.core.constants.UseCases;
 import it.unipd.dei.eis.core.utils.ContextBuilder;
 import it.unipd.dei.eis.domain.models.ArticleModel;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ public class JsonRepositoryTest {
     /**
      * The repository to test.
      */
-    private final JsonRepository repository = new JsonRepository();
+    private final JsonRepository repository = JsonRepository.getInstance();
 
     /**
      * The context to use.
@@ -26,7 +27,7 @@ public class JsonRepositoryTest {
             .setSource("src/test/resources/articles.json")
             .setOutputArticles("articles.json")
             .setCountArticles(1)
-            .setCommand("download")
+            .setUseCase(UseCases.DOWNLOAD)
             .build();
 
     /**

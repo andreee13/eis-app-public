@@ -1,4 +1,4 @@
-package it.unipd.dei.eis.data.serialization;
+package it.unipd.dei.eis.data.codecs;
 
 /**
  * IDecoder is the interface for the decoder.

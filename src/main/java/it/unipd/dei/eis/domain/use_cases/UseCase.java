@@ -1,7 +1,7 @@
 package it.unipd.dei.eis.domain.use_cases;
 
 import it.unipd.dei.eis.domain.controllers.Controller;
-import it.unipd.dei.eis.domain.controllers.ControllerExecutor;
+import it.unipd.dei.eis.presentation.AsyncExecutor;
 import it.unipd.dei.eis.core.common.Context;
 
 /**
@@ -40,8 +40,8 @@ public abstract class UseCase {
      */
     public void run(Context context) {
         for (Controller controller : controllers) {
-            ControllerExecutor.getInstance()
-                    .execute(controller, context);
+            AsyncExecutor.getInstance()
+                    .execute(() -> controller.execute(context), controller.name);
         }
     }
 }

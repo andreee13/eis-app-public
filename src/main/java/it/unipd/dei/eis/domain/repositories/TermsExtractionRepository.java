@@ -14,10 +14,27 @@ import java.util.stream.Collectors;
 public class TermsExtractionRepository extends Repository<TermsDataSource, TermsDataEntity, ArticleModel> {
 
     /**
+     * The instance of the TermsExtractionRepository class.
+     */
+    private static TermsExtractionRepository instance;
+
+    /**
      * Creates a new Repository.
      */
-    TermsExtractionRepository() {
+    private TermsExtractionRepository() {
         super(new TermsDataSource());
+    }
+
+    /**
+     * Returns the instance of the TermsExtractionRepository class.
+     *
+     * @return The instance of the TermsExtractionRepository class
+     */
+    public static synchronized TermsExtractionRepository getInstance() {
+        if (instance == null) {
+            instance = new TermsExtractionRepository();
+        }
+        return instance;
     }
 
     /**
@@ -42,7 +59,7 @@ public class TermsExtractionRepository extends Repository<TermsDataSource, Terms
      * @param models  The articles to push
      */
     @Override
-    public void push(Context context, List<ArticleModel> models) throws Exception {
+    public void pushData(Context context, List<ArticleModel> models) throws Exception {
         dataSource.set(context, models.stream()
                 .map(this::adapt)
                 .collect(Collectors.toList()));

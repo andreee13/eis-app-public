@@ -1,5 +1,6 @@
 package it.unipd.dei.eis.domain.repositories;
 
+import it.unipd.dei.eis.core.common.Cache;
 import it.unipd.dei.eis.core.common.Context;
 import it.unipd.dei.eis.data.entities.DataEntity;
 import it.unipd.dei.eis.data.sources.DataSource;
@@ -14,7 +15,7 @@ import java.util.List;
  * @param <E> The data entity
  * @param <M> The model
  */
-public abstract class Repository<S extends DataSource<E>, E extends DataEntity, M extends IModel> {
+public abstract class Repository<S extends DataSource<E>, E extends DataEntity, M extends IModel> extends Cache<Context, List<M>> {
 
     /**
      * The data source.
@@ -31,14 +32,32 @@ public abstract class Repository<S extends DataSource<E>, E extends DataEntity, 
     }
 
     /**
-     * Pulls the articles from the data source.
+     * Pulls the models from the data source.
+     * If the models are cached, the cache is used to improve performance.
      *
      * @param context The context to use
      * @return List of models
      * @throws UnsupportedOperationException if not implemented
      * @throws Exception                     if an error occurs
      */
-    public List<M> pull(Context context) throws Exception {
+    final public List<M> pull(Context context) throws Exception {
+        if (isCached(context)) {
+            return getCache(context);
+        }
+        List<M> models = pullData(context);
+        putCache(context, models);
+        return models;
+    }
+
+    /**
+     * Pulls the models from the data source.
+     *
+     * @param context The context to use
+     * @return List of models
+     * @throws UnsupportedOperationException if not implemented
+     * @throws Exception                     if an error occurs
+     */
+    List<M> pullData(Context context) throws Exception {
         throw new UnsupportedOperationException();
     }
 
@@ -46,11 +65,23 @@ public abstract class Repository<S extends DataSource<E>, E extends DataEntity, 
      * Pushes the articles to the data source.
      *
      * @param context The context to use
-     * @param models  The articles to push
+     * @param models  The models to push
      * @throws UnsupportedOperationException if not implemented
      * @throws Exception                     if an error occurs
      */
-    public void push(Context context, List<M> models) throws Exception {
+    final public void push(Context context, List<M> models) throws Exception {
+        pushData(context, models);
+    }
+
+    /**
+     * Pushes the articles to the data source.
+     *
+     * @param context The context to use
+     * @param models  The models to push
+     * @throws UnsupportedOperationException if not implemented
+     * @throws Exception                     if an error occurs
+     */
+    void pushData(Context context, List<M> models) throws Exception {
         throw new UnsupportedOperationException();
     }
 

@@ -2,7 +2,7 @@ package it.unipd.dei.eis.data.sources;
 
 import it.unipd.dei.eis.core.common.Context;
 import it.unipd.dei.eis.data.entities.CsvDataEntity;
-import it.unipd.dei.eis.data.serialization.CsvDecoder;
+import it.unipd.dei.eis.data.codecs.CsvDecoder;
 import org.apache.commons.csv.CSVRecord;
 
 import java.util.List;

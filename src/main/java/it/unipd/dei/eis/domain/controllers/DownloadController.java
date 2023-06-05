@@ -20,7 +20,7 @@ public class DownloadController extends Controller {
      * DownloadController constructor.
      */
     public DownloadController() {
-        super(UseCases.DOWNLOAD);
+        super(String.valueOf(UseCases.DOWNLOAD));
     }
 
     /**
@@ -35,7 +35,6 @@ public class DownloadController extends Controller {
         try {
             List<IModel> result1 = RepositoryFactory.create(context.source)
                     .pull(context);
-            context.sharedData.put(super.name, result1);
             System.out.println("Retrieved " + result1.size() + " items");
             System.out.println("Writing data to " + context.outputArticles + "...");
             RepositoryFactory.create(context.outputArticles)

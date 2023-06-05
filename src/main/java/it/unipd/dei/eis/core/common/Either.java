@@ -12,6 +12,7 @@ public class Either<Failure, T> {
      * The failure.
      */
     public final Failure failure;
+
     /**
      * The success.
      */

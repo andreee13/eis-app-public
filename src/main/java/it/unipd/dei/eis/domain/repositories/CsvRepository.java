@@ -14,10 +14,27 @@ import java.util.stream.Collectors;
 public class CsvRepository extends Repository<CsvDataSource, CsvDataEntity, ArticleModel> {
 
     /**
+     * The instance of the CsvRepository class.
+     */
+    private static CsvRepository instance;
+
+    /**
      * Creates a new CsvRepository.
      */
-    CsvRepository() {
+    private CsvRepository() {
         super(new CsvDataSource());
+    }
+
+    /**
+     * Returns the instance of the CsvRepository class.
+     *
+     * @return The instance of the CsvRepository class
+     */
+    public static synchronized CsvRepository getInstance() {
+        if (instance == null) {
+            instance = new CsvRepository();
+        }
+        return instance;
     }
 
     /**
@@ -45,7 +62,7 @@ public class CsvRepository extends Repository<CsvDataSource, CsvDataEntity, Arti
      * @return List of articles
      */
     @Override
-    public List<ArticleModel> pull(Context context) throws Exception {
+    public List<ArticleModel> pullData(Context context) throws Exception {
         return dataSource.get(context)
                 .stream()
                 .map(this::adapt)

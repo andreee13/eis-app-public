@@ -1,18 +1,19 @@
-package it.unipd.dei.eis.domain.controllers;
+package it.unipd.dei.eis.presentation;
 
-import it.unipd.dei.eis.core.common.Context;
 import it.unipd.dei.eis.core.common.Either;
 import it.unipd.dei.eis.core.common.Failure;
 import it.unipd.dei.eis.core.common.Success;
 
 import java.io.PrintStream;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.function.Supplier;
 
 /**
- * The ControllerExecutor class is the singleton class that executes the controllers.
+ * The AsyncExecutor class is the singleton class that executes the controllers.
  * It contains the execute method.
  */
-public class ControllerExecutor {
+public class AsyncExecutor {
 
     /**
      * The ANIMATION field is the animation of the loading thread.
@@ -25,15 +26,25 @@ public class ControllerExecutor {
     private static final int ANIMATION_INTERVAL = 100;
 
     /**
-     * The instance field is the instance of the ControllerExecutor class.
+     * The ANSI_GREEN field is the ANSI code for green.
      */
-    private static ControllerExecutor instance;
+    private static final String ANSI_GREEN = "\u001B[32m";
 
     /**
-     * The ControllerExecutor constructor.
+     * The ANSI_RESET field is the ANSI code for reset.
+     */
+    private static final String ANSI_RESET = "\u001B[0m";
+
+    /**
+     * The instance field is the instance of the AsyncExecutor class.
+     */
+    private static AsyncExecutor instance;
+
+    /**
+     * The AsyncExecutor constructor.
      * It sets the animation of the loading thread.
      */
-    private ControllerExecutor() {
+    private AsyncExecutor() {
         System.setOut(new PrintStream(System.out) {
 
             /**
@@ -47,73 +58,55 @@ public class ControllerExecutor {
     }
 
     /**
-     * The getInstance method returns the instance of the ControllerExecutor class.
+     * The getInstance method returns the instance of the AsyncExecutor class.
      *
-     * @return the instance of the ControllerExecutor class
+     * @return the instance of the AsyncExecutor class
      */
-    public static synchronized ControllerExecutor getInstance() {
+    public static synchronized AsyncExecutor getInstance() {
         if (instance == null) {
-            instance = new ControllerExecutor();
+            instance = new AsyncExecutor();
         }
         return instance;
     }
 
     /**
      * The abort method aborts the loading thread.
-     *
-     * @param loadingThread the loading thread
-     * @param result        the result of the controller
-     */
-    private void abort(Thread loadingThread, Either<Failure, Success> result) {
-        abort(loadingThread, String.format("%s\n\t-> Caused by %s", result.failure.message, result.failure.exception.getMessage()));
-    }
-
-    /**
-     * The abort method aborts the loading thread.
+     * Find the cause of the exception and throw a RuntimeException.
      *
      * @param loadingThread the loading thread
      * @param e             the exception
      */
+    @SuppressWarnings("StatementWithEmptyBody")
     private void abort(Thread loadingThread, Exception e) {
-        abort(loadingThread, e.getMessage());
-    }
-
-    /**
-     * The abort method aborts the loading thread.
-     *
-     * @param loadingThread the loading thread
-     * @param s             the string of the error
-     */
-    private void abort(Thread loadingThread, String s) {
+        Throwable throwable;
+        for (throwable = e; throwable.getCause() != null; throwable = throwable.getCause()) ;
         loadingThread.interrupt();
         try {
             Thread.sleep(ANIMATION_INTERVAL);
         } catch (InterruptedException ignored) {
         }
-        System.out.println("\r[X] Error: " + s);
-        System.exit(1);
+        throw new RuntimeException("\r[X] Error: " + (throwable.getMessage() == null ? "Unknown error" : throwable.getMessage()));
     }
 
     /**
      * The execute method executes the controller.
      *
-     * @param controller the controller
-     * @param context    the context of the controller
+     * @param supplier the function to be executed
      */
-    public void execute(Controller controller, Context context) {
-        System.out.printf("%s:\n", controller.name.toUpperCase());
-        CompletableFuture<Either<Failure, Success>> completableFuture = CompletableFuture.supplyAsync(() -> controller.execute(context));
+    public void execute(Supplier<Either<Failure, Success>> supplier, String name) {
+        System.out.printf("%s:\n", name);
         long start = System.currentTimeMillis();
         Thread loadingThread = getLoadingThread(start);
         loadingThread.start();
         try {
-            Either<Failure, Success> result = completableFuture.get();
+            Either<Failure, Success> result = CompletableFuture.supplyAsync(supplier)
+                    .get();
             if (result.isFailure()) {
-                abort(loadingThread, result);
+                abort(loadingThread, result.failure.exception);
             }
             loadingThread.interrupt();
-            System.out.printf("\r[✓] Success • %s\n\n", getLoadingTime(start));
-        } catch (Exception e) {
+            System.out.printf(ANSI_GREEN + "\r[✓] Success • %s\n\n", getLoadingTime(start) + ANSI_RESET);
+        } catch (InterruptedException | ExecutionException e) {
             abort(loadingThread, e);
         }
     }

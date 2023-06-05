@@ -23,13 +23,13 @@ public interface RepositoryFactory {
     static <S extends DataSource<E>, E extends DataEntity, M extends IModel> Repository<S, E, M> create(String option) throws IllegalArgumentException {
         final Repository<? extends DataSource<? extends DataEntity>, ? extends DataEntity, ? extends IModel> repository;
         if (option.equals("theguardian")) {
-            repository = new TheGuardianRepository();
+            repository = TheGuardianRepository.getInstance();
         } else if (option.endsWith(".txt")) {
-            repository = new TermsExtractionRepository();
+            repository = TermsExtractionRepository.getInstance();
         } else if (option.endsWith(".csv")) {
-            repository = new CsvRepository();
+            repository = CsvRepository.getInstance();
         } else if (option.endsWith(".json")) {
-            repository = new JsonRepository();
+            repository = JsonRepository.getInstance();
         } else {
             throw new IllegalArgumentException(String.format("\"%s\" is not a valid option", option));
         }

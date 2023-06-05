@@ -1,6 +1,7 @@
 package it.unipd.dei.eis.domain.repositories;
 
 import it.unipd.dei.eis.core.common.Context;
+import it.unipd.dei.eis.core.constants.UseCases;
 import it.unipd.dei.eis.core.utils.ContextBuilder;
 import it.unipd.dei.eis.domain.models.ArticleModel;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ public class CsvRepositoryTest {
     /**
      * The repository to test.
      */
-    private final CsvRepository repository = new CsvRepository();
+    private final CsvRepository repository = CsvRepository.getInstance();
 
     /**
      * The context to use.
@@ -25,7 +26,7 @@ public class CsvRepositoryTest {
     private final Context context = new ContextBuilder()
             .setSource("file.csv")
             .setCountArticles(1)
-            .setCommand("download")
+            .setUseCase(UseCases.DOWNLOAD)
             .build();
 
     /**

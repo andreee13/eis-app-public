@@ -1,12 +1,8 @@
 package it.unipd.dei.eis.presentation;
 
 import it.unipd.dei.eis.core.common.Context;
-import it.unipd.dei.eis.core.constants.UseCases;
 import it.unipd.dei.eis.domain.use_cases.UseCaseFactory;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
+import org.apache.commons.cli.*;
 
 /**
  * Bootstrapper is the class that starts the application.
@@ -27,7 +23,7 @@ public class Bootstrapper {
     /**
      * The HELP_MESSAGE field contains the help message.
      */
-    private static final String HELP_MESSAGE = "java -jar <jarfile> <%s|%s|%s> [options]";
+    private static final String HELP_MESSAGE = "java -jar <jarfile> [options]";
 
     static {
         OPTIONS.addOption(Option.builder()
@@ -36,12 +32,14 @@ public class Bootstrapper {
                 .desc("Print this message")
                 .build());
         OPTIONS.addOption(Option.builder()
-                .option("s")
-                .longOpt("source")
-                .desc("Data source (required)")
-                .hasArg()
-                .argName("source|file")
-                .required()
+                .option("d")
+                .longOpt("download")
+                .desc("Download only")
+                .build());
+        OPTIONS.addOption(Option.builder()
+                .option("e")
+                .longOpt("extract")
+                .desc("Extract only")
                 .build());
         OPTIONS.addOption(Option.builder()
                 .option("oa")
@@ -122,19 +120,17 @@ public class Bootstrapper {
      */
     public void launch() {
         try {
-            Context context = new Context(PARSER.parse(OPTIONS, args));
-            UseCaseFactory.create(context.command)
+            Context context = Context.fromCommandLine(PARSER.parse(OPTIONS, args));
+            UseCaseFactory.create(context.useCase)
                     .run(context);
-        } catch (Exception e) {
+        } catch (ParseException e) {
             new HelpFormatter().printHelp(
-                    String.format(
-                            HELP_MESSAGE,
-                            UseCases.DOWNLOAD,
-                            UseCases.EXTRACT,
-                            UseCases.BOTH
-                    ),
+                    HELP_MESSAGE,
                     OPTIONS
             );
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
     }
 }

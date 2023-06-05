@@ -1,4 +1,4 @@
-package it.unipd.dei.eis.data.serialization;
+package it.unipd.dei.eis.data.codecs;
 
 import it.unipd.dei.eis.core.utils.DateParser;
 import it.unipd.dei.eis.domain.models.ArticleModel;

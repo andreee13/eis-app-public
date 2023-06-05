@@ -20,7 +20,7 @@ public class TermsExtractorController extends Controller {
      * TermsExtractorController constructor.
      */
     public TermsExtractorController() {
-        super(UseCases.EXTRACT);
+        super(String.valueOf(UseCases.EXTRACT));
     }
 
     /**
@@ -30,23 +30,17 @@ public class TermsExtractorController extends Controller {
      * @return Either a Failure or a Success
      */
     @Override
-    @SuppressWarnings("unchecked")
     public Either<Failure, Success> execute(Context context) {
         List<IModel> models;
         try {
-            if (context.sharedData.get(UseCases.DOWNLOAD) != null) {
-                System.out.println("Reading data from memory...");
-                models = (List<IModel>) context.sharedData.get(UseCases.DOWNLOAD);
-            } else {
-                System.out.println("Reading data from " + context.source + "...");
-                models = RepositoryFactory.create(context.source)
-                        .pull(context);
-            }
+            System.out.println("Reading data from " + context.source + "...");
+            models = RepositoryFactory.create(context.source)
+                    .pull(context);
             System.out.println("Read " + models.size() + " items");
             System.out.println("Extracting " + context.countTerms + " terms...");
             RepositoryFactory.create(context.outputTerms)
                     .push(context, models);
-            System.out.println("Terms extracted and written to ".concat(context.outputTerms));
+            System.out.println("Terms extracted and written to " + context.outputTerms);
             return Either.success(new Success());
         } catch (Exception e) {
             return Either.failure(new Failure(e));

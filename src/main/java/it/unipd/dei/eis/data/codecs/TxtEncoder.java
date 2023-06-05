@@ -1,4 +1,4 @@
-package it.unipd.dei.eis.data.serialization;
+package it.unipd.dei.eis.data.codecs;
 
 import java.util.List;
 import java.util.Map;

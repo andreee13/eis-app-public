@@ -14,10 +14,27 @@ import java.util.stream.Collectors;
 public class JsonRepository extends Repository<JsonDataSource, JsonDataEntity, ArticleModel> {
 
     /**
+     * The instance of the JsonRepository class.
+     */
+    private static JsonRepository instance;
+
+    /**
      * Creates a new Repository.
      */
-    JsonRepository() {
+    private JsonRepository() {
         super(new JsonDataSource());
+    }
+
+    /**
+     * Returns the instance of the JsonRepository class.
+     *
+     * @return The instance of the JsonRepository class
+     */
+    public static synchronized JsonRepository getInstance() {
+        if (instance == null) {
+            instance = new JsonRepository();
+        }
+        return instance;
     }
 
     /**
@@ -64,7 +81,7 @@ public class JsonRepository extends Repository<JsonDataSource, JsonDataEntity, A
      * @return List of articles
      */
     @Override
-    public List<ArticleModel> pull(Context context) throws Exception {
+    public List<ArticleModel> pullData(Context context) throws Exception {
         return dataSource.get(context)
                 .stream()
                 .map(this::adapt)
@@ -78,7 +95,7 @@ public class JsonRepository extends Repository<JsonDataSource, JsonDataEntity, A
      * @param articleModels The articleModels to push
      */
     @Override
-    public void push(Context context, List<ArticleModel> articleModels) throws Exception {
+    public void pushData(Context context, List<ArticleModel> articleModels) throws Exception {
         dataSource.set(context, articleModels.stream()
                 .map(this::adapt)
                 .collect(Collectors.toList()));

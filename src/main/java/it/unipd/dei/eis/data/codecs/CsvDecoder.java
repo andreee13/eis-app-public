@@ -1,4 +1,4 @@
-package it.unipd.dei.eis.data.serialization;
+package it.unipd.dei.eis.data.codecs;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;

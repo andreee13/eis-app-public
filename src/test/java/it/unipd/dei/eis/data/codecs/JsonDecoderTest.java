@@ -1,4 +1,4 @@
-package it.unipd.dei.eis.data.serialization;
+package it.unipd.dei.eis.data.codecs;
 
 import it.unipd.dei.eis.data.entities.JsonDataEntity;
 import org.junit.jupiter.api.Test;

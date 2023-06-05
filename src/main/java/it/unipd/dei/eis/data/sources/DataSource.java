@@ -2,8 +2,8 @@ package it.unipd.dei.eis.data.sources;
 
 import it.unipd.dei.eis.core.common.Context;
 import it.unipd.dei.eis.data.entities.DataEntity;
-import it.unipd.dei.eis.data.serialization.IDecoder;
-import it.unipd.dei.eis.data.serialization.IEncoder;
+import it.unipd.dei.eis.data.codecs.IDecoder;
+import it.unipd.dei.eis.data.codecs.IEncoder;
 
 import java.util.List;
 

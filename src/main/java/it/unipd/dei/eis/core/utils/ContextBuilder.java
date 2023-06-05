@@ -2,9 +2,9 @@ package it.unipd.dei.eis.core.utils;
 
 import it.unipd.dei.eis.core.common.IBuilder;
 import it.unipd.dei.eis.core.common.Context;
+import it.unipd.dei.eis.core.constants.UseCases;
 
 import java.util.Date;
-import java.util.Map;
 
 /**
  * The ContextBuilder class is the builder class of the Context class.
@@ -12,9 +12,9 @@ import java.util.Map;
 public class ContextBuilder implements IBuilder<Context> {
 
     /**
-     * The command field contains the command.
+     * The useCase field contains the UseCase.
      */
-    private String command;
+    private UseCases useCase;
 
     /**
      * The source field contains the source from which the data are retrieved.
@@ -62,18 +62,13 @@ public class ContextBuilder implements IBuilder<Context> {
     private String apiKey;
 
     /**
-     * The sharedData field contains the shared data during the execution.
-     */
-    private Map<String, Object> sharedData;
-
-    /**
      * Sets the command.
      *
-     * @param command the command
+     * @param useCase the useCase
      * @return the context builder
      */
-    public ContextBuilder setCommand(String command) {
-        this.command = command;
+    public ContextBuilder setUseCase(UseCases useCase) {
+        this.useCase = useCase;
         return this;
     }
 
@@ -177,17 +172,6 @@ public class ContextBuilder implements IBuilder<Context> {
     }
 
     /**
-     * Sets the shared data.
-     *
-     * @param sharedData the shared data
-     * @return the context builder
-     */
-    public ContextBuilder setSharedData(Map<String, Object> sharedData) {
-        this.sharedData = sharedData;
-        return this;
-    }
-
-    /**
      * Builds the context.
      *
      * @return the context
@@ -195,7 +179,7 @@ public class ContextBuilder implements IBuilder<Context> {
     @Override
     public Context build() {
         return new Context(
-                command,
+                useCase,
                 source,
                 outputArticles,
                 outputTerms,
@@ -204,8 +188,7 @@ public class ContextBuilder implements IBuilder<Context> {
                 countTerms,
                 fromDate,
                 toDate,
-                apiKey,
-                sharedData
+                apiKey
         );
     }
 }

@@ -2,8 +2,8 @@ package it.unipd.dei.eis.data.sources;
 
 import it.unipd.dei.eis.core.common.Context;
 import it.unipd.dei.eis.data.entities.JsonDataEntity;
-import it.unipd.dei.eis.data.serialization.JsonDecoder;
-import it.unipd.dei.eis.data.serialization.JsonEncoder;
+import it.unipd.dei.eis.data.codecs.JsonDecoder;
+import it.unipd.dei.eis.data.codecs.JsonEncoder;
 
 import java.io.FileWriter;
 import java.nio.file.Files;

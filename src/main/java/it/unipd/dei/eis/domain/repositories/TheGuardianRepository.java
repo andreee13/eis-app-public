@@ -15,10 +15,27 @@ import java.util.stream.Collectors;
 public class TheGuardianRepository extends Repository<TheGuardianDataSource, TheGuardianDataEntity, ArticleModel> {
 
     /**
+     * The instance of the TheGuardianRepository class.
+     */
+    private static TheGuardianRepository instance;
+
+    /**
      * Creates a new Repository.
      */
-    TheGuardianRepository() {
+    private TheGuardianRepository() {
         super(new TheGuardianDataSource());
+    }
+
+    /**
+     * Returns the instance of the TheGuardianRepository class.
+     *
+     * @return The instance of the TheGuardianRepository class
+     */
+    public static synchronized TheGuardianRepository getInstance() {
+        if (instance == null) {
+            instance = new TheGuardianRepository();
+        }
+        return instance;
     }
 
     /**
@@ -28,7 +45,7 @@ public class TheGuardianRepository extends Repository<TheGuardianDataSource, The
      * @return List of articles
      */
     @Override
-    public List<ArticleModel> pull(Context context) {
+    public List<ArticleModel> pullData(Context context) {
         return dataSource.get(context)
                 .stream()
                 .collect(

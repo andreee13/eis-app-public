@@ -13,7 +13,7 @@ public class TermsExtractorControllerTest {
     @Test
     public void execute() {
         Context context = new ContextBuilder()
-                .setCommand(UseCases.EXTRACT)
+                .setUseCase(UseCases.EXTRACT)
                 .setSource("src/test/resources/articles.json")
                 .setOutputTerms("src/test/resources/terms.txt")
                 .setCountTerms(10)
