@@ -6,8 +6,8 @@ import java.util.Map;
 /**
  * Cache is the abstract class for caches.
  *
- * @param <K>
- * @param <V>
+ * @param <K> The type of the key
+ * @param <V> The type of the value
  */
 public abstract class Cache<K, V> {
 

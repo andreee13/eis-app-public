@@ -40,6 +40,7 @@ public class JsonDataEntity extends DataEntity {
     /**
      * Creates a new JSON data entity.
      *
+     * @param id     the identifier of the record
      * @param title  the title of the record
      * @param body   the body of the record
      * @param url    the URL of the record

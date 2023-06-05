@@ -95,6 +95,7 @@ public class Context {
      * It is used to parse the command line.
      *
      * @param cmd the command line
+     * @return the Context
      */
     public static Context fromCommandLine(CommandLine cmd) {
         if (cmd.getArgs().length == 0) {

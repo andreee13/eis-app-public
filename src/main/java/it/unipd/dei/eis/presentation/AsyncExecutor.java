@@ -92,6 +92,7 @@ public class AsyncExecutor {
      * The execute method executes the controller.
      *
      * @param supplier the function to be executed
+     * @param name     the name of the function
      */
     public void execute(Supplier<Either<Failure, Success>> supplier, String name) {
         System.out.printf("%s:\n", name);
