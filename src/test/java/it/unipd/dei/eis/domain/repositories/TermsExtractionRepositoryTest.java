@@ -30,11 +30,11 @@ public class TermsExtractionRepositoryTest {
             .build();
 
     /**
-     * Test the push method.
+     * Test the pushData method.
      */
     @Test
-    void push() throws Exception {
-        repository.push(
+    void pushData() throws Exception {
+        repository.pushData(
                 context,
                 Collections.singletonList(
                         new ArticleModel(

@@ -34,11 +34,12 @@ public class TheGuardianRepositoryTest {
             .build();
 
     /**
-     * Test the pull method.
+     * Test the pullData method.
      */
     @Test
-    void pull() throws Exception {
-        List<ArticleModel> result = repository.pull(context);
+    void pullData() throws Exception {
+        List<ArticleModel> result = repository.pullData(context);
         assertEquals(result.size(), context.countArticles);
+       // assertEquals(result.get(0).id, 1121452019); da controllare perchè non ho la key
     }
 }
