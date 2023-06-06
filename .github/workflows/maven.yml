@@ -19,6 +19,13 @@ jobs:
           java-version: '8'
           distribution: 'temurin'
           cache: maven
+      - name: Maven site
+        run: mvn -B site
+      - name: Publish site
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/site
       - name: Maven package
         env:
           THE_GUARDIAN_API_KEY: ${{ secrets.THE_GUARDIAN_API_KEY }}
@@ -28,10 +35,3 @@ jobs:
         with:
           name: app
           path: target/*.jar
-      - name: Maven site
-        run: mvn -B site
-      - name: Publish site
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./target/site

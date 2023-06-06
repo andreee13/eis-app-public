@@ -9,7 +9,7 @@
     <artifactId>eis-app</artifactId>
     <version>1.0</version>
     <description>
-        A Java application that uses the Stanford CoreNLP library to extract the most frequent words from news articles
+        A Java application that uses the Stanford CoreNLP library to extract the most frequent terms from news articles
     </description>
 
     <properties>
