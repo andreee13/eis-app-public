@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project xmlns="http://maven.apache.org/DECORATION/1.8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 https://maven.apache.org/xsd/decoration-1.8.0.xsd"
+         name="Maven">
+
+    <skin>
+        <groupId>io.github.olamy.maven.skins</groupId>
+        <artifactId>reflow-maven-skin</artifactId>
+        <version>2.0.0</version>
+    </skin>
+
+    <publishDate position="none"/>
+    <version position="bottom"/>
+
+    <custom>
+        <reflowSkin>
+            <theme>bootswatch-litera</theme>
+        </reflowSkin>
+    </custom>
+
+    <body>
+        <menu name="Documentation">
+            <item name="Manuale" href="manuale.html"/>
+            <item name="Documento dei Requisiti" href="documento_requisiti.html"/>
+            <item name="Design Model" href="design_model.html"/>
+            <item name="Domain Model" href="domain_model.html"/>
+        </menu>
+        <menu name="Information" ref="reports"/>
+    </body>
+</project>

@@ -123,7 +123,7 @@ public class Bootstrapper {
             Context context = Context.fromCommandLine(PARSER.parse(OPTIONS, args));
             UseCaseFactory.create(context.useCase)
                     .run(context);
-        } catch (ParseException e) {
+        } catch (ParseException | IllegalArgumentException e) {
             new HelpFormatter().printHelp(
                     HELP_MESSAGE,
                     OPTIONS

@@ -7,7 +7,10 @@
 
     <groupId>it.unipd.dei.eis</groupId>
     <artifactId>eis-app</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
+    <description>
+        A Java application that uses the Stanford CoreNLP library to extract the most frequent words from news articles
+    </description>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -15,8 +18,40 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>3.1.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.5.0</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>4.0.0-M8</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>io.github.devacfr.maven.skins</groupId>
+                        <artifactId>reflow-velocity-tools</artifactId>
+                        <version>2.3.3</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -52,14 +87,6 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.5.0</version>
-                <configuration>
-                    <reportOutputDirectory>${project.basedir}/docs</reportOutputDirectory>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

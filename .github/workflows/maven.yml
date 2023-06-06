@@ -19,7 +19,7 @@ jobs:
           java-version: '8'
           distribution: 'temurin'
           cache: maven
-      - name: Build with Maven
+      - name: Maven package
         env:
           THE_GUARDIAN_API_KEY: ${{ secrets.THE_GUARDIAN_API_KEY }}
         run: mvn -B package
@@ -28,9 +28,10 @@ jobs:
         with:
           name: app
           path: target/*.jar
-      - name: Generate Javadoc
-        run: mvn javadoc:javadoc
-      - name: Commit and Push Changes
-        uses: stefanzweifel/git-auto-commit-action@v4
+      - name: Maven site
+        run: mvn -B site
+      - name: Publish site
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          commit_message: "Generate Javadoc"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/site
