@@ -10,13 +10,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class TermsDataEntityTest {
 
-    /*
+    /**
+     * Test the toString method.
+     */
     @Test
-    void toString(){
+    void testToString(){
         TermsDataEntity t = new TermsDataEntity("title", "body");
         String s = t.toString();
         assertEquals(s, "title body");
-    }*/
+    }
 
     /**
      * Test the contains method.

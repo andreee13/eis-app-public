@@ -1,4 +1,4 @@
-package it.unipd.dei.eis.core.utils;
+package it.unipd.dei.eis.core.common;
 
 import it.unipd.dei.eis.core.common.Either;
 import it.unipd.dei.eis.core.common.Failure;
