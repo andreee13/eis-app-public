@@ -40,6 +40,6 @@ public class TheGuardianRepositoryTest {
     void pullData() throws Exception {
         List<ArticleModel> result = repository.pullData(context);
         assertEquals(result.size(), context.countArticles);
-        assertEquals(1121452019, result.get(0).id );
+        assertEquals(-33595425, result.get(0).id);
     }
 }

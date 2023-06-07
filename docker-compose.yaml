@@ -1,10 +1,10 @@
 version: '3'
 services:
-  both:
+  eis-app:
     build:
       context: .
       dockerfile: Dockerfile
-    image: eis-app
+    image: eis-app-image
     container_name: eis-app-container
     volumes:
       - ./output:/app/output

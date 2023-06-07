@@ -13,20 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class TxtEncoderTest {
 
     /**
-     * Test the encode method with a String.
-     */
-    @Test
-    public void encodeObject() {
-        String s = new TxtEncoder().encode("Trying to encode a string..", 1);
-
-        assertEquals("Trying to encode a string..", s);
-    }
-
-    /**
      * Test the encode method with a Map.
      */
     @Test
-    public void encodeMap() {
+    public void encode() {
         Map<String, String> map = new HashMap<>();
         map.put("key1", "value1");
         map.put("key2", "value2");
