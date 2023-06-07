@@ -43,13 +43,13 @@ I componenti software dell'architettura sono suddivisi in 4 layer, la cui intera
 
 Sono stati utilizzati i seguenti design pattern:
 
-- Strategy <Tutti i layer con context>
-- Factory <RepositoryFactory> <UseCaseFactory>
-- Singleton <Repositories> <AsyncExecutor>
-- Adapter <Repositories> 
-- Builder <ContextBuilder>
-- Facade <Tutti i layer> 
-- Thread pool <TheGuardianDataSource> <TermsDataSource>
+- _Strategy_ <!--Tutti i layer con context-->
+- _Factory_ <!--RepositoryFactory, UseCaseFactory-->
+- _Singleton_ <!--Repositories, AsyncExecutor-->
+- _Adapter_ <!--Repositories--> 
+- _Builder_ <!--ContextBuilder-->
+- _Facade_ <!--Tutti i layer--> 
+- _Thread pool_ <!--TheGuardianDataSource, TermsDataSource-->
 
 ### Dettagli implementativi
 
@@ -90,14 +90,19 @@ Sono stati utilizzati i seguenti design pattern:
 
 ### Dockerfile
 
-    $ docker run -it --rm <image_name> [options]
+    $ docker run -it --rm <image_name> <source> [options]
 
 ### Docker Compose
 
-    $ docker-compose run --rm eis-app [options]
+    $ docker-compose run --rm eis-app <source> [options]
 
-### Opzioni comuni
+### Configurazione
 
+    <source>
+        path/to/file.extension           Input file
+        theguardian                      The Guardian API
+
+    [options]
         -ca,--count-articles <integer>   Number of articles (default 10)
         -ct,--count-terms <integer>      Number of terms (default 50)
         -d,--download                    Download only
