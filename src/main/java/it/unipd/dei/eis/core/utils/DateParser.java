@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * A utility class for parsing dates.
  */
-public class DateParser {
+public abstract class DateParser {
 
     /**
      * The date format pattern.
@@ -17,12 +17,6 @@ public class DateParser {
      * The date format object.
      */
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(PATTERN);
-
-    /**
-     * Private constructor to avoid instantiation.
-     */
-    private DateParser() {
-    }
 
     /**
      * Parses a date.

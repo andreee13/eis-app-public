@@ -59,7 +59,7 @@ public class TermsExtractionRepository extends Repository<TermsDataSource, Terms
      * @param models  The articles to push
      */
     @Override
-    public void pushData(Context context, List<ArticleModel> models) throws Exception {
+    void pushData(Context context, List<ArticleModel> models) throws Exception {
         dataSource.set(context, models.stream()
                 .map(this::adapt)
                 .collect(Collectors.toList()));

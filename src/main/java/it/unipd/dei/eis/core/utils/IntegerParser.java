@@ -3,7 +3,7 @@ package it.unipd.dei.eis.core.utils;
 /**
  * Utility interface to parse an integer from a string.
  */
-public interface IntegerParser {
+public abstract class IntegerParser {
 
     /**
      * Parses an integer from a string.
@@ -11,7 +11,7 @@ public interface IntegerParser {
      * @param integer the string to parse
      * @return the integer parsed or null if the string is not a valid integer
      */
-    static Integer tryParse(String integer) {
+    public static Integer tryParse(String integer) {
         try {
             return Integer.parseInt(integer);
         } catch (Exception e) {

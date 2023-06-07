@@ -62,7 +62,7 @@ public class CsvRepository extends Repository<CsvDataSource, CsvDataEntity, Arti
      * @return List of articles
      */
     @Override
-    public List<ArticleModel> pullData(Context context) throws Exception {
+    List<ArticleModel> pullData(Context context) throws Exception {
         return dataSource.get(context)
                 .stream()
                 .map(this::adapt)

@@ -20,6 +20,8 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Maven site
+        env:
+          THE_GUARDIAN_API_KEY: ${{ secrets.THE_GUARDIAN_API_KEY }}
         run: mvn -B site
       - name: Publish site
         uses: peaceiris/actions-gh-pages@v3

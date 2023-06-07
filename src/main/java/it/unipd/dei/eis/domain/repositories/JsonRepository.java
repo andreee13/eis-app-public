@@ -81,7 +81,7 @@ public class JsonRepository extends Repository<JsonDataSource, JsonDataEntity, A
      * @return List of articles
      */
     @Override
-    public List<ArticleModel> pullData(Context context) throws Exception {
+    List<ArticleModel> pullData(Context context) throws Exception {
         return dataSource.get(context)
                 .stream()
                 .map(this::adapt)
@@ -95,7 +95,7 @@ public class JsonRepository extends Repository<JsonDataSource, JsonDataEntity, A
      * @param articleModels The articleModels to push
      */
     @Override
-    public void pushData(Context context, List<ArticleModel> articleModels) throws Exception {
+    void pushData(Context context, List<ArticleModel> articleModels) throws Exception {
         dataSource.set(context, articleModels.stream()
                 .map(this::adapt)
                 .collect(Collectors.toList()));
