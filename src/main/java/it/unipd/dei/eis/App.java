@@ -16,5 +16,3 @@ public class App {
         new Bootstrapper(args).launch();
     }
 }
-
-//TODO: tests
