@@ -108,63 +108,146 @@
  </div>
  <section>
   <h2>Panoramica</h2>
-  <p>Questo è un tool che permette di effettuare operazioni su articoli di giornale.</p>
+  <p>Questo è un tool che permette di effettuare operazioni su articoli di giornale provenienti da più fonti.</p>
   <p>Il programma consente di:</p>
   <ul>
-   <li><strong>Scaricare</strong> uno o più articoli da fonti diverse. È possibile specificare la fonte di provenienza dei dati, il numero di articoli da scaricare o un range di date.</li>
-   <li><strong>Estrarre</strong> da uno o più articoli le parole più ricorrenti, salvandole in un file di testo. È possibile specificare il nome del file di output e il numero di parole da estrarre.</li>
-   <li><strong>Scaricare</strong> uno o più articoli ed estrarre direttamente le parole più ricorrenti in un file di testo. È possibile specificare la fonte di provenienza dei dati, il numero di articoli da scaricare o un range di date, il nome del file di output e il numero di parole da estrarre.</li>
+   <li><strong>Scaricare</strong> uno o più articoli da diverse fonti locali o remote, salvandoli su disco in un formato comune.</li>
+   <li><strong>Estrarre</strong> da fonti locali o remote, o dal risultato di un download precedente, i termini più ricorrenti, salvandoli in ordine di frequenza in un file di testo.</li>
+   <li><strong>Scaricare</strong> gli articoli ed <strong>estrarre</strong> le parole in un'unica operazione.</li>
   </ul>
+  <section>
+   <h3>Opzioni</h3>
+   <p>È possibile specificare le seguenti opzioni, a seconda dell'operazione da effettuare:</p>
+   <ul>
+    <li>nome file di output articoli</li>
+    <li>filtri di ricerca</li>
+    <li>filtri temporali</li>
+    <li>numero di articoli</li>
+    <li>nome del file di output termini (solo estrazione)</li>
+    <li>numero di parole da estrarre (solo estrazione)</li>
+   </ul>
+  </section>
+  <section>
+   <h3>Fonti</h3>
+   <p>Le fonti attualmente supportate sono:</p>
+   <ul>
+    <li>The Guardian API</li>
+    <li>The New York Times CSV</li>
+    <li>File provenienti da un download precedente</li>
+   </ul>
+  </section>
  </section>
  <section>
-  <h2>Installazione</h2>
+  <h2>Architettura</h2>
+  <p><img src="architecture.svg" alt="Architettura"></p>
+  <p>I componenti software dell'architettura sono suddivisi in 4 layer, la cui interazione è bidirezionale. Partendo dal lato utente:</p>
+  <ul>
+   <li><strong>UseCase</strong>: contiene l'operazione da eseguire.</li>
+   <li><strong>Controller</strong>: contiene gli elementi che permettono di interagire con l'utente. Interagisce con il livello superiore tramite <strong>Model</strong>.</li>
+   <li><strong>Repository</strong>: contiene gli elementi che permettono di interagire con le fonti. Interagisce con il livello superiore tramite <strong>Entity</strong>.</li>
+   <li><strong>DataSource</strong>: contiene gli elementi che permettono di interagire con i dati.</li>
+  </ul>
+  <section>
+   <h3>Design pattern</h3>
+   <p>Sono stati utilizzati i seguenti design pattern:</p>
+   <ul>
+    <li><em>Strategy</em> <!--Tutti i layer con context--></li>
+    <li><em>Factory</em> <!--RepositoryFactory, UseCaseFactory--></li>
+    <li><em>Singleton</em> <!--Repositories, AsyncExecutor--></li>
+    <li><em>Adapter</em> <!--Repositories--></li>
+    <li><em>Builder</em> <!--ContextBuilder--></li>
+    <li><em>Facade</em> <!--Tutti i layer--></li>
+    <li><em>Thread pool</em> <!--TheGuardianDataSource, TermsDataSource--></li>
+   </ul>
+  </section>
+  <section>
+   <h3>Dettagli implementativi</h3>
+   <p>È stata posta particolare attenzione a:</p>
+   <ul>
+    <li><strong>Performance</strong>: per le operazioni più onerose (chiamate multiple API ed elaborazione di molti testi) è stata implementata la computazione parallela su più thread. Inoltre, è presente un sistema di cache in memoria che agevola l'interazione tra parti del programma diverse che richiedono lo stesso dato durante l'esecuzione.</li>
+    <li><strong>Flessibilità</strong>: ogni layer dell'architettura è stato progettato per agevolare la manutenzione e l'estensione del programma, fornendo un'interfaccia comune per ogni componente.</li>
+    <li><strong>Modularità</strong>: il software è stato progettato in modo da suddividere tutte le sue componenti in moduli indipendenti, che svolgono un compito ben preciso.</li>
+   </ul>
+  </section>
+ </section>
+ <section>
+  <h2>Build</h2>
   <section>
    <h3>Jar</h3>
-   <div class="verbatim">
-    <pre><code>mvn package
+   <section>
+    <h4>Requisiti minimi</h4>
+    <ul>
+     <li><em>JDK 8</em></li>
+     <li><em>Maven 3</em></li>
+    </ul>
+   </section>
+   <section>
+    <h4>Comando</h4>
+    <div class="verbatim">
+     <pre><code>$ mvn package
 </code></pre>
-   </div>
+    </div>
+   </section>
   </section>
   <section>
    <h3>Docker</h3>
-   <div class="verbatim">
-    <pre><code>docker build -t &lt;image_name&gt; .
+   <section>
+    <h4>Requisiti minimi</h4>
+    <ul>
+     <li><em>Docker 17.05</em></li>
+    </ul>
+   </section>
+   <section>
+    <h4>Comando</h4>
+    <div class="verbatim">
+     <pre><code>$ docker build -t &lt;image_name&gt; .
 </code></pre>
-   </div>
+    </div>
+   </section>
   </section>
  </section>
  <section>
-  <h2>Esecuzione</h2>
+  <h2>Utilizzo</h2>
   <section>
    <h3>Jar</h3>
    <div class="verbatim">
-    <pre><code>java -jar &lt;jarfile&gt; [options]
-
-    -ca,--count-articles &lt;integer&gt;   Number of articles
-    -ct,--count-terms &lt;integer&gt;      Number of terms
-    -d,--download                    Download only
-    -e,--extract                     Extract only
-    -f,--from &lt;date&gt;                 From date
-    -h,--help                        Print this message
-    -k,--api-key &lt;string&gt;            API key
-    -oa,--output-articles &lt;file&gt;     Output articles file name
-    -ot,--output-terms &lt;file&gt;        Output terms file name
-    -q,--query &lt;string&gt;              Search query
-    -t,--to &lt;date&gt;                   To date
+    <pre><code>$ java -jar &lt;jarfile&gt; &lt;source&gt; [options]
 </code></pre>
    </div>
   </section>
   <section>
    <h3>Dockerfile</h3>
    <div class="verbatim">
-    <pre><code>docker run -it --rm &lt;image_name&gt; [options]
+    <pre><code>$ docker run -it --rm &lt;image_name&gt; &lt;source&gt; [options]
 </code></pre>
    </div>
   </section>
   <section>
    <h3>Docker Compose</h3>
    <div class="verbatim">
-    <pre><code>docker-compose run --rm &lt;service_name&gt; [options]
+    <pre><code>$ docker-compose run --rm eis-app &lt;source&gt; [options]
+</code></pre>
+   </div>
+  </section>
+  <section>
+   <h3>Configurazione</h3>
+   <div class="verbatim">
+    <pre><code>&lt;source&gt;
+    path/to/file.extension           Input file
+    theguardian                      The Guardian API
+
+[options]
+    -ca,--count-articles &lt;integer&gt;   Number of articles (default 10)
+    -ct,--count-terms &lt;integer&gt;      Number of terms (default 50)
+    -d,--download                    Download only
+    -e,--extract                     Extract only
+    -f,--from &lt;date&gt;                 From date
+    -h,--help                        Print this message
+    -k,--api-key &lt;string&gt;            API key
+    -oa,--output-articles &lt;file&gt;     Output articles file name (default "articles.json")
+    -ot,--output-terms &lt;file&gt;        Output terms file name (default "terms.txt")
+    -q,--query &lt;string&gt;              Search query
+    -t,--to &lt;date&gt;                   To date
 </code></pre>
    </div>
   </section>
@@ -172,7 +255,7 @@
  <section>
   <h2>Funzioni riutilizzate da librerie esistenti</h2>
   <ul>
-   <li><a href="https://commons.apache.org/proper/commons-cli/" class="externalLink">Apache Commons CLI</a>: libreria Java per la gestione di opzioni da riga di comando. 
+   <li><a href="https://commons.apache.org/proper/commons-cli/" class="externalLink">Apache Commons CLI v1.5.0</a>: libreria Java per la gestione di opzioni da riga di comando. 
     <ul>
      <li><a href="https://commons.apache.org/proper/commons-cli/javadocs/api-release/org/apache/commons/cli/CommandLine.html" class="externalLink">CommandLine</a>: classe che rappresenta una linea di comando.</li>
      <li><a href="https://commons.apache.org/proper/commons-cli/javadocs/api-release/org/apache/commons/cli/CommandLineParser.html" class="externalLink">CommandLineParser</a>: interfaccia che definisce il metodo <code>parse</code> per il parsing di una linea di comando.</li>
@@ -182,22 +265,34 @@
      <li><a href="https://commons.apache.org/proper/commons-cli/javadocs/api-release/org/apache/commons/cli/HelpFormatter.html" class="externalLink">HelpFormatter</a>: classe che permette di stampare un messaggio di aiuto.</li>
      <li><a href="https://commons.apache.org/proper/commons-cli/javadocs/api-release/org/apache/commons/cli/ParseException.html" class="externalLink">ParseException</a>: classe che rappresenta un'eccezione generata durante il parsing di una linea di comando.</li>
     </ul></li>
-   <li><a href="https://square.github.io/okhttp/" class="externalLink">OkHttp</a>: libreria Java per la creazione di client HTTP. 
+   <li><a href="https://square.github.io/okhttp/" class="externalLink">OkHttp v4.11.0</a>: libreria Java per la creazione di client HTTP. 
     <ul>
      <li><a href="https://square.github.io/okhttp/4.x/okhttp/okhttp3/-ok-http-client/" class="externalLink">OkHttpClient</a>: classe che permette di effettuare richieste HTTP.</li>
      <li><a href="https://square.github.io/okhttp/4.x/okhttp/okhttp3/-http-url/" class="externalLink">HttpUrl</a>: classe che rappresenta un URL HTTP.</li>
      <li><a href="https://square.github.io/okhttp/4.x/okhttp/okhttp3/-request/" class="externalLink">Request</a>: classe che rappresenta una richiesta HTTP.</li>
      <li><a href="https://square.github.io/okhttp/4.x/okhttp/okhttp3/-response/" class="externalLink">Response</a>: classe che rappresenta una risposta HTTP.</li>
     </ul></li>
-   <li><a href="https://commons.apache.org/proper/commons-csv/" class="externalLink">Apache Commons CSV</a>: libreria Java per la gestione di file CSV. 
+   <li><a href="https://commons.apache.org/proper/commons-csv/" class="externalLink">Apache Commons CSV v1.10.0</a>: libreria Java per la gestione di file CSV. 
     <ul>
      <li><a href="https://commons.apache.org/proper/commons-csv/apidocs/org/apache/commons/csv/CSVParser.html" class="externalLink">CSVParser</a>: classe che permette di effettuare il parsing di un file CSV.</li>
      <li><a href="https://commons.apache.org/proper/commons-csv/apidocs/org/apache/commons/csv/CSVFormat.html" class="externalLink">CSVFormat</a>: classe che rappresenta il formato di un file CSV.</li>
      <li><a href="https://commons.apache.org/proper/commons-csv/apidocs/org/apache/commons/csv/CSVRecord.html" class="externalLink">CSVRecord</a>: classe che rappresenta un record di un file CSV.</li>
     </ul></li>
-   <li><a href="https://www.javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/module-summary.html" class="externalLink">GSON</a>
+   <li><a href="https://www.javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/module-summary.html" class="externalLink">Gson v2.10.1</a>
     <ul>
      <li><a href="https://www.javadoc.io/doc/com.google.code.gson/gson/latest/com.google.gson/com.google.gson.JsonParser.html" class="externalLink">JsonParser</a>: classe che permette di effettuare il parsing di un file JSON.</li>
+    </ul></li>
+   <li><a href="https://stanfordnlp.github.io/CoreNLP/" class="externalLink">StanfordCoreNLP v4.5.4</a>: libreria Java per il Natural Language Processing. 
+    <ul>
+     <li><a href="https://stanfordnlp.github.io/CoreNLP/api.html" class="externalLink">StanfordCoreNLP</a>: classe che permette di effettuare il parsing di un testo.</li>
+     <li><a href="https://stanfordnlp.github.io/CoreNLP/api.html" class="externalLink">CoreAnnotations</a>: classe che contiene le annotazioni disponibili.</li>
+     <li><a href="https://stanfordnlp.github.io/CoreNLP/api.html" class="externalLink">CoreLabel</a>: classe che rappresenta un token.</li>
+     <li><a href="https://stanfordnlp.github.io/CoreNLP/api.html" class="externalLink">RedwoodConfiguration</a>: classe che permette di configurare il logger.</li>
+    </ul></li>
+   <li><a href="https://junit.org/junit5/docs/current/user-guide/" class="externalLink">JUnit v5.10.0-M1</a>: libreria Java per l'esecuzione di test. 
+    <ul>
+     <li><a href="https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/Assertions.html" class="externalLink">Assertions</a>: classe che contiene i metodi per effettuare gli assert.</li>
+     <li><a href="https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/Test.html" class="externalLink">Test</a>: annotazione che permette di definire un metodo di test.</li>
     </ul></li>
   </ul>
  </section>
