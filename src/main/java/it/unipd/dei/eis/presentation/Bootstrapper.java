@@ -23,7 +23,7 @@ public class Bootstrapper {
     /**
      * The HELP_MESSAGE field contains the help message.
      */
-    private static final String HELP_MESSAGE = "java -jar <jarfile> [options]";
+    private static final String HELP_MESSAGE = "java -jar <jarfile> <source> [options]";
 
     static {
         OPTIONS.addOption(Option.builder()
@@ -123,7 +123,7 @@ public class Bootstrapper {
             Context context = Context.fromCommandLine(PARSER.parse(OPTIONS, args));
             UseCaseFactory.create(context.useCase)
                     .run(context);
-        } catch (ParseException | IllegalArgumentException e) {
+        } catch (ParseException e) {
             new HelpFormatter().printHelp(
                     HELP_MESSAGE,
                     OPTIONS

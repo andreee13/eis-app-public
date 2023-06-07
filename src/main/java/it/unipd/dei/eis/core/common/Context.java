@@ -99,17 +99,23 @@ public class Context {
      */
     public static Context fromCommandLine(CommandLine cmd) {
         if (cmd.getArgs().length == 0) {
-            throw new IllegalArgumentException("The source is required");
+            throw new IllegalArgumentException("The source option is required");
         }
         Integer ca = IntegerParser.tryParse(cmd.getOptionValue("count-articles"));
+        if (ca != null && ca < 0) {
+            throw new IllegalArgumentException("The count-articles option must be a positive integer");
+        }
         Integer ct = IntegerParser.tryParse(cmd.getOptionValue("count-terms"));
-        String oa = cmd.getOptionValue("output-articles");
-        String ot = cmd.getOptionValue("output-terms");
+        if (ct != null && ct < 0) {
+            throw new IllegalArgumentException("The count-terms option must be a positive integer");
+        }
         Date from = DateParser.tryParse(cmd.getOptionValue("from"));
         Date to = DateParser.tryParse(cmd.getOptionValue("to"));
         if (from != null && to != null && from.after(to)) {
-            throw new IllegalArgumentException("The from date must be before the to date");
+            throw new IllegalArgumentException("The from-date option must be before the to-date option");
         }
+        String oa = cmd.getOptionValue("output-articles");
+        String ot = cmd.getOptionValue("output-terms");
         return new Context(
                 UseCases.fromCommandLine(cmd),
                 cmd.getArgs()[0],
