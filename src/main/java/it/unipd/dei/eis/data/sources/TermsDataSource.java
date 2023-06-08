@@ -4,18 +4,15 @@ import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.logging.RedwoodConfiguration;
-import it.unipd.dei.eis.core.utils.SynchronizedFrequencyCounter;
-import it.unipd.dei.eis.data.entities.TermsDataEntity;
-import it.unipd.dei.eis.data.codecs.TxtEncoder;
 import it.unipd.dei.eis.core.common.Context;
+import it.unipd.dei.eis.core.utils.SynchronizedFrequencyCounter;
+import it.unipd.dei.eis.data.codecs.TxtEncoder;
+import it.unipd.dei.eis.data.entities.TermsDataEntity;
 
 import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -26,7 +23,7 @@ import java.util.stream.Collectors;
  * TermsDataSource is the data source for the terms.
  * It contains the data structure of the terms.
  */
-public class TermsDataSource extends DataSource<TermsDataEntity> {
+public class TermsDataSource extends DataSource<TermsDataEntity, Map<String, Integer>> {
 
     /**
      * The ID of the data source.
@@ -93,7 +90,7 @@ public class TermsDataSource extends DataSource<TermsDataEntity> {
      * @throws Exception if an error occurs
      */
     @Override
-    public void set(Context context, List<TermsDataEntity> entities) throws Exception {
+    void setData(Context context, List<TermsDataEntity> entities) throws Exception {
         List<Future<?>> futures = new ArrayList<>(entities.size());
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime()
                 .availableProcessors());
@@ -119,5 +116,4 @@ public class TermsDataSource extends DataSource<TermsDataEntity> {
             fileWriter.write(encoder.encode(frequencyCounter.getMapSortedByValueAndKey(), context.countTerms));
         }
     }
-
 }

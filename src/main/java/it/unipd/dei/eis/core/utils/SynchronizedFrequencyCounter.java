@@ -7,6 +7,8 @@ import java.util.TreeMap;
 
 /**
  * SynchronizedFrequencyCounter is the class used to count the frequency of an object in a thread-safe way.
+ *
+ * @param <T> the type of the object
  */
 public class SynchronizedFrequencyCounter<T> {
 

@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * CsvDecoder is the decoder for CSV data.
  */
-public class CsvDecoder implements IDecoder {
+public class CsvDecoder implements IDecoder<List<CSVRecord>> {
 
     /**
      * The CSV format object used to parse the CSV file.
@@ -28,7 +28,6 @@ public class CsvDecoder implements IDecoder {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    @SuppressWarnings("unchecked")
     public List<CSVRecord> decode(String data, Object... args) throws IOException {
         try (FileReader fileReader = new FileReader(data)) {
             return CSV_FORMAT.parse(fileReader)

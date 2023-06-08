@@ -15,7 +15,7 @@ import java.util.List;
  * @param <E> The data entity
  * @param <M> The model
  */
-public abstract class Repository<S extends DataSource<E>, E extends DataEntity, M extends IModel> extends Cache<Context, List<M>> {
+public abstract class Repository<S extends DataSource<E, ?>, E extends DataEntity, M extends IModel> extends Cache<Context, List<M>> {
 
     /**
      * The data source.
@@ -51,6 +51,7 @@ public abstract class Repository<S extends DataSource<E>, E extends DataEntity, 
 
     /**
      * Pulls the models from the data source.
+     * Override this method to implement the pull operation.
      *
      * @param context The context to use
      * @return List of models
@@ -58,7 +59,7 @@ public abstract class Repository<S extends DataSource<E>, E extends DataEntity, 
      * @throws Exception                     if an error occurs
      */
     List<M> pullData(Context context) throws Exception {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Unsupported operation");
     }
 
     /**
@@ -75,6 +76,7 @@ public abstract class Repository<S extends DataSource<E>, E extends DataEntity, 
 
     /**
      * Pushes the articles to the data source.
+     * Override this method to implement the push operation.
      *
      * @param context The context to use
      * @param models  The models to push
@@ -82,7 +84,7 @@ public abstract class Repository<S extends DataSource<E>, E extends DataEntity, 
      * @throws Exception                     if an error occurs
      */
     void pushData(Context context, List<M> models) throws Exception {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Unsupported operation");
     }
 
     /**
@@ -94,7 +96,7 @@ public abstract class Repository<S extends DataSource<E>, E extends DataEntity, 
      * @throws UnsupportedOperationException if not implemented
      */
     M adapt(E dataEntity) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Unsupported operation");
     }
 
     /**
@@ -106,6 +108,6 @@ public abstract class Repository<S extends DataSource<E>, E extends DataEntity, 
      * @throws UnsupportedOperationException if not implemented
      */
     E adapt(M model) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Unsupported operation");
     }
 }

@@ -17,14 +17,12 @@ class TxtEncoderTest {
      */
     @Test
     public void encode() {
-        Map<String, String> map = new HashMap<>();
-        map.put("key1", "value1");
-        map.put("key2", "value2");
-        map.put("key3", "value3");
-
+        Map<String, Integer> map = new HashMap<>();
+        map.put("key1", 1);
+        map.put("key2", 2);
+        map.put("key3", 3);
         String s = new TxtEncoder().encode(map, 2);
-
-        String expectedString = "key1 value1\nkey2 value2\n";
+        String expectedString = "key1 1\nkey2 2\n";
         assertEquals(expectedString, s);
     }
 }

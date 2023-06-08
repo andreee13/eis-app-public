@@ -3,25 +3,25 @@ package it.unipd.dei.eis.core.constants;
 /**
  * Default configuration values.
  */
-public interface DefaultConfig {
+public abstract class DefaultConfig {
 
     /**
      * The default number of articles to pull.
      */
-    int ARTICLES_COUNT = 10;
+    public static final int ARTICLES_COUNT = 10;
 
     /**
      * The default number of terms to extract.
      */
-    int TERMS_COUNT = 50;
+    public static final int TERMS_COUNT = 50;
 
     /**
      * The default .json file where to push the articles.
      */
-    String JSON_FILE_NAME = "articles.json";
+    public static final String JSON_FILE_NAME = "articles.json";
 
     /**
      * The default .txt file where to push the articles.
      */
-    String TXT_FILE_NAME = "terms.txt";
+    public static final String TXT_FILE_NAME = "terms.txt";
 }

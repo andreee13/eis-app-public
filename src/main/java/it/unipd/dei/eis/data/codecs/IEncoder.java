@@ -2,17 +2,18 @@ package it.unipd.dei.eis.data.codecs;
 
 /**
  * IEncoder is the interface for the encoder.
+ *
+ * @param <D> the type of object to encode
  */
-public interface IEncoder {
+public interface IEncoder<D> {
 
     /**
      * Encodes the object.
      *
      * @param object the object to encode
-     * @param args   optional arguments
-     * @param <T>    the type of the object
+     * @param args    optional arguments
      * @return the encoded object
      * @throws Exception if an error occurs
      */
-    <T> String encode(T object, Object... args) throws Exception;
+    String encode(D object, Object... args) throws Exception;
 }

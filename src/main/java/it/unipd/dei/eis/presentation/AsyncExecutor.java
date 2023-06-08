@@ -41,6 +41,16 @@ public class AsyncExecutor {
     private static AsyncExecutor instance;
 
     /**
+     * The loadingThread field is the thread that prints the animation of the loading.
+     */
+    private Thread loadingThread;
+
+    /**
+     * The startTime field is the start time of the loading thread.
+     */
+    private long startTime;
+
+    /**
      * The AsyncExecutor constructor.
      * It sets the animation of the loading thread.
      */
@@ -73,42 +83,48 @@ public class AsyncExecutor {
      * The abort method aborts the loading thread.
      * Find the cause of the exception and throw a RuntimeException.
      *
-     * @param loadingThread the loading thread
-     * @param e             the exception
+     * @param e the exception
      */
-    @SuppressWarnings("StatementWithEmptyBody")
-    private void abort(Thread loadingThread, Exception e) {
-        Throwable throwable;
-        for (throwable = e; throwable.getCause() != null; throwable = throwable.getCause()) ;
+    private void abort(Exception e) {
+        Throwable throwable = e;
+        while (throwable.getCause() != null) {
+            throwable = throwable.getCause();
+        }
         loadingThread.interrupt();
         try {
             Thread.sleep(ANIMATION_INTERVAL);
         } catch (InterruptedException ignored) {
         }
-        throw new RuntimeException("\r[X] Error: " + (throwable.getMessage() == null ? "Unknown error" : throwable.getMessage()));
+        throw new RuntimeException(
+                String.format(
+                        "\r[X] Error: %s • %s",
+                        throwable.getMessage() == null ? "Unknown error" : throwable.getMessage(),
+                        getLoadingTime()
+                )
+        );
     }
 
     /**
-     * The execute method executes the controller.
+     * The execute method executes a function.
      *
      * @param supplier the function to be executed
      * @param name     the name of the function
      */
-    public void execute(Supplier<Either<Failure, Success>> supplier, String name) {
+    public synchronized void execute(Supplier<Either<Failure, Success>> supplier, String name) {
         System.out.printf("%s:\n", name);
-        long start = System.currentTimeMillis();
-        Thread loadingThread = getLoadingThread(start);
+        startTime = System.currentTimeMillis();
+        loadingThread = getLoadingThread();
         loadingThread.start();
         try {
             Either<Failure, Success> result = CompletableFuture.supplyAsync(supplier)
                     .get();
             if (result.isFailure()) {
-                abort(loadingThread, result.failure.exception);
+                abort(result.failure.exception);
             }
             loadingThread.interrupt();
-            System.out.printf(ANSI_GREEN + "\r[✓] Success • %s\n\n", getLoadingTime(start) + ANSI_RESET);
+            System.out.printf(ANSI_GREEN + "\r[✓] Success • %s\n\n", getLoadingTime() + ANSI_RESET);
         } catch (InterruptedException | ExecutionException e) {
-            abort(loadingThread, e);
+            abort(e);
         }
     }
 
@@ -118,12 +134,12 @@ public class AsyncExecutor {
      * @return the loading thread
      */
     @SuppressWarnings("BusyWait")
-    private Thread getLoadingThread(long start) {
+    private Thread getLoadingThread() {
         return new Thread(() -> {
             int animIndex = 0;
             while (!Thread.currentThread()
                     .isInterrupted()) {
-                System.out.printf("\r[%s] Loading • %s", ANIMATION[animIndex], getLoadingTime(start));
+                System.out.printf("\r[%s] Loading • %s", ANIMATION[animIndex], getLoadingTime());
                 animIndex = (animIndex + 1) % ANIMATION.length;
                 try {
                     Thread.sleep(ANIMATION_INTERVAL);
@@ -138,11 +154,10 @@ public class AsyncExecutor {
     /**
      * The getLoadingTime method returns the loading time as string.
      *
-     * @param start the start time
      * @return the loading time
      */
-    private String getLoadingTime(long start) {
-        long time = System.currentTimeMillis() - start;
+    private String getLoadingTime() {
+        long time = System.currentTimeMillis() - startTime;
         if (time < 1000) {
             return String.format("%d ms", time);
         }

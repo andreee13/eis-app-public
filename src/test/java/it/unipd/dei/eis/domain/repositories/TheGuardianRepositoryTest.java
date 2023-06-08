@@ -35,6 +35,8 @@ public class TheGuardianRepositoryTest {
 
     /**
      * Test the pullData method.
+     *
+     * @throws Exception if an error occurs
      */
     @Test
     void pullData() throws Exception {

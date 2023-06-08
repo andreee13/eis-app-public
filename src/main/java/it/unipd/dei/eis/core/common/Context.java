@@ -77,7 +77,18 @@ public class Context {
      * @param toDate         the limit date to which the articles are retrieved
      * @param apiKey         the API key
      */
-    public Context(UseCases useCase, String source, String outputArticles, String outputTerms, String query, int countArticles, int countTerms, Date fromDate, Date toDate, String apiKey) {
+    public Context(
+            UseCases useCase,
+            String source,
+            String outputArticles,
+            String outputTerms,
+            String query,
+            int countArticles,
+            int countTerms,
+            Date fromDate,
+            Date toDate,
+            String apiKey
+    ) {
         this.useCase = useCase;
         this.source = source;
         this.outputArticles = outputArticles;

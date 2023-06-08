@@ -22,6 +22,12 @@ public enum UseCases {
      */
     DOWNLOAD_AND_EXTRACT;
 
+    /**
+     * Returns the use case from the command line.
+     *
+     * @param commandLine the command line
+     * @return the use case
+     */
     public static UseCases fromCommandLine(CommandLine commandLine) {
         if (commandLine.hasOption("d") && commandLine.hasOption("e")) {
             return DOWNLOAD_AND_EXTRACT;

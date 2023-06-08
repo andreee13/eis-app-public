@@ -45,7 +45,7 @@ public class TheGuardianRepository extends Repository<TheGuardianDataSource, The
      * @return List of articles
      */
     @Override
-    List<ArticleModel> pullData(Context context) {
+    List<ArticleModel> pullData(Context context) throws Exception {
         return dataSource.get(context)
                 .stream()
                 .collect(

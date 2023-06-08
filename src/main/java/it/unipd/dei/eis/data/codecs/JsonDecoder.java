@@ -7,7 +7,7 @@ import java.lang.reflect.Type;
 /**
  * JsonDecoder is the decoder for JSON data.
  */
-public class JsonDecoder implements IDecoder {
+public class JsonDecoder implements IDecoder<Object> {
 
     /**
      * The Gson object is used to parse the JSON response.
@@ -22,7 +22,7 @@ public class JsonDecoder implements IDecoder {
      * @return the data entity
      */
     @Override
-    public <T> T decode(String data, Object... args) {
+    public Object decode(String data, Object... args) {
         return GSON.fromJson(data, (Type) args[0]);
     }
 }

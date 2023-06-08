@@ -16,7 +16,7 @@ public abstract class DataEntity implements IFilterable {
      */
     @Override
     public boolean contains(String s) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Unsupported operation");
     }
 
     /**
@@ -27,7 +27,7 @@ public abstract class DataEntity implements IFilterable {
      */
     @Override
     public boolean before(Date date) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Unsupported operation");
     }
 
     /**
@@ -38,6 +38,6 @@ public abstract class DataEntity implements IFilterable {
      */
     @Override
     public boolean after(Date date) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Unsupported operation");
     }
 }

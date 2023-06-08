@@ -3,9 +3,29 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>it.unipd.dei.eis</groupId>
   <artifactId>eis-app</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
+  <description>A Java application that uses the Stanford CoreNLP library to extract the most frequent terms from news articles</description>
   <build>
     <plugins>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.5.0</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.3.1</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>4.0.0-M8</version>
+        <dependencies>
+          <dependency>
+            <groupId>io.github.devacfr.maven.skins</groupId>
+            <artifactId>reflow-velocity-tools</artifactId>
+            <version>2.3.3</version>
+          </dependency>
+        </dependencies>
+      </plugin>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
         <version>3.4.1</version>
@@ -41,13 +61,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.5.0</version>
-        <configuration>
-          <reportOutputDirectory>${project.basedir}/docs</reportOutputDirectory>
-        </configuration>
-      </plugin>
-      <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.1.0</version>
       </plugin>
@@ -77,7 +90,7 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>5.9.1</version>
+      <version>5.9.2</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -91,6 +104,22 @@
       </exclusions>
     </dependency>
   </dependencies>
+  <reporting>
+    <plugins>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.3.1</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>3.1.0</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.5.0</version>
+      </plugin>
+    </plugins>
+  </reporting>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>8</maven.compiler.source>

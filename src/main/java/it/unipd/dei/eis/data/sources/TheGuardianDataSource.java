@@ -1,8 +1,8 @@
 package it.unipd.dei.eis.data.sources;
 
-import it.unipd.dei.eis.data.entities.TheGuardianDataEntity;
-import it.unipd.dei.eis.data.codecs.JsonDecoder;
 import it.unipd.dei.eis.core.common.Context;
+import it.unipd.dei.eis.data.codecs.JsonDecoder;
+import it.unipd.dei.eis.data.entities.TheGuardianDataEntity;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  * TheGuardianDataSource is the data source for The Guardian records.
  * It contains the data source logic.
  */
-public class TheGuardianDataSource extends DataSource<TheGuardianDataEntity> {
+public class TheGuardianDataSource extends DataSource<TheGuardianDataEntity, Object> {
 
     /**
      * The ID field is used to identify the data source.
@@ -85,7 +85,7 @@ public class TheGuardianDataSource extends DataSource<TheGuardianDataEntity> {
      * @return the list of TheGuardianDataEntity objects
      */
     @Override
-    public List<TheGuardianDataEntity> get(Context context) {
+    public List<TheGuardianDataEntity> getData(Context context) {
         String apiKey = context.apiKey != null ? context.apiKey : ENV_API_KEY;
         if (apiKey == null) {
             throw new IllegalArgumentException("TheGuardian API key is missing");
@@ -124,7 +124,7 @@ public class TheGuardianDataSource extends DataSource<TheGuardianDataEntity> {
                     if (response.body() == null) {
                         throw new IOException("Response body is empty");
                     }
-                    return Objects.requireNonNull(decoder)
+                    return (TheGuardianDataEntity) Objects.requireNonNull(decoder)
                             .decode(response.body()
                                     .string(), TheGuardianDataEntity.class);
                 }

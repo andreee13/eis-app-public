@@ -2,17 +2,18 @@ package it.unipd.dei.eis.data.codecs;
 
 /**
  * IDecoder is the interface for the decoder.
+ *
+ * @param <D> the type of object to decode
  */
-public interface IDecoder {
+public interface IDecoder<D> {
 
     /**
      * Decodes the data.
      *
      * @param data the data to decode
      * @param args optional arguments
-     * @param <T>  the type of the data
      * @return the decoded data
      * @throws Exception if an error occurs
      */
-    <T> T decode(String data, Object... args) throws Exception;
+    D decode(String data, Object... args) throws Exception;
 }
