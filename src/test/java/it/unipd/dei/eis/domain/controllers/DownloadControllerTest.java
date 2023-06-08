@@ -5,6 +5,9 @@ import it.unipd.dei.eis.core.common.Context;
 import it.unipd.dei.eis.core.utils.ContextBuilder;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test the DownloadController class.
+ */
 public class DownloadControllerTest {
 
     /**
@@ -14,7 +17,7 @@ public class DownloadControllerTest {
     public void execute() {
         Context context = new ContextBuilder()
                 .setUseCase(UseCases.DOWNLOAD)
-                .setSource("file.csv")
+                .setSource("src/test/resources/file.csv")
                 .setCountArticles(10)
                 .build();
         new DownloadController().execute(context);

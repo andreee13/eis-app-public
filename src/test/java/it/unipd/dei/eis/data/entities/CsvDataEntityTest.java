@@ -31,21 +31,21 @@ class CsvDataEntityTest {
 
     /**
      * Test the fromCsvRecord method.
+     *
+     * @throws IOException if an error occurs.
      */
     @Test
     void fromCsvRecord() throws IOException {
-        List<CSVRecord> record = new CsvDecoder().decode("file.csv");
+        List<CSVRecord> record = new CsvDecoder().decode("src/test/resources/file.csv");
         String id = CsvDataEntity.fromCsvRecord(record.get(0)).identifier;
-        assertEquals(id, record.get(0)
-                .get(0));
+        assertEquals(id, record.get(0).get(0));
     }
 
     /**
      * Test the contains method.
      */
     @Test
-    void contains(){
-
+    void contains() {
         assertTrue(entity.title.contains("title"));
     }
 
@@ -53,7 +53,7 @@ class CsvDataEntityTest {
      * Test the before method.
      */
     @Test
-    void before(){
+    void before() {
         assertTrue(entity.date.before(DateParser.tryParse("2023-01-02")));
     }
 
@@ -61,9 +61,7 @@ class CsvDataEntityTest {
      * Test the after method.
      */
     @Test
-    void after(){
+    void after() {
         assertTrue(entity.date.after(DateParser.tryParse("2022-12-31")));
     }
-
-
 }

@@ -2,20 +2,35 @@ package it.unipd.dei.eis.data.codecs;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test class for the TxtDecoder class.
+ */
 public class TxtDecoderTest {
 
+    /**
+     * Test the decode method.
+     */
     @Test
-    public void decode() throws Exception {
-        String data = "key1 1\nkey2 2\n";
+    public void decode() throws IOException {
         Map<String, Integer> expectedMap = new HashMap<>();
-        expectedMap.put("key1", 1);
-        expectedMap.put("key2", 2);
-        Map<String, Integer> actualMap = new TxtDecoder().decode(data);
+        expectedMap.put("energy", 10);
+        expectedMap.put("nuclear", 10);
+        expectedMap.put("gas", 5);
+        Map<String, Integer> actualMap = new TxtDecoder().decode(
+                new String(
+                        Files.readAllBytes(
+                                Paths.get("src/test/resources/terms.txt")
+                        )
+                )
+        );
         assertEquals(expectedMap, actualMap);
     }
 }

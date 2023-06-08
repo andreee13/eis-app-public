@@ -15,10 +15,12 @@ class CsvDecoderTest {
 
     /**
      * Test the decode method.
+     *
+     * @throws IOException if an error occurs.
      */
     @Test
     void decode() throws IOException {
-        List<CSVRecord> records = new CsvDecoder().decode("file.csv");
+        List<CSVRecord> records = new CsvDecoder().decode("src/test/resources/file.csv");
         assertTrue(records.size() > 0);
     }
 }

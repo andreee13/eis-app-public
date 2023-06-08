@@ -31,6 +31,8 @@ public class TermsExtractionRepositoryTest {
 
     /**
      * Test the pushData method.
+     *
+     * @throws Exception if an error occurs.
      */
     @Test
     void pushData() throws Exception {

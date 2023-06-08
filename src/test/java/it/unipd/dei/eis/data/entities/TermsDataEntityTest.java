@@ -28,5 +28,4 @@ public class TermsDataEntityTest {
         TermsDataEntity t = new TermsDataEntity("title", "body");
         assertTrue(t.contains("title"));
     }
-
 }

@@ -32,6 +32,8 @@ public class JsonRepositoryTest {
 
     /**
      * Test the pullData method.
+     *
+     * @throws Exception if an error occurs.
      */
     @Test
     void pullData() throws Exception {
@@ -42,6 +44,8 @@ public class JsonRepositoryTest {
 
     /**
      * Test the pushData method.
+     *
+     * @throws Exception if an error occurs.
      */
     @Test
     void pushData() throws Exception {

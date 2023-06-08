@@ -16,13 +16,15 @@ class JsonEncoderTest {
      */
     @Test
     void encode() {
-        String s = new JsonEncoder().encode(new ArticleModel(
-                "title",
-                "body",
-                "url",
-                DateParser.tryParse("2023-01-01"),
-                "source"
-        ));
+        String s = new JsonEncoder().encode(
+                new ArticleModel(
+                        "title",
+                        "body",
+                        "url",
+                        DateParser.tryParse("2023-01-01"),
+                        "source"
+                )
+        );
         assertNotNull(s);
     }
 }

@@ -45,5 +45,4 @@ class JsonDataEntityTest {
     void after() {
         assertTrue(entity.date.after(DateParser.tryParse("2022-12-31")));
     }
-
 }
