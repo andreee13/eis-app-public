@@ -18,11 +18,11 @@ jobs:
         with:
           java-version: '8'
           distribution: 'temurin'
-          cache: eis-app
+          cache: maven
       - name: Maven site
         env:
           THE_GUARDIAN_API_KEY: ${{ secrets.THE_GUARDIAN_API_KEY }}
-        run: mvn -B site
+        run: mvn clean -B site
       - name: Publish site
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -31,7 +31,7 @@ jobs:
       - name: Maven package
         env:
           THE_GUARDIAN_API_KEY: ${{ secrets.THE_GUARDIAN_API_KEY }}
-        run: mvn -B package
+        run: mvn clean -B package
       - name: Archive artifacts
         uses: actions/upload-artifact@v3
         with:
