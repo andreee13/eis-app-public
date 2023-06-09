@@ -135,6 +135,7 @@
     <li>The New York Times CSV</li>
     <li>File provenienti da un download precedente</li>
    </ul>
+   <hr>
   </section>
  </section>
  <section>
@@ -168,6 +169,7 @@
     <li><strong>Flessibilità</strong>: ogni layer dell'architettura è stato progettato per agevolare la manutenzione e l'estensione del programma, fornendo un'interfaccia comune per ogni componente.</li>
     <li><strong>Modularità</strong>: il software è stato progettato in modo da suddividere tutte le sue componenti in moduli indipendenti, che svolgono un compito ben preciso.</li>
    </ul>
+   <hr>
   </section>
  </section>
  <section>
@@ -178,13 +180,13 @@
     <h4>Requisiti minimi</h4>
     <ul>
      <li><em>JDK 8</em></li>
-     <li><em>Maven 3</em></li>
+     <li><em>Maven 3.3.1</em></li>
     </ul>
    </section>
    <section>
     <h4>Comando</h4>
     <div class="verbatim">
-     <pre><code>$ mvn package
+     <pre><code>$ mvn clean package
 </code></pre>
     </div>
    </section>
@@ -203,6 +205,7 @@
      <pre><code>$ docker build -t &lt;image_name&gt; .
 </code></pre>
     </div>
+    <hr>
    </section>
   </section>
  </section>
@@ -232,11 +235,14 @@
   <section>
    <h3>Configurazione</h3>
    <div class="verbatim">
-    <pre><code>&lt;source&gt;
-    path/to/file.extension           Input file
-    theguardian                      The Guardian API
+    <pre><code>&lt;source&gt;                             Source (required)
 
-[options]
+    theguardian                      The Guardian API
+    path/to/file.json                Input file JSON
+    path/to/file.csv                 Input file CSV
+
+[options]                            Options (optional)
+
     -ca,--count-articles &lt;integer&gt;   Number of articles (default 10)
     -ct,--count-terms &lt;integer&gt;      Number of terms (default 50)
     -d,--download                    Download only
@@ -250,6 +256,7 @@
     -t,--to &lt;date&gt;                   To date
 </code></pre>
    </div>
+   <hr>
   </section>
  </section>
  <section>
