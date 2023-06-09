@@ -24,6 +24,7 @@
             <item name="Documento dei Requisiti" href="documento_requisiti.html"/>
             <item name="Design Model" href="design_model.html"/>
             <item name="Domain Model" href="domain_model.html"/>
+            <item name="Documento dei Test" href="documento_test.html"/>
         </menu>
         <menu name="Information" ref="reports"/>
     </body>
