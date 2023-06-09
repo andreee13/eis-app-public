@@ -17,12 +17,14 @@ _peso_: numero di documenti in cui appare un termine.
   - [Requisiti Interfacce Esterne](#Requisiti-Interfacce-Esterne)
     - [Interfacce software](#Interfacce-software)
     - [Interfacce di comunicazione](#Interfacce-di-comunicazione)
-  - [Functional Requirements](#Functional-Requirements)
+  - [Requisiti Funzionali](#Requisiti-Funzionali)
+  - [Limiti di progettazione](#Limiti-di-progettazione)
   - [Caratteristiche del software](#Caratteristiche-del-software)
-    - [Aggiornabilità e mantenibilità](#Aggiornabilità-e-mantenibilità)
-- [UseCases Diagram](#UseCases-Diagram)
-  - [Descrizione](#Descrizione)
-  - [Descrizione in linguaggio naturale strutturato](#Descrizione-in-linguaggio-naturale-strutturato)
+    - [Aggiornabilità e manutenibilità](#Aggiornabilità-e-manutenibilità)
+- [Appendice](#Appendice)
+  - [UseCases Diagram](#UseCases-Diagram)
+    - [Descrizione](#Descrizione)
+    - [Descrizione in linguaggio naturale strutturato](#Descrizione-in-linguaggio-naturale-strutturato)
 
 ## Descrizione generale
 
