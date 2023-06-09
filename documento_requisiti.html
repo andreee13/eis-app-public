@@ -108,6 +108,90 @@
   <h1>Documento dei Requisiti</h1>
  </div>
  <section>
+  <h2>Introduzione</h2>
+  <p>In questo documento vengono trattati i requisiti del progetto.</p>
+  <section>
+   <h3>Definizioni, acronimi e abbreviazioni</h3>
+   <p><em>peso</em>: numero di documenti in cui appare un termine.</p>
+  </section>
+ </section>
+ <section>
+  <h2>Indice</h2>
+  <ul>
+   <li><a href="#Descrizione-generale">Descrizione generale</a>
+    <ul>
+     <li><a href="#Funzioni-supportate">Funzioni supportate</a></li>
+     <li><a href="#Dependencies">Dependencies</a></li>
+    </ul></li>
+   <li><a href="#Requisiti-specifici">Requisiti specifici</a>
+    <ul>
+     <li><a href="#Requisiti-Interfacce-Esterne">Requisiti Interfacce Esterne</a>
+      <ul>
+       <li><a href="#Hardware-Interfaces">Hardware Interfaces</a></li>
+       <li><a href="#Software-Interfaces">Software Interfaces</a></li>
+       <li><a href="#Communications-Interfaces">Communications Interfaces</a></li>
+      </ul></li>
+     <li><a href="#Functional-Requirements">Functional Requirements</a></li>
+     <li><a href="#Caratteristiche-del-software">Caratteristiche del software</a>
+      <ul>
+       <li><a href="#Aggiornabilit.C3.A0-e-mantenibilit.C3.A0">Aggiornabilità e mantenibilità</a></li>
+      </ul></li>
+    </ul></li>
+   <li><a href="#UseCases-Diagram">UseCases Diagram</a>
+    <ul>
+     <li><a href="#Descrizione">Descrizione</a></li>
+     <li><a href="#Descrizione-in-linguaggio-naturale-strutturato">Descrizione in linguaggio naturale strutturato</a></li>
+    </ul></li>
+  </ul>
+ </section>
+ <section>
+  <h2>Descrizione generale</h2>
+  <section>
+   <h3>Funzioni supportate</h3>
+   <p>Il programma, al momento, supporta le seguenti funzioni:</p>
+   <ul>
+    <li><strong>download</strong></li>
+    <li><strong>estrazione</strong></li>
+    <li><strong>download ed estrazione</strong></li>
+   </ul>
+  </section>
+  <section>
+   <h3>Dependencies</h3>
+   <ul>
+    <li><strong>download ed estrazione</strong> dipende dall'implementazione di <strong>download</strong> e di <strong>estrazione</strong>.</li>
+   </ul>
+  </section>
+ </section>
+ <section>
+  <h2>Requisiti specifici <!-- requisiti del cliente --></h2>
+  <ol style="list-style-type: decimal">
+   <li>Il sistema deve essere predisposto a supportare nuove sorgenti.</li>
+   <li>Dopo la fase di download, deve essere effettuata la persistenza su file degli articoli usando lo stesso formato per tutti gli articoli di tutte le sorgenti.</li>
+   <li>Il sistema deve poter supportare nuove modalità di memorizzazione ed accesso agli articoli.</li>
+   <li>Per estrarre i termini ed il loro peso, è necessario partire dai file in cui gli articoli sono memorizzati.</li>
+   <li>Il sistema deve poter supportare nuove strutture per memorizzare ed avere accesso ai termini più importanti</li>
+   <li>L’utente deve poter specificare se eseguire solo il download, solo l’estrazione dei termini a partire dai file in cui sono stati memorizzati gli articoli, o entrambe le azioni in sequenza.</li>
+  </ol>
+  <section>
+   <h3>Requisiti Interfacce Esterne</h3>
+   <section>
+    <h4>Software Interfaces</h4>
+    <p><em>The Guardian API</em></p>
+   </section>
+   <section>
+    <h4>Communications Interfaces</h4>
+    <p><em>HTTPS</em></p>
+   </section>
+  </section>
+  <section>
+   <h3>Caratteristiche del software</h3>
+   <section>
+    <h4>Aggiornabilità e mantenibilità</h4>
+    <p>Il sistema è stato progettato in modo da rispettare le richieste di aggiornabilità e mantenibilità, in modo da poter supportare nuove sorgenti e nuove modalità di memorizzazione degli articoli. Tutto ciò è stato possibile grazie all'utilizzo di design pattern che permettono di rendere il codice più flessibile e le sue parti più indipendenti tra loro.</p>
+   </section>
+  </section>
+ </section>
+ <section>
   <h2>UseCases Diagram</h2>
   <p><img src="use_cases_diagram.svg" alt="Use Cases Diagram"></p>
   <section>
