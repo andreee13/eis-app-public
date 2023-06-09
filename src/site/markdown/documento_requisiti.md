@@ -66,10 +66,9 @@ _HTTPS_
 
 #### Aggiornabilità e mantenibilità
 
-Il sistema è stato progettato in modo da rispettare le richieste di aggiornabilità e mantenibilità, in modo da poter supportare
-nuove sorgenti e nuove modalità di memorizzazione degli articoli.
-Tutto ciò è stato possibile grazie all'utilizzo di design pattern che permettono di rendere il codice più flessibile
-e le sue parti più indipendenti tra loro.
+Il sistema è stato progettato in modo da rispettare le richieste di aggiornabilità e mantenibilità.
+Grazie all'utilizzo di design pattern che permettono di rendere il codice più flessibile, il sistema è predisposto a supportare nuove sorgenti, 
+nuove modalità di memorizzazione degli articoli e nuove strutture per memorizzare i termini estratti.
 
 ## UseCases Diagram
 
