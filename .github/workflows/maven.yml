@@ -18,7 +18,7 @@ jobs:
         with:
           java-version: '8'
           distribution: 'temurin'
-          cache: maven
+          cache: eis-app
       - name: Maven site
         env:
           THE_GUARDIAN_API_KEY: ${{ secrets.THE_GUARDIAN_API_KEY }}
