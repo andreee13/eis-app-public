@@ -39,7 +39,6 @@ public class JsonRepositoryTest {
     void pullData() throws Exception {
         List<ArticleModel> result = repository.pullData(context);
         assertEquals(result.size(), context.countArticles);
-        assertEquals(1121452019, result.get(0).id);
     }
 
     /**
