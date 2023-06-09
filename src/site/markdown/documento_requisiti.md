@@ -15,9 +15,8 @@ _peso_: numero di documenti in cui appare un termine.
   - [Dependencies](#Dependencies)
 - [Requisiti specifici](#Requisiti-specifici)
   - [Requisiti Interfacce Esterne](#Requisiti-Interfacce-Esterne)
-    - [Hardware Interfaces](#Hardware-Interfaces)
-    - [Software Interfaces](#Software-Interfaces)
-    - [Communications Interfaces](#Communications-Interfaces)
+    - [Interfacce software](#Interfacce-software)
+    - [Interfacce di comunicazione](#Interfacce-di-comunicazione)
   - [Functional Requirements](#Functional-Requirements)
   - [Caratteristiche del software](#Caratteristiche-del-software)
     - [Aggiornabilità e mantenibilità](#Aggiornabilità-e-mantenibilità)
@@ -55,11 +54,11 @@ Il programma, al momento, supporta le seguenti funzioni:
 
 ### Requisiti Interfacce Esterne
 
-#### Software Interfaces
+#### Interfacce software
 
 _The Guardian API_
 
-#### Communications Interfaces
+#### Interfacce di comunicazione
 
 _HTTPS_
 
