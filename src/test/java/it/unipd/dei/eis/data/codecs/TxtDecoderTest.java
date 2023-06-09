@@ -17,6 +17,8 @@ public class TxtDecoderTest {
 
     /**
      * Test the decode method.
+     *
+     * @throws IOException if the file cannot be read
      */
     @Test
     public void decode() throws IOException {

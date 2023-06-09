@@ -8,6 +8,6 @@
 
 A Java application that uses the Stanford CoreNLP library to extract the most frequent terms from news articles
 
-## Architecture
+## Documentation
 
-![Architecture](./docs/UML/architecture.svg)
+### [https://andreee13.github.io/eis-app/](https://andreee13.github.io/eis-app/)

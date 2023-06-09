@@ -1,6 +1,6 @@
 # Domain Model
 
-![Domain model](domain_model.svg)
+![Domain model](domain_model.png)
 
 ## Descrizione
 

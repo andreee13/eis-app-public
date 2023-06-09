@@ -9,8 +9,7 @@ services:
     volumes:
       - ./output:/app/output
     command: >
-      both
-      --source theguardian
+      theguardian
       --query nuclear power
       --from 2022-01-01
       --to 2023-01-01

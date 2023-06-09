@@ -6,7 +6,7 @@ Il modello strutturale statico è stato realizzato utilizzando il diagramma dell
 
 ### Class Diagram
 
-![Class_Diagram](class_diagram.svg)
+![Class_Diagram](class_diagram.png)
 
 ## Modello Strutturale Dinamico
 
@@ -14,4 +14,4 @@ Il modello strutturale dinamico è stato realizzato utilizzando il diagramma del
 
 ### Sequence Diagram
 
-![Sequence_Diagram](sequence_diagram.svg)
+![Sequence_Diagram](sequence_diagram.png)
