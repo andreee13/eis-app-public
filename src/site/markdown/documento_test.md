@@ -18,9 +18,9 @@ Versione: 1.0
     - [Requisiti di Software](#requisiti-di-software)
     - [Dati di Test](#dati-di-test)
 
-## 1. Introduzione<a name="introduzione"></a>
+## 1. Introduzione<a id="introduzione"></a>
 
-### 1.1 Scopo<a name="scopo"></a>
+### 1.1 Scopo<a id="scopo"></a>
 
 Il presente documento vuole innanzitutto fornire un quadro di riferimento per comprendere l'importanza e la motivazione
 dell'attività di test nel contesto del progetto software. Questa sezione del documento di test vuole definire i limiti e
@@ -34,7 +34,7 @@ del software. Lo scopo include:
 - Assicurarsi che il software sia sicuro, affidabile e performante, in linea con le aspettative degli utenti finali.
 - Fornire una base per valutare l'accettabilità e l'idoneità del software per il suo scopo previsto.
 
-### 1.2 Obiettivi<a name="obiettivi"></a>
+### 1.2 Obiettivi<a id="obiettivi"></a>
 
 Gli obiettivi di test consentono di concentrarsi su aspetti specifici del software che devono essere esaminati e
 valutati. Inoltre aiutano a stabilire le priorità, a pianificare le attività di test e a valutare il successo dei test
@@ -50,9 +50,9 @@ Gli obiettivi di test includono:
 - Confermare la corretta integrazione tra i moduli o i componenti del sistema.
 - Verificare la sicurezza del software e la protezione da potenziali vulnerabilità.
 
-## 2. Strategia di Test<a name="strategia-di-test"></a>
+## 2. Strategia di Test<a id="strategia-di-test"></a>
 
-### 2.1 Approccio di Test<a name="approccio-di-test"></a>
+### 2.1 Approccio di Test<a id="approccio-di-test"></a>
 
 L'approccio di test è basato sul modello a V, che prevede l'esecuzione di test di unità, integrazione e sistema, senza
 la parte di accettazione del cliente. Questo perché il progetto è un progetto didattico e non è prevista la consegna ad
@@ -80,7 +80,7 @@ I **test della release** sono suddivisi in:
 - **Test degli scenari**: tramite alcuni realistici scenari d'uso si testano numerosi requisiti all'interno di un unico
   scenario.
 
-### 2.2 Risorse di Test<a name="risorse-di-test"></a>
+### 2.2 Risorse di Test<a id="risorse-di-test"></a>
 
 La gestione delle risorse di test è essenziale per garantire che siano disponibili le risorse necessarie per eseguire
 l'attività di test in modo efficace ed efficiente.
@@ -93,7 +93,7 @@ atteso, verificando che il codice funzioni correttamente, con l'ausilio di dati/
 JUnit è stato scelto per la sua semplicità e per la sua integrazione con l'IDE IntelliJ IDEA, quest'ultimo utilizzato
 per lo sviluppo del progetto.
 
-### 2.3 Pianificazione di Test<a name="pianificazione-di-test"></a>
+### 2.3 Pianificazione di Test<a id="pianificazione-di-test"></a>
 
 La pianificazione dei test fa si che l'attività di test sia eseguita in modo sistematico, ottimizzando l'utilizzo delle
 risorse disponibili e soddisfacendo gli obiettivi e i requisiti di test definiti.
@@ -108,7 +108,7 @@ Aspetti chiave della pianificazione dei test sono stati:
 - Stima e assegnazione delle risorse.
 - Definizione delle metriche di test.
 
-### 2.4 Criteri di Uscita di Test<a name="criteri-di-uscita-di-test"></a>
+### 2.4 Criteri di Uscita di Test<a id="criteri-di-uscita-di-test"></a>
 
 I criteri di uscita sono serviti come punto di riferimento per valutare se il processo di test è stato completato con
 successo.
@@ -116,16 +116,16 @@ Una volta testate con successo le componenti più critiche del sistema, e indivi
 o di implementazione che andavano a compromettere il funzionamento del sistema nella sua totalità di casi possibili, i
 criteri sono stati considerati raggiunti.
 
-## 3. Ambiente di Test<a name="ambiente-di-test"></a>
+## 3. Ambiente di Test<a id="ambiente-di-test"></a>
 
-### 3.1 Requisiti di Software<a name="requisiti-di-software"></a>
+### 3.1 Requisiti di Software<a id="requisiti-di-software"></a>
 
 **Requisiti minimi**
 
 - _JDK 8_
 - _Maven 3.3.1_
 
-### 3.2 Dati di test<a name="dati-di-test"></a>
+### 3.2 Dati di test<a id="dati-di-test"></a>
 
 I dati di test utilizzati sono statici, nelle forme di input predefiniti o dati di riferimento.
 
