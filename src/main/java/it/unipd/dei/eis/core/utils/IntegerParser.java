@@ -1,9 +1,9 @@
 package it.unipd.dei.eis.core.utils;
 
 /**
- * A utility class for parsing integers.
+ * A utility interface to parse integers.
  */
-public abstract class IntegerParser {
+public interface IntegerParser {
 
     /**
      * Parses an integer from a string.
@@ -11,7 +11,7 @@ public abstract class IntegerParser {
      * @param integer the string to parse
      * @return the integer parsed or null if the string is not a valid integer
      */
-    public static Integer tryParse(String integer) {
+    static Integer tryParse(String integer) {
         try {
             return Integer.parseInt(integer);
         } catch (Exception e) {

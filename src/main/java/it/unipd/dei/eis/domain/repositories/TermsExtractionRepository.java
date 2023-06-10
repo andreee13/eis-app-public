@@ -6,7 +6,6 @@ import it.unipd.dei.eis.data.sources.TermsDataSource;
 import it.unipd.dei.eis.domain.models.ArticleModel;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * A repository for models from a data source.
@@ -53,15 +52,13 @@ public class TermsExtractionRepository extends Repository<TermsDataSource, Terms
     }
 
     /**
-     * Pushes the articles to the data source.
+     * Unsupported operation.
      *
      * @param context The context to use
-     * @param models  The articles to push
+     * @return List of models
      */
     @Override
-    void pushData(Context context, List<ArticleModel> models) throws Exception {
-        dataSource.set(context, models.stream()
-                .map(this::adapt)
-                .collect(Collectors.toList()));
+    List<ArticleModel> pullData(Context context) {
+        throw new UnsupportedOperationException("Operation not supported");
     }
 }

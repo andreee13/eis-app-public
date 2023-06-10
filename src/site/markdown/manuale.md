@@ -1,5 +1,28 @@
 # Manuale
 
+## Indice
+
+- [Panoramica](#panoramica)
+    - [Opzioni](#opzioni)
+    - [Fonti](#fonti)
+- [Architettura](#architettura)
+    - [Design pattern](#design-pattern)
+    - [Dettagli implementativi](#dettagli-implementativi)
+- [Build](#build)
+    - [Jar](#jar)
+    - [Dockerfile](#dockerfile)
+- [Esecuzione](#esecuzione)
+    - [Jar](#jar-1)
+    - [Dockerfile](#dockerfile)
+    - [Docker Compose](#docker-compose)
+    - [Configurazione](#configurazione)
+- [Test](#test)
+    - [Test unitari](#test-unitari)
+    - [Report](#report)
+- [Funzioni riutilizzate da librerie esistenti](#funzioni-riutilizzate-da-librerie-esistenti)
+
+---
+
 ## Panoramica
 
 Questo è un tool che permette di effettuare operazioni su articoli di giornale provenienti da più fonti.
@@ -77,30 +100,30 @@ Sono stati utilizzati i seguenti design pattern:
 
 ### Jar
 
-#### Requisiti minimi
+#### Requisiti minimi <a id="requisiti-minimi-jar"></a>
 
 - _JDK 8_
 - _Maven 3.3.1_
 
-#### Comando
+```
+$ mvn clean package -DskipTests
+```
 
-    $ mvn clean package
+### Dockerfile
 
-### Docker
-
-#### Requisiti minimi
+#### Requisiti minimi <a id="requisiti-minimi-docker"></a>
 
 - _Docker 17.05_
 
-#### Comando
-
-    $ docker build -t <image_name> .
+```
+$ docker build -t <image_name> .
+```
 
 ---
 
-## Utilizzo
+## Esecuzione
 
-### Jar
+### Jar <a id="jar-1"></a>
 
     $ java -jar <jarfile> <source> [options]
 
@@ -110,29 +133,51 @@ Sono stati utilizzati i seguenti design pattern:
 
 ### Docker Compose
 
-    $ docker-compose run --rm eis-app <source> [options]
+Attraverso il file `docker-compose.yaml`:
+
+    $ docker-compose up -d
+
+Oppure direttamente:
+
+    $ docker-compose run --rm <image_name> <source> [options]
 
 ### Configurazione
 
-    <source>                             Source (required)
+```
+<source>                             Source (required)
 
-        theguardian                      The Guardian API
-        path/to/file.json                Input file JSON
-        path/to/file.csv                 Input file CSV
+    theguardian                      The Guardian API
+    path/to/file.json                Input file JSON
+    path/to/file.csv                 Input file CSV
+```
 
-    [options]                            Options (optional)
+```
+[options]                            Options (optional)
 
-        -ca,--count-articles <integer>   Number of articles (default 10)
-        -ct,--count-terms <integer>      Number of terms (default 50)
-        -d,--download                    Download only
-        -e,--extract                     Extract only
-        -f,--from <date>                 From date
-        -h,--help                        Print this message
-        -k,--api-key <string>            API key
-        -oa,--output-articles <file>     Output articles file name (default "articles.json")
-        -ot,--output-terms <file>        Output terms file name (default "terms.txt")
-        -q,--query <string>              Search query
-        -t,--to <date>                   To date
+    -ca,--count-articles <integer>   Number of articles (default 10)
+    -ct,--count-terms <integer>      Number of terms (default 50)
+    -d,--download                    Download only
+    -e,--extract                     Extract only
+    -f,--from <date>                 From date
+    -h,--help                        Print this message
+    -k,--api-key <string>            API key
+    -oa,--output-articles <file>     Output articles file name (default "articles.json")
+    -ot,--output-terms <file>        Output terms file name (default "terms.txt")
+    -q,--query <string>              Search query
+    -t,--to <date>                   To date
+```
+
+---
+
+## Test
+
+### Test unitari
+
+    $ mvn test
+
+### Report
+
+    $ mvn surefire-report:report
 
 ---
 

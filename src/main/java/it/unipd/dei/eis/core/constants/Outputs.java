@@ -1,21 +1,21 @@
 package it.unipd.dei.eis.core.constants;
 
 /**
- * The Outputs class contains the outputs constants.
+ * The Outputs interface contains the output constants and methods.
  */
-public abstract class Outputs {
+public interface Outputs {
 
     /**
      * The ARTICLE_OUTPUTS field contains the article outputs.
      */
-    public static final String[] ARTICLES_OUTPUTS = new String[]{
+    String[] ARTICLES_OUTPUTS = new String[]{
             ".json",
     };
 
     /**
      * The TERM_OUTPUTS field contains the term outputs.
      */
-    public static final String[] TERMS_OUTPUTS = new String[]{
+    String[] TERMS_OUTPUTS = new String[]{
             ".txt",
     };
 
@@ -23,9 +23,9 @@ public abstract class Outputs {
      * Checks if the output is an article output.
      *
      * @param output the output
-     * @return true if the output is an valid articles output, false otherwise
+     * @return true if the output is a valid articles output, false otherwise
      */
-    public static boolean isArticlesOutput(String output) {
+    static boolean isArticlesOutput(String output) {
         for (String articleOutput : ARTICLES_OUTPUTS) {
             if (output.endsWith(articleOutput)) {
                 return true;
@@ -40,7 +40,7 @@ public abstract class Outputs {
      * @param output the output
      * @return true if the output is a valid terms output, false otherwise
      */
-    public static boolean isTermsOutput(String output) {
+    static boolean isTermsOutput(String output) {
         for (String termOutput : TERMS_OUTPUTS) {
             if (output.endsWith(termOutput)) {
                 return true;

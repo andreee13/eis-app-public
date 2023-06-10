@@ -6,7 +6,6 @@ import it.unipd.dei.eis.data.sources.JsonDataSource;
 import it.unipd.dei.eis.domain.models.ArticleModel;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * A repository for articles from a JSON data source.
@@ -72,32 +71,5 @@ public class JsonRepository extends Repository<JsonDataSource, JsonDataEntity, A
                 model.date,
                 model.source
         );
-    }
-
-    /**
-     * Pulls the articles from the data source.
-     *
-     * @param context The context to use
-     * @return List of articles
-     */
-    @Override
-    List<ArticleModel> pullData(Context context) throws Exception {
-        return dataSource.get(context)
-                .stream()
-                .map(this::adapt)
-                .collect(Collectors.toList());
-    }
-
-    /**
-     * Pushes the given articleModels to the data source.
-     *
-     * @param context       The context to use
-     * @param articleModels The articleModels to push
-     */
-    @Override
-    void pushData(Context context, List<ArticleModel> articleModels) throws Exception {
-        dataSource.set(context, articleModels.stream()
-                .map(this::adapt)
-                .collect(Collectors.toList()));
     }
 }

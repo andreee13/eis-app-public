@@ -6,7 +6,6 @@ import it.unipd.dei.eis.data.sources.CsvDataSource;
 import it.unipd.dei.eis.domain.models.ArticleModel;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * A repository for articles from a CSV data source.
@@ -56,16 +55,14 @@ public class CsvRepository extends Repository<CsvDataSource, CsvDataEntity, Arti
     }
 
     /**
-     * Pulls the articles from the data source.
+     * Unsupported operation.
      *
      * @param context The context to use
-     * @return List of articles
+     * @param models  The models to push
+     * @throws UnsupportedOperationException if not implemented
      */
     @Override
-    List<ArticleModel> pullData(Context context) throws Exception {
-        return dataSource.get(context)
-                .stream()
-                .map(this::adapt)
-                .collect(Collectors.toList());
+    void pushData(Context context, List<ArticleModel> models) {
+        throw new UnsupportedOperationException("Operation not supported");
     }
 }

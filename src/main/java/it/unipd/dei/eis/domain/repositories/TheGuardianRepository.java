@@ -40,6 +40,7 @@ public class TheGuardianRepository extends Repository<TheGuardianDataSource, The
 
     /**
      * Pulls the articles from the data source.
+     * Custom implementation for TheGuardianDataSource.
      *
      * @param context The context to use
      * @return List of articles
@@ -65,5 +66,17 @@ public class TheGuardianRepository extends Repository<TheGuardianDataSource, The
                         ),
                         ArrayList::addAll
                 );
+    }
+
+    /**
+     * Operation not supported.
+     *
+     * @param context The context to use
+     * @param models  The models to push
+     * @throws UnsupportedOperationException if not implemented
+     */
+    @Override
+    void pushData(Context context, List<ArticleModel> models) {
+        throw new UnsupportedOperationException("Operation not supported");
     }
 }

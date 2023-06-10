@@ -9,9 +9,9 @@ import it.unipd.dei.eis.core.utils.SynchronizedFrequencyCounter;
 import it.unipd.dei.eis.data.codecs.TxtEncoder;
 import it.unipd.dei.eis.data.entities.TermsDataEntity;
 
+import java.io.BufferedReader;
 import java.io.FileWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.InputStreamReader;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -42,9 +42,9 @@ public class TermsDataSource extends DataSource<TermsDataEntity, Map<String, Int
     }};
 
     /**
-     * The STOPLIST_FILE_PATH field is used to set the path of the stoplist.
+     * The STOPLIST_FILE_NAME field is used to store the name of the file containing the stoplist.
      */
-    private static final String STOPLIST_FILE_PATH = "src/main/resources/stoplist.txt";
+    private static final String STOPLIST_FILE_NAME = "stoplist.txt";
 
     static {
         RedwoodConfiguration.current()
@@ -65,7 +65,7 @@ public class TermsDataSource extends DataSource<TermsDataEntity, Map<String, Int
     /**
      * The stoplist field is used to store the stoplist.
      */
-    private List<String> stoplist;
+    private final List<String> stoplist;
 
     /**
      * TermsDataSource constructor.
@@ -73,10 +73,30 @@ public class TermsDataSource extends DataSource<TermsDataEntity, Map<String, Int
      */
     public TermsDataSource() {
         super(ID, new TxtEncoder());
+        stoplist = getStoplist();
+    }
+
+    /**
+     * The getStoplist method is used to get the stoplist from the file.
+     *
+     * @return the stoplist as a list of strings or an empty list if an error occurs
+     */
+    private List<String> getStoplist() {
         try {
-            stoplist = Files.readAllLines(Paths.get(STOPLIST_FILE_PATH));
+            BufferedReader bufferedReader = new BufferedReader(
+                    new InputStreamReader(
+                            Objects.requireNonNull(
+                                    getClass().getClassLoader().getResourceAsStream(STOPLIST_FILE_NAME)
+                            )
+                    )
+            );
+            List<String> stoplist = bufferedReader.lines()
+                    .map(String::toLowerCase)
+                    .collect(Collectors.toList());
+            bufferedReader.close();
+            return stoplist;
         } catch (Exception e) {
-            stoplist = Collections.emptyList();
+            return Collections.emptyList();
         }
     }
 

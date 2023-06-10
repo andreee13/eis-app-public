@@ -7,7 +7,7 @@ import it.unipd.dei.eis.domain.models.IModel;
 /**
  * A factory for repositories.
  */
-public abstract class RepositoryFactory {
+public interface RepositoryFactory {
 
     /**
      * Creates a new repository.
@@ -20,7 +20,7 @@ public abstract class RepositoryFactory {
      * @throws IllegalArgumentException If the option is invalid
      */
     @SuppressWarnings("unchecked")
-    public static <S extends DataSource<E, ?>, E extends DataEntity, M extends IModel> Repository<S, E, M> create(String option) throws IllegalArgumentException {
+    static <S extends DataSource<E, ?>, E extends DataEntity, M extends IModel> Repository<S, E, M> create(String option) throws IllegalArgumentException {
         final Repository<? extends DataSource<? extends DataEntity, ?>, ? extends DataEntity, ? extends IModel> repository;
         if (option.equals("theguardian")) {
             repository = TheGuardianRepository.getInstance();

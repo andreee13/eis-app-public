@@ -9,26 +9,26 @@
     <plugins>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.5.0</version>
+        <version>${maven.javadoc.plugin.version}</version>
       </plugin>
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>3.3.1</version>
+        <version>${maven.resources.plugin.version}</version>
       </plugin>
       <plugin>
         <artifactId>maven-site-plugin</artifactId>
-        <version>4.0.0-M8</version>
+        <version>${maven.site.plugin.version}</version>
         <dependencies>
           <dependency>
             <groupId>io.github.devacfr.maven.skins</groupId>
             <artifactId>reflow-velocity-tools</artifactId>
-            <version>2.3.3</version>
+            <version>${reflow-velocity-tools.version}</version>
           </dependency>
         </dependencies>
       </plugin>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.4.1</version>
+        <version>${maven.shade.plugin.version}</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -62,7 +62,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>${maven.surefire.plugin.version}</version>
       </plugin>
     </plugins>
   </build>
@@ -108,21 +108,35 @@
     <plugins>
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>3.3.1</version>
+        <version>${maven.resources.plugin.version}</version>
       </plugin>
       <plugin>
         <artifactId>maven-surefire-report-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>${maven.surefire.report.plugin.version}</version>
       </plugin>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.5.0</version>
+        <version>${maven.javadoc.plugin.version}</version>
       </plugin>
     </plugins>
   </reporting>
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>8</maven.compiler.source>
+    <maven.surefire.plugin.version>3.1.0</maven.surefire.plugin.version>
+    <maven.resources.plugin.version>3.3.1</maven.resources.plugin.version>
+    <maven.surefire.report.plugin.version>3.1.0</maven.surefire.report.plugin.version>
+    <commons.cli.version>1.5.0</commons.cli.version>
+    <reflow-velocity-tools.version>2.3.3</reflow-velocity-tools.version>
+    <gson.version>2.10.1</gson.version>
     <maven.compiler.target>8</maven.compiler.target>
+    <okhttp.version>4.11.0</okhttp.version>
+    <maven.shade.plugin.version>3.4.1</maven.shade.plugin.version>
+    <stanford.corenlp.version>4.5.4</stanford.corenlp.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.javadoc.plugin.version>3.5.0</maven.javadoc.plugin.version>
+    <maven.site.plugin.version>4.0.0-M8</maven.site.plugin.version>
+    <junit.jupiter.engine.version>5.9.2</junit.jupiter.engine.version>
+    <junit.jupiter.api.version>5.10.0-M1</junit.jupiter.api.version>
+    <maven.compiler.source>8</maven.compiler.source>
+    <commons.csv.version>1.10.0</commons.csv.version>
   </properties>
 </project>

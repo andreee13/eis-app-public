@@ -7,6 +7,7 @@ import it.unipd.dei.eis.data.sources.DataSource;
 import it.unipd.dei.eis.domain.models.IModel;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Repository is the abstract class for repositories.
@@ -51,19 +52,22 @@ public abstract class Repository<S extends DataSource<E, ?>, E extends DataEntit
 
     /**
      * Pulls the models from the data source.
-     * Override this method to implement the pull operation.
+     * Provides a default implementation that uses the data source.
+     * Override this method to implement a custom pull.
      *
      * @param context The context to use
      * @return List of models
-     * @throws UnsupportedOperationException if not implemented
-     * @throws Exception                     if an error occurs
+     * @throws Exception if an error occurs
      */
     List<M> pullData(Context context) throws Exception {
-        throw new UnsupportedOperationException("Unsupported operation");
+        return dataSource.get(context)
+                .stream()
+                .map(this::adapt)
+                .collect(Collectors.toList());
     }
 
     /**
-     * Pushes the articles to the data source.
+     * Pushes the models to the data source.
      *
      * @param context The context to use
      * @param models  The models to push
@@ -75,8 +79,9 @@ public abstract class Repository<S extends DataSource<E, ?>, E extends DataEntit
     }
 
     /**
-     * Pushes the articles to the data source.
-     * Override this method to implement the push operation.
+     * Pushes the models to the data source.
+     * Provides a default implementation that uses the data source.
+     * Override this method to implement a custom push.
      *
      * @param context The context to use
      * @param models  The models to push
@@ -84,7 +89,9 @@ public abstract class Repository<S extends DataSource<E, ?>, E extends DataEntit
      * @throws Exception                     if an error occurs
      */
     void pushData(Context context, List<M> models) throws Exception {
-        throw new UnsupportedOperationException("Unsupported operation");
+        dataSource.set(context, models.stream()
+                .map(this::adapt)
+                .collect(Collectors.toList()));
     }
 
     /**

@@ -3,10 +3,9 @@ package it.unipd.dei.eis.domain.use_cases;
 import it.unipd.dei.eis.core.enums.UseCases;
 
 /**
- * UseCaseFactory is the factory for the use cases.
- * It is used to create the use case based on the command line argument.
+ * A factory for use cases.
  */
-public abstract class UseCaseFactory {
+public interface UseCaseFactory {
 
     /**
      * Create the use case based on the command line argument.
@@ -15,7 +14,7 @@ public abstract class UseCaseFactory {
      * @return the use case
      * @throws IllegalArgumentException if the command line argument is invalid
      */
-    public static UseCase create(UseCases useCase) throws IllegalArgumentException {
+    static UseCase create(UseCases useCase) throws IllegalArgumentException {
         switch (useCase) {
             case DOWNLOAD:
                 return new ArticlesDownloader();
