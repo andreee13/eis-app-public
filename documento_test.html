@@ -131,9 +131,9 @@
   </ol>
  </section>
  <section>
-  <h2>1. Introduzione</h2>
+  <h2>1. Introduzione<a id="introduzione"></a></h2>
   <section>
-   <h3>1.1 Scopo</h3>
+   <h3>1.1 Scopo<a id="scopo"></a></h3>
    <p>Il presente documento vuole innanzitutto fornire un quadro di riferimento per comprendere l'importanza e la motivazione dell'attività di test nel contesto del progetto software. Questa sezione del documento di test vuole definire i limiti e le aspettative generali dell'attività di test e fornire una visione d'insieme del suo contributo al processo di sviluppo del software. Lo scopo include:</p>
    <ul>
     <li>Verificare che il software soddisfi i requisiti specificati dal committente del progetto.</li>
@@ -144,7 +144,7 @@
    </ul>
   </section>
   <section>
-   <h3>1.2 Obiettivi</h3>
+   <h3>1.2 Obiettivi<a id="obiettivi"></a></h3>
    <p>Gli obiettivi di test consentono di concentrarsi su aspetti specifici del software che devono essere esaminati e valutati. Inoltre aiutano a stabilire le priorità, a pianificare le attività di test e a valutare il successo dei test eseguiti.</p>
    <p>Gli obiettivi di test includono:</p>
    <ul>
@@ -158,9 +158,9 @@
   </section>
  </section>
  <section>
-  <h2>2. Strategia di Test</h2>
+  <h2>2. Strategia di Test<a id="strategia-di-test"></a></h2>
   <section>
-   <h3>2.1 Approccio di Test</h3>
+   <h3>2.1 Approccio di Test<a id="approccio-di-test"></a></h3>
    <p>L'approccio di test è basato sul modello a V, che prevede l'esecuzione di test di unità, integrazione e sistema, senza la parte di accettazione del cliente. Questo perché il progetto è un progetto didattico e non è prevista la consegna ad un cliente esterno, bensì la consegna al docente che risulta essere il committente e l'ideatore del progetto. Gli stadi di test sono i seguenti:</p>
    <ul>
     <li><strong>Test dello sviluppo</strong>, elaborati durante lo sviluppo con il pieno coinvolgimento del team di sviluppo.</li>
@@ -178,13 +178,13 @@
    </ul>
   </section>
   <section>
-   <h3>2.2 Risorse di Test</h3>
+   <h3>2.2 Risorse di Test<a id="risorse-di-test"></a></h3>
    <p>La gestione delle risorse di test è essenziale per garantire che siano disponibili le risorse necessarie per eseguire l'attività di test in modo efficace ed efficiente.</p>
    <p>Lo strumento di test utilizzato è JUnit, che permette di eseguire test di unità di lavoro in Java. Spesso un' unità di lavoro distinta è un singolo metodo.</p>
    <p>Tramite le Assertions di JUnit è possibile dichiarare con certezza che il risultato di un test sia uguale a quello atteso, verificando che il codice funzioni correttamente, con l'ausilio di dati/risorse di test fittizi ma realistici. JUnit è stato scelto per la sua semplicità e per la sua integrazione con l'IDE IntelliJ IDEA, quest'ultimo utilizzato per lo sviluppo del progetto.</p>
   </section>
   <section>
-   <h3>2.3 Pianificazione di Test</h3>
+   <h3>2.3 Pianificazione di Test<a id="pianificazione-di-test"></a></h3>
    <p>La pianificazione dei test fa si che l'attività di test sia eseguita in modo sistematico, ottimizzando l'utilizzo delle risorse disponibili e soddisfacendo gli obiettivi e i requisiti di test definiti. Aspetti chiave della pianificazione dei test sono stati:</p>
    <ul>
     <li>Identificazione degli obiettivi e dei requisiti di test: Definire chiaramente gli obiettivi di test e i requisiti che devono essere soddisfatti durante l'attività di test. Questo include stabilire i livelli di test richiesti e i tipi di test da eseguire.</li>
@@ -194,14 +194,14 @@
    </ul>
   </section>
   <section>
-   <h3>2.4 Criteri di Uscita di Test</h3>
+   <h3>2.4 Criteri di Uscita di Test<a id="criteri-di-uscita-di-test"></a></h3>
    <p>I criteri di uscita sono serviti come punto di riferimento per valutare se il processo di test è stato completato con successo. Una volta testate con successo le componenti più critiche del sistema, e individuati e corretti difetti di progettazione o di implementazione che andavano a compromettere il funzionamento del sistema nella sua totalità di casi possibili, i criteri sono stati considerati raggiunti.</p>
   </section>
  </section>
  <section>
-  <h2>3. Ambiente di Test</h2>
+  <h2>3. Ambiente di Test<a id="ambiente-di-test"></a></h2>
   <section>
-   <h3>3.1 Requisiti di Software</h3>
+   <h3>3.1 Requisiti di Software<a id="requisiti-di-software"></a></h3>
    <p><strong>Requisiti minimi</strong></p>
    <ul>
     <li><em>JDK 8</em></li>
@@ -209,7 +209,7 @@
    </ul>
   </section>
   <section>
-   <h3>3.2 Dati di test</h3>
+   <h3>3.2 Dati di test<a id="dati-di-test"></a></h3>
    <p>I dati di test utilizzati sono statici, nelle forme di input predefiniti o dati di riferimento.</p>
    <p>La directory /src/test/resources contiene i file di test.</p>
    <p>In particolare, articles.json viene utilizzato per testare le funzionalità delle componenti legate all'elaborazione di dati JSON (come ad esempio la classe JsonRepositoryTest), mentre file.csv viene utilizzato per testare le funzionalità delle componenti legate all'elaborazione di dati CSV (come ad esempio la classe CsvRepositoryTest).</p>
