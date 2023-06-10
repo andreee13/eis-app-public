@@ -17,12 +17,14 @@ _peso_: numero di documenti in cui appare un termine.
   - [Requisiti Interfacce Esterne](#Requisiti-Interfacce-Esterne)
     - [Interfacce software](#Interfacce-software)
     - [Interfacce di comunicazione](#Interfacce-di-comunicazione)
-  - [Functional Requirements](#Functional-Requirements)
+  - [Requisiti Funzionali](#Requisiti-Funzionali)
+  - [Limiti di progettazione](#Limiti-di-progettazione)
   - [Caratteristiche del software](#Caratteristiche-del-software)
-    - [Aggiornabilità e mantenibilità](#Aggiornabilità-e-mantenibilità)
-- [UseCases Diagram](#UseCases-Diagram)
-  - [Descrizione](#Descrizione)
-  - [Descrizione in linguaggio naturale strutturato](#Descrizione-in-linguaggio-naturale-strutturato)
+    - [Aggiornabilità e manutenibilità](#Aggiornabilità-e-manutenibilità)
+- [Appendice](#Appendice)
+  - [UseCases Diagram](#UseCases-Diagram)
+    - [Descrizione](#Descrizione)
+    - [Descrizione in linguaggio naturale strutturato](#Descrizione-in-linguaggio-naturale-strutturato)
 
 ## Descrizione generale
 
@@ -36,7 +38,19 @@ Il programma, al momento, supporta le seguenti funzioni:
 ### Dependencies
 
 - **download ed estrazione** dipende dall'implementazione di **download** e di **estrazione**.
-## Requisiti specifici <!-- requisiti del cliente -->
+## Requisiti specifici
+
+### Requisiti Interfacce Esterne
+
+#### Interfacce software
+
+_The Guardian API_
+
+#### Interfacce di comunicazione
+
+_HTTPS_
+
+### Requisiti funzionali
 
 1. Il sistema deve essere predisposto a supportare nuove sorgenti.
 2. Dopo la fase di download, deve essere effettuata la persistenza su file
@@ -52,32 +66,28 @@ Il programma, al momento, supporta le seguenti funzioni:
    l’estrazione dei termini a partire dai file in cui sono stati memorizzati gli
    articoli, o entrambe le azioni in sequenza.
 
-### Requisiti Interfacce Esterne
+### Limiti di progettazione
 
-#### Interfacce software
-
-_The Guardian API_
-
-#### Interfacce di comunicazione
-
-_HTTPS_
+Il limite di progettazione più importante è che il sistema deve essere semplice da aggiornare.
 
 ### Caratteristiche del software
 
-#### Aggiornabilità e mantenibilità
+#### Aggiornabilità e manutenibilità
 
-Il sistema è stato progettato in modo da rispettare le richieste di aggiornabilità e mantenibilità.
+Il sistema è stato progettato in modo da rispettare le richieste di aggiornabilità e manutenibilità.
 Grazie all'utilizzo di design pattern che permettono di rendere il codice più flessibile, il sistema è predisposto a supportare nuove sorgenti, 
 nuove modalità di memorizzazione degli articoli e nuove strutture per memorizzare i termini estratti.
 
-## UseCases Diagram
+## Appendice
+
+### UseCases Diagram
 
 ![Use Cases Diagram](use_cases_diagram.svg)
 
-### Descrizione
+#### Descrizione
 
 Descrizione
 
-## Descrizione in linguaggio naturale strutturato
+### Descrizione in linguaggio naturale strutturato
 
 Descrizione in linguaggio naturale strutturato
