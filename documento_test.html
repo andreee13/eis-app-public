@@ -125,8 +125,6 @@
     </ul></li>
    <li><p><a href="#ambiente-di-test">Ambiente di Test</a></p>
     <ul>
-     <li><a href="#configurazione-di-test">Configurazione di Test</a></li>
-     <li><a href="#requisiti-di-hardware">Requisiti di Hardware</a></li>
      <li><a href="#requisiti-di-software">Requisiti di Software</a></li>
      <li><a href="#dati-di-test">Dati di Test</a></li>
     </ul></li>
@@ -165,23 +163,25 @@
    <h3>2.1 Approccio di Test</h3>
    <p>L'approccio di test è basato sul modello a V, che prevede l'esecuzione di test di unità, integrazione e sistema, senza la parte di accettazione del cliente. Questo perché il progetto è un progetto didattico e non è prevista la consegna ad un cliente esterno, bensì la consegna al docente che risulta essere il committente e l'ideatore del progetto. Gli stadi di test sono i seguenti:</p>
    <ul>
-    <li>Test dello sviluppo, elaborati durante lo sviluppo con il pieno coinvolgimento del team di sviluppo.</li>
-    <li>Test della release. Nonostante il team di test coincida con il team di sviluppo, questo stadio di test è separato dal precedente in quanto è un processo di convalida, non ideato solamente per la scoperta di difetti.</li>
+    <li><strong>Test dello sviluppo</strong>, elaborati durante lo sviluppo con il pieno coinvolgimento del team di sviluppo.</li>
+    <li><strong>Test della release</strong>. Nonostante il team di test coincida con il team di sviluppo, questo stadio di test è separato dal precedente in quanto è un processo di convalida, non ideato solamente per la scoperta di difetti.</li>
    </ul>
-   <p>I test dello sviluppo sono suddivisi in:</p>
+   <p>I <strong>test dello sviluppo</strong> sono suddivisi in:</p>
    <ul>
-    <li>Test di unità, che verificano il corretto funzionamento di singole unità di codice, prevalentemente le più importanti o che racchiudono in sé snodi critici del programma. La strategia seguita per la scelta dei test case è quella dei test delle partizioni (o partizioni di equivalenza), che prevede di suddividere l'input in partizioni con caratteristiche comuni (da elaborare in modo analogo) e di selezionare un test case per ogni partizione.</li>
-    <li>Test di integrazione (o delle componenti), che verificano il corretto funzionamento delle interfacce tra le varie unità di codice.</li>
+    <li><strong>Test di unità</strong>, che verificano il corretto funzionamento di singole unità di codice, prevalentemente le più importanti o che racchiudono in sé snodi critici del programma. La strategia seguita per la scelta dei test case è quella dei test delle partizioni (o partizioni di equivalenza), che prevede di suddividere l'input in partizioni con caratteristiche comuni (da elaborare in modo analogo) e di selezionare un test case per ogni partizione.</li>
+    <li><strong>Test di integrazione</strong> (o delle componenti), che verificano il corretto funzionamento delle interfacce tra le varie unità di codice.</li>
    </ul>
-   <p>I test della release sono suddivisi in:</p>
+   <p>I <strong>test della release</strong> sono suddivisi in:</p>
    <ul>
-    <li>Test dei requisiti: alcuni requisiti sono testati singolarmente per verificare il loro corretto funzionamento.</li>
-    <li>Test degli scenari: tramite alcuni realistici scenari d'uso si testano numerosi requisiti all'interno di un unico scenario.</li>
+    <li><strong>Test dei requisiti</strong>: alcuni requisiti sono testati singolarmente per verificare il loro corretto funzionamento.</li>
+    <li><strong>Test degli scenari</strong>: tramite alcuni realistici scenari d'uso si testano numerosi requisiti all'interno di un unico scenario.</li>
    </ul>
   </section>
   <section>
    <h3>2.2 Risorse di Test</h3>
-   <p>La gestione delle risorse di test è essenziale per garantire che siano disponibili le risorse necessarie per eseguire l'attività di test in modo efficace ed efficiente. Lo strumento di test utilizzato è JUnit, che permette di eseguire test di unità di lavoro in Java. Spesso un' unità di lavoro distinta è un singolo metodo. Tramite le Assertions di JUnit è possibile dichiarare con certezza che il risultato di un test sia uguale a quello atteso, verificando che il codice funzioni correttamente, con l'ausilio di dati/risorse di test fittizi ma realistici. JUnit è stato scelto per la sua semplicità e per la sua integrazione con l'IDE IntelliJ IDEA, quest'ultimo utilizzato per lo sviluppo del progetto. I dati di test utilizzati sono statici, nelle forme di input predefiniti o dati di riferimento. La directory /src/test/resources contiene i file di test. In particolare, articles.json viene utilizzato per testare le funzionalità delle componenti legate all'elaborazione di dati JSON (come ad esempio la classe JsonRepositoryTest), mentre file.csv viene utilizzato per testare le funzionalità delle componenti legate all'elaborazione di dati CSV (come ad esempio la classe CsvRepositoryTest). Allo stesso modo, terms.txt viene utilizzato per testare le funzionalità delle componenti legate all'elaborazione di dati testuali (come ad esempio la classe TermsExtractionRepositoryTest).</p>
+   <p>La gestione delle risorse di test è essenziale per garantire che siano disponibili le risorse necessarie per eseguire l'attività di test in modo efficace ed efficiente.</p>
+   <p>Lo strumento di test utilizzato è JUnit, che permette di eseguire test di unità di lavoro in Java. Spesso un' unità di lavoro distinta è un singolo metodo.</p>
+   <p>Tramite le Assertions di JUnit è possibile dichiarare con certezza che il risultato di un test sia uguale a quello atteso, verificando che il codice funzioni correttamente, con l'ausilio di dati/risorse di test fittizi ma realistici. JUnit è stato scelto per la sua semplicità e per la sua integrazione con l'IDE IntelliJ IDEA, quest'ultimo utilizzato per lo sviluppo del progetto.</p>
   </section>
   <section>
    <h3>2.3 Pianificazione di Test</h3>
@@ -201,13 +201,19 @@
  <section>
   <h2>3. Ambiente di Test</h2>
   <section>
-   <h3>3.1 Configurazione di Test</h3>
+   <h3>3.1 Requisiti di Software</h3>
+   <p><strong>Requisiti minimi</strong></p>
+   <ul>
+    <li><em>JDK 8</em></li>
+    <li><em>Maven 3.3.1</em></li>
+   </ul>
   </section>
   <section>
-   <h3>3.2 Requisiti di Hardware</h3>
-  </section>
-  <section>
-   <h3>3.3 Requisiti di Software</h3>
+   <h3>3.2 Dati di test</h3>
+   <p>I dati di test utilizzati sono statici, nelle forme di input predefiniti o dati di riferimento.</p>
+   <p>La directory /src/test/resources contiene i file di test.</p>
+   <p>In particolare, articles.json viene utilizzato per testare le funzionalità delle componenti legate all'elaborazione di dati JSON (come ad esempio la classe JsonRepositoryTest), mentre file.csv viene utilizzato per testare le funzionalità delle componenti legate all'elaborazione di dati CSV (come ad esempio la classe CsvRepositoryTest).</p>
+   <p>Allo stesso modo, terms.txt viene utilizzato per testare le funzionalità delle componenti legate all'elaborazione di dati testuali (come ad esempio la classe TermsExtractionRepositoryTest).</p>
   </section>
  </section>
 </section>
