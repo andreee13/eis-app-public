@@ -1,4 +1,4 @@
-package it.unipd.dei.eis.core.constants;
+package it.unipd.dei.eis.core.enums;
 
 import org.apache.commons.cli.CommandLine;
 

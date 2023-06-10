@@ -1,6 +1,6 @@
 package it.unipd.dei.eis.domain.use_cases;
 
-import it.unipd.dei.eis.core.constants.UseCases;
+import it.unipd.dei.eis.core.enums.UseCases;
 
 /**
  * UseCaseFactory is the factory for the use cases.

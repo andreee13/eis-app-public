@@ -1,7 +1,7 @@
 package it.unipd.dei.eis.core.utils;
 
 import it.unipd.dei.eis.core.common.Context;
-import it.unipd.dei.eis.core.constants.UseCases;
+import it.unipd.dei.eis.core.enums.UseCases;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,7 +1,7 @@
 package it.unipd.dei.eis.domain.repositories;
 
 import it.unipd.dei.eis.core.common.Context;
-import it.unipd.dei.eis.core.constants.UseCases;
+import it.unipd.dei.eis.core.enums.UseCases;
 import it.unipd.dei.eis.core.utils.ContextBuilder;
 import it.unipd.dei.eis.domain.models.ArticleModel;
 import org.junit.jupiter.api.Test;

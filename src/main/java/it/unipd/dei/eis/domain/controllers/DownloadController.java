@@ -4,7 +4,7 @@ import it.unipd.dei.eis.core.common.Context;
 import it.unipd.dei.eis.core.common.Either;
 import it.unipd.dei.eis.core.common.Failure;
 import it.unipd.dei.eis.core.common.Success;
-import it.unipd.dei.eis.core.constants.UseCases;
+import it.unipd.dei.eis.core.enums.UseCases;
 import it.unipd.dei.eis.domain.models.IModel;
 import it.unipd.dei.eis.domain.repositories.RepositoryFactory;
 

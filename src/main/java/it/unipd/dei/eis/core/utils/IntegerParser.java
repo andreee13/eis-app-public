@@ -1,7 +1,7 @@
 package it.unipd.dei.eis.core.utils;
 
 /**
- * Utility interface to parse an integer from a string.
+ * A utility class for parsing integers.
  */
 public abstract class IntegerParser {
 

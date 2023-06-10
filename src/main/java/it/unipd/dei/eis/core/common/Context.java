@@ -1,11 +1,13 @@
 package it.unipd.dei.eis.core.common;
 
 import it.unipd.dei.eis.core.constants.DefaultConfig;
-import it.unipd.dei.eis.core.constants.UseCases;
+import it.unipd.dei.eis.core.constants.Outputs;
+import it.unipd.dei.eis.core.enums.UseCases;
 import it.unipd.dei.eis.core.utils.DateParser;
 import it.unipd.dei.eis.core.utils.IntegerParser;
 import org.apache.commons.cli.CommandLine;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
@@ -126,7 +128,13 @@ public class Context {
             throw new IllegalArgumentException("The from-date option must be before the to-date option");
         }
         String oa = cmd.getOptionValue("output-articles");
+        if (oa != null && !Outputs.isArticlesOutput(oa)) {
+            throw new IllegalArgumentException("The output-articles option must have one of the following extensions: " + Arrays.toString(Outputs.ARTICLES_OUTPUTS));
+        }
         String ot = cmd.getOptionValue("output-terms");
+        if (ot != null && !Outputs.isTermsOutput(ot)) {
+            throw new IllegalArgumentException("The output-terms option must have one of the following extensions: " + Arrays.toString(Outputs.TERMS_OUTPUTS));
+        }
         return new Context(
                 UseCases.fromCommandLine(cmd),
                 cmd.getArgs()[0],
