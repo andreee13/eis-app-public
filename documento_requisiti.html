@@ -109,7 +109,13 @@
  </div>
  <section>
   <h2>Introduzione</h2>
-  <p>In questo documento vengono trattati i requisiti del progetto.</p>
+  <p>In questo documento vengono trattati in modo approfondito i requisiti del progetto, ponendo particolare attenzione a:</p>
+  <ul>
+   <li>funzioni supportate</li>
+   <li>dipendenze da interfacce software e di comunicazione</li>
+   <li>limiti di progettazione</li>
+   <li>casi d'uso</li>
+  </ul>
   <section>
    <h3>Definizioni, acronimi e abbreviazioni</h3>
    <p><em>peso</em>: numero di documenti in cui appare un termine.</p>
@@ -117,7 +123,7 @@
  </section>
  <section>
   <h2>Indice</h2>
-  <ul>
+  <ol style="list-style-type: decimal">
    <li><a href="#Descrizione-generale">Descrizione generale</a>
     <ul>
      <li><a href="#Funzioni-supportate">Funzioni supportate</a></li>
@@ -134,7 +140,7 @@
      <li><a href="#Limiti-di-progettazione">Limiti di progettazione</a></li>
      <li><a href="#Caratteristiche-del-software">Caratteristiche del software</a>
       <ul>
-       <li><a href="#Aggiornabilit.C3.A0-e-manutenibilit.C3.A0">Aggiornabilità e manutenibilità</a></li>
+       <li><a href="#AeM">Aggiornabilità e manutenibilità</a></li>
       </ul></li>
     </ul></li>
    <li><a href="#Appendice">Appendice</a>
@@ -145,12 +151,12 @@
        <li><a href="#Descrizione-in-linguaggio-naturale-strutturato">Descrizione in linguaggio naturale strutturato</a></li>
       </ul></li>
     </ul></li>
-  </ul>
+  </ol>
  </section>
  <section>
-  <h2>Descrizione generale</h2>
+  <h2>1. Descrizione generale<a id="Descrizione-generale"></a></h2>
   <section>
-   <h3>Funzioni supportate</h3>
+   <h3>1.1 Funzioni supportate<a id="Funzioni-supportate"></a></h3>
    <p>Il programma, al momento, supporta le seguenti funzioni:</p>
    <ul>
     <li><strong>download</strong></li>
@@ -159,61 +165,61 @@
    </ul>
   </section>
   <section>
-   <h3>Dependencies</h3>
+   <h3>1.2 Dependencies<a id="Dependencies"></a></h3>
    <ul>
     <li><strong>download ed estrazione</strong> dipende dall'implementazione di <strong>download</strong> e di <strong>estrazione</strong>.</li>
    </ul>
   </section>
  </section>
  <section>
-  <h2>Requisiti specifici</h2>
+  <h2>2. Requisiti specifici<a id="Requisiti-specifici"></a></h2>
   <section>
-   <h3>Requisiti Interfacce Esterne</h3>
+   <h3>2.1 Requisiti Interfacce Esterne<a id="Requisiti-Interfacce-Esterne"></a></h3>
    <section>
-    <h4>Interfacce software</h4>
+    <h4>2.1.1 Interfacce software<a id="Interfacce-software"></a></h4>
     <p><em>The Guardian API</em></p>
    </section>
    <section>
-    <h4>Interfacce di comunicazione</h4>
+    <h4>2.1.2 Interfacce di comunicazione<a id="Interfacce-di-comunicazione"></a></h4>
     <p><em>HTTPS</em></p>
    </section>
   </section>
   <section>
-   <h3>Requisiti funzionali</h3>
+   <h3>2.2 Requisiti funzionali<a id="Requisiti-Funzionali"></a></h3>
    <ol style="list-style-type: decimal">
-    <li>Il sistema deve essere predisposto a supportare nuove sorgenti.</li>
+    <li>Il sistema deve poter supportare nuove sorgenti.</li>
     <li>Dopo la fase di download, deve essere effettuata la persistenza su file degli articoli usando lo stesso formato per tutti gli articoli di tutte le sorgenti.</li>
     <li>Il sistema deve poter supportare nuove modalità di memorizzazione ed accesso agli articoli.</li>
-    <li>Per estrarre i termini ed il loro peso, è necessario partire dai file in cui gli articoli sono memorizzati.</li>
+    <li>Per estrarre i termini ed il loro <em>peso</em>, è necessario partire dai file in cui gli articoli sono memorizzati.</li>
     <li>Il sistema deve poter supportare nuove strutture per memorizzare ed avere accesso ai termini più importanti</li>
     <li>L’utente deve poter specificare se eseguire solo il download, solo l’estrazione dei termini a partire dai file in cui sono stati memorizzati gli articoli, o entrambe le azioni in sequenza.</li>
    </ol>
   </section>
   <section>
-   <h3>Limiti di progettazione</h3>
-   <p>Il limite di progettazione più importante è che il sistema deve essere semplice da aggiornare.</p>
+   <h3>2.3 Limiti di progettazione<a id="Limiti-di-progettazione"></a></h3>
+   <p>Il sistema deve essere predisposto ad aggiornamenti futuri.</p>
   </section>
   <section>
-   <h3>Caratteristiche del software</h3>
+   <h3>2.4 Caratteristiche del software<a id="Caratteristiche-del-software"></a></h3>
    <section>
-    <h4>Aggiornabilità e manutenibilità</h4>
+    <h4>2.4.1 Aggiornabilità e manutenibilità<a id="AeM"></a></h4>
     <p>Il sistema è stato progettato in modo da rispettare le richieste di aggiornabilità e manutenibilità. Grazie all'utilizzo di design pattern che permettono di rendere il codice più flessibile, il sistema è predisposto a supportare nuove sorgenti, nuove modalità di memorizzazione degli articoli e nuove strutture per memorizzare i termini estratti.</p>
    </section>
   </section>
  </section>
  <section>
-  <h2>Appendice</h2>
+  <h2>3. Appendice<a id="Appendice"></a></h2>
   <section>
-   <h3>UseCases Diagram</h3>
+   <h3>3.1 UseCases Diagram<a id="UseCases-Diagram"></a></h3>
    <p><img src="use_cases_diagram.svg" alt="Use Cases Diagram"></p>
    <section>
-    <h4>Descrizione</h4>
+    <h4>3.1.1 Descrizione<a id="Descrizione"></a></h4>
     <p>Descrizione</p>
    </section>
-  </section>
-  <section>
-   <h3>Descrizione in linguaggio naturale strutturato</h3>
-   <p>Descrizione in linguaggio naturale strutturato</p>
+   <section>
+    <h4>3.1.2 Descrizione in linguaggio naturale strutturato<a id="Descrizione-in-linguaggio-naturale-strutturato"></a></h4>
+    <p>Descrizione in linguaggio naturale strutturato</p>
+   </section>
   </section>
  </section>
 </section>
