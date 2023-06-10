@@ -15,8 +15,6 @@ Versione: 1.0
     - [Criteri di Uscita di Test](#criteri-di-uscita-di-test)
 
 3. [Ambiente di Test](#ambiente-di-test)
-    - [Configurazione di Test](#configurazione-di-test)
-    - [Requisiti di Hardware](#requisiti-di-hardware)
     - [Requisiti di Software](#requisiti-di-software)
     - [Dati di Test](#dati-di-test)
 
@@ -61,41 +59,39 @@ la parte di accettazione del cliente. Questo perché il progetto è un progetto 
 un cliente esterno, bensì la consegna al docente che risulta essere il committente e l'ideatore del progetto.
 Gli stadi di test sono i seguenti:
 
-- Test dello sviluppo, elaborati durante lo sviluppo con il pieno coinvolgimento del team di sviluppo.
-- Test della release. Nonostante il team di test coincida con il team di sviluppo, questo stadio di test è separato dal
+- **Test dello sviluppo**, elaborati durante lo sviluppo con il pieno coinvolgimento del team di sviluppo.
+- **Test della release**. Nonostante il team di test coincida con il team di sviluppo, questo stadio di test è separato
+  dal
   precedente in quanto è un processo di convalida, non ideato solamente per la scoperta di difetti.
 
-I test dello sviluppo sono suddivisi in:
+I **test dello sviluppo** sono suddivisi in:
 
-- Test di unità, che verificano il corretto funzionamento di singole unità di codice, prevalentemente le più importanti
+- **Test di unità**, che verificano il corretto funzionamento di singole unità di codice, prevalentemente le più
+  importanti
   o che racchiudono in sé snodi critici del programma. La strategia seguita per la scelta dei test case è quella dei
   test delle partizioni (o partizioni di equivalenza), che prevede di suddividere l'input in partizioni con
   caratteristiche comuni (da elaborare in modo analogo) e di selezionare un test case per ogni partizione.
-- Test di integrazione (o delle componenti), che verificano il corretto funzionamento delle interfacce tra le varie
+- **Test di integrazione** (o delle componenti), che verificano il corretto funzionamento delle interfacce tra le varie
   unità di codice.
 
-I test della release sono suddivisi in:
+I **test della release** sono suddivisi in:
 
-- Test dei requisiti: alcuni requisiti sono testati singolarmente per verificare il loro corretto funzionamento.
-- Test degli scenari: tramite alcuni realistici scenari d'uso si testano numerosi requisiti all'interno di un unico
+- **Test dei requisiti**: alcuni requisiti sono testati singolarmente per verificare il loro corretto funzionamento.
+- **Test degli scenari**: tramite alcuni realistici scenari d'uso si testano numerosi requisiti all'interno di un unico
   scenario.
 
 ### 2.2 Risorse di Test<a name="risorse-di-test"></a>
 
 La gestione delle risorse di test è essenziale per garantire che siano disponibili le risorse necessarie per eseguire
 l'attività di test in modo efficace ed efficiente.
+
 Lo strumento di test utilizzato è JUnit, che permette di eseguire test di unità di lavoro in Java. Spesso un' unità di
 lavoro distinta è un singolo metodo.
+
 Tramite le Assertions di JUnit è possibile dichiarare con certezza che il risultato di un test sia uguale a quello
 atteso, verificando che il codice funzioni correttamente, con l'ausilio di dati/risorse di test fittizi ma realistici.
 JUnit è stato scelto per la sua semplicità e per la sua integrazione con l'IDE IntelliJ IDEA, quest'ultimo utilizzato
 per lo sviluppo del progetto.
-I dati di test utilizzati sono statici, nelle forme di input predefiniti o dati di riferimento. La directory
-/src/test/resources contiene i file di test. In particolare, articles.json viene utilizzato per testare le funzionalità
-delle componenti legate all'elaborazione di dati JSON (come ad esempio la classe JsonRepositoryTest), mentre file.csv
-viene utilizzato per testare le funzionalità delle componenti legate all'elaborazione di dati CSV (come ad esempio la
-classe CsvRepositoryTest). Allo stesso modo, terms.txt viene utilizzato per testare le funzionalità delle componenti
-legate all'elaborazione di dati testuali (come ad esempio la classe TermsExtractionRepositoryTest).
 
 ### 2.3 Pianificazione di Test<a name="pianificazione-di-test"></a>
 
@@ -122,10 +118,27 @@ criteri sono stati considerati raggiunti.
 
 ## 3. Ambiente di Test<a name="ambiente-di-test"></a>
 
-### 3.1 Configurazione di Test<a name="configurazione-di-test"></a>
+### 3.1 Requisiti di Software<a name="requisiti-di-software"></a>
 
-### 3.2 Requisiti di Hardware<a name="requisiti-di-hardware"></a>
+**Requisiti minimi**
 
-### 3.3 Requisiti di Software<a name="requisiti-di-software"></a>
+- _JDK 8_
+- _Maven 3.3.1_
+
+### 3.2 Dati di test<a name="dati-di-test"></a>
+
+I dati di test utilizzati sono statici, nelle forme di input predefiniti o dati di riferimento.
+
+La directory /src/test/resources contiene i file di test. 
+
+In particolare, articles.json viene utilizzato per testare le funzionalità delle componenti legate all'elaborazione di dati JSON (come ad esempio la classe JsonRepositoryTest), mentre file.csv
+viene utilizzato per testare le funzionalità delle componenti legate all'elaborazione di dati CSV (come ad esempio la
+classe CsvRepositoryTest). 
+
+Allo stesso modo, terms.txt viene utilizzato per testare le funzionalità delle componenti
+legate all'elaborazione di dati testuali (come ad esempio la classe TermsExtractionRepositoryTest).
+
+
+
 
 
