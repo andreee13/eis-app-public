@@ -9,33 +9,157 @@ ponendo particolare attenzione a:
 - limiti di progettazione
 - casi d'uso
 
+### Scopo
+
+Il sistema è stato creato per effettuare operazioni su articoli di giornale.
+L'utente finale è in grado di scaricare articoli, estrarre i termini più frequenti e visualizzare i risultati o effettuare entrambe le operazioni in sequenza. 
+
 ### Definizioni, acronimi e abbreviazioni
 
-_peso_: numero di documenti in cui appare un termine.
+1. _peso_: numero di documenti in cui appare un termine.
+
+2. _formato del file JSON di download_: 
+```
+[
+  {
+    "id": "int",
+    "title": "string",
+    "body": "string",
+    "date": "date",
+    "url": "string",
+    "source": "string"
+  },
+  ...
+]
+```
+
+3. _formato del file .txt di estrazione_:
+```
+termine: peso
+```
+4. _API_: Application Programming Interface
 
 ## Descrizione generale
+
+In questa sezione si affronta in modo estensivo la descrizione di:
+- Funzioni supportate
+- Caratteristiche dell'utente
+- Compatibilità
+
+### Prospettiva del prodotto
+
+Questo è un sistema creato per un progetto universitario, quindi non è destinato ad un uso commerciale.
 
 ### Funzioni supportate
 
 Il programma, al momento, supporta le seguenti funzioni:
-- **download**
-- **estrazione**
-- **download ed estrazione**
+- **download** degli articoli
+- **estrazione** dei termini più ricorrenti in un file di testo
+- **download ed estrazione** in sequenza
 
-### Dipendenze
+In ogni funzione è possibile specificare:
+- una fonte
+- un filtro temporale / una query di ricerca
+- un numero massimo di articoli da scaricare
+- un numero massimo di termini da estrarre
 
-- **download ed estrazione** dipende dall'implementazione di **download** e di **estrazione**.
+#### Download
+
+Il programma scarica articoli da testate giornalistiche tramite le fonti supportate, salvandolo in un formato comune.
+
+##### Richiesta
+
+Fonte e opzioni supportate:
+- The Guardian API
+  - query di ricerca
+  - filtro temporale
+  - numero massimo di articoli
+- The New York Times CSV
+  - query di ricerca
+  - filtro temporale
+  - numero massimo di articoli
+- File provenienti da un download precedente
+  - query di ricerca
+  - filtro temporale
+  - numero massimo di articoli
+##### Risposta
+
+Esito, _file JSON_ contenente la lista degli articoli.
+
+#### Estrazione
+
+Il programma estrae i termini più ricorrenti da un articolo modellizzato, precedentemente scaricato.
+
+##### Richiesta
+
+File da cui estrarre i termini, opzioni supportate:
+
+##### Risposta
+
+Esito, _file txt_ contenente i termini più ricorrenti.
+
+#### Download ed estrazione
+
+Il programma effettua in sequenza il download degli articoli e l'estrazione dei termini più ricorrenti.
+
+##### Richiesta
+
+Fonte e opzioni supportate dal download.
+
+##### Risposta
+
+Esito, file generati:
+- _file JSON_ contenente la lista degli articoli
+- _file .txt_ contenente i termini più ricorrenti
+
+### Caratteristiche dell'utente
+
+Esiste un solo tipo di utente, ma il sistema può essere utilizzato in modo automatico da altri sistemi/programmi. Non sono stati implementati privilegi.
+
+### Compatibilità
+
+Il sistema è supportato da tutti i sistemi operativi che supportano almeno Java 8.
+
+### Assunzioni
+
+Si assume che l'utente:
+- abbia una connessione ad internet
+- sappia interfacciarsi con un terminale
+
 ## Requisiti specifici
+
+In questa sezione verranno trattati i requisiti specifici del sistema. In particolare:
+- Interfacce esterne
+- Requisiti funzionali
+- Limiti di progettazione
+- Caratteristiche del software
 
 ### Requisiti Interfacce Esterne
 
+In questa sezione verranno trattate le interfacce esterne con cui il sistema interagisce, in particolar modo:
+- Interfacce software
+- Interfacce di comunicazione
+
+#### Interfaccia del sistema
+
+L'interfaccia del sistema è il terminale del sistema operativo su cui viene eseguito il programma.
+Si può visualizzare:
+- lo stato di caricamento dell'applicazione
+- cosa sta eseguendo l'applicazione in real time
+- eventuali errori e cosa li ha causati, con possibile risoluzione
+
+#### Interfacce hardware
+
+Il sistema ha bisogno di una connessione ad internet per funzionare, quindi fa affidamento alla _scheda di rete_ del computer,
+oltre che al _file system_.
+
 #### Interfacce software
 
-_The Guardian API_
+Il sistema si interfaccia con _The Guardian API_ tramite una **chiave** che l'utente deve possedere quando utilizza la funzione **download** del programma.
 
 #### Interfacce di comunicazione
 
-_HTTPS_
+Il sistema utilizza il protocollo _HTTPS_.
 
 ### Requisiti funzionali
 
@@ -58,6 +182,8 @@ _HTTPS_
 Il sistema deve essere predisposto ad aggiornamenti futuri.
 
 ### Caratteristiche del software
+
+In questa sezione verranno trattate le caratteristiche del software.
 
 #### Aggiornabilità e manutenibilità
 
