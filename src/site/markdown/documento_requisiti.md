@@ -19,11 +19,12 @@ ponendo particolare attenzione a:
 Il sistema è stato creato per effettuare operazioni su articoli di giornale.
 L'utente finale è in grado di scaricare articoli, estrarre i termini più frequenti e visualizzare i risultati o effettuare entrambe le operazioni in sequenza. 
 
-### Definizioni, acronimi e abbreviazioni
+### Definizioni
 
 1. _peso_: numero di documenti in cui appare un termine.
+2. Il programma dispone i termini estratti nel file di testo in ordine alfabetico come criterio aggiuntivo.
 
-2. _formato del file JSON di download_: 
+3. _formato del file JSON di download_: 
 ```
 [
   {
@@ -38,13 +39,14 @@ L'utente finale è in grado di scaricare articoli, estrarre i termini più frequ
 ]
 ```
 
-3. _formato del file .txt di estrazione_:
+4. _formato del file di testo di estrazione_:
 ```
 termine: peso
 ```
-4. _API_: Application Programming Interface.
-5. Il programma dispone i termini estratti nel file .txt in ordine alfabetico come criterio aggiuntivo.
-6. _file .txt_: file di testo.
+
+### Acronimi
+1. _API_: Application Programming Interface.
+2. _JSON_: JavaScript Object Notation.
 
 ## Descrizione generale
 
@@ -117,7 +119,7 @@ Fonte e opzioni supportate dal download.
 
 Esito, file generati:
 - _file JSON_ contenente la lista degli articoli
-- _file .txt_ contenente i termini più ricorrenti
+- _file di testo_ contenente i termini più ricorrenti
 
 ### Caratteristiche dell'utente
 
