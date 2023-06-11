@@ -13,31 +13,31 @@ ponendo particolare attenzione a:
 
 _peso_: numero di documenti in cui appare un termine.
 
-## 1 - Descrizione generale
+## Descrizione generale
 
-### 1.1 Funzioni supportate
+### Funzioni supportate
 
 Il programma, al momento, supporta le seguenti funzioni:
 - **download**
 - **estrazione**
 - **download ed estrazione**
 
-### 1.2 Dipendenze
+### Dipendenze
 
 - **download ed estrazione** dipende dall'implementazione di **download** e di **estrazione**.
-## 2 - Requisiti specifici
+## Requisiti specifici
 
-### 2.1 Requisiti Interfacce Esterne
+### Requisiti Interfacce Esterne
 
-#### 2.1.1 Interfacce software
+#### Interfacce software
 
 _The Guardian API_
 
-#### 2.1.2 Interfacce di comunicazione
+#### Interfacce di comunicazione
 
 _HTTPS_
 
-### 2.2 Requisiti funzionali
+### Requisiti funzionali
 
 1. Il sistema deve poter supportare nuove sorgenti.
 2. Dopo la fase di download, deve essere effettuata la persistenza su file
@@ -53,28 +53,28 @@ _HTTPS_
    l’estrazione dei termini a partire dai file in cui sono stati memorizzati gli
    articoli, o entrambe le azioni in sequenza.
 
-### 2.3 Limiti di progettazione
+### Limiti di progettazione
 
 Il sistema deve essere predisposto ad aggiornamenti futuri.
 
-### 2.4 Caratteristiche del software
+### Caratteristiche del software
 
-#### 2.4.1 Aggiornabilità e manutenibilità
+#### Aggiornabilità e manutenibilità
 
 Il sistema è stato progettato in modo da rispettare le richieste di aggiornabilità e manutenibilità.
 Grazie all'utilizzo di design pattern che permettono di rendere il codice più flessibile, il sistema è predisposto a supportare nuove sorgenti, 
 nuove modalità di memorizzazione degli articoli e nuove strutture per memorizzare i termini estratti.
 
-## 3 - Appendice
+## Appendice
 
-### 3.1 UseCases Diagram
+### UseCases Diagram
 
 ![Use Cases Diagram](use_cases_diagram.svg)
 
-#### 3.1.1 Descrizione
+#### Descrizione
 
 Descrizione
 
-#### 3.1.2 Descrizione in linguaggio naturale strutturato
+#### Descrizione in linguaggio naturale strutturato
 
 Descrizione in linguaggio naturale strutturato
