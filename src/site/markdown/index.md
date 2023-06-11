@@ -1,18 +1,11 @@
-# EIS App
-
-## Autori
+# Autori
 
 - Nicola Bellato
 - Giulia Cassanego
 - Andrea Checchin
 - Leonardo De Marchi
 
-## Descrizione
-
-EIS App è un'applicazione che permette di scaricare articoli da testate giornalistiche e di estrarre i termini più
-ricorrenti.
-
-## Documentazione
+# Documentazione
 
 ### [Manuale](manuale.html)
 

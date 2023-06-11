@@ -29,6 +29,7 @@
             </bottomNav>
             <pages>
                 <index project="eis-app">
+                    <toc>false</toc>
                     <markPageHeader>false</markPageHeader>
                     <sections>
                         <columns>2</columns>
