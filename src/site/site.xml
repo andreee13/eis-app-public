@@ -1,31 +1,53 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project xmlns="http://maven.apache.org/DECORATION/1.8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 https://maven.apache.org/xsd/decoration-1.8.0.xsd"
-         name="Maven">
-
-    <skin>
-        <groupId>io.github.olamy.maven.skins</groupId>
-        <artifactId>reflow-maven-skin</artifactId>
-        <version>2.0.0</version>
-    </skin>
-
-    <publishDate position="none"/>
+         name="EIS App">
+    <bannerLeft>
+        <name>EIS App</name>
+    </bannerLeft>
+    <publishDate position="bottom" format="yyyy-MM-dd"/>
     <version position="bottom"/>
-
+    <skin>
+        <groupId>io.github.devacfr.maven.skins</groupId>
+        <artifactId>reflow-maven-skin</artifactId>
+        <version>${reflow.version}</version>
+    </skin>
     <custom>
         <reflowSkin>
-            <theme>bootswatch-litera</theme>
+            <absoluteResourceURL>${this.site.url}</absoluteResourceURL>
+            <header enabled="false"/>
+            <breadcrumbs>false</breadcrumbs>
+            <brand>
+                <name>EIS App</name>
+                <href>${site.url}</href>
+            </brand>
+            <titleTemplate>%2$s | %1$s</titleTemplate>
+            <toc position="fixed">sidebar</toc>
+            <bottomNav>
+                <column>Documentation</column>
+                <column>reports</column>
+            </bottomNav>
+            <pages>
+                <index project="eis-app">
+                    <toc>false</toc>
+                    <markPageHeader>false</markPageHeader>
+                    <sections>
+                        <columns>2</columns>
+                        <body/>
+                        <sidebar/>
+                    </sections>
+                </index>
+            </pages>
         </reflowSkin>
     </custom>
-
     <body>
-        <menu name="Documentation">
+        <menu name="Documentazione" inherit="bottom">
             <item name="Manuale" href="manuale.html"/>
             <item name="Documento dei Requisiti" href="documento_requisiti.html"/>
             <item name="Design Model" href="design_model.html"/>
             <item name="Domain Model" href="domain_model.html"/>
-            <item name="Documento dei Test" href="documento_test.html"/>
+            <item name="Documento di Test" href="documento_test.html"/>
         </menu>
-        <menu name="Information" ref="reports"/>
+        <menu name="Informazioni" ref="reports" inherit="bottom"/>
     </body>
 </project>

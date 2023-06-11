@@ -1,28 +1,5 @@
 # Manuale
 
-## Indice
-
-- [Panoramica](#panoramica)
-    - [Opzioni](#opzioni)
-    - [Fonti](#fonti)
-- [Architettura](#architettura)
-    - [Design pattern](#design-pattern)
-    - [Dettagli implementativi](#dettagli-implementativi)
-- [Build](#build)
-    - [Jar](#jar)
-    - [Dockerfile](#dockerfile)
-- [Esecuzione](#esecuzione)
-    - [Jar](#jar-1)
-    - [Dockerfile](#dockerfile)
-    - [Docker Compose](#docker-compose)
-    - [Configurazione](#configurazione)
-- [Test](#test)
-    - [Test unitari](#test-unitari)
-    - [Report](#report)
-- [Funzioni riutilizzate da librerie esistenti](#funzioni-riutilizzate-da-librerie-esistenti)
-
----
-
 ## Panoramica
 
 Questo è un tool che permette di effettuare operazioni su articoli di giornale provenienti da più fonti.
@@ -100,7 +77,7 @@ Sono stati utilizzati i seguenti design pattern:
 
 ### Jar
 
-#### Requisiti minimi <a id="requisiti-minimi-jar"></a>
+#### Requisiti minimi
 
 - _JDK 8_
 - _Maven 3.3.1_
@@ -111,7 +88,7 @@ $ mvn clean package -DskipTests
 
 ### Dockerfile
 
-#### Requisiti minimi <a id="requisiti-minimi-docker"></a>
+#### Requisiti minimi
 
 - _Docker 17.05_
 
@@ -123,7 +100,7 @@ $ docker build -t <image_name> .
 
 ## Esecuzione
 
-### Jar <a id="jar-1"></a>
+### Jar
 
     $ java -jar <jarfile> <source> [options]
 
@@ -181,7 +158,7 @@ Oppure direttamente:
 
 ---
 
-## Funzioni riutilizzate da librerie esistenti
+## Librerie utilizzate
 
 - [Apache Commons CLI v1.5.0](https://commons.apache.org/proper/commons-cli/): libreria Java per la gestione di opzioni
   da riga
