@@ -13,7 +13,7 @@ ponendo particolare attenzione a:
 
 _peso_: numero di documenti in cui appare un termine.
 
-## 1. Descrizione generale
+## 1 - Descrizione generale
 
 ### 1.1 Funzioni supportate
 
@@ -25,7 +25,7 @@ Il programma, al momento, supporta le seguenti funzioni:
 ### 1.2 Dipendenze
 
 - **download ed estrazione** dipende dall'implementazione di **download** e di **estrazione**.
-## 2. Requisiti specifici
+## 2 - Requisiti specifici
 
 ### 2.1 Requisiti Interfacce Esterne
 
@@ -65,7 +65,7 @@ Il sistema è stato progettato in modo da rispettare le richieste di aggiornabil
 Grazie all'utilizzo di design pattern che permettono di rendere il codice più flessibile, il sistema è predisposto a supportare nuove sorgenti, 
 nuove modalità di memorizzazione degli articoli e nuove strutture per memorizzare i termini estratti.
 
-## 3. Appendice
+## 3 - Appendice
 
 ### 3.1 UseCases Diagram
 
