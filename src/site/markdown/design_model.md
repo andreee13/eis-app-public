@@ -8,6 +8,10 @@ Il modello strutturale statico è stato realizzato utilizzando il diagramma dell
 
 ![Class_Diagram](class_diagram.png)
 
+#### Descrizione
+
+Descrizione...
+
 ## Modello Strutturale Dinamico
 
 Il modello strutturale dinamico è stato realizzato utilizzando il diagramma delle sequenze UML.
@@ -15,3 +19,7 @@ Il modello strutturale dinamico è stato realizzato utilizzando il diagramma del
 ### Sequence Diagram
 
 ![Sequence_Diagram](sequence_diagram.png)
+
+#### Descrizione
+
+Descrizione...

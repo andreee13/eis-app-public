@@ -111,11 +111,12 @@ criteri sono stati considerati raggiunti.
 
 I dati di test utilizzati sono statici, nelle forme di input predefiniti o dati di riferimento.
 
-La directory /src/test/resources contiene i file di test. 
+La directory /src/test/resources contiene i file di test.
 
-In particolare, articles.json viene utilizzato per testare le funzionalità delle componenti legate all'elaborazione di dati JSON (come ad esempio la classe JsonRepositoryTest), mentre file.csv
+In particolare, articles.json viene utilizzato per testare le funzionalità delle componenti legate all'elaborazione di
+dati JSON (come ad esempio la classe JsonRepositoryTest), mentre file.csv
 viene utilizzato per testare le funzionalità delle componenti legate all'elaborazione di dati CSV (come ad esempio la
-classe CsvRepositoryTest). 
+classe CsvRepositoryTest).
 
 Allo stesso modo, terms.txt viene utilizzato per testare le funzionalità delle componenti
 legate all'elaborazione di dati testuali (come ad esempio la classe TermsExtractionRepositoryTest).
