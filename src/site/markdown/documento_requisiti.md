@@ -37,7 +37,8 @@ L'utente finale è in grado di scaricare articoli, estrarre i termini più frequ
 ```
 termine: peso
 ```
-4. _API_: Application Programming Interface
+4. _API_: Application Programming Interface.
+5. Il programma dispone i termini estratti nel file .txt in ordine alfabetico come criterio aggiuntivo.
 
 ## Descrizione generale
 
