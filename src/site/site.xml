@@ -24,7 +24,7 @@
             <titleTemplate>%2$s | %1$s</titleTemplate>
             <toc position="fixed">sidebar</toc>
             <bottomNav>
-                <column>Documentation</column>
+                <column>documentation</column>
                 <column>reports</column>
             </bottomNav>
             <pages>
@@ -41,7 +41,7 @@
         </reflowSkin>
     </custom>
     <body>
-        <menu name="Documentazione" inherit="bottom">
+        <menu name="Documentazione" inherit="bottom" ref="documentation">
             <item name="Manuale" href="manuale.html"/>
             <item name="Documento dei Requisiti" href="documento_requisiti.html"/>
             <item name="Design Model" href="design_model.html"/>
