@@ -1,19 +1,19 @@
 version: '3'
 services:
-  run:
+  eis-app:
     build:
       context: .
       dockerfile: Dockerfile
     image: eis-app
     volumes:
-      - ./data:/app/data
+      - ./:/data
     command: >
       theguardian
       --query nuclear power
       --from 2022-01-01
       --to 2023-01-01
       --output-articles data/articles.json
-      --output-terms data/terms.json
+      --output-terms data/terms.txt
       --count-articles 10
       --count-terms 50
       --api-key <API_KEY>

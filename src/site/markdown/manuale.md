@@ -93,7 +93,7 @@ $ mvn clean package -DskipTests
 - _Docker 17.05_
 
 ```
-$ docker build -t <image_name> .
+$ docker build -t eis-app .
 ```
 
 ---
@@ -103,22 +103,6 @@ $ docker build -t <image_name> .
 ### Jar
 
     $ java -jar <jarfile> <source> [options]
-
-### Dockerfile
-
-    $ docker run -it --rm <image_name> <source> [options]
-
-### Docker Compose
-
-Attraverso il file `docker-compose.yaml`:
-
-    $ docker-compose up -d
-
-Oppure direttamente:
-
-    $ docker-compose run --rm <image_name> <source> [options]
-
-### Configurazione
 
 ```
 <source>                             Source (required)
@@ -143,6 +127,10 @@ Oppure direttamente:
     -q,--query <string>              Search query
     -t,--to <date>                   To date
 ```
+
+### Docker Compose
+
+    $ docker-compose up
 
 ---
 
