@@ -158,6 +158,21 @@ Oppure direttamente:
 
 ---
 
+## Documentazione
+
+### Javadoc
+
+    $ mvn javadoc:javadoc
+
+#### Test
+    
+    $ mvn javadoc:test-javadoc
+
+### Maven Site
+
+    $ mvn site
+---
+
 ## Librerie utilizzate
 
 - [Apache Commons CLI v1.5.0](https://commons.apache.org/proper/commons-cli/): libreria Java per la gestione di opzioni
