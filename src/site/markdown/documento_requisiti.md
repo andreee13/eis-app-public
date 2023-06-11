@@ -21,10 +21,9 @@ L'utente finale è in grado di scaricare articoli, estrarre i termini più frequ
 
 ### Definizioni
 
-1. _peso_: numero di documenti in cui appare un termine.
-2. Il programma dispone i termini estratti nel file di testo in ordine alfabetico come criterio aggiuntivo.
-
-3. _formato del file JSON di download_: 
+- _peso_: numero di documenti in cui appare un termine.
+- Il programma dispone i termini estratti nel file di testo in ordine alfabetico come criterio aggiuntivo.
+- _formato del file JSON di download_: 
 ```
 [
   {
@@ -39,14 +38,14 @@ L'utente finale è in grado di scaricare articoli, estrarre i termini più frequ
 ]
 ```
 
-4. _formato del file di testo di estrazione_:
+- _formato del file di testo di estrazione_:
 ```
 termine: peso
 ```
 
 ### Acronimi
-1. _API_: Application Programming Interface.
-2. _JSON_: JavaScript Object Notation.
+- _API_: Application Programming Interface.
+- _JSON_: JavaScript Object Notation.
 
 ## Descrizione generale
 
