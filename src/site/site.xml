@@ -27,20 +27,20 @@
                 <column>documentation</column>
                 <column>reports</column>
             </bottomNav>
-            <pages>
-                <index project="eis-app">
-                    <toc>false</toc>
-                    <markPageHeader>false</markPageHeader>
-                    <sections>
-                        <columns>2</columns>
-                        <body/>
-                        <sidebar/>
-                    </sections>
-                </index>
-            </pages>
         </reflowSkin>
     </custom>
     <body>
+        <head>
+            <![CDATA[
+                <script type="text/javascript">
+                    if(window.location.href.indexOf("index.html") != -1) {
+                        window.onload = function() {
+                            window.location.href = "manuale.html";
+                        }
+                    }
+                </script>
+            ]]>
+        </head>
         <menu name="Documentazione" inherit="bottom" ref="documentation">
             <item name="Manuale" href="manuale.html"/>
             <item name="Documento dei Requisiti" href="documento_requisiti.html"/>
