@@ -1,5 +1,10 @@
 # Documento dei Requisiti
 
+Versione: 1.0
+
+Data: 11 giugno 2023
+
+Standard: IEEE 830-1998
 ## Introduzione
 
 In questo documento vengono trattati in modo approfondito i requisiti del progetto,
@@ -39,6 +44,7 @@ termine: peso
 ```
 4. _API_: Application Programming Interface.
 5. Il programma dispone i termini estratti nel file .txt in ordine alfabetico come criterio aggiuntivo.
+6. _file .txt_: file di testo.
 
 ## Descrizione generale
 
@@ -66,7 +72,7 @@ In ogni funzione è possibile specificare:
 
 #### Download
 
-Il programma scarica articoli da testate giornalistiche tramite le fonti supportate, salvandolo in un formato comune.
+Il programma scarica articoli da testate giornalistiche tramite le fonti supportate, salvandoli in un formato comune.
 
 ##### Richiesta
 
@@ -89,7 +95,7 @@ Esito, _file JSON_ contenente la lista degli articoli.
 
 #### Estrazione
 
-Il programma estrae i termini più ricorrenti da un articolo modellizzato, precedentemente scaricato.
+Il programma estrae in un file di testo i termini più ricorrenti da un articolo modellizzato, precedentemente scaricato.
 
 ##### Richiesta
 
@@ -119,7 +125,7 @@ Esiste un solo tipo di utente, ma il sistema può essere utilizzato in modo auto
 
 ### Compatibilità
 
-Il sistema è supportato da tutti i sistemi operativi che supportano almeno Java 8.
+Il sistema è supportato da tutti i sistemi operativi che supportano almeno _Java 8_.
 
 ### Assunzioni
 
