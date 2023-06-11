@@ -33,7 +33,7 @@
         <head>
             <![CDATA[
                 <script type="text/javascript">
-                    if(window.location.href.indexOf("index.html") != -1) {
+                    if(window.location.href.indexOf("index.html") != -1 || window.location.href.endsWith("/")) {
                         window.onload = function() {
                             window.location.href = "manuale.html";
                         }
