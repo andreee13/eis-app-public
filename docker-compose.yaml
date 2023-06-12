@@ -9,6 +9,7 @@ services:
       - ./:/data
     command: >
       theguardian
+      --lemma
       --query nuclear power
       --from 2022-01-01
       --to 2023-01-01

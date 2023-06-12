@@ -130,7 +130,7 @@ L'esecuzione richiede il file `jar` prodotto dalla sezione precedente.
     -f,--from <date>                 From date
     -h,--help                        Print this message
     -k,--api-key <string>            API key
-    -l, --lemma                      Terms are lemmas
+    -l,--lemma                       Terms are lemmas
     -oa,--output-articles <file>     Output articles file name (default "articles.json")
     -ot,--output-terms <file>        Output terms file name (default "terms.txt")
     -q,--query <string>              Search query
