@@ -111,8 +111,8 @@ public class Context {
      * @return the Context
      */
     public static Context fromCommandLine(CommandLine cmd) {
-<span class="pc bpc" id="L114" title="1 of 2 branches missed.">        if (cmd.getArgs().length == 0) {</span>
-<span class="nc" id="L115">            throw new IllegalArgumentException(&quot;The source option is required&quot;);</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">        if (cmd.getArgs().length == 0) {</span>
+<span class="fc" id="L115">            throw new IllegalArgumentException(&quot;The source option is required&quot;);</span>
         }
 <span class="fc" id="L117">        Integer ca = IntegerParser.tryParse(cmd.getOptionValue(&quot;count-articles&quot;));</span>
 <span class="pc bpc" id="L118" title="2 of 4 branches missed.">        if (ca != null &amp;&amp; ca &lt; 0) {</span>
