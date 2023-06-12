@@ -2,11 +2,7 @@ package it.unipd.dei.eis.presentation;
 
 import it.unipd.dei.eis.core.common.Context;
 import it.unipd.dei.eis.domain.use_cases.UseCaseFactory;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.*;
 
 /**
  * Bootstrapper is the class that starts the application.
@@ -17,12 +13,12 @@ public class Bootstrapper {
     /**
      * The OPTIONS field contains the command line options.
      */
-    private static final Options OPTIONS = new Options();
+    public static final Options OPTIONS = new Options();
 
     /**
      * The PARSER field contains the command line parser.
      */
-    private static final DefaultParser PARSER = new DefaultParser();
+    public static final DefaultParser PARSER = new DefaultParser();
 
     /**
      * The HELP_MESSAGE field contains the help message.

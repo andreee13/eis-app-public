@@ -12,7 +12,7 @@ class BootstrapperTest {
      */
     @Test
     void launch() {
-        String[] args = new String[]{"-j"};
-        new Bootstrapper(args).launch();
+        String[] args1 = new String[]{"-j"};
+        new Bootstrapper(args1).launch();
     }
 }

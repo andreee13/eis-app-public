@@ -10,8 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test the theguardian repository.
@@ -41,15 +40,12 @@ public class TheGuardianRepositoryTest {
      * @throws Exception if an error occurs
      */
     @Test
-    void pullData() throws Exception {
-        List<ArticleModel> result1 = repository.pullData(context);
+    void pull() throws Exception {
+        List<ArticleModel> result1 = repository.pull(context);
         assertEquals(result1.size(), context.countArticles);
         assertEquals(-33595425, result1.get(0).id);
-        List<ArticleModel> result2 = repository.pullData(context);
-        assertEquals(result2.size(), context.countArticles);
-        for (int i = 0; i < context.countArticles; i++) {
-            assertEquals(result1.get(i).id, result2.get(i).id);
-        }
+        List<ArticleModel> result2 = repository.pull(context);
+        assertEquals(result1, result2);
     }
 
     /**
