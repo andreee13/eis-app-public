@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Test the theguardian repository.
@@ -43,5 +44,13 @@ public class TheGuardianRepositoryTest {
         List<ArticleModel> result = repository.pullData(context);
         assertEquals(result.size(), context.countArticles);
         assertEquals(-33595425, result.get(0).id);
+    }
+
+    /**
+     * Test the pushData method.
+     */
+    @Test
+    void pushData() {
+        assertThrows(UnsupportedOperationException.class, () -> repository.pushData(context, null));
     }
 }

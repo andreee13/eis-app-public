@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 /**
  * Test the terms extraction repository.
  */
@@ -48,6 +50,14 @@ public class TermsExtractionRepositoryTest {
                         )
                 )
         );
+    }
+
+    /**
+     * Test the pullData method.
+     */
+    @Test
+    void pullData() {
+        assertThrows(UnsupportedOperationException.class, () -> repository.pullData(context));
     }
 }
 

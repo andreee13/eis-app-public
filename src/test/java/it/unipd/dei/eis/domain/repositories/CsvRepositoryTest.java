@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Test the csv repository.
@@ -39,5 +40,13 @@ public class CsvRepositoryTest {
     void pullData() throws Exception {
         List<ArticleModel> result = repository.pullData(context);
         assertEquals(result.size(), context.countArticles);
+    }
+
+    /**
+     * Test the pushData method.
+     */
+    @Test
+    void pushData() {
+        assertThrows(UnsupportedOperationException.class, () -> repository.pushData(context, null));
     }
 }

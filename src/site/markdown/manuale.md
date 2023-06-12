@@ -176,9 +176,9 @@ I Javadoc dei test vengono generati in formato HTML nella cartella `target/site/
 
     $ mvn javadoc:test-javadoc
 
-### Jacoco
+### JaCoCo
 
-Il report di Jacoco viene generato nella cartella `target/site/jacoco`.
+Il report della copertura dei test JaCoCo viene generato nella cartella `target/site/jacoco`.
 
     $ mvn jacoco:report
 
