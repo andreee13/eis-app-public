@@ -15,13 +15,13 @@ public interface UseCaseFactory {
      * @throws IllegalArgumentException if the command line argument is invalid
      */
     static UseCase create(UseCases useCase) throws IllegalArgumentException {
-<span class="pc bpc" id="L18" title="3 of 4 branches missed.">        switch (useCase) {</span>
+<span class="pc bpc" id="L18" title="1 of 4 branches missed.">        switch (useCase) {</span>
             case DOWNLOAD:
 <span class="fc" id="L20">                return new ArticlesDownloader();</span>
             case EXTRACT:
-<span class="nc" id="L22">                return new TermsExtractor();</span>
+<span class="fc" id="L22">                return new TermsExtractor();</span>
             case DOWNLOAD_AND_EXTRACT:
-<span class="nc" id="L24">                return new DownloaderAndExtractor();</span>
+<span class="fc" id="L24">                return new DownloaderAndExtractor();</span>
             default:
 <span class="nc" id="L26">                throw new IllegalArgumentException(String.format(&quot;\&quot;%s\&quot; is not a valid option&quot;, useCase));</span>
         }

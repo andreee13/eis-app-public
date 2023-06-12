@@ -6,3 +6,4 @@ it.unipd.dei.eis.data.codecs
 it.unipd.dei.eis.data.entities
 it.unipd.dei.eis.domain.controllers
 it.unipd.dei.eis.domain.repositories
+it.unipd.dei.eis.domain.use_cases

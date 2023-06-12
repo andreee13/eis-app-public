@@ -42,8 +42,8 @@ public class TermsExtractorController extends Controller {
 <span class="fc" id="L42">                    .push(context, models);</span>
 <span class="fc" id="L43">            System.out.println(&quot;Terms extracted and written to &quot; + context.outputTerms);</span>
 <span class="fc" id="L44">            return Either.success(new Success());</span>
-<span class="nc" id="L45">        } catch (Exception e) {</span>
-<span class="nc" id="L46">            return Either.failure(new Failure(e));</span>
+<span class="fc" id="L45">        } catch (Exception e) {</span>
+<span class="fc" id="L46">            return Either.failure(new Failure(e));</span>
         }
     }
 }

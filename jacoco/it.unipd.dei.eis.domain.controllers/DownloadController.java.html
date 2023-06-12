@@ -41,8 +41,8 @@ public class DownloadController extends Controller {
 <span class="fc" id="L41">                    .push(context, result1);</span>
 <span class="fc" id="L42">            System.out.println(&quot;File written successfully&quot;);</span>
 <span class="fc" id="L43">            return Either.success(new Success());</span>
-<span class="nc" id="L44">        } catch (Exception e) {</span>
-<span class="nc" id="L45">            return Either.failure(new Failure(e));</span>
+<span class="fc" id="L44">        } catch (Exception e) {</span>
+<span class="fc" id="L45">            return Either.failure(new Failure(e));</span>
         }
     }
 }
