@@ -33,7 +33,7 @@ class AsyncExecutorTest {
         if (success) {
             return Either.success(new Success());
         } else {
-            return Either.failure(new Failure(new Exception()));
+            return Either.failure(new Failure(new Exception(new Exception("test exception"))));
         }
     }
 }

@@ -3,6 +3,7 @@ package it.unipd.dei.eis.data.entities;
 import it.unipd.dei.eis.core.utils.DateParser;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -29,6 +30,7 @@ class JsonDataEntityTest {
     void contains() {
         assertTrue(entity.contains("title"));
         assertTrue(entity.contains("body"));
+        assertFalse(entity.contains("not present"));
     }
 
     /**

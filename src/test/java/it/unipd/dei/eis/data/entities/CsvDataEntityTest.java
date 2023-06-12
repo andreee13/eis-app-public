@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test class for the CsvDataEntity class.
@@ -48,6 +47,7 @@ class CsvDataEntityTest {
     void contains() {
         assertTrue(entity.contains("title"));
         assertTrue(entity.contains("body"));
+        assertFalse(entity.contains("not present"));
     }
 
     /**
