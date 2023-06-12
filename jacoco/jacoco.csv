@@ -24,7 +24,7 @@ eis-app,it.unipd.dei.eis.data.entities,TheGuardianDataEntity.Response.Result,39,
 eis-app,it.unipd.dei.eis.data.entities,TermsDataEntity,1,37,1,3,0,6,1,4,0,3
 eis-app,it.unipd.dei.eis.data.entities,TheGuardianDataEntity.Response,30,0,0,0,11,0,1,0,1,0
 eis-app,it.unipd.dei.eis.data.entities,DataEntity,0,18,0,0,0,4,0,4,0,4
-eis-app,it.unipd.dei.eis,App,3,6,0,0,1,2,1,1,1,1
+eis-app,it.unipd.dei.eis,App,0,9,0,0,0,3,0,2,0,2
 eis-app,it.unipd.dei.eis.domain.models,ArticleModel,0,43,0,0,0,8,0,1,0,1
 eis-app,it.unipd.dei.eis.data.codecs,TxtDecoder,0,29,0,0,0,4,0,5,0,5
 eis-app,it.unipd.dei.eis.data.codecs,JsonEncoder,0,12,0,0,0,3,0,3,0,3
