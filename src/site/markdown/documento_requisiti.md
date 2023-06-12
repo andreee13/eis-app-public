@@ -238,6 +238,7 @@ Descrizione
 #### Descrizione in linguaggio naturale strutturato
 
 Descrizione in linguaggio naturale strutturato
+| | |
 |--------|---------|
 |Funzione|Effettuare operazioni su articoli di giornale|
 |Descrizione|L'utente finale è in grado di scaricare articoli, estrarre i termini più frequenti e visualizzare i risultati o effettuare entrambe le operazioni in sequenza|
