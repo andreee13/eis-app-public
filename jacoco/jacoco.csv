@@ -7,7 +7,7 @@ eis-app,it.unipd.dei.eis.core.utils,SynchronizedFrequencyCounter,0,45,0,0,0,9,0,
 eis-app,it.unipd.dei.eis.core.utils,IntegerParser,0,7,0,0,0,3,0,1,0,1
 eis-app,it.unipd.dei.eis.core.utils,ContextBuilder,0,77,0,0,0,22,0,12,0,12
 eis-app,it.unipd.dei.eis.presentation,Bootstrapper,7,186,0,0,3,86,0,3,0,3
-eis-app,it.unipd.dei.eis.presentation,AsyncExecutor,70,174,7,5,15,33,6,8,1,7
+eis-app,it.unipd.dei.eis.presentation,AsyncExecutor,17,227,2,10,5,43,2,12,0,8
 eis-app,it.unipd.dei.eis.presentation,AsyncExecutor.new PrintStream() {...},0,18,0,0,0,3,0,2,0,2
 eis-app,it.unipd.dei.eis.data.sources,DataSource,40,84,0,6,8,31,5,9,5,6
 eis-app,it.unipd.dei.eis.data.sources,TermsDataSource,3,161,0,8,2,40,0,10,0,6

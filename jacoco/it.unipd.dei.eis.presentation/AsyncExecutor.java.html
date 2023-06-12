@@ -73,7 +73,7 @@ public class AsyncExecutor {
      * @return the instance of the AsyncExecutor class
      */
     public static synchronized AsyncExecutor getInstance() {
-<span class="pc bpc" id="L76" title="1 of 2 branches missed.">        if (instance == null) {</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">        if (instance == null) {</span>
 <span class="fc" id="L77">            instance = new AsyncExecutor();</span>
         }
 <span class="fc" id="L79">        return instance;</span>
@@ -86,20 +86,20 @@ public class AsyncExecutor {
      * @param e the exception
      */
     private void abort(Exception e) {
-<span class="nc" id="L89">        Throwable throwable = e;</span>
-<span class="nc bnc" id="L90" title="All 2 branches missed.">        while (throwable.getCause() != null) {</span>
+<span class="fc" id="L89">        Throwable throwable = e;</span>
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">        while (throwable.getCause() != null) {</span>
 <span class="nc" id="L91">            throwable = throwable.getCause();</span>
         }
-<span class="nc" id="L93">        loadingThread.interrupt();</span>
+<span class="fc" id="L93">        loadingThread.interrupt();</span>
         try {
-<span class="nc" id="L95">            Thread.sleep(ANIMATION_INTERVAL);</span>
+<span class="fc" id="L95">            Thread.sleep(ANIMATION_INTERVAL);</span>
 <span class="nc" id="L96">        } catch (InterruptedException ignored) {</span>
-<span class="nc" id="L97">        }</span>
-<span class="nc" id="L98">        throw new RuntimeException(</span>
-<span class="nc" id="L99">                String.format(</span>
+<span class="fc" id="L97">        }</span>
+<span class="fc" id="L98">        throw new RuntimeException(</span>
+<span class="fc" id="L99">                String.format(</span>
                         &quot;\r[X] Error: %s • %s&quot;,
-<span class="nc bnc" id="L101" title="All 2 branches missed.">                        throwable.getMessage() == null ? &quot;Unknown error&quot; : throwable.getMessage(),</span>
-<span class="nc" id="L102">                        getLoadingTime()</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">                        throwable.getMessage() == null ? &quot;Unknown error&quot; : throwable.getMessage(),</span>
+<span class="fc" id="L102">                        getLoadingTime()</span>
                 )
         );
     }
@@ -118,7 +118,7 @@ public class AsyncExecutor {
         try {
 <span class="fc" id="L119">            Either&lt;Failure, Success&gt; result = CompletableFuture.supplyAsync(supplier)</span>
 <span class="fc" id="L120">                    .get();</span>
-<span class="pc bpc" id="L121" title="1 of 2 branches missed.">            if (result.isFailure()) {</span>
+<span class="fc bfc" id="L121" title="All 2 branches covered.">            if (result.isFailure()) {</span>
 <span class="nc" id="L122">                abort(result.failure.exception);</span>
             }
 <span class="fc" id="L124">            loadingThread.interrupt();</span>
@@ -158,10 +158,10 @@ public class AsyncExecutor {
      */
     private String getLoadingTime() {
 <span class="fc" id="L160">        long time = System.currentTimeMillis() - startTime;</span>
-<span class="pc bpc" id="L161" title="1 of 2 branches missed.">        if (time &lt; 1000) {</span>
+<span class="fc bfc" id="L161" title="All 2 branches covered.">        if (time &lt; 1000) {</span>
 <span class="fc" id="L162">            return String.format(&quot;%d ms&quot;, time);</span>
         }
-<span class="nc" id="L164">        return String.format(&quot;%d.%01ds&quot;, time / 1000, (time % 1000) / 100);</span>
+<span class="fc" id="L164">        return String.format(&quot;%d.%01ds&quot;, time / 1000, (time % 1000) / 100);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
