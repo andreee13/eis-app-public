@@ -46,7 +46,7 @@ class CsvDataEntityTest {
      */
     @Test
     void contains() {
-        assertTrue(entity.title.contains("title"));
+        assertTrue(entity.contains("title"));
     }
 
     /**
@@ -54,7 +54,7 @@ class CsvDataEntityTest {
      */
     @Test
     void before() {
-        assertTrue(entity.date.before(DateParser.tryParse("2023-01-02")));
+        assertTrue(entity.before(DateParser.tryParse("2023-01-02")));
     }
 
     /**
@@ -62,6 +62,6 @@ class CsvDataEntityTest {
      */
     @Test
     void after() {
-        assertTrue(entity.date.after(DateParser.tryParse("2022-12-31")));
+        assertTrue(entity.after(DateParser.tryParse("2022-12-31")));
     }
 }
