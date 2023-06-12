@@ -16,10 +16,10 @@ class ContextTest {
     @Test
     void fromCommandLine() {
         assertThrows(IllegalArgumentException.class, () -> Context.fromCommandLine(Bootstrapper.PARSER.parse(Bootstrapper.OPTIONS, new String[]{})));
-        assertThrows(IllegalArgumentException.class, () -> Context.fromCommandLine(Bootstrapper.PARSER.parse(Bootstrapper.OPTIONS, new String[]{"-ca", "-1"})));
-        assertThrows(IllegalArgumentException.class, () -> Context.fromCommandLine(Bootstrapper.PARSER.parse(Bootstrapper.OPTIONS, new String[]{"-ct", "-1"})));
-        assertThrows(IllegalArgumentException.class, () -> Context.fromCommandLine(Bootstrapper.PARSER.parse(Bootstrapper.OPTIONS, new String[]{"-f", "1-1-2023", "-t", "1-1-2020"})));
-        assertThrows(IllegalArgumentException.class, () -> Context.fromCommandLine(Bootstrapper.PARSER.parse(Bootstrapper.OPTIONS, new String[]{"-oa", "file.xml"})));
-        assertThrows(IllegalArgumentException.class, () -> Context.fromCommandLine(Bootstrapper.PARSER.parse(Bootstrapper.OPTIONS, new String[]{"-ot", "file.xml"})));
+        assertThrows(IllegalArgumentException.class, () -> Context.fromCommandLine(Bootstrapper.PARSER.parse(Bootstrapper.OPTIONS, new String[]{"file.json", "-ca", "-1"})));
+        assertThrows(IllegalArgumentException.class, () -> Context.fromCommandLine(Bootstrapper.PARSER.parse(Bootstrapper.OPTIONS, new String[]{"file.json", "-ct", "-1"})));
+        assertThrows(IllegalArgumentException.class, () -> Context.fromCommandLine(Bootstrapper.PARSER.parse(Bootstrapper.OPTIONS, new String[]{"file.json", "-f", "1-1-2023", "-t", "1-1-2020"})));
+        assertThrows(IllegalArgumentException.class, () -> Context.fromCommandLine(Bootstrapper.PARSER.parse(Bootstrapper.OPTIONS, new String[]{"file.json", "-oa", "file.xml"})));
+        assertThrows(IllegalArgumentException.class, () -> Context.fromCommandLine(Bootstrapper.PARSER.parse(Bootstrapper.OPTIONS, new String[]{"file.json", "-ot", "file.xml"})));
     }
 }
