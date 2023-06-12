@@ -124,13 +124,11 @@ public class Bootstrapper {
             UseCaseFactory.create(context.useCase)
                     .run(context);
         } catch (ParseException e) {
+            System.err.println(e.getMessage());
             new HelpFormatter().printHelp(
                     HELP_MESSAGE,
                     OPTIONS
             );
-        } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
         }
     }
 }

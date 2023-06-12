@@ -6,6 +6,7 @@ import it.unipd.dei.eis.data.codecs.IEncoder;
 import it.unipd.dei.eis.data.entities.DataEntity;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * DataSource is the abstract class for data sources.
@@ -120,6 +121,7 @@ public abstract class DataSource<E extends DataEntity, D> {
 
     /**
      * Filters the list of data entities by query, from date and to date, if supported.
+     * Uses parallel streams to filter the list of data entities in a faster way.
      * Internally used by {@link #get(Context)}.
      *
      * @param context the context of the request
@@ -129,25 +131,25 @@ public abstract class DataSource<E extends DataEntity, D> {
     private List<E> filter(Context context, List<E> data) {
         if (context.query != null) {
             try {
-                data = data.stream()
+                data = data.parallelStream()
                         .filter(entity -> entity.contains(context.query))
-                        .collect(java.util.stream.Collectors.toList());
+                        .collect(Collectors.toList());
             } catch (UnsupportedOperationException ignored) {
             }
         }
         if (context.fromDate != null) {
             try {
-                data = data.stream()
+                data = data.parallelStream()
                         .filter(entity -> entity.after(context.fromDate))
-                        .collect(java.util.stream.Collectors.toList());
+                        .collect(Collectors.toList());
             } catch (UnsupportedOperationException ignored) {
             }
         }
         if (context.toDate != null) {
             try {
-                data = data.stream()
+                data = data.parallelStream()
                         .filter(entity -> entity.before(context.toDate))
-                        .collect(java.util.stream.Collectors.toList());
+                        .collect(Collectors.toList());
             } catch (UnsupportedOperationException ignored) {
             }
         }

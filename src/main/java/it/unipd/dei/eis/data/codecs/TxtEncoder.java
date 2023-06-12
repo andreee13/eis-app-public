@@ -21,7 +21,7 @@ public class TxtEncoder implements IEncoder<Map<String, Integer>> {
     public String encode(Map<String, Integer> object, Object... args) {
         List<?> keys = object
                 .keySet()
-                .stream()
+                .parallelStream()
                 .limit(args.length > 0 ? (int) args[0] : object.size())
                 .collect(Collectors.toList());
         StringBuilder stringBuilder = new StringBuilder();

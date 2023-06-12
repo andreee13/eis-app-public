@@ -95,13 +95,19 @@ public class AsyncExecutor {
             Thread.sleep(ANIMATION_INTERVAL);
         } catch (InterruptedException ignored) {
         }
-        throw new RuntimeException(
+        RuntimeException exception = new RuntimeException(
                 String.format(
                         "\r[X] Error: %s • %s",
                         throwable.getMessage() == null ? "Unknown error" : throwable.getMessage(),
                         getLoadingTime()
                 )
         );
+        if (throwable.getMessage() == null) {
+            exception.setStackTrace(throwable.getStackTrace());
+        } else {
+            exception.setStackTrace(new StackTraceElement[]{});
+        }
+        throw exception;
     }
 
     /**

@@ -6,6 +6,7 @@ import it.unipd.dei.eis.core.enums.UseCases;
 import it.unipd.dei.eis.core.utils.DateParser;
 import it.unipd.dei.eis.core.utils.IntegerParser;
 import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.ParseException;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -110,30 +111,30 @@ public class Context {
      * @param cmd the command line
      * @return the Context
      */
-    public static Context fromCommandLine(CommandLine cmd) {
+    public static Context fromCommandLine(CommandLine cmd) throws ParseException {
         if (cmd.getArgs().length == 0) {
-            throw new IllegalArgumentException("The source option is required");
+            throw new ParseException("The source option is required");
         }
         Integer ca = IntegerParser.tryParse(cmd.getOptionValue("count-articles"));
         if (ca != null && ca < 0) {
-            throw new IllegalArgumentException("The count-articles option must be a positive integer");
+            throw new ParseException("The count-articles option must be a positive integer");
         }
         Integer ct = IntegerParser.tryParse(cmd.getOptionValue("count-terms"));
         if (ct != null && ct < 0) {
-            throw new IllegalArgumentException("The count-terms option must be a positive integer");
+            throw new ParseException("The count-terms option must be a positive integer");
         }
         Date from = DateParser.tryParse(cmd.getOptionValue("from"));
         Date to = DateParser.tryParse(cmd.getOptionValue("to"));
         if (from != null && to != null && from.after(to)) {
-            throw new IllegalArgumentException("The from-date option must be before the to-date option");
+            throw new ParseException("The from-date option must be before the to-date option");
         }
         String oa = cmd.getOptionValue("output-articles");
         if (oa != null && !Outputs.isArticlesOutput(oa)) {
-            throw new IllegalArgumentException("The output-articles option must have one of the following extensions: " + Arrays.toString(Outputs.ARTICLES_OUTPUTS));
+            throw new ParseException("The output-articles option must have one of the following extensions: " + Arrays.toString(Outputs.ARTICLES_OUTPUTS));
         }
         String ot = cmd.getOptionValue("output-terms");
         if (ot != null && !Outputs.isTermsOutput(ot)) {
-            throw new IllegalArgumentException("The output-terms option must have one of the following extensions: " + Arrays.toString(Outputs.TERMS_OUTPUTS));
+            throw new ParseException("The output-terms option must have one of the following extensions: " + Arrays.toString(Outputs.TERMS_OUTPUTS));
         }
         return new Context(
                 UseCases.fromCommandLine(cmd),

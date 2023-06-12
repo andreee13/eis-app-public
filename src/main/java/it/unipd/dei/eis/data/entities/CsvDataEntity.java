@@ -103,7 +103,7 @@ public class CsvDataEntity extends DataEntity {
      */
     @Override
     public boolean before(Date date) {
-        return this.date.before(date);
+        return this.date != null && this.date.before(date);
     }
 
     /**
@@ -114,6 +114,6 @@ public class CsvDataEntity extends DataEntity {
      */
     @Override
     public boolean after(Date date) {
-        return this.date.after(date);
+        return this.date != null && this.date.after(date);
     }
 }

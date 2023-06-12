@@ -61,7 +61,7 @@ public abstract class Repository<S extends DataSource<E, ?>, E extends DataEntit
      */
     List<M> pullData(Context context) throws Exception {
         return dataSource.get(context)
-                .stream()
+                .parallelStream()
                 .map(this::adapt)
                 .collect(Collectors.toList());
     }
@@ -89,7 +89,7 @@ public abstract class Repository<S extends DataSource<E, ?>, E extends DataEntit
      * @throws Exception                     if an error occurs
      */
     void pushData(Context context, List<M> models) throws Exception {
-        dataSource.set(context, models.stream()
+        dataSource.set(context, models.parallelStream()
                 .map(this::adapt)
                 .collect(Collectors.toList()));
     }
