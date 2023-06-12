@@ -19,7 +19,6 @@ class EitherTest {
     @Test
     void isFailure() {
         Either<Failure, Success> either = Either.failure(new Failure(new Exception()));
-        assertNotNull(either);
         assertTrue(either.isFailure());
     }
 
@@ -29,7 +28,6 @@ class EitherTest {
     @Test
     void isSuccess() {
         Either<Failure, Success> either = Either.success(new Success());
-        assertNotNull(either);
         assertTrue(either.isSuccess());
     }
 }
