@@ -6,7 +6,7 @@ eis-app,it.unipd.dei.eis.core.utils,DateParser,0,20,0,0,0,7,0,3,0,3
 eis-app,it.unipd.dei.eis.core.utils,SynchronizedFrequencyCounter,0,45,0,0,0,9,0,3,0,3
 eis-app,it.unipd.dei.eis.core.utils,IntegerParser,0,7,0,0,0,3,0,1,0,1
 eis-app,it.unipd.dei.eis.core.utils,ContextBuilder,0,77,0,0,0,22,0,12,0,12
-eis-app,it.unipd.dei.eis.presentation,Bootstrapper,15,178,0,0,5,84,0,3,0,3
+eis-app,it.unipd.dei.eis.presentation,Bootstrapper,7,186,0,0,3,86,0,3,0,3
 eis-app,it.unipd.dei.eis.presentation,AsyncExecutor,70,174,7,5,15,33,6,8,1,7
 eis-app,it.unipd.dei.eis.presentation,AsyncExecutor.new PrintStream() {...},0,18,0,0,0,3,0,2,0,2
 eis-app,it.unipd.dei.eis.data.sources,DataSource,40,84,0,6,8,31,5,9,5,6
@@ -46,5 +46,5 @@ eis-app,it.unipd.dei.eis.domain.repositories,JsonRepository,0,44,0,2,0,7,0,5,0,4
 eis-app,it.unipd.dei.eis.core.common,Either,1,34,1,3,0,8,1,6,0,5
 eis-app,it.unipd.dei.eis.core.common,Success,0,3,0,0,0,1,0,1,0,1
 eis-app,it.unipd.dei.eis.core.common,Cache,5,20,0,0,1,5,1,3,1,3
-eis-app,it.unipd.dei.eis.core.common,Failure,18,10,0,0,8,4,2,1,2,1
+eis-app,it.unipd.dei.eis.core.common,Failure,0,28,0,0,0,12,0,3,0,3
 eis-app,it.unipd.dei.eis.core.common,Context,67,174,21,11,6,36,16,3,0,3
