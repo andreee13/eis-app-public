@@ -73,12 +73,15 @@ Il programma, al momento, supporta le seguenti funzioni:
 - **estrazione** dei termini più ricorrenti in un file di testo
 - **download ed estrazione** in sequenza
 
-In ogni funzione è possibile specificare:
+Sono possibili le seguenti specificazioni:
 
 - una fonte
 - un filtro temporale / una query di ricerca
 - un numero massimo di articoli da scaricare
 - un numero massimo di termini da estrarre
+- nome file di output articoli
+- nome del file di output termini
+- estrarre lemmi o solo parole senza punteggiatura 
 
 #### Download
 
@@ -92,14 +95,17 @@ Fonte e opzioni supportate:
     - query di ricerca
     - filtro temporale
     - numero massimo di articoli
+    - estrazione lemmi o parole senza punteggiatura
 - The New York Times CSV
     - query di ricerca
     - filtro temporale
     - numero massimo di articoli
+    - estrazione lemmi o parole senza punteggiatura
 - File provenienti da un download precedente
     - query di ricerca
     - filtro temporale
     - numero massimo di articoli
+    - estrazione lemmi o parole senza punteggiatura
 
 ##### Risposta
 
@@ -111,7 +117,7 @@ Il programma estrae in un file di testo i termini più ricorrenti da un articolo
 
 ##### Richiesta
 
-File da cui estrarre i termini, opzioni supportate:
+File da cui estrarre i termini, opzioni supportate.
 
 ##### Risposta
 

@@ -15,12 +15,14 @@ Il programma consente di:
 
 È possibile specificare le seguenti opzioni, a seconda dell'operazione da effettuare:
 
+- fonte
 - nome file di output articoli
 - filtri di ricerca
 - filtri temporali
 - numero di articoli
-- nome del file di output termini (solo estrazione)
-- numero di parole da estrarre (solo estrazione)
+- nome del file di output termini
+- numero di parole da estrarre
+- estrarre lemmi o solo parole senza punteggiatura
 
 ### Fonti
 
@@ -128,6 +130,7 @@ L'esecuzione richiede il file `jar` prodotto dalla sezione precedente.
     -f,--from <date>                 From date
     -h,--help                        Print this message
     -k,--api-key <string>            API key
+    -l, --lemma                      Terms are lemmas
     -oa,--output-articles <file>     Output articles file name (default "articles.json")
     -ot,--output-terms <file>        Output terms file name (default "terms.txt")
     -q,--query <string>              Search query
