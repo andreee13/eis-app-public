@@ -5,7 +5,7 @@ import it.unipd.dei.eis.presentation.Bootstrapper;
 /**
  * The App class is the main class of the application.
  */
-class App {
+public class App {
 
     /**
      * The entry point of the application.

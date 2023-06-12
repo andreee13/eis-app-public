@@ -11,6 +11,7 @@ class AppTest {
      * Test the main method.
      */
     @Test
+    @SuppressWarnings({"AccessStaticViaInstance", "InstantiationOfUtilityClass"})
     void mainTest() {
         String[] args = {"src/test/resources/file.csv", "-d", "-ca", "1"};
         new App().main(args);

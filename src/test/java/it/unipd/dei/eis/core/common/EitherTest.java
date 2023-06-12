@@ -1,11 +1,8 @@
 package it.unipd.dei.eis.core.common;
 
-import it.unipd.dei.eis.core.common.Either;
-import it.unipd.dei.eis.core.common.Failure;
-import it.unipd.dei.eis.core.common.Success;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -20,6 +17,7 @@ class EitherTest {
     void isFailure() {
         Either<Failure, Success> either = Either.failure(new Failure(new Exception()));
         assertTrue(either.isFailure());
+        assertFalse(either.isSuccess());
     }
 
     /**
@@ -29,5 +27,6 @@ class EitherTest {
     void isSuccess() {
         Either<Failure, Success> either = Either.success(new Success());
         assertTrue(either.isSuccess());
+        assertFalse(either.isFailure());
     }
 }
