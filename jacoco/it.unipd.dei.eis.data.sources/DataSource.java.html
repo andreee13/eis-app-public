@@ -6,6 +6,7 @@ import it.unipd.dei.eis.data.codecs.IEncoder;
 import it.unipd.dei.eis.data.entities.DataEntity;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * DataSource is the abstract class for data sources.
@@ -37,11 +38,11 @@ public abstract class DataSource&lt;E extends DataEntity, D&gt; {
      * @param decoder the decoder of the data source
      * @param encoder the encoder of the data source
      */
-<span class="fc" id="L40">    DataSource(String id, IDecoder&lt;D&gt; decoder, IEncoder&lt;D&gt; encoder) {</span>
-<span class="fc" id="L41">        this.id = id;</span>
-<span class="fc" id="L42">        this.decoder = decoder;</span>
-<span class="fc" id="L43">        this.encoder = encoder;</span>
-<span class="fc" id="L44">    }</span>
+<span class="fc" id="L41">    DataSource(String id, IDecoder&lt;D&gt; decoder, IEncoder&lt;D&gt; encoder) {</span>
+<span class="fc" id="L42">        this.id = id;</span>
+<span class="fc" id="L43">        this.decoder = decoder;</span>
+<span class="fc" id="L44">        this.encoder = encoder;</span>
+<span class="fc" id="L45">    }</span>
 
     /**
      * DataSource constructor.
@@ -49,11 +50,11 @@ public abstract class DataSource&lt;E extends DataEntity, D&gt; {
      * @param id      the ID of the data source
      * @param decoder the decoder of the data source
      */
-<span class="fc" id="L52">    DataSource(String id, IDecoder&lt;D&gt; decoder) {</span>
-<span class="fc" id="L53">        this.id = id;</span>
-<span class="fc" id="L54">        this.decoder = decoder;</span>
-<span class="fc" id="L55">        this.encoder = null;</span>
-<span class="fc" id="L56">    }</span>
+<span class="fc" id="L53">    DataSource(String id, IDecoder&lt;D&gt; decoder) {</span>
+<span class="fc" id="L54">        this.id = id;</span>
+<span class="fc" id="L55">        this.decoder = decoder;</span>
+<span class="fc" id="L56">        this.encoder = null;</span>
+<span class="fc" id="L57">    }</span>
 
     /**
      * DataSource constructor.
@@ -61,11 +62,11 @@ public abstract class DataSource&lt;E extends DataEntity, D&gt; {
      * @param id      the ID of the data source
      * @param encoder the encoder of the data source
      */
-<span class="fc" id="L64">    DataSource(String id, IEncoder&lt;D&gt; encoder) {</span>
-<span class="fc" id="L65">        this.id = id;</span>
-<span class="fc" id="L66">        this.decoder = null;</span>
-<span class="fc" id="L67">        this.encoder = encoder;</span>
-<span class="fc" id="L68">    }</span>
+<span class="fc" id="L65">    DataSource(String id, IEncoder&lt;D&gt; encoder) {</span>
+<span class="fc" id="L66">        this.id = id;</span>
+<span class="fc" id="L67">        this.decoder = null;</span>
+<span class="fc" id="L68">        this.encoder = encoder;</span>
+<span class="fc" id="L69">    }</span>
 
     /**
      * Returns the list of data entities from the data source.
@@ -77,7 +78,7 @@ public abstract class DataSource&lt;E extends DataEntity, D&gt; {
      * @throws Exception                     if an error occurs
      */
     final public List&lt;E&gt; get(Context context) throws Exception {
-<span class="fc" id="L80">        return filter(context, getData(context));</span>
+<span class="fc" id="L81">        return filter(context, getData(context));</span>
     }
 
     /**
@@ -90,7 +91,7 @@ public abstract class DataSource&lt;E extends DataEntity, D&gt; {
      * @throws Exception                     if an error occurs
      */
     List&lt;E&gt; getData(Context context) throws Exception {
-<span class="nc" id="L93">        throw new UnsupportedOperationException(&quot;Unsupported operation&quot;);</span>
+<span class="nc" id="L94">        throw new UnsupportedOperationException(&quot;Unsupported operation&quot;);</span>
     }
 
     /**
@@ -102,8 +103,8 @@ public abstract class DataSource&lt;E extends DataEntity, D&gt; {
      * @throws Exception                     if an error occurs
      */
     final public void set(Context context, List&lt;E&gt; data) throws Exception {
-<span class="fc" id="L105">        setData(context, data);</span>
-<span class="fc" id="L106">    }</span>
+<span class="fc" id="L106">        setData(context, data);</span>
+<span class="fc" id="L107">    }</span>
 
     /**
      * Sets the list of data entities.
@@ -115,11 +116,12 @@ public abstract class DataSource&lt;E extends DataEntity, D&gt; {
      * @throws Exception                     if an error occurs
      */
     void setData(Context context, List&lt;E&gt; data) throws Exception {
-<span class="nc" id="L118">        throw new UnsupportedOperationException(&quot;Unsupported operation&quot;);</span>
+<span class="nc" id="L119">        throw new UnsupportedOperationException(&quot;Unsupported operation&quot;);</span>
     }
 
     /**
      * Filters the list of data entities by query, from date and to date, if supported.
+     * Uses parallel streams to filter the list of data entities in a faster way.
      * Internally used by {@link #get(Context)}.
      *
      * @param context the context of the request
@@ -127,31 +129,31 @@ public abstract class DataSource&lt;E extends DataEntity, D&gt; {
      * @return the filtered list of data entities
      */
     private List&lt;E&gt; filter(Context context, List&lt;E&gt; data) {
-<span class="fc bfc" id="L130" title="All 2 branches covered.">        if (context.query != null) {</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">        if (context.query != null) {</span>
             try {
-<span class="fc" id="L132">                data = data.stream()</span>
-<span class="pc" id="L133">                        .filter(entity -&gt; entity.contains(context.query))</span>
-<span class="nc" id="L134">                        .collect(java.util.stream.Collectors.toList());</span>
-<span class="fc" id="L135">            } catch (UnsupportedOperationException ignored) {</span>
-<span class="nc" id="L136">            }</span>
+<span class="fc" id="L134">                data = data.parallelStream()</span>
+<span class="pc" id="L135">                        .filter(entity -&gt; entity.contains(context.query))</span>
+<span class="nc" id="L136">                        .collect(Collectors.toList());</span>
+<span class="fc" id="L137">            } catch (UnsupportedOperationException ignored) {</span>
+<span class="nc" id="L138">            }</span>
         }
-<span class="fc bfc" id="L138" title="All 2 branches covered.">        if (context.fromDate != null) {</span>
+<span class="fc bfc" id="L140" title="All 2 branches covered.">        if (context.fromDate != null) {</span>
             try {
-<span class="fc" id="L140">                data = data.stream()</span>
-<span class="pc" id="L141">                        .filter(entity -&gt; entity.after(context.fromDate))</span>
-<span class="nc" id="L142">                        .collect(java.util.stream.Collectors.toList());</span>
-<span class="fc" id="L143">            } catch (UnsupportedOperationException ignored) {</span>
-<span class="nc" id="L144">            }</span>
+<span class="fc" id="L142">                data = data.parallelStream()</span>
+<span class="pc" id="L143">                        .filter(entity -&gt; entity.after(context.fromDate))</span>
+<span class="nc" id="L144">                        .collect(Collectors.toList());</span>
+<span class="fc" id="L145">            } catch (UnsupportedOperationException ignored) {</span>
+<span class="nc" id="L146">            }</span>
         }
-<span class="fc bfc" id="L146" title="All 2 branches covered.">        if (context.toDate != null) {</span>
+<span class="fc bfc" id="L148" title="All 2 branches covered.">        if (context.toDate != null) {</span>
             try {
-<span class="fc" id="L148">                data = data.stream()</span>
-<span class="pc" id="L149">                        .filter(entity -&gt; entity.before(context.toDate))</span>
-<span class="nc" id="L150">                        .collect(java.util.stream.Collectors.toList());</span>
-<span class="fc" id="L151">            } catch (UnsupportedOperationException ignored) {</span>
-<span class="nc" id="L152">            }</span>
+<span class="fc" id="L150">                data = data.parallelStream()</span>
+<span class="pc" id="L151">                        .filter(entity -&gt; entity.before(context.toDate))</span>
+<span class="nc" id="L152">                        .collect(Collectors.toList());</span>
+<span class="fc" id="L153">            } catch (UnsupportedOperationException ignored) {</span>
+<span class="nc" id="L154">            }</span>
         }
-<span class="fc" id="L154">        return data.subList(0, Math.min(context.countArticles, data.size()));</span>
+<span class="fc" id="L156">        return data.subList(0, Math.min(context.countArticles, data.size()));</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

@@ -124,14 +124,12 @@ public class Bootstrapper {
 <span class="fc" id="L124">            UseCaseFactory.create(context.useCase)</span>
 <span class="fc" id="L125">                    .run(context);</span>
 <span class="fc" id="L126">        } catch (ParseException e) {</span>
-<span class="fc" id="L127">            new HelpFormatter().printHelp(</span>
+<span class="fc" id="L127">            System.err.println(e.getMessage());</span>
+<span class="fc" id="L128">            new HelpFormatter().printHelp(</span>
                     HELP_MESSAGE,
                     OPTIONS
             );
-<span class="nc" id="L131">        } catch (RuntimeException e) {</span>
-<span class="nc" id="L132">            System.err.println(e.getMessage());</span>
-<span class="nc" id="L133">            System.exit(1);</span>
-<span class="fc" id="L134">        }</span>
-<span class="fc" id="L135">    }</span>
+<span class="fc" id="L132">        }</span>
+<span class="fc" id="L133">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
     public String encode(Map&lt;String, Integer&gt; object, Object... args) {
 <span class="fc" id="L22">        List&lt;?&gt; keys = object</span>
 <span class="fc" id="L23">                .keySet()</span>
-<span class="fc bfc" id="L24" title="All 2 branches covered.">                .stream()</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">                .parallelStream()</span>
 <span class="fc" id="L25">                .limit(args.length &gt; 0 ? (int) args[0] : object.size())</span>
 <span class="fc" id="L26">                .collect(Collectors.toList());</span>
 <span class="fc" id="L27">        StringBuilder stringBuilder = new StringBuilder();</span>

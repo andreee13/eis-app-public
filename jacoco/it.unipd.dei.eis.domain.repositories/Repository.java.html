@@ -61,7 +61,7 @@ public abstract class Repository&lt;S extends DataSource&lt;E, ?&gt;, E extends 
      */
     List&lt;M&gt; pullData(Context context) throws Exception {
 <span class="fc" id="L63">        return dataSource.get(context)</span>
-<span class="fc" id="L64">                .stream()</span>
+<span class="fc" id="L64">                .parallelStream()</span>
 <span class="fc" id="L65">                .map(this::adapt)</span>
 <span class="fc" id="L66">                .collect(Collectors.toList());</span>
     }
@@ -89,7 +89,7 @@ public abstract class Repository&lt;S extends DataSource&lt;E, ?&gt;, E extends 
      * @throws Exception                     if an error occurs
      */
     void pushData(Context context, List&lt;M&gt; models) throws Exception {
-<span class="fc" id="L92">        dataSource.set(context, models.stream()</span>
+<span class="fc" id="L92">        dataSource.set(context, models.parallelStream()</span>
 <span class="fc" id="L93">                .map(this::adapt)</span>
 <span class="fc" id="L94">                .collect(Collectors.toList()));</span>
 <span class="fc" id="L95">    }</span>

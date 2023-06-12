@@ -95,13 +95,19 @@ public class AsyncExecutor {
 <span class="fc" id="L95">            Thread.sleep(ANIMATION_INTERVAL);</span>
 <span class="nc" id="L96">        } catch (InterruptedException ignored) {</span>
 <span class="fc" id="L97">        }</span>
-<span class="fc" id="L98">        throw new RuntimeException(</span>
+<span class="fc" id="L98">        RuntimeException exception = new RuntimeException(</span>
 <span class="fc" id="L99">                String.format(</span>
                         &quot;\r[X] Error: %s • %s&quot;,
 <span class="pc bpc" id="L101" title="1 of 2 branches missed.">                        throwable.getMessage() == null ? &quot;Unknown error&quot; : throwable.getMessage(),</span>
 <span class="fc" id="L102">                        getLoadingTime()</span>
                 )
         );
+<span class="pc bpc" id="L105" title="1 of 2 branches missed.">        if (throwable.getMessage() == null) {</span>
+<span class="nc" id="L106">            exception.setStackTrace(throwable.getStackTrace());</span>
+        } else {
+<span class="fc" id="L108">            exception.setStackTrace(new StackTraceElement[]{});</span>
+        }
+<span class="fc" id="L110">        throw exception;</span>
     }
 
     /**
@@ -111,22 +117,22 @@ public class AsyncExecutor {
      * @param name     the name of the function
      */
     public synchronized void execute(Supplier&lt;Either&lt;Failure, Success&gt;&gt; supplier, String name) {
-<span class="fc" id="L114">        System.out.printf(&quot;%s:\n&quot;, name);</span>
-<span class="fc" id="L115">        startTime = System.currentTimeMillis();</span>
-<span class="fc" id="L116">        loadingThread = getLoadingThread();</span>
-<span class="fc" id="L117">        loadingThread.start();</span>
+<span class="fc" id="L120">        System.out.printf(&quot;%s:\n&quot;, name);</span>
+<span class="fc" id="L121">        startTime = System.currentTimeMillis();</span>
+<span class="fc" id="L122">        loadingThread = getLoadingThread();</span>
+<span class="fc" id="L123">        loadingThread.start();</span>
         try {
-<span class="fc" id="L119">            Either&lt;Failure, Success&gt; result = CompletableFuture.supplyAsync(supplier)</span>
-<span class="fc" id="L120">                    .get();</span>
-<span class="fc bfc" id="L121" title="All 2 branches covered.">            if (result.isFailure()) {</span>
-<span class="nc" id="L122">                abort(result.failure.exception);</span>
+<span class="fc" id="L125">            Either&lt;Failure, Success&gt; result = CompletableFuture.supplyAsync(supplier)</span>
+<span class="fc" id="L126">                    .get();</span>
+<span class="fc bfc" id="L127" title="All 2 branches covered.">            if (result.isFailure()) {</span>
+<span class="nc" id="L128">                abort(result.failure.exception);</span>
             }
-<span class="fc" id="L124">            loadingThread.interrupt();</span>
-<span class="fc" id="L125">            System.out.printf(ANSI_GREEN + &quot;\r[✓] Success • %s\n\n&quot;, getLoadingTime() + ANSI_RESET);</span>
-<span class="nc" id="L126">        } catch (InterruptedException | ExecutionException e) {</span>
-<span class="nc" id="L127">            abort(e);</span>
-<span class="fc" id="L128">        }</span>
-<span class="fc" id="L129">    }</span>
+<span class="fc" id="L130">            loadingThread.interrupt();</span>
+<span class="fc" id="L131">            System.out.printf(ANSI_GREEN + &quot;\r[✓] Success • %s\n\n&quot;, getLoadingTime() + ANSI_RESET);</span>
+<span class="nc" id="L132">        } catch (InterruptedException | ExecutionException e) {</span>
+<span class="nc" id="L133">            abort(e);</span>
+<span class="fc" id="L134">        }</span>
+<span class="fc" id="L135">    }</span>
 
     /**
      * The getLoadingThread method returns the loading thread.
@@ -135,20 +141,20 @@ public class AsyncExecutor {
      */
     @SuppressWarnings(&quot;BusyWait&quot;)
     private Thread getLoadingThread() {
-<span class="fc" id="L138">        return new Thread(() -&gt; {</span>
-<span class="fc" id="L139">            int animIndex = 0;</span>
-<span class="fc" id="L140">            while (!Thread.currentThread()</span>
-<span class="fc bfc" id="L141" title="All 2 branches covered.">                    .isInterrupted()) {</span>
-<span class="fc" id="L142">                System.out.printf(&quot;\r[%s] Loading • %s&quot;, ANIMATION[animIndex], getLoadingTime());</span>
-<span class="fc" id="L143">                animIndex = (animIndex + 1) % ANIMATION.length;</span>
+<span class="fc" id="L144">        return new Thread(() -&gt; {</span>
+<span class="fc" id="L145">            int animIndex = 0;</span>
+<span class="fc" id="L146">            while (!Thread.currentThread()</span>
+<span class="fc bfc" id="L147" title="All 2 branches covered.">                    .isInterrupted()) {</span>
+<span class="fc" id="L148">                System.out.printf(&quot;\r[%s] Loading • %s&quot;, ANIMATION[animIndex], getLoadingTime());</span>
+<span class="fc" id="L149">                animIndex = (animIndex + 1) % ANIMATION.length;</span>
                 try {
-<span class="fc" id="L145">                    Thread.sleep(ANIMATION_INTERVAL);</span>
-<span class="fc" id="L146">                } catch (InterruptedException e) {</span>
-<span class="fc" id="L147">                    Thread.currentThread()</span>
-<span class="fc" id="L148">                            .interrupt();</span>
-<span class="fc" id="L149">                }</span>
+<span class="fc" id="L151">                    Thread.sleep(ANIMATION_INTERVAL);</span>
+<span class="fc" id="L152">                } catch (InterruptedException e) {</span>
+<span class="fc" id="L153">                    Thread.currentThread()</span>
+<span class="fc" id="L154">                            .interrupt();</span>
+<span class="fc" id="L155">                }</span>
             }
-<span class="fc" id="L151">        });</span>
+<span class="fc" id="L157">        });</span>
     }
 
     /**
@@ -157,11 +163,11 @@ public class AsyncExecutor {
      * @return the loading time
      */
     private String getLoadingTime() {
-<span class="fc" id="L160">        long time = System.currentTimeMillis() - startTime;</span>
-<span class="fc bfc" id="L161" title="All 2 branches covered.">        if (time &lt; 1000) {</span>
-<span class="fc" id="L162">            return String.format(&quot;%d ms&quot;, time);</span>
+<span class="fc" id="L166">        long time = System.currentTimeMillis() - startTime;</span>
+<span class="fc bfc" id="L167" title="All 2 branches covered.">        if (time &lt; 1000) {</span>
+<span class="fc" id="L168">            return String.format(&quot;%d ms&quot;, time);</span>
         }
-<span class="fc" id="L164">        return String.format(&quot;%d.%01ds&quot;, time / 1000, (time % 1000) / 100);</span>
+<span class="fc" id="L170">        return String.format(&quot;%d.%01ds&quot;, time / 1000, (time % 1000) / 100);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

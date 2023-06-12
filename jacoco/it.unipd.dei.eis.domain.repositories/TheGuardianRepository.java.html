@@ -52,7 +52,7 @@ public class TheGuardianRepository extends Repository&lt;TheGuardianDataSource, 
 <span class="fc" id="L52">                .collect(</span>
                         ArrayList::new,
 <span class="fc" id="L54">                        (list, response) -&gt; list.addAll(</span>
-<span class="fc" id="L55">                                response.response.results.stream()</span>
+<span class="fc" id="L55">                                response.response.results.parallelStream()</span>
 <span class="fc" id="L56">                                        .map(</span>
 <span class="fc" id="L57">                                                (result) -&gt; new ArticleModel(</span>
                                                         result.webTitle,
