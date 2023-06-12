@@ -115,25 +115,25 @@ public class Context {
 <span class="fc" id="L115">            throw new IllegalArgumentException(&quot;The source option is required&quot;);</span>
         }
 <span class="fc" id="L117">        Integer ca = IntegerParser.tryParse(cmd.getOptionValue(&quot;count-articles&quot;));</span>
-<span class="pc bpc" id="L118" title="2 of 4 branches missed.">        if (ca != null &amp;&amp; ca &lt; 0) {</span>
-<span class="nc" id="L119">            throw new IllegalArgumentException(&quot;The count-articles option must be a positive integer&quot;);</span>
+<span class="fc bfc" id="L118" title="All 4 branches covered.">        if (ca != null &amp;&amp; ca &lt; 0) {</span>
+<span class="fc" id="L119">            throw new IllegalArgumentException(&quot;The count-articles option must be a positive integer&quot;);</span>
         }
 <span class="fc" id="L121">        Integer ct = IntegerParser.tryParse(cmd.getOptionValue(&quot;count-terms&quot;));</span>
-<span class="pc bpc" id="L122" title="3 of 4 branches missed.">        if (ct != null &amp;&amp; ct &lt; 0) {</span>
-<span class="nc" id="L123">            throw new IllegalArgumentException(&quot;The count-terms option must be a positive integer&quot;);</span>
+<span class="pc bpc" id="L122" title="1 of 4 branches missed.">        if (ct != null &amp;&amp; ct &lt; 0) {</span>
+<span class="fc" id="L123">            throw new IllegalArgumentException(&quot;The count-terms option must be a positive integer&quot;);</span>
         }
 <span class="fc" id="L125">        Date from = DateParser.tryParse(cmd.getOptionValue(&quot;from&quot;));</span>
 <span class="fc" id="L126">        Date to = DateParser.tryParse(cmd.getOptionValue(&quot;to&quot;));</span>
-<span class="pc bpc" id="L127" title="5 of 6 branches missed.">        if (from != null &amp;&amp; to != null &amp;&amp; from.after(to)) {</span>
-<span class="nc" id="L128">            throw new IllegalArgumentException(&quot;The from-date option must be before the to-date option&quot;);</span>
+<span class="pc bpc" id="L127" title="2 of 6 branches missed.">        if (from != null &amp;&amp; to != null &amp;&amp; from.after(to)) {</span>
+<span class="fc" id="L128">            throw new IllegalArgumentException(&quot;The from-date option must be before the to-date option&quot;);</span>
         }
 <span class="fc" id="L130">        String oa = cmd.getOptionValue(&quot;output-articles&quot;);</span>
-<span class="pc bpc" id="L131" title="3 of 4 branches missed.">        if (oa != null &amp;&amp; !Outputs.isArticlesOutput(oa)) {</span>
-<span class="nc" id="L132">            throw new IllegalArgumentException(&quot;The output-articles option must have one of the following extensions: &quot; + Arrays.toString(Outputs.ARTICLES_OUTPUTS));</span>
+<span class="pc bpc" id="L131" title="1 of 4 branches missed.">        if (oa != null &amp;&amp; !Outputs.isArticlesOutput(oa)) {</span>
+<span class="fc" id="L132">            throw new IllegalArgumentException(&quot;The output-articles option must have one of the following extensions: &quot; + Arrays.toString(Outputs.ARTICLES_OUTPUTS));</span>
         }
 <span class="fc" id="L134">        String ot = cmd.getOptionValue(&quot;output-terms&quot;);</span>
-<span class="pc bpc" id="L135" title="3 of 4 branches missed.">        if (ot != null &amp;&amp; !Outputs.isTermsOutput(ot)) {</span>
-<span class="nc" id="L136">            throw new IllegalArgumentException(&quot;The output-terms option must have one of the following extensions: &quot; + Arrays.toString(Outputs.TERMS_OUTPUTS));</span>
+<span class="pc bpc" id="L135" title="1 of 4 branches missed.">        if (ot != null &amp;&amp; !Outputs.isTermsOutput(ot)) {</span>
+<span class="fc" id="L136">            throw new IllegalArgumentException(&quot;The output-terms option must have one of the following extensions: &quot; + Arrays.toString(Outputs.TERMS_OUTPUTS));</span>
         }
 <span class="fc" id="L138">        return new Context(</span>
 <span class="fc" id="L139">                UseCases.fromCommandLine(cmd),</span>
