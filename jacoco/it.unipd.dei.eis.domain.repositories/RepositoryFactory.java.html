@@ -22,16 +22,16 @@ public interface RepositoryFactory {
     @SuppressWarnings(&quot;unchecked&quot;)
     static &lt;S extends DataSource&lt;E, ?&gt;, E extends DataEntity, M extends IModel&gt; Repository&lt;S, E, M&gt; create(String option) throws IllegalArgumentException {
         final Repository&lt;? extends DataSource&lt;? extends DataEntity, ?&gt;, ? extends DataEntity, ? extends IModel&gt; repository;
-<span class="pc bpc" id="L25" title="1 of 2 branches missed.">        if (option.equals(&quot;theguardian&quot;)) {</span>
-<span class="nc" id="L26">            repository = TheGuardianRepository.getInstance();</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        if (option.equals(&quot;theguardian&quot;)) {</span>
+<span class="fc" id="L26">            repository = TheGuardianRepository.getInstance();</span>
 <span class="fc bfc" id="L27" title="All 2 branches covered.">        } else if (option.endsWith(&quot;.txt&quot;)) {</span>
 <span class="fc" id="L28">            repository = TermsExtractionRepository.getInstance();</span>
 <span class="fc bfc" id="L29" title="All 2 branches covered.">        } else if (option.endsWith(&quot;.csv&quot;)) {</span>
 <span class="fc" id="L30">            repository = CsvRepository.getInstance();</span>
-<span class="pc bpc" id="L31" title="1 of 2 branches missed.">        } else if (option.endsWith(&quot;.json&quot;)) {</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        } else if (option.endsWith(&quot;.json&quot;)) {</span>
 <span class="fc" id="L32">            repository = JsonRepository.getInstance();</span>
         } else {
-<span class="nc" id="L34">            throw new IllegalArgumentException(String.format(&quot;\&quot;%s\&quot; is not a valid option&quot;, option));</span>
+<span class="fc" id="L34">            throw new IllegalArgumentException(String.format(&quot;\&quot;%s\&quot; is not a valid option&quot;, option));</span>
         }
 <span class="fc" id="L36">        return (Repository&lt;S, E, M&gt;) repository;</span>
     }
