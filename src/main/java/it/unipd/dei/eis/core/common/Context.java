@@ -61,10 +61,17 @@ public class Context {
      * The toDate field contains the limit date to which the articles are retrieved.
      */
     public final Date toDate;
+
     /**
      * The apiKey field contains the API key.
      */
     public final String apiKey;
+
+    /**
+     * The lemma field contains the boolean value to decide if the terms must be lemmas or not.
+     */
+    public final boolean lemma;
+
 
     /**
      * The Context constructor.
@@ -79,6 +86,7 @@ public class Context {
      * @param fromDate       the date from which the articles are retrieved
      * @param toDate         the limit date to which the articles are retrieved
      * @param apiKey         the API key
+     * @param lemma          the boolean value to decide if the terms must be lemmas or not
      */
     public Context(
             UseCases useCase,
@@ -90,7 +98,8 @@ public class Context {
             int countTerms,
             Date fromDate,
             Date toDate,
-            String apiKey
+            String apiKey,
+            boolean lemma
     ) {
         this.useCase = useCase;
         this.source = source;
@@ -102,6 +111,7 @@ public class Context {
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.apiKey = apiKey;
+        this.lemma = lemma;
     }
 
     /**
@@ -110,6 +120,7 @@ public class Context {
      *
      * @param cmd the command line
      * @return the Context
+     * @throws ParseException if the command line is not valid
      */
     public static Context fromCommandLine(CommandLine cmd) throws ParseException {
         if (cmd.getArgs().length == 0) {
@@ -146,7 +157,8 @@ public class Context {
                 ct == null ? DefaultConfig.TERMS_COUNT : ct,
                 DateParser.tryParse(cmd.getOptionValue("from")),
                 DateParser.tryParse(cmd.getOptionValue("to")),
-                cmd.getOptionValue("api-key")
+                cmd.getOptionValue("api-key"),
+                cmd.hasOption("lemma")
         );
     }
 
@@ -168,7 +180,8 @@ public class Context {
                 countTerms,
                 fromDate,
                 toDate,
-                apiKey
+                apiKey,
+                lemma
         );
     }
 }

@@ -99,6 +99,11 @@ public class Bootstrapper {
                 .hasArg()
                 .argName("string")
                 .build());
+        OPTIONS.addOption(Option.builder()
+                .option("l")
+                .longOpt("lemma")
+                .desc("Terms are lemmas")
+                .build());
     }
 
     /**

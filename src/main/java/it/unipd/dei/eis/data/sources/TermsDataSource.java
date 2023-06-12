@@ -35,13 +35,6 @@ public class TermsDataSource extends DataSource<TermsDataEntity, Map<String, Int
     private static final Pattern PATTERN = Pattern.compile("[\\p{Punct}–“”‑‘'…’—−·]");
 
     /**
-     * The PROPERTIES field is used to set the StanfordCoreNLP pipeline.
-     */
-    private static final Properties PROPERTIES = new Properties() {{
-        setProperty("annotators", "tokenize");
-    }};
-
-    /**
      * The STOPLIST_FILE_NAME field is used to store the name of the file containing the stoplist.
      */
     private static final String STOPLIST_FILE_NAME = "stoplist.txt";
@@ -51,11 +44,6 @@ public class TermsDataSource extends DataSource<TermsDataEntity, Map<String, Int
                 .clear()
                 .apply();
     }
-
-    /**
-     * The PIPELINE field is used to process the text.
-     */
-    private static final StanfordCoreNLP PIPELINE = new StanfordCoreNLP(PROPERTIES);
 
     /**
      * The frequencyCounter field is used to count the frequency of the terms.
@@ -111,19 +99,26 @@ public class TermsDataSource extends DataSource<TermsDataEntity, Map<String, Int
      */
     @Override
     void setData(Context context, List<TermsDataEntity> entities) throws Exception {
+        Properties properties = new Properties();
+        if (context.lemma) {
+            properties.setProperty("annotators", "tokenize, pos, lemma");
+        } else {
+            properties.setProperty("annotators", "tokenize");
+        }
+        StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
         List<Future<?>> futures = new ArrayList<>(entities.size());
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime()
                 .availableProcessors());
         for (TermsDataEntity s : entities) {
-            futures.add(executorService.submit(() -> PIPELINE.process(s.toString()
+            futures.add(executorService.submit(() -> pipeline.process(s.toString()
                             .toLowerCase())
                     .get(CoreAnnotations.TokensAnnotation.class)
                     .stream()
-                    .map(CoreLabel::word)
+                    .map(context.lemma ? CoreLabel::lemma : CoreLabel::word)
                     .collect(Collectors.toSet())
-                    .forEach(word -> {
-                        if (!PATTERN.matcher(word).find() && !stoplist.contains(word)) {
-                            frequencyCounter.add(word);
+                    .forEach(term -> {
+                        if (!PATTERN.matcher(term).find() && !stoplist.contains(term)) {
+                            frequencyCounter.add(term);
                         }
                     }))
             );

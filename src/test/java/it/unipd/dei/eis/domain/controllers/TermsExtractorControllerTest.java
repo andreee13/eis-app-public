@@ -23,6 +23,7 @@ public class TermsExtractorControllerTest {
                 .setOutputTerms("terms.txt")
                 .setCountTerms(10)
                 .setCountArticles(10)
+                .setLemma(true)
                 .build();
         assertTrue(new TermsExtractorController().execute(context1).isSuccess());
         Context context2 = new ContextBuilder()

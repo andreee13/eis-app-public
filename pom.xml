@@ -185,5 +185,11 @@
             <artifactId>stanford-corenlp</artifactId>
             <version>${stanford.corenlp.version}</version>
         </dependency>
+        <dependency>
+            <groupId>edu.stanford.nlp</groupId>
+            <artifactId>stanford-corenlp</artifactId>
+            <version>${stanford.corenlp.version}</version>
+            <classifier>models</classifier>
+        </dependency>
     </dependencies>
 </project>

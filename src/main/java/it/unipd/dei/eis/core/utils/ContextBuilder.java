@@ -62,6 +62,11 @@ public class ContextBuilder implements IBuilder<Context> {
     private String apiKey;
 
     /**
+     * The lemma field contains the lemma option.
+     */
+    private boolean lemma;
+
+    /**
      * Sets the command.
      *
      * @param useCase the useCase
@@ -172,6 +177,17 @@ public class ContextBuilder implements IBuilder<Context> {
     }
 
     /**
+     * Sets the lemma option.
+     *
+     * @param lemma the lemma option
+     * @return the context builder
+     */
+    public ContextBuilder setLemma(boolean lemma) {
+        this.lemma = lemma;
+        return this;
+    }
+
+    /**
      * Builds the context.
      *
      * @return the context
@@ -188,7 +204,8 @@ public class ContextBuilder implements IBuilder<Context> {
                 countTerms,
                 fromDate,
                 toDate,
-                apiKey
+                apiKey,
+                lemma
         );
     }
 }
