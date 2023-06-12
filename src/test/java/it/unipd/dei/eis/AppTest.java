@@ -13,6 +13,6 @@ class AppTest {
     @Test
     void mainTest() {
         String[] args = {"src/test/resources/file.csv", "-d", "-ca", "1"};
-        App.main(args);
+        new App().main(args);
     }
 }
