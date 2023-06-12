@@ -238,13 +238,11 @@ Descrizione
 #### Descrizione in linguaggio naturale strutturato
 
 Descrizione in linguaggio naturale strutturato
-| | |
+|||
 |--------|---------|
 |Funzione|Effettuare operazioni su articoli di giornale|
 |Descrizione|L'utente finale è in grado di scaricare articoli, estrarre i termini più frequenti e visualizzare i risultati o effettuare entrambe le operazioni in sequenza|
-|Sorgente|The Guardian API  
-The New York Times CSV  
-File provenienti da un download precedente|
-|Output|_file JSON_ contenente la lista degli articoli, quando è eseguito il download  _file txt_ contenente i termini più ricorrenti, quando è eseguita l'estrazione  entrambi, quando sono eseguiti download ed estrazione in sequenza|
+|Sorgente|The Guardian API, The New York Times CSV, File provenienti da un download precedente|
+|Output|_file JSON_ contenente la lista degli articoli, quando è eseguito il download; _file txt_ contenente i termini più ricorrenti, quando è eseguita l'estrazione; entrambi, quando sono eseguiti download ed estrazione in sequenza|
 |Azione||
 |Richiede||
