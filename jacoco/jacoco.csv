@@ -38,9 +38,9 @@ eis-app,it.unipd.dei.eis.domain.use_cases,TermsExtractor,6,0,0,0,2,0,1,0,1,0
 eis-app,it.unipd.dei.eis.domain.use_cases,UseCase,6,40,0,2,3,7,1,4,1,3
 eis-app,it.unipd.dei.eis.domain.use_cases,ArticlesDownloader,0,6,0,0,0,2,0,1,0,1
 eis-app,it.unipd.dei.eis.domain.repositories,RepositoryFactory,15,27,2,6,2,8,2,3,0,1
-eis-app,it.unipd.dei.eis.domain.repositories,TheGuardianRepository,5,58,1,1,1,13,2,5,1,5
-eis-app,it.unipd.dei.eis.domain.repositories,CsvRepository,5,30,0,2,1,6,1,4,1,3
-eis-app,it.unipd.dei.eis.domain.repositories,TermsExtractionRepository,5,22,0,2,1,6,1,4,1,3
+eis-app,it.unipd.dei.eis.domain.repositories,TheGuardianRepository,0,63,0,2,0,14,0,7,0,6
+eis-app,it.unipd.dei.eis.domain.repositories,CsvRepository,0,35,0,2,0,7,0,5,0,4
+eis-app,it.unipd.dei.eis.domain.repositories,TermsExtractionRepository,0,27,0,2,0,7,0,5,0,4
 eis-app,it.unipd.dei.eis.domain.repositories,Repository,15,50,1,1,3,17,3,5,2,5
 eis-app,it.unipd.dei.eis.domain.repositories,JsonRepository,0,44,0,2,0,7,0,5,0,4
 eis-app,it.unipd.dei.eis.core.common,Either,1,34,1,3,0,8,1,6,0,5
