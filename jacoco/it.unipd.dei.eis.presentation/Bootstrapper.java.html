@@ -99,7 +99,12 @@ public class Bootstrapper {
 <span class="fc" id="L99">                .hasArg()</span>
 <span class="fc" id="L100">                .argName(&quot;string&quot;)</span>
 <span class="fc" id="L101">                .build());</span>
-<span class="fc" id="L102">    }</span>
+<span class="fc" id="L102">        OPTIONS.addOption(Option.builder()</span>
+<span class="fc" id="L103">                .option(&quot;l&quot;)</span>
+<span class="fc" id="L104">                .longOpt(&quot;lemma&quot;)</span>
+<span class="fc" id="L105">                .desc(&quot;Terms are lemmas&quot;)</span>
+<span class="fc" id="L106">                .build());</span>
+<span class="fc" id="L107">    }</span>
 
     /**
      * The args field contains the command line arguments.
@@ -111,25 +116,25 @@ public class Bootstrapper {
      *
      * @param args the command line arguments
      */
-<span class="fc" id="L114">    public Bootstrapper(String[] args) {</span>
-<span class="fc" id="L115">        this.args = args;</span>
-<span class="fc" id="L116">    }</span>
+<span class="fc" id="L119">    public Bootstrapper(String[] args) {</span>
+<span class="fc" id="L120">        this.args = args;</span>
+<span class="fc" id="L121">    }</span>
 
     /**
      * The launch method parses the command line arguments and calls the correct use case.
      */
     public void launch() {
         try {
-<span class="fc" id="L123">            Context context = Context.fromCommandLine(PARSER.parse(OPTIONS, args));</span>
-<span class="fc" id="L124">            UseCaseFactory.create(context.useCase)</span>
-<span class="fc" id="L125">                    .run(context);</span>
-<span class="fc" id="L126">        } catch (ParseException e) {</span>
-<span class="fc" id="L127">            System.err.println(e.getMessage());</span>
-<span class="fc" id="L128">            new HelpFormatter().printHelp(</span>
+<span class="fc" id="L128">            Context context = Context.fromCommandLine(PARSER.parse(OPTIONS, args));</span>
+<span class="fc" id="L129">            UseCaseFactory.create(context.useCase)</span>
+<span class="fc" id="L130">                    .run(context);</span>
+<span class="fc" id="L131">        } catch (ParseException e) {</span>
+<span class="fc" id="L132">            System.err.println(e.getMessage());</span>
+<span class="fc" id="L133">            new HelpFormatter().printHelp(</span>
                     HELP_MESSAGE,
                     OPTIONS
             );
-<span class="fc" id="L132">        }</span>
-<span class="fc" id="L133">    }</span>
+<span class="fc" id="L137">        }</span>
+<span class="fc" id="L138">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

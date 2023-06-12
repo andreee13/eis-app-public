@@ -61,10 +61,17 @@ public class Context {
      * The toDate field contains the limit date to which the articles are retrieved.
      */
     public final Date toDate;
+
     /**
      * The apiKey field contains the API key.
      */
     public final String apiKey;
+
+    /**
+     * The lemma field contains the boolean value to decide if the terms must be lemmas or not.
+     */
+    public final boolean lemma;
+
 
     /**
      * The Context constructor.
@@ -79,6 +86,7 @@ public class Context {
      * @param fromDate       the date from which the articles are retrieved
      * @param toDate         the limit date to which the articles are retrieved
      * @param apiKey         the API key
+     * @param lemma          the boolean value to decide if the terms must be lemmas or not
      */
     public Context(
             UseCases useCase,
@@ -90,19 +98,21 @@ public class Context {
             int countTerms,
             Date fromDate,
             Date toDate,
-            String apiKey
-<span class="fc" id="L94">    ) {</span>
-<span class="fc" id="L95">        this.useCase = useCase;</span>
-<span class="fc" id="L96">        this.source = source;</span>
-<span class="fc" id="L97">        this.outputArticles = outputArticles;</span>
-<span class="fc" id="L98">        this.outputTerms = outputTerms;</span>
-<span class="fc" id="L99">        this.query = query;</span>
-<span class="fc" id="L100">        this.countArticles = countArticles;</span>
-<span class="fc" id="L101">        this.countTerms = countTerms;</span>
-<span class="fc" id="L102">        this.fromDate = fromDate;</span>
-<span class="fc" id="L103">        this.toDate = toDate;</span>
-<span class="fc" id="L104">        this.apiKey = apiKey;</span>
-<span class="fc" id="L105">    }</span>
+            String apiKey,
+            boolean lemma
+<span class="fc" id="L103">    ) {</span>
+<span class="fc" id="L104">        this.useCase = useCase;</span>
+<span class="fc" id="L105">        this.source = source;</span>
+<span class="fc" id="L106">        this.outputArticles = outputArticles;</span>
+<span class="fc" id="L107">        this.outputTerms = outputTerms;</span>
+<span class="fc" id="L108">        this.query = query;</span>
+<span class="fc" id="L109">        this.countArticles = countArticles;</span>
+<span class="fc" id="L110">        this.countTerms = countTerms;</span>
+<span class="fc" id="L111">        this.fromDate = fromDate;</span>
+<span class="fc" id="L112">        this.toDate = toDate;</span>
+<span class="fc" id="L113">        this.apiKey = apiKey;</span>
+<span class="fc" id="L114">        this.lemma = lemma;</span>
+<span class="fc" id="L115">    }</span>
 
     /**
      * The Context factory constructor.
@@ -110,43 +120,45 @@ public class Context {
      *
      * @param cmd the command line
      * @return the Context
+     * @throws ParseException if the command line is not valid
      */
     public static Context fromCommandLine(CommandLine cmd) throws ParseException {
-<span class="fc bfc" id="L115" title="All 2 branches covered.">        if (cmd.getArgs().length == 0) {</span>
-<span class="fc" id="L116">            throw new ParseException(&quot;The source option is required&quot;);</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">        if (cmd.getArgs().length == 0) {</span>
+<span class="fc" id="L127">            throw new ParseException(&quot;The source option is required&quot;);</span>
         }
-<span class="fc" id="L118">        Integer ca = IntegerParser.tryParse(cmd.getOptionValue(&quot;count-articles&quot;));</span>
-<span class="fc bfc" id="L119" title="All 4 branches covered.">        if (ca != null &amp;&amp; ca &lt; 0) {</span>
-<span class="fc" id="L120">            throw new ParseException(&quot;The count-articles option must be a positive integer&quot;);</span>
+<span class="fc" id="L129">        Integer ca = IntegerParser.tryParse(cmd.getOptionValue(&quot;count-articles&quot;));</span>
+<span class="fc bfc" id="L130" title="All 4 branches covered.">        if (ca != null &amp;&amp; ca &lt; 0) {</span>
+<span class="fc" id="L131">            throw new ParseException(&quot;The count-articles option must be a positive integer&quot;);</span>
         }
-<span class="fc" id="L122">        Integer ct = IntegerParser.tryParse(cmd.getOptionValue(&quot;count-terms&quot;));</span>
-<span class="pc bpc" id="L123" title="1 of 4 branches missed.">        if (ct != null &amp;&amp; ct &lt; 0) {</span>
-<span class="fc" id="L124">            throw new ParseException(&quot;The count-terms option must be a positive integer&quot;);</span>
+<span class="fc" id="L133">        Integer ct = IntegerParser.tryParse(cmd.getOptionValue(&quot;count-terms&quot;));</span>
+<span class="pc bpc" id="L134" title="1 of 4 branches missed.">        if (ct != null &amp;&amp; ct &lt; 0) {</span>
+<span class="fc" id="L135">            throw new ParseException(&quot;The count-terms option must be a positive integer&quot;);</span>
         }
-<span class="fc" id="L126">        Date from = DateParser.tryParse(cmd.getOptionValue(&quot;from&quot;));</span>
-<span class="fc" id="L127">        Date to = DateParser.tryParse(cmd.getOptionValue(&quot;to&quot;));</span>
-<span class="pc bpc" id="L128" title="2 of 6 branches missed.">        if (from != null &amp;&amp; to != null &amp;&amp; from.after(to)) {</span>
-<span class="fc" id="L129">            throw new ParseException(&quot;The from-date option must be before the to-date option&quot;);</span>
+<span class="fc" id="L137">        Date from = DateParser.tryParse(cmd.getOptionValue(&quot;from&quot;));</span>
+<span class="fc" id="L138">        Date to = DateParser.tryParse(cmd.getOptionValue(&quot;to&quot;));</span>
+<span class="pc bpc" id="L139" title="2 of 6 branches missed.">        if (from != null &amp;&amp; to != null &amp;&amp; from.after(to)) {</span>
+<span class="fc" id="L140">            throw new ParseException(&quot;The from-date option must be before the to-date option&quot;);</span>
         }
-<span class="fc" id="L131">        String oa = cmd.getOptionValue(&quot;output-articles&quot;);</span>
-<span class="pc bpc" id="L132" title="1 of 4 branches missed.">        if (oa != null &amp;&amp; !Outputs.isArticlesOutput(oa)) {</span>
-<span class="fc" id="L133">            throw new ParseException(&quot;The output-articles option must have one of the following extensions: &quot; + Arrays.toString(Outputs.ARTICLES_OUTPUTS));</span>
+<span class="fc" id="L142">        String oa = cmd.getOptionValue(&quot;output-articles&quot;);</span>
+<span class="pc bpc" id="L143" title="1 of 4 branches missed.">        if (oa != null &amp;&amp; !Outputs.isArticlesOutput(oa)) {</span>
+<span class="fc" id="L144">            throw new ParseException(&quot;The output-articles option must have one of the following extensions: &quot; + Arrays.toString(Outputs.ARTICLES_OUTPUTS));</span>
         }
-<span class="fc" id="L135">        String ot = cmd.getOptionValue(&quot;output-terms&quot;);</span>
-<span class="pc bpc" id="L136" title="1 of 4 branches missed.">        if (ot != null &amp;&amp; !Outputs.isTermsOutput(ot)) {</span>
-<span class="fc" id="L137">            throw new ParseException(&quot;The output-terms option must have one of the following extensions: &quot; + Arrays.toString(Outputs.TERMS_OUTPUTS));</span>
+<span class="fc" id="L146">        String ot = cmd.getOptionValue(&quot;output-terms&quot;);</span>
+<span class="pc bpc" id="L147" title="1 of 4 branches missed.">        if (ot != null &amp;&amp; !Outputs.isTermsOutput(ot)) {</span>
+<span class="fc" id="L148">            throw new ParseException(&quot;The output-terms option must have one of the following extensions: &quot; + Arrays.toString(Outputs.TERMS_OUTPUTS));</span>
         }
-<span class="fc" id="L139">        return new Context(</span>
-<span class="fc" id="L140">                UseCases.fromCommandLine(cmd),</span>
-<span class="pc bpc" id="L141" title="2 of 4 branches missed.">                cmd.getArgs()[0],</span>
+<span class="fc" id="L150">        return new Context(</span>
+<span class="fc" id="L151">                UseCases.fromCommandLine(cmd),</span>
+<span class="pc bpc" id="L152" title="2 of 4 branches missed.">                cmd.getArgs()[0],</span>
                 oa == null ? DefaultConfig.JSON_FILE_NAME : oa,
                 ot == null ? DefaultConfig.TXT_FILE_NAME : ot,
-<span class="pc bpc" id="L144" title="1 of 2 branches missed.">                cmd.getOptionValue(&quot;query&quot;),</span>
-<span class="pc bpc" id="L145" title="1 of 2 branches missed.">                ca == null ? DefaultConfig.ARTICLES_COUNT : ca,</span>
-<span class="pc" id="L146">                ct == null ? DefaultConfig.TERMS_COUNT : ct,</span>
-<span class="fc" id="L147">                DateParser.tryParse(cmd.getOptionValue(&quot;from&quot;)),</span>
-<span class="fc" id="L148">                DateParser.tryParse(cmd.getOptionValue(&quot;to&quot;)),</span>
-<span class="fc" id="L149">                cmd.getOptionValue(&quot;api-key&quot;)</span>
+<span class="pc bpc" id="L155" title="1 of 2 branches missed.">                cmd.getOptionValue(&quot;query&quot;),</span>
+<span class="pc bpc" id="L156" title="1 of 2 branches missed.">                ca == null ? DefaultConfig.ARTICLES_COUNT : ca,</span>
+<span class="pc" id="L157">                ct == null ? DefaultConfig.TERMS_COUNT : ct,</span>
+<span class="fc" id="L158">                DateParser.tryParse(cmd.getOptionValue(&quot;from&quot;)),</span>
+<span class="fc" id="L159">                DateParser.tryParse(cmd.getOptionValue(&quot;to&quot;)),</span>
+<span class="fc" id="L160">                cmd.getOptionValue(&quot;api-key&quot;),</span>
+<span class="fc" id="L161">                cmd.hasOption(&quot;lemma&quot;)</span>
         );
     }
 
@@ -158,17 +170,18 @@ public class Context {
      */
     @Override
     public int hashCode() {
-<span class="fc" id="L161">        return Objects.hash(</span>
+<span class="fc" id="L173">        return Objects.hash(</span>
                 useCase,
                 source,
                 outputArticles,
                 outputTerms,
                 query,
-<span class="fc" id="L167">                countArticles,</span>
-<span class="fc" id="L168">                countTerms,</span>
+<span class="fc" id="L179">                countArticles,</span>
+<span class="fc" id="L180">                countTerms,</span>
                 fromDate,
                 toDate,
-                apiKey
+                apiKey,
+<span class="fc" id="L184">                lemma</span>
         );
     }
 }

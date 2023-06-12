@@ -62,14 +62,19 @@ import java.util.Date;
     private String apiKey;
 
     /**
+     * The lemma field contains the lemma option.
+     */
+    private boolean lemma;
+
+    /**
      * Sets the command.
      *
      * @param useCase the useCase
      * @return the context builder
      */
     public ContextBuilder setUseCase(UseCases useCase) {
-<span class="fc" id="L71">        this.useCase = useCase;</span>
-<span class="fc" id="L72">        return this;</span>
+<span class="fc" id="L76">        this.useCase = useCase;</span>
+<span class="fc" id="L77">        return this;</span>
     }
 
     /**
@@ -79,8 +84,8 @@ import java.util.Date;
      * @return the context builder
      */
     public ContextBuilder setSource(String source) {
-<span class="fc" id="L82">        this.source = source;</span>
-<span class="fc" id="L83">        return this;</span>
+<span class="fc" id="L87">        this.source = source;</span>
+<span class="fc" id="L88">        return this;</span>
     }
 
     /**
@@ -90,8 +95,8 @@ import java.util.Date;
      * @return the context builder
      */
     public ContextBuilder setOutputArticles(String outputArticles) {
-<span class="fc" id="L93">        this.outputArticles = outputArticles;</span>
-<span class="fc" id="L94">        return this;</span>
+<span class="fc" id="L98">        this.outputArticles = outputArticles;</span>
+<span class="fc" id="L99">        return this;</span>
     }
 
     /**
@@ -101,8 +106,8 @@ import java.util.Date;
      * @return the context builder
      */
     public ContextBuilder setOutputTerms(String outputTerms) {
-<span class="fc" id="L104">        this.outputTerms = outputTerms;</span>
-<span class="fc" id="L105">        return this;</span>
+<span class="fc" id="L109">        this.outputTerms = outputTerms;</span>
+<span class="fc" id="L110">        return this;</span>
     }
 
     /**
@@ -112,8 +117,8 @@ import java.util.Date;
      * @return the context builder
      */
     public ContextBuilder setQuery(String query) {
-<span class="fc" id="L115">        this.query = query;</span>
-<span class="fc" id="L116">        return this;</span>
+<span class="fc" id="L120">        this.query = query;</span>
+<span class="fc" id="L121">        return this;</span>
     }
 
     /**
@@ -123,8 +128,8 @@ import java.util.Date;
      * @return the context builder
      */
     public ContextBuilder setCountArticles(int countArticles) {
-<span class="fc" id="L126">        this.countArticles = countArticles;</span>
-<span class="fc" id="L127">        return this;</span>
+<span class="fc" id="L131">        this.countArticles = countArticles;</span>
+<span class="fc" id="L132">        return this;</span>
     }
 
     /**
@@ -134,8 +139,8 @@ import java.util.Date;
      * @return the context builder
      */
     public ContextBuilder setCountTerms(int countTerms) {
-<span class="fc" id="L137">        this.countTerms = countTerms;</span>
-<span class="fc" id="L138">        return this;</span>
+<span class="fc" id="L142">        this.countTerms = countTerms;</span>
+<span class="fc" id="L143">        return this;</span>
     }
 
     /**
@@ -145,8 +150,8 @@ import java.util.Date;
      * @return the context builder
      */
     public ContextBuilder setFromDate(Date fromDate) {
-<span class="fc" id="L148">        this.fromDate = fromDate;</span>
-<span class="fc" id="L149">        return this;</span>
+<span class="fc" id="L153">        this.fromDate = fromDate;</span>
+<span class="fc" id="L154">        return this;</span>
     }
 
     /**
@@ -156,8 +161,8 @@ import java.util.Date;
      * @return the context builder
      */
     public ContextBuilder setToDate(Date toDate) {
-<span class="fc" id="L159">        this.toDate = toDate;</span>
-<span class="fc" id="L160">        return this;</span>
+<span class="fc" id="L164">        this.toDate = toDate;</span>
+<span class="fc" id="L165">        return this;</span>
     }
 
     /**
@@ -167,8 +172,19 @@ import java.util.Date;
      * @return the context builder
      */
     public ContextBuilder setApiKey(String apiKey) {
-<span class="fc" id="L170">        this.apiKey = apiKey;</span>
-<span class="fc" id="L171">        return this;</span>
+<span class="fc" id="L175">        this.apiKey = apiKey;</span>
+<span class="fc" id="L176">        return this;</span>
+    }
+
+    /**
+     * Sets the lemma option.
+     *
+     * @param lemma the lemma option
+     * @return the context builder
+     */
+    public ContextBuilder setLemma(boolean lemma) {
+<span class="fc" id="L186">        this.lemma = lemma;</span>
+<span class="fc" id="L187">        return this;</span>
     }
 
     /**
@@ -178,7 +194,7 @@ import java.util.Date;
      */
     @Override
     public Context build() {
-<span class="fc" id="L181">        return new Context(</span>
+<span class="fc" id="L197">        return new Context(</span>
                 useCase,
                 source,
                 outputArticles,
@@ -188,7 +204,8 @@ import java.util.Date;
                 countTerms,
                 fromDate,
                 toDate,
-                apiKey
+                apiKey,
+                lemma
         );
     }
 }
