@@ -22,6 +22,11 @@ Il sistema è stato creato per effettuare operazioni su articoli di giornale.
 L'utente finale è in grado di scaricare articoli, estrarre i termini più frequenti e visualizzare i risultati o
 effettuare entrambe le operazioni in sequenza.
 
+### Acronimi
+
+- _API_: Application Programming Interface.
+- _JSON_: JavaScript Object Notation.
+
 ### Definizioni
 
 - _peso_: numero di documenti in cui appare un termine.
@@ -47,11 +52,6 @@ effettuare entrambe le operazioni in sequenza.
 ```
 termine: peso
 ```
-
-### Acronimi
-
-- _API_: Application Programming Interface.
-- _JSON_: JavaScript Object Notation.
 
 ## Descrizione generale
 
