@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Either.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">eis-app</a> &gt; <a href="index.source.html" class="el_package">it.unipd.dei.eis.core.common</a> &gt; <span class="el_source">Either.java</span></div><h1>Either.java</h1><pre class="source lang-java linenums">package it.unipd.dei.eis.core.common;
+
+/**
+ * A class that represents an Either type.
+ *
+ * @param &lt;Failure&gt; The type of the failure
+ * @param &lt;T&gt;       The type of the success
+ */
+public class Either&lt;Failure, T&gt; {
+
+    /**
+     * The failure.
+     */
+    public final Failure failure;
+
+    /**
+     * The success.
+     */
+    public final T success;
+
+    /**
+     * Creates a new Either.
+     *
+     * @param failure The failure
+     * @param success The success
+     */
+<span class="fc" id="L27">    private Either(Failure failure, T success) {</span>
+<span class="fc" id="L28">        this.failure = failure;</span>
+<span class="fc" id="L29">        this.success = success;</span>
+<span class="fc" id="L30">    }</span>
+
+    /**
+     * Creates a new Either (Failure).
+     *
+     * @param failure   The failure
+     * @param &lt;Failure&gt; The type of the failure
+     * @param &lt;T&gt;       The type of the success
+     * @return The new Either
+     */
+    public static &lt;Failure, T&gt; Either&lt;Failure, T&gt; failure(Failure failure) {
+<span class="fc" id="L41">        return new Either&lt;&gt;(failure, null);</span>
+    }
+
+    /**
+     * Creates a new Either (Success).
+     *
+     * @param success   The success
+     * @param &lt;Failure&gt; The type of the failure
+     * @param &lt;T&gt;       The type of the success
+     * @return The new Either
+     */
+    public static &lt;Failure, T&gt; Either&lt;Failure, T&gt; success(T success) {
+<span class="fc" id="L53">        return new Either&lt;&gt;(null, success);</span>
+    }
+
+    /**
+     * Check if an Either is a Failure.
+     *
+     * @return true if the Either is a Failure, false otherwise
+     */
+    public boolean isFailure() {
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        return failure != null;</span>
+    }
+
+    /**
+     * Check if an Either is a Success.
+     *
+     * @return true if the Either is a Success, false otherwise
+     */
+    public boolean isSuccess() {
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">        return success != null;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

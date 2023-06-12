@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ContextBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">eis-app</a> &gt; <a href="index.source.html" class="el_package">it.unipd.dei.eis.core.utils</a> &gt; <span class="el_source">ContextBuilder.java</span></div><h1>ContextBuilder.java</h1><pre class="source lang-java linenums">package it.unipd.dei.eis.core.utils;
+
+import it.unipd.dei.eis.core.common.Context;
+import it.unipd.dei.eis.core.common.IBuilder;
+import it.unipd.dei.eis.core.enums.UseCases;
+
+import java.util.Date;
+
+/**
+ * The ContextBuilder class is the builder class of the Context class.
+ */
+<span class="fc" id="L12">public class ContextBuilder implements IBuilder&lt;Context&gt; {</span>
+
+    /**
+     * The useCase field contains the UseCase.
+     */
+    private UseCases useCase;
+
+    /**
+     * The source field contains the source from which the data are retrieved.
+     */
+    private String source;
+
+    /**
+     * The outputArticles field contains the output articles file name.
+     */
+    private String outputArticles;
+
+    /**
+     * The outputTerms field contains the output terms file name.
+     */
+    private String outputTerms;
+
+    /**
+     * The query field contains the query to be searched.
+     */
+    private String query;
+
+    /**
+     * The countArticles field contains the number of articles to be retrieved.
+     */
+    private int countArticles;
+
+    /**
+     * The countTerms field contains the number of terms to be extracted.
+     */
+    private int countTerms;
+
+    /**
+     * The fromDate field contains the date from which the articles are retrieved.
+     */
+    private Date fromDate;
+
+    /**
+     * The toDate field contains the limit date to which the articles are retrieved.
+     */
+    private Date toDate;
+
+    /**
+     * The apiKey field contains the API key.
+     */
+    private String apiKey;
+
+    /**
+     * Sets the command.
+     *
+     * @param useCase the useCase
+     * @return the context builder
+     */
+    public ContextBuilder setUseCase(UseCases useCase) {
+<span class="fc" id="L71">        this.useCase = useCase;</span>
+<span class="fc" id="L72">        return this;</span>
+    }
+
+    /**
+     * Sets the source.
+     *
+     * @param source the source
+     * @return the context builder
+     */
+    public ContextBuilder setSource(String source) {
+<span class="fc" id="L82">        this.source = source;</span>
+<span class="fc" id="L83">        return this;</span>
+    }
+
+    /**
+     * Sets the output articles.
+     *
+     * @param outputArticles the output articles
+     * @return the context builder
+     */
+    public ContextBuilder setOutputArticles(String outputArticles) {
+<span class="fc" id="L93">        this.outputArticles = outputArticles;</span>
+<span class="fc" id="L94">        return this;</span>
+    }
+
+    /**
+     * Sets the output terms.
+     *
+     * @param outputTerms the output terms
+     * @return the context builder
+     */
+    public ContextBuilder setOutputTerms(String outputTerms) {
+<span class="fc" id="L104">        this.outputTerms = outputTerms;</span>
+<span class="fc" id="L105">        return this;</span>
+    }
+
+    /**
+     * Sets the query.
+     *
+     * @param query the query
+     * @return the context builder
+     */
+    public ContextBuilder setQuery(String query) {
+<span class="fc" id="L115">        this.query = query;</span>
+<span class="fc" id="L116">        return this;</span>
+    }
+
+    /**
+     * Sets the count articles.
+     *
+     * @param countArticles the count articles
+     * @return the context builder
+     */
+    public ContextBuilder setCountArticles(int countArticles) {
+<span class="fc" id="L126">        this.countArticles = countArticles;</span>
+<span class="fc" id="L127">        return this;</span>
+    }
+
+    /**
+     * Sets the count terms.
+     *
+     * @param countTerms the count terms
+     * @return the context builder
+     */
+    public ContextBuilder setCountTerms(int countTerms) {
+<span class="fc" id="L137">        this.countTerms = countTerms;</span>
+<span class="fc" id="L138">        return this;</span>
+    }
+
+    /**
+     * Sets the from date.
+     *
+     * @param fromDate the from date
+     * @return the context builder
+     */
+    public ContextBuilder setFromDate(Date fromDate) {
+<span class="fc" id="L148">        this.fromDate = fromDate;</span>
+<span class="fc" id="L149">        return this;</span>
+    }
+
+    /**
+     * Sets the to date.
+     *
+     * @param toDate the to date
+     * @return the context builder
+     */
+    public ContextBuilder setToDate(Date toDate) {
+<span class="fc" id="L159">        this.toDate = toDate;</span>
+<span class="fc" id="L160">        return this;</span>
+    }
+
+    /**
+     * Sets the api key.
+     *
+     * @param apiKey the shared data
+     * @return the context builder
+     */
+    public ContextBuilder setApiKey(String apiKey) {
+<span class="fc" id="L170">        this.apiKey = apiKey;</span>
+<span class="fc" id="L171">        return this;</span>
+    }
+
+    /**
+     * Builds the context.
+     *
+     * @return the context
+     */
+    @Override
+    public Context build() {
+<span class="fc" id="L181">        return new Context(</span>
+                useCase,
+                source,
+                outputArticles,
+                outputTerms,
+                query,
+                countArticles,
+                countTerms,
+                fromDate,
+                toDate,
+                apiKey
+        );
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

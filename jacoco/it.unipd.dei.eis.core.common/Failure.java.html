@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Failure.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">eis-app</a> &gt; <a href="index.source.html" class="el_package">it.unipd.dei.eis.core.common</a> &gt; <span class="el_source">Failure.java</span></div><h1>Failure.java</h1><pre class="source lang-java linenums">package it.unipd.dei.eis.core.common;
+
+/**
+ * A class that represents a failure.
+ */
+public class Failure {
+
+    /**
+     * The message of the failure.
+     */
+    public final String message;
+
+    /**
+     * The exception that caused the failure.
+     */
+    public final Exception exception;
+
+    /**
+     * Creates a new failure.
+     *
+     * @param exception the exception that caused the failure
+     * @param message   the message of the failure
+     */
+<span class="nc" id="L24">    public Failure(Exception exception, String message) {</span>
+<span class="nc" id="L25">        this.exception = exception;</span>
+<span class="nc" id="L26">        this.message = message;</span>
+<span class="nc" id="L27">    }</span>
+
+    /**
+     * Creates a new failure.
+     *
+     * @param message the message of the failure
+     */
+<span class="nc" id="L34">    public Failure(String message) {</span>
+<span class="nc" id="L35">        this.exception = null;</span>
+<span class="nc" id="L36">        this.message = message;</span>
+<span class="nc" id="L37">    }</span>
+
+    /**
+     * Creates a new failure.
+     *
+     * @param exception the exception that caused the failure
+     */
+<span class="fc" id="L44">    public Failure(Exception exception) {</span>
+<span class="fc" id="L45">        this.exception = exception;</span>
+<span class="fc" id="L46">        this.message = exception.getMessage();</span>
+<span class="fc" id="L47">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

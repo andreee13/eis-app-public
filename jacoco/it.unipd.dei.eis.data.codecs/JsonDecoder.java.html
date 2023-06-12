@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JsonDecoder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">eis-app</a> &gt; <a href="index.source.html" class="el_package">it.unipd.dei.eis.data.codecs</a> &gt; <span class="el_source">JsonDecoder.java</span></div><h1>JsonDecoder.java</h1><pre class="source lang-java linenums">package it.unipd.dei.eis.data.codecs;
+
+import com.google.gson.Gson;
+
+import java.lang.reflect.Type;
+
+/**
+ * JsonDecoder is the decoder for JSON data.
+ */
+<span class="fc" id="L10">public class JsonDecoder implements IDecoder&lt;Object&gt; {</span>
+
+    /**
+     * The Gson object is used to parse the JSON response.
+     */
+<span class="fc" id="L15">    private static final Gson GSON = new Gson();</span>
+
+    /**
+     * The decode method is used to decode the JSON response.
+     *
+     * @param data the JSON response
+     * @param args the arguments
+     * @return the data entity
+     */
+    @Override
+    public Object decode(String data, Object... args) {
+<span class="fc" id="L26">        return GSON.fromJson(data, (Type) args[0]);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TermsExtractionRepository.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">eis-app</a> &gt; <a href="index.source.html" class="el_package">it.unipd.dei.eis.domain.repositories</a> &gt; <span class="el_source">TermsExtractionRepository.java</span></div><h1>TermsExtractionRepository.java</h1><pre class="source lang-java linenums">package it.unipd.dei.eis.domain.repositories;
+
+import it.unipd.dei.eis.core.common.Context;
+import it.unipd.dei.eis.data.entities.TermsDataEntity;
+import it.unipd.dei.eis.data.sources.TermsDataSource;
+import it.unipd.dei.eis.domain.models.ArticleModel;
+
+import java.util.List;
+
+/**
+ * A repository for models from a data source.
+ */
+public class TermsExtractionRepository extends Repository&lt;TermsDataSource, TermsDataEntity, ArticleModel&gt; {
+
+    /**
+     * The instance of the TermsExtractionRepository class.
+     */
+    private static TermsExtractionRepository instance;
+
+    /**
+     * Creates a new Repository.
+     */
+    private TermsExtractionRepository() {
+<span class="fc" id="L24">        super(new TermsDataSource());</span>
+<span class="fc" id="L25">    }</span>
+
+    /**
+     * Returns the instance of the TermsExtractionRepository class.
+     *
+     * @return The instance of the TermsExtractionRepository class
+     */
+    public static synchronized TermsExtractionRepository getInstance() {
+<span class="fc bfc" id="L33" title="All 2 branches covered.">        if (instance == null) {</span>
+<span class="fc" id="L34">            instance = new TermsExtractionRepository();</span>
+        }
+<span class="fc" id="L36">        return instance;</span>
+    }
+
+    /**
+     * Adapts a model to a data entity.
+     * Internally used by {@link #push(Context, List)}.
+     *
+     * @param model The model
+     * @return The data entity
+     */
+    @Override
+    TermsDataEntity adapt(ArticleModel model) {
+<span class="fc" id="L48">        return new TermsDataEntity(</span>
+                model.title,
+                model.body
+        );
+    }
+
+    /**
+     * Unsupported operation.
+     *
+     * @param context The context to use
+     * @return List of models
+     */
+    @Override
+    List&lt;ArticleModel&gt; pullData(Context context) {
+<span class="nc" id="L62">        throw new UnsupportedOperationException(&quot;Operation not supported&quot;);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

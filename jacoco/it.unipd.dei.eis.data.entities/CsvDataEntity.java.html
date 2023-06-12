@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CsvDataEntity.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">eis-app</a> &gt; <a href="index.source.html" class="el_package">it.unipd.dei.eis.data.entities</a> &gt; <span class="el_source">CsvDataEntity.java</span></div><h1>CsvDataEntity.java</h1><pre class="source lang-java linenums">package it.unipd.dei.eis.data.entities;
+
+import it.unipd.dei.eis.core.utils.DateParser;
+import org.apache.commons.csv.CSVRecord;
+
+import java.util.Date;
+
+/**
+ * A data entity that represents a CSV record.
+ */
+public class CsvDataEntity extends DataEntity {
+
+    /**
+     * The identifier of the record.
+     */
+    public final String identifier;
+
+    /**
+     * The URL of the record.
+     */
+    public final String url;
+
+    /**
+     * The title of the record.
+     */
+    public final String title;
+
+    /**
+     * The body of the record.
+     */
+    public final String body;
+
+    /**
+     * The date of the record.
+     */
+    public final Date date;
+
+    /**
+     * The source set of the record.
+     */
+    public final String sourceSet;
+
+    /**
+     * The source of the record.
+     */
+    public final String source;
+
+    /**
+     * Creates a new CSV data entity.
+     *
+     * @param identifier the identifier of the record
+     * @param url        the URL of the record
+     * @param title      the title of the record
+     * @param body       the body of the record
+     * @param date       the date of the record
+     * @param sourceSet  the source set of the record
+     * @param source     the source of the record
+     */
+<span class="fc" id="L59">    public CsvDataEntity(String identifier, String url, String title, String body, Date date, String sourceSet, String source) {</span>
+<span class="fc" id="L60">        this.identifier = identifier;</span>
+<span class="fc" id="L61">        this.url = url;</span>
+<span class="fc" id="L62">        this.title = title;</span>
+<span class="fc" id="L63">        this.body = body;</span>
+<span class="fc" id="L64">        this.date = date;</span>
+<span class="fc" id="L65">        this.sourceSet = sourceSet;</span>
+<span class="fc" id="L66">        this.source = source;</span>
+<span class="fc" id="L67">    }</span>
+
+    /**
+     * Creates a new CSV data entity from a CSV record.
+     *
+     * @param record the CSV record
+     * @return the CSV data entity
+     */
+    public static CsvDataEntity fromCsvRecord(CSVRecord record) {
+<span class="fc" id="L76">        return new CsvDataEntity(</span>
+<span class="fc" id="L77">                record.get(0),</span>
+<span class="fc" id="L78">                record.get(1),</span>
+<span class="fc" id="L79">                record.get(2),</span>
+<span class="fc" id="L80">                record.get(3),</span>
+<span class="fc" id="L81">                DateParser.tryParse(record.get(4)),</span>
+<span class="fc" id="L82">                record.get(5),</span>
+<span class="fc" id="L83">                record.get(6)</span>
+        );
+    }
+
+    /**
+     * Filters the object by a string.
+     *
+     * @param s the string to filter by
+     * @return true if the object respects the filter, false otherwise
+     */
+    @Override
+    public boolean contains(String s) {
+<span class="nc bnc" id="L95" title="All 4 branches missed.">        return title.contains(s) || body.contains(s);</span>
+    }
+
+    /**
+     * Filters the object by a date.
+     *
+     * @param date the date to filter from
+     * @return true if the object respects the filter, false otherwise
+     */
+    @Override
+    public boolean before(Date date) {
+<span class="nc" id="L106">        return this.date.before(date);</span>
+    }
+
+    /**
+     * Filters the object by a date.
+     *
+     * @param date the date to filter to
+     * @return true if the object respects the filter, false otherwise
+     */
+    @Override
+    public boolean after(Date date) {
+<span class="nc" id="L117">        return this.date.after(date);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

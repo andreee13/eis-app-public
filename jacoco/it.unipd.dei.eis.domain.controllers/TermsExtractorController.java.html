@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TermsExtractorController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">eis-app</a> &gt; <a href="index.source.html" class="el_package">it.unipd.dei.eis.domain.controllers</a> &gt; <span class="el_source">TermsExtractorController.java</span></div><h1>TermsExtractorController.java</h1><pre class="source lang-java linenums">package it.unipd.dei.eis.domain.controllers;
+
+import it.unipd.dei.eis.core.common.Context;
+import it.unipd.dei.eis.core.common.Either;
+import it.unipd.dei.eis.core.common.Failure;
+import it.unipd.dei.eis.core.common.Success;
+import it.unipd.dei.eis.core.enums.UseCases;
+import it.unipd.dei.eis.domain.models.IModel;
+import it.unipd.dei.eis.domain.repositories.RepositoryFactory;
+
+import java.util.List;
+
+/**
+ * TermsExtractorController is the controller for the terms extraction use case.
+ * It is used to extract terms from the data source.
+ */
+public class TermsExtractorController extends Controller {
+
+    /**
+     * TermsExtractorController constructor.
+     */
+    public TermsExtractorController() {
+<span class="fc" id="L23">        super(String.valueOf(UseCases.EXTRACT));</span>
+<span class="fc" id="L24">    }</span>
+
+    /**
+     * Executes the terms extraction use case.
+     *
+     * @param context the context
+     * @return Either a Failure or a Success
+     */
+    @Override
+    public Either&lt;Failure, Success&gt; execute(Context context) {
+        List&lt;IModel&gt; models;
+        try {
+<span class="fc" id="L36">            System.out.println(&quot;Reading data from &quot; + context.source + &quot;...&quot;);</span>
+<span class="fc" id="L37">            models = RepositoryFactory.create(context.source)</span>
+<span class="fc" id="L38">                    .pull(context);</span>
+<span class="fc" id="L39">            System.out.println(&quot;Read &quot; + models.size() + &quot; items&quot;);</span>
+<span class="fc" id="L40">            System.out.println(&quot;Extracting &quot; + context.countTerms + &quot; terms...&quot;);</span>
+<span class="fc" id="L41">            RepositoryFactory.create(context.outputTerms)</span>
+<span class="fc" id="L42">                    .push(context, models);</span>
+<span class="fc" id="L43">            System.out.println(&quot;Terms extracted and written to &quot; + context.outputTerms);</span>
+<span class="fc" id="L44">            return Either.success(new Success());</span>
+<span class="nc" id="L45">        } catch (Exception e) {</span>
+<span class="nc" id="L46">            return Either.failure(new Failure(e));</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

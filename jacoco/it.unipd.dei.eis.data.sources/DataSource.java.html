@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DataSource.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">eis-app</a> &gt; <a href="index.source.html" class="el_package">it.unipd.dei.eis.data.sources</a> &gt; <span class="el_source">DataSource.java</span></div><h1>DataSource.java</h1><pre class="source lang-java linenums">package it.unipd.dei.eis.data.sources;
+
+import it.unipd.dei.eis.core.common.Context;
+import it.unipd.dei.eis.data.codecs.IDecoder;
+import it.unipd.dei.eis.data.codecs.IEncoder;
+import it.unipd.dei.eis.data.entities.DataEntity;
+
+import java.util.List;
+
+/**
+ * DataSource is the abstract class for data sources.
+ *
+ * @param &lt;E&gt; the type of the data entity
+ * @param &lt;D&gt; the type of the codecs data
+ */
+public abstract class DataSource&lt;E extends DataEntity, D&gt; {
+
+    /**
+     * The ID of the data source.
+     */
+    public final String id;
+
+    /**
+     * The decoder of the data source.
+     */
+    final IDecoder&lt;D&gt; decoder;
+
+    /**
+     * The encoder of the data source.
+     */
+    final IEncoder&lt;D&gt; encoder;
+
+    /**
+     * DataSource constructor.
+     *
+     * @param id      the ID of the data source
+     * @param decoder the decoder of the data source
+     * @param encoder the encoder of the data source
+     */
+<span class="fc" id="L40">    DataSource(String id, IDecoder&lt;D&gt; decoder, IEncoder&lt;D&gt; encoder) {</span>
+<span class="fc" id="L41">        this.id = id;</span>
+<span class="fc" id="L42">        this.decoder = decoder;</span>
+<span class="fc" id="L43">        this.encoder = encoder;</span>
+<span class="fc" id="L44">    }</span>
+
+    /**
+     * DataSource constructor.
+     *
+     * @param id      the ID of the data source
+     * @param decoder the decoder of the data source
+     */
+<span class="fc" id="L52">    DataSource(String id, IDecoder&lt;D&gt; decoder) {</span>
+<span class="fc" id="L53">        this.id = id;</span>
+<span class="fc" id="L54">        this.decoder = decoder;</span>
+<span class="fc" id="L55">        this.encoder = null;</span>
+<span class="fc" id="L56">    }</span>
+
+    /**
+     * DataSource constructor.
+     *
+     * @param id      the ID of the data source
+     * @param encoder the encoder of the data source
+     */
+<span class="fc" id="L64">    DataSource(String id, IEncoder&lt;D&gt; encoder) {</span>
+<span class="fc" id="L65">        this.id = id;</span>
+<span class="fc" id="L66">        this.decoder = null;</span>
+<span class="fc" id="L67">        this.encoder = encoder;</span>
+<span class="fc" id="L68">    }</span>
+
+    /**
+     * Returns the list of data entities from the data source.
+     * Data entities are filtered by {@link #filter(Context, List)}.
+     *
+     * @param context the context of the request
+     * @return the list of data entities
+     * @throws UnsupportedOperationException if not implemented
+     * @throws Exception                     if an error occurs
+     */
+    final public List&lt;E&gt; get(Context context) throws Exception {
+<span class="fc" id="L80">        return filter(context, getData(context));</span>
+    }
+
+    /**
+     * Returns the list of data entities.
+     * Override this method to implement the get operation.
+     *
+     * @param context the context of the request
+     * @return the list of data entities
+     * @throws UnsupportedOperationException if not implemented
+     * @throws Exception                     if an error occurs
+     */
+    List&lt;E&gt; getData(Context context) throws Exception {
+<span class="nc" id="L93">        throw new UnsupportedOperationException(&quot;Unsupported operation&quot;);</span>
+    }
+
+    /**
+     * Sets the list of data entities.
+     *
+     * @param context the context of the request
+     * @param data    the list of data entities
+     * @throws UnsupportedOperationException if not implemented
+     * @throws Exception                     if an error occurs
+     */
+    final public void set(Context context, List&lt;E&gt; data) throws Exception {
+<span class="fc" id="L105">        setData(context, data);</span>
+<span class="fc" id="L106">    }</span>
+
+    /**
+     * Sets the list of data entities.
+     * Override this method to implement the set operation.
+     *
+     * @param context the context of the request
+     * @param data    the list of data entities
+     * @throws UnsupportedOperationException if not implemented
+     * @throws Exception                     if an error occurs
+     */
+    void setData(Context context, List&lt;E&gt; data) throws Exception {
+<span class="nc" id="L118">        throw new UnsupportedOperationException(&quot;Unsupported operation&quot;);</span>
+    }
+
+    /**
+     * Filters the list of data entities by query, from date and to date, if supported.
+     * Internally used by {@link #get(Context)}.
+     *
+     * @param context the context of the request
+     * @param data    the list of data entities
+     * @return the filtered list of data entities
+     */
+    private List&lt;E&gt; filter(Context context, List&lt;E&gt; data) {
+<span class="fc bfc" id="L130" title="All 2 branches covered.">        if (context.query != null) {</span>
+            try {
+<span class="fc" id="L132">                data = data.stream()</span>
+<span class="pc" id="L133">                        .filter(entity -&gt; entity.contains(context.query))</span>
+<span class="nc" id="L134">                        .collect(java.util.stream.Collectors.toList());</span>
+<span class="fc" id="L135">            } catch (UnsupportedOperationException ignored) {</span>
+<span class="nc" id="L136">            }</span>
+        }
+<span class="fc bfc" id="L138" title="All 2 branches covered.">        if (context.fromDate != null) {</span>
+            try {
+<span class="fc" id="L140">                data = data.stream()</span>
+<span class="pc" id="L141">                        .filter(entity -&gt; entity.after(context.fromDate))</span>
+<span class="nc" id="L142">                        .collect(java.util.stream.Collectors.toList());</span>
+<span class="fc" id="L143">            } catch (UnsupportedOperationException ignored) {</span>
+<span class="nc" id="L144">            }</span>
+        }
+<span class="fc bfc" id="L146" title="All 2 branches covered.">        if (context.toDate != null) {</span>
+            try {
+<span class="fc" id="L148">                data = data.stream()</span>
+<span class="pc" id="L149">                        .filter(entity -&gt; entity.before(context.toDate))</span>
+<span class="nc" id="L150">                        .collect(java.util.stream.Collectors.toList());</span>
+<span class="fc" id="L151">            } catch (UnsupportedOperationException ignored) {</span>
+<span class="nc" id="L152">            }</span>
+        }
+<span class="fc" id="L154">        return data.subList(0, Math.min(context.countArticles, data.size()));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

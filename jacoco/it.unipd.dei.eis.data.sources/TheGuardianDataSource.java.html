@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TheGuardianDataSource.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">eis-app</a> &gt; <a href="index.source.html" class="el_package">it.unipd.dei.eis.data.sources</a> &gt; <span class="el_source">TheGuardianDataSource.java</span></div><h1>TheGuardianDataSource.java</h1><pre class="source lang-java linenums">package it.unipd.dei.eis.data.sources;
+
+import it.unipd.dei.eis.core.common.Context;
+import it.unipd.dei.eis.data.codecs.JsonDecoder;
+import it.unipd.dei.eis.data.entities.TheGuardianDataEntity;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.stream.Collectors;
+
+/**
+ * TheGuardianDataSource is the data source for The Guardian records.
+ * It contains the data source logic.
+ */
+public class TheGuardianDataSource extends DataSource&lt;TheGuardianDataEntity, Object&gt; {
+
+    /**
+     * The ID field is used to identify the data source.
+     */
+    public static final String ID = &quot;THEGUARDIAN&quot;;
+
+    /**
+     * The ENV_API_KEY field is used to get the API key from the environment variables.
+     */
+<span class="fc" id="L35">    private static final String ENV_API_KEY = System.getenv(&quot;THE_GUARDIAN_API_KEY&quot;);</span>
+
+    /**
+     * The BASE_URL field is used to build the URL of the request.
+     */
+    private static final String BASE_URL = &quot;https://content.guardianapis.com&quot;;
+
+    /**
+     * The SEARCH_ENDPOINT field is used to build the URL of the request.
+     */
+    private static final String SEARCH_ENDPOINT = &quot;search&quot;;
+
+    /**
+     * The RESPONSE_FORMAT field is used to build the URL of the request.
+     */
+    private static final String RESPONSE_FORMAT = &quot;json&quot;;
+
+    /**
+     * The FIELDS field is used to build the URL of the request.
+     */
+    private static final String FIELDS = &quot;bodyText&quot;;
+
+    /**
+     * The dateFormat field is used to format the date.
+     */
+<span class="fc" id="L60">    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+
+    /**
+     * The MAX_PAGE_SIZE field is used to limit the number of articles per page.
+     */
+    private static final int MAX_PAGE_SIZE = 200;
+
+    /**
+     * The httpClient field is used to send the HTTP request.
+     */
+<span class="fc" id="L70">    private final OkHttpClient httpClient = new OkHttpClient();</span>
+
+    /**
+     * The TheGuardianDataSource constructor.
+     * It is used to create a new TheGuardianDataSource object.
+     */
+    public TheGuardianDataSource() {
+<span class="fc" id="L77">        super(ID, new JsonDecoder());</span>
+<span class="fc" id="L78">    }</span>
+
+    /**
+     * The get method is used to get the data from The Guardian API and deserialize it.
+     * Pagination is processed in an asynchronous way using multiple threads.
+     *
+     * @param context the context of the request
+     * @return the list of TheGuardianDataEntity objects
+     */
+    @Override
+    public List&lt;TheGuardianDataEntity&gt; getData(Context context) {
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">        String apiKey = context.apiKey != null ? context.apiKey : ENV_API_KEY;</span>
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">        if (apiKey == null) {</span>
+<span class="nc" id="L91">            throw new IllegalArgumentException(&quot;TheGuardian API key is missing&quot;);</span>
+        }
+<span class="fc" id="L93">        ArrayList&lt;Future&lt;TheGuardianDataEntity&gt;&gt; futures = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L94">        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime()</span>
+<span class="fc" id="L95">                .availableProcessors());</span>
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        String fromDate = context.fromDate != null ? DATE_FORMAT.format(context.fromDate) : null;</span>
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">        String toDate = context.toDate != null ? DATE_FORMAT.format(context.toDate) : null;</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">        for (int i = 0; i &lt;= context.countArticles / MAX_PAGE_SIZE; i++) {</span>
+<span class="fc" id="L99">            int tempIndex = i;</span>
+<span class="fc" id="L100">            futures.add(executorService.submit(() -&gt; {</span>
+<span class="fc" id="L101">                final HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse(BASE_URL))</span>
+<span class="fc" id="L102">                        .newBuilder()</span>
+<span class="fc" id="L103">                        .addPathSegment(SEARCH_ENDPOINT)</span>
+<span class="fc" id="L104">                        .addQueryParameter(&quot;api-key&quot;, apiKey)</span>
+<span class="fc" id="L105">                        .addQueryParameter(&quot;format&quot;, RESPONSE_FORMAT)</span>
+<span class="pc bpc" id="L106" title="1 of 2 branches missed.">                        .addQueryParameter(&quot;show-fields&quot;, FIELDS)</span>
+<span class="fc" id="L107">                        .addQueryParameter(&quot;page-size&quot;, String.valueOf(tempIndex == context.countArticles / MAX_PAGE_SIZE ? context.countArticles % MAX_PAGE_SIZE : MAX_PAGE_SIZE))</span>
+<span class="fc" id="L108">                        .addQueryParameter(&quot;page&quot;, String.valueOf(tempIndex + 1));</span>
+<span class="pc bpc" id="L109" title="1 of 2 branches missed.">                if (context.query != null) {</span>
+<span class="fc" id="L110">                    urlBuilder.addQueryParameter(&quot;q&quot;, context.query);</span>
+                }
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">                if (fromDate != null) {</span>
+<span class="fc" id="L113">                    urlBuilder.addQueryParameter(&quot;from-date&quot;, fromDate);</span>
+                }
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">                if (toDate != null) {</span>
+<span class="fc" id="L116">                    urlBuilder.addQueryParameter(&quot;to-date&quot;, toDate);</span>
+                }
+<span class="fc" id="L118">                try (Response response = httpClient.newCall(new Request.Builder().url(urlBuilder.build())</span>
+<span class="fc" id="L119">                                .build())</span>
+<span class="fc" id="L120">                        .execute()) {</span>
+<span class="pc bpc" id="L121" title="1 of 2 branches missed.">                    if (!response.isSuccessful()) {</span>
+<span class="nc" id="L122">                        throw new IOException(String.format(&quot;Unexpected response code %s&quot;, response.code()));</span>
+                    }
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">                    if (response.body() == null) {</span>
+<span class="nc" id="L125">                        throw new IOException(&quot;Response body is empty&quot;);</span>
+                    }
+<span class="fc" id="L127">                    return (TheGuardianDataEntity) Objects.requireNonNull(decoder)</span>
+<span class="fc" id="L128">                            .decode(response.body()</span>
+<span class="fc" id="L129">                                    .string(), TheGuardianDataEntity.class);</span>
+                }
+            }));
+        }
+<span class="fc" id="L133">        executorService.shutdown();</span>
+<span class="fc" id="L134">        return futures.stream()</span>
+<span class="fc" id="L135">                .map(future -&gt; {</span>
+                    try {
+<span class="fc" id="L137">                        return future.get();</span>
+<span class="nc" id="L138">                    } catch (Exception e) {</span>
+<span class="nc" id="L139">                        throw new RuntimeException(e);</span>
+                    }
+                })
+<span class="fc" id="L142">                .collect(Collectors.toList());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DataEntity.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">eis-app</a> &gt; <a href="index.source.html" class="el_package">it.unipd.dei.eis.data.entities</a> &gt; <span class="el_source">DataEntity.java</span></div><h1>DataEntity.java</h1><pre class="source lang-java linenums">package it.unipd.dei.eis.data.entities;
+
+import it.unipd.dei.eis.core.common.IFilterable;
+
+import java.util.Date;
+
+/**
+ * An abstract filterable data entity.
+ */
+<span class="fc" id="L10">public abstract class DataEntity implements IFilterable {</span>
+    /**
+     * Filters the object by a string.
+     *
+     * @param s the string to filter by
+     * @return true if the object respects the filter, false otherwise
+     */
+    @Override
+    public boolean contains(String s) {
+<span class="fc" id="L19">        throw new UnsupportedOperationException(&quot;Unsupported operation&quot;);</span>
+    }
+
+    /**
+     * Filters the object by a date.
+     *
+     * @param date the date to filter from
+     * @return true if the object respects the filter, false otherwise
+     */
+    @Override
+    public boolean before(Date date) {
+<span class="fc" id="L30">        throw new UnsupportedOperationException(&quot;Unsupported operation&quot;);</span>
+    }
+
+    /**
+     * Filters the object by a date.
+     *
+     * @param date the date to filter to
+     * @return true if the object respects the filter, false otherwise
+     */
+    @Override
+    public boolean after(Date date) {
+<span class="fc" id="L41">        throw new UnsupportedOperationException(&quot;Unsupported operation&quot;);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

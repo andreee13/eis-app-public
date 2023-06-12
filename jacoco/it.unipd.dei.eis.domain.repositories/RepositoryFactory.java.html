@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RepositoryFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">eis-app</a> &gt; <a href="index.source.html" class="el_package">it.unipd.dei.eis.domain.repositories</a> &gt; <span class="el_source">RepositoryFactory.java</span></div><h1>RepositoryFactory.java</h1><pre class="source lang-java linenums">package it.unipd.dei.eis.domain.repositories;
+
+import it.unipd.dei.eis.data.entities.DataEntity;
+import it.unipd.dei.eis.data.sources.DataSource;
+import it.unipd.dei.eis.domain.models.IModel;
+
+/**
+ * A factory for repositories.
+ */
+public interface RepositoryFactory {
+
+    /**
+     * Creates a new repository.
+     *
+     * @param option The option to use
+     * @param &lt;S&gt;    The data source
+     * @param &lt;E&gt;    The data entity
+     * @param &lt;M&gt;    The model
+     * @return The repository
+     * @throws IllegalArgumentException If the option is invalid
+     */
+    @SuppressWarnings(&quot;unchecked&quot;)
+    static &lt;S extends DataSource&lt;E, ?&gt;, E extends DataEntity, M extends IModel&gt; Repository&lt;S, E, M&gt; create(String option) throws IllegalArgumentException {
+        final Repository&lt;? extends DataSource&lt;? extends DataEntity, ?&gt;, ? extends DataEntity, ? extends IModel&gt; repository;
+<span class="pc bpc" id="L25" title="1 of 2 branches missed.">        if (option.equals(&quot;theguardian&quot;)) {</span>
+<span class="nc" id="L26">            repository = TheGuardianRepository.getInstance();</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        } else if (option.endsWith(&quot;.txt&quot;)) {</span>
+<span class="fc" id="L28">            repository = TermsExtractionRepository.getInstance();</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">        } else if (option.endsWith(&quot;.csv&quot;)) {</span>
+<span class="fc" id="L30">            repository = CsvRepository.getInstance();</span>
+<span class="pc bpc" id="L31" title="1 of 2 branches missed.">        } else if (option.endsWith(&quot;.json&quot;)) {</span>
+<span class="fc" id="L32">            repository = JsonRepository.getInstance();</span>
+        } else {
+<span class="nc" id="L34">            throw new IllegalArgumentException(String.format(&quot;\&quot;%s\&quot; is not a valid option&quot;, option));</span>
+        }
+<span class="fc" id="L36">        return (Repository&lt;S, E, M&gt;) repository;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

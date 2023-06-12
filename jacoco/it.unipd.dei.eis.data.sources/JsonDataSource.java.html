@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JsonDataSource.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">eis-app</a> &gt; <a href="index.source.html" class="el_package">it.unipd.dei.eis.data.sources</a> &gt; <span class="el_source">JsonDataSource.java</span></div><h1>JsonDataSource.java</h1><pre class="source lang-java linenums">package it.unipd.dei.eis.data.sources;
+
+import it.unipd.dei.eis.core.common.Context;
+import it.unipd.dei.eis.data.codecs.JsonDecoder;
+import it.unipd.dei.eis.data.codecs.JsonEncoder;
+import it.unipd.dei.eis.data.entities.JsonDataEntity;
+
+import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
+/**
+ * JsonDataSource is the data source for JSON records.
+ * It contains the data structure of the JSON response.
+ */
+public class JsonDataSource extends DataSource&lt;JsonDataEntity, Object&gt; {
+
+    /**
+     * The ID of the data source.
+     */
+    public static final String ID = &quot;JSON&quot;;
+
+    /**
+     * JsonDataSource constructor.
+     */
+    public JsonDataSource() {
+<span class="fc" id="L30">        super(ID, new JsonDecoder(), new JsonEncoder());</span>
+<span class="fc" id="L31">    }</span>
+
+    /**
+     * Returns the list of entities from the JSON data.
+     *
+     * @param context the context of the request
+     * @return the list of articles
+     * @throws Exception if an error occurs
+     */
+    @Override
+    public List&lt;JsonDataEntity&gt; getData(Context context) throws Exception {
+<span class="fc" id="L42">        return Arrays.asList((JsonDataEntity[]) Objects.requireNonNull(decoder)</span>
+<span class="fc" id="L43">                .decode(new String(Files.readAllBytes(Paths.get(context.source))), JsonDataEntity[].class));</span>
+    }
+
+    /**
+     * Sets the data to the JSON file.
+     *
+     * @param context the context of the request
+     * @param data    the list of articles
+     */
+    @Override
+    public void setData(Context context, List&lt;JsonDataEntity&gt; data) {
+<span class="fc" id="L54">        try (FileWriter fileWriter = new FileWriter(context.outputArticles)) {</span>
+<span class="fc" id="L55">            fileWriter.write(Objects.requireNonNull(encoder)</span>
+<span class="fc" id="L56">                    .encode(data.toArray(), JsonDataEntity[].class));</span>
+<span class="nc" id="L57">        } catch (Exception e) {</span>
+<span class="nc" id="L58">            throw new RuntimeException(e);</span>
+<span class="fc" id="L59">        }</span>
+<span class="fc" id="L60">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

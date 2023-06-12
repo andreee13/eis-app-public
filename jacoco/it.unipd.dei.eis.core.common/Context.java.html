@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Context.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">eis-app</a> &gt; <a href="index.source.html" class="el_package">it.unipd.dei.eis.core.common</a> &gt; <span class="el_source">Context.java</span></div><h1>Context.java</h1><pre class="source lang-java linenums">package it.unipd.dei.eis.core.common;
+
+import it.unipd.dei.eis.core.constants.DefaultConfig;
+import it.unipd.dei.eis.core.constants.Outputs;
+import it.unipd.dei.eis.core.enums.UseCases;
+import it.unipd.dei.eis.core.utils.DateParser;
+import it.unipd.dei.eis.core.utils.IntegerParser;
+import org.apache.commons.cli.CommandLine;
+
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Objects;
+
+/**
+ * The Context class contains the context of the command line.
+ */
+public class Context {
+
+    /**
+     * The useCase field contains the UseCase.
+     */
+    public final UseCases useCase;
+
+    /**
+     * The source field contains the source from which the data are retrieved.
+     */
+    public final String source;
+
+    /**
+     * The output field contains the articles file name.
+     */
+    public final String outputArticles;
+
+    /**
+     * The output field contains the terms file name.
+     */
+    public final String outputTerms;
+
+    /**
+     * The query field contains the query to be searched.
+     */
+    public final String query;
+
+    /**
+     * The countArticles field contains the number of articles to be retrieved.
+     */
+    public final int countArticles;
+
+    /**
+     * The countTerms field contains the number of terms to be extracted.
+     */
+    public final int countTerms;
+
+    /**
+     * The fromDate field contains the date from which the articles are retrieved.
+     */
+    public final Date fromDate;
+
+    /**
+     * The toDate field contains the limit date to which the articles are retrieved.
+     */
+    public final Date toDate;
+    /**
+     * The apiKey field contains the API key.
+     */
+    public final String apiKey;
+
+    /**
+     * The Context constructor.
+     *
+     * @param useCase        the useCase
+     * @param source         the source
+     * @param outputArticles the output articles file name
+     * @param outputTerms    the output terms file name
+     * @param query          the query
+     * @param countArticles  the number of articles to be retrieved
+     * @param countTerms     the number of terms to be extracted
+     * @param fromDate       the date from which the articles are retrieved
+     * @param toDate         the limit date to which the articles are retrieved
+     * @param apiKey         the API key
+     */
+    public Context(
+            UseCases useCase,
+            String source,
+            String outputArticles,
+            String outputTerms,
+            String query,
+            int countArticles,
+            int countTerms,
+            Date fromDate,
+            Date toDate,
+            String apiKey
+<span class="fc" id="L93">    ) {</span>
+<span class="fc" id="L94">        this.useCase = useCase;</span>
+<span class="fc" id="L95">        this.source = source;</span>
+<span class="fc" id="L96">        this.outputArticles = outputArticles;</span>
+<span class="fc" id="L97">        this.outputTerms = outputTerms;</span>
+<span class="fc" id="L98">        this.query = query;</span>
+<span class="fc" id="L99">        this.countArticles = countArticles;</span>
+<span class="fc" id="L100">        this.countTerms = countTerms;</span>
+<span class="fc" id="L101">        this.fromDate = fromDate;</span>
+<span class="fc" id="L102">        this.toDate = toDate;</span>
+<span class="fc" id="L103">        this.apiKey = apiKey;</span>
+<span class="fc" id="L104">    }</span>
+
+    /**
+     * The Context factory constructor.
+     * It is used to parse the command line.
+     *
+     * @param cmd the command line
+     * @return the Context
+     */
+    public static Context fromCommandLine(CommandLine cmd) {
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">        if (cmd.getArgs().length == 0) {</span>
+<span class="nc" id="L115">            throw new IllegalArgumentException(&quot;The source option is required&quot;);</span>
+        }
+<span class="fc" id="L117">        Integer ca = IntegerParser.tryParse(cmd.getOptionValue(&quot;count-articles&quot;));</span>
+<span class="pc bpc" id="L118" title="2 of 4 branches missed.">        if (ca != null &amp;&amp; ca &lt; 0) {</span>
+<span class="nc" id="L119">            throw new IllegalArgumentException(&quot;The count-articles option must be a positive integer&quot;);</span>
+        }
+<span class="fc" id="L121">        Integer ct = IntegerParser.tryParse(cmd.getOptionValue(&quot;count-terms&quot;));</span>
+<span class="pc bpc" id="L122" title="3 of 4 branches missed.">        if (ct != null &amp;&amp; ct &lt; 0) {</span>
+<span class="nc" id="L123">            throw new IllegalArgumentException(&quot;The count-terms option must be a positive integer&quot;);</span>
+        }
+<span class="fc" id="L125">        Date from = DateParser.tryParse(cmd.getOptionValue(&quot;from&quot;));</span>
+<span class="fc" id="L126">        Date to = DateParser.tryParse(cmd.getOptionValue(&quot;to&quot;));</span>
+<span class="pc bpc" id="L127" title="5 of 6 branches missed.">        if (from != null &amp;&amp; to != null &amp;&amp; from.after(to)) {</span>
+<span class="nc" id="L128">            throw new IllegalArgumentException(&quot;The from-date option must be before the to-date option&quot;);</span>
+        }
+<span class="fc" id="L130">        String oa = cmd.getOptionValue(&quot;output-articles&quot;);</span>
+<span class="pc bpc" id="L131" title="3 of 4 branches missed.">        if (oa != null &amp;&amp; !Outputs.isArticlesOutput(oa)) {</span>
+<span class="nc" id="L132">            throw new IllegalArgumentException(&quot;The output-articles option must have one of the following extensions: &quot; + Arrays.toString(Outputs.ARTICLES_OUTPUTS));</span>
+        }
+<span class="fc" id="L134">        String ot = cmd.getOptionValue(&quot;output-terms&quot;);</span>
+<span class="pc bpc" id="L135" title="3 of 4 branches missed.">        if (ot != null &amp;&amp; !Outputs.isTermsOutput(ot)) {</span>
+<span class="nc" id="L136">            throw new IllegalArgumentException(&quot;The output-terms option must have one of the following extensions: &quot; + Arrays.toString(Outputs.TERMS_OUTPUTS));</span>
+        }
+<span class="fc" id="L138">        return new Context(</span>
+<span class="fc" id="L139">                UseCases.fromCommandLine(cmd),</span>
+<span class="pc bpc" id="L140" title="2 of 4 branches missed.">                cmd.getArgs()[0],</span>
+                oa == null ? DefaultConfig.JSON_FILE_NAME : oa,
+                ot == null ? DefaultConfig.TXT_FILE_NAME : ot,
+<span class="pc bpc" id="L143" title="1 of 2 branches missed.">                cmd.getOptionValue(&quot;query&quot;),</span>
+<span class="pc bpc" id="L144" title="1 of 2 branches missed.">                ca == null ? DefaultConfig.ARTICLES_COUNT : ca,</span>
+<span class="pc" id="L145">                ct == null ? DefaultConfig.TERMS_COUNT : ct,</span>
+<span class="fc" id="L146">                DateParser.tryParse(cmd.getOptionValue(&quot;from&quot;)),</span>
+<span class="fc" id="L147">                DateParser.tryParse(cmd.getOptionValue(&quot;to&quot;)),</span>
+<span class="fc" id="L148">                cmd.getOptionValue(&quot;api-key&quot;)</span>
+        );
+    }
+
+    /**
+     * The Context hashCode method.
+     * It is used to compare two Context objects.
+     *
+     * @return the hash code
+     */
+    @Override
+    public int hashCode() {
+<span class="fc" id="L160">        return Objects.hash(</span>
+                useCase,
+                source,
+                outputArticles,
+                outputTerms,
+                query,
+<span class="fc" id="L166">                countArticles,</span>
+<span class="fc" id="L167">                countTerms,</span>
+                fromDate,
+                toDate,
+                apiKey
+        );
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

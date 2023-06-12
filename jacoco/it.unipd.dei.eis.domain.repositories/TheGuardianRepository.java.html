@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TheGuardianRepository.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">eis-app</a> &gt; <a href="index.source.html" class="el_package">it.unipd.dei.eis.domain.repositories</a> &gt; <span class="el_source">TheGuardianRepository.java</span></div><h1>TheGuardianRepository.java</h1><pre class="source lang-java linenums">package it.unipd.dei.eis.domain.repositories;
+
+import it.unipd.dei.eis.core.common.Context;
+import it.unipd.dei.eis.data.entities.TheGuardianDataEntity;
+import it.unipd.dei.eis.data.sources.TheGuardianDataSource;
+import it.unipd.dei.eis.domain.models.ArticleModel;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * A repository for models from a data source.
+ */
+public class TheGuardianRepository extends Repository&lt;TheGuardianDataSource, TheGuardianDataEntity, ArticleModel&gt; {
+
+    /**
+     * The instance of the TheGuardianRepository class.
+     */
+    private static TheGuardianRepository instance;
+
+    /**
+     * Creates a new Repository.
+     */
+    private TheGuardianRepository() {
+<span class="fc" id="L26">        super(new TheGuardianDataSource());</span>
+<span class="fc" id="L27">    }</span>
+
+    /**
+     * Returns the instance of the TheGuardianRepository class.
+     *
+     * @return The instance of the TheGuardianRepository class
+     */
+    public static synchronized TheGuardianRepository getInstance() {
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        if (instance == null) {</span>
+<span class="fc" id="L36">            instance = new TheGuardianRepository();</span>
+        }
+<span class="fc" id="L38">        return instance;</span>
+    }
+
+    /**
+     * Pulls the articles from the data source.
+     * Custom implementation for TheGuardianDataSource.
+     *
+     * @param context The context to use
+     * @return List of articles
+     */
+    @Override
+    List&lt;ArticleModel&gt; pullData(Context context) throws Exception {
+<span class="fc" id="L50">        return dataSource.get(context)</span>
+<span class="fc" id="L51">                .stream()</span>
+<span class="fc" id="L52">                .collect(</span>
+                        ArrayList::new,
+<span class="fc" id="L54">                        (list, response) -&gt; list.addAll(</span>
+<span class="fc" id="L55">                                response.response.results.stream()</span>
+<span class="fc" id="L56">                                        .map(</span>
+<span class="fc" id="L57">                                                (result) -&gt; new ArticleModel(</span>
+                                                        result.webTitle,
+                                                        result.fields.bodyText,
+                                                        result.webUrl,
+                                                        result.webPublicationDate,
+                                                        dataSource.id
+                                                )
+                                        )
+<span class="fc" id="L65">                                        .collect(Collectors.toList())</span>
+                        ),
+                        ArrayList::addAll
+                );
+    }
+
+    /**
+     * Operation not supported.
+     *
+     * @param context The context to use
+     * @param models  The models to push
+     * @throws UnsupportedOperationException if not implemented
+     */
+    @Override
+    void pushData(Context context, List&lt;ArticleModel&gt; models) {
+<span class="nc" id="L80">        throw new UnsupportedOperationException(&quot;Operation not supported&quot;);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

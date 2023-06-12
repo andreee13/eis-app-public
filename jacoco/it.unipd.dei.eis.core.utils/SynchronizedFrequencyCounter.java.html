@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SynchronizedFrequencyCounter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">eis-app</a> &gt; <a href="index.source.html" class="el_package">it.unipd.dei.eis.core.utils</a> &gt; <span class="el_source">SynchronizedFrequencyCounter.java</span></div><h1>SynchronizedFrequencyCounter.java</h1><pre class="source lang-java linenums">package it.unipd.dei.eis.core.utils;
+
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
+/**
+ * SynchronizedFrequencyCounter is the class used to count the frequency of an object in a thread-safe way.
+ *
+ * @param &lt;T&gt; the type of the object
+ */
+<span class="fc" id="L13">public class SynchronizedFrequencyCounter&lt;T&gt; {</span>
+
+    /**
+     * The map field is used to store the frequency of an object.
+     */
+<span class="fc" id="L18">    final private Map&lt;T, Integer&gt; map = new HashMap&lt;&gt;();</span>
+
+    /**
+     * The add method is used to add an object to the map.
+     *
+     * @param object the object
+     */
+    public synchronized void add(T object) {
+<span class="fc" id="L26">        map.put(object, map.getOrDefault(object, 0) + 1);</span>
+<span class="fc" id="L27">    }</span>
+
+    /**
+     * The getMapSortedByValueAndKey method is used to sort the map by value and key.
+     *
+     * @return the sorted map
+     */
+    @SuppressWarnings(&quot;SuspiciousMethodCalls&quot;)
+    public Map&lt;T, Integer&gt; getMapSortedByValueAndKey() {
+<span class="fc" id="L36">        Map&lt;T, Integer&gt; map = new TreeMap&lt;&gt;(Comparator.comparingInt(this.map::get)</span>
+<span class="fc" id="L37">                .reversed()</span>
+<span class="fc" id="L38">                .thenComparing(Object::toString));</span>
+<span class="fc" id="L39">        map.putAll(this.map);</span>
+<span class="fc" id="L40">        return map;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

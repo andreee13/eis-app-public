@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TermsDataSource.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">eis-app</a> &gt; <a href="index.source.html" class="el_package">it.unipd.dei.eis.data.sources</a> &gt; <span class="el_source">TermsDataSource.java</span></div><h1>TermsDataSource.java</h1><pre class="source lang-java linenums">package it.unipd.dei.eis.data.sources;
+
+import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.ling.CoreLabel;
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.util.logging.RedwoodConfiguration;
+import it.unipd.dei.eis.core.common.Context;
+import it.unipd.dei.eis.core.utils.SynchronizedFrequencyCounter;
+import it.unipd.dei.eis.data.codecs.TxtEncoder;
+import it.unipd.dei.eis.data.entities.TermsDataEntity;
+
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.InputStreamReader;
+import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+/**
+ * TermsDataSource is the data source for the terms.
+ * It contains the data structure of the terms.
+ */
+public class TermsDataSource extends DataSource&lt;TermsDataEntity, Map&lt;String, Integer&gt;&gt; {
+
+    /**
+     * The ID of the data source.
+     */
+    public static final String ID = &quot;TERMS&quot;;
+    /**
+     * The PATTERN is used to check if a word is a punctuation or other special symbols.
+     */
+<span class="fc" id="L35">    private static final Pattern PATTERN = Pattern.compile(&quot;[\\p{Punct}–“”‑‘'…’—−·]&quot;);</span>
+
+    /**
+     * The PROPERTIES field is used to set the StanfordCoreNLP pipeline.
+     */
+<span class="fc" id="L40">    private static final Properties PROPERTIES = new Properties() {{</span>
+<span class="fc" id="L41">        setProperty(&quot;annotators&quot;, &quot;tokenize&quot;);</span>
+<span class="fc" id="L42">    }};</span>
+
+    /**
+     * The STOPLIST_FILE_NAME field is used to store the name of the file containing the stoplist.
+     */
+    private static final String STOPLIST_FILE_NAME = &quot;stoplist.txt&quot;;
+
+    static {
+<span class="fc" id="L50">        RedwoodConfiguration.current()</span>
+<span class="fc" id="L51">                .clear()</span>
+<span class="fc" id="L52">                .apply();</span>
+    }
+
+    /**
+     * The PIPELINE field is used to process the text.
+     */
+<span class="fc" id="L58">    private static final StanfordCoreNLP PIPELINE = new StanfordCoreNLP(PROPERTIES);</span>
+
+    /**
+     * The frequencyCounter field is used to count the frequency of the terms.
+     */
+<span class="fc" id="L63">    private final SynchronizedFrequencyCounter&lt;String&gt; frequencyCounter = new SynchronizedFrequencyCounter&lt;&gt;();</span>
+
+    /**
+     * The stoplist field is used to store the stoplist.
+     */
+    private final List&lt;String&gt; stoplist;
+
+    /**
+     * TermsDataSource constructor.
+     * It is used to initialize the data source.
+     */
+    public TermsDataSource() {
+<span class="fc" id="L75">        super(ID, new TxtEncoder());</span>
+<span class="fc" id="L76">        stoplist = getStoplist();</span>
+<span class="fc" id="L77">    }</span>
+
+    /**
+     * The getStoplist method is used to get the stoplist from the file.
+     *
+     * @return the stoplist as a list of strings or an empty list if an error occurs
+     */
+    private List&lt;String&gt; getStoplist() {
+        try {
+<span class="fc" id="L86">            BufferedReader bufferedReader = new BufferedReader(</span>
+                    new InputStreamReader(
+<span class="fc" id="L88">                            Objects.requireNonNull(</span>
+<span class="fc" id="L89">                                    getClass().getClassLoader().getResourceAsStream(STOPLIST_FILE_NAME)</span>
+                            )
+                    )
+            );
+<span class="fc" id="L93">            List&lt;String&gt; stoplist = bufferedReader.lines()</span>
+<span class="fc" id="L94">                    .map(String::toLowerCase)</span>
+<span class="fc" id="L95">                    .collect(Collectors.toList());</span>
+<span class="fc" id="L96">            bufferedReader.close();</span>
+<span class="fc" id="L97">            return stoplist;</span>
+<span class="nc" id="L98">        } catch (Exception e) {</span>
+<span class="nc" id="L99">            return Collections.emptyList();</span>
+        }
+    }
+
+    /**
+     * The set method is used to set the data source.
+     * It is used to process the text and count the frequency of the terms.
+     * Multi threading is used to speed up the process.
+     *
+     * @param context  the context
+     * @param entities the list of entities
+     * @throws Exception if an error occurs
+     */
+    @Override
+    void setData(Context context, List&lt;TermsDataEntity&gt; entities) throws Exception {
+<span class="fc" id="L114">        List&lt;Future&lt;?&gt;&gt; futures = new ArrayList&lt;&gt;(entities.size());</span>
+<span class="fc" id="L115">        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime()</span>
+<span class="fc" id="L116">                .availableProcessors());</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">        for (TermsDataEntity s : entities) {</span>
+<span class="fc" id="L118">            futures.add(executorService.submit(() -&gt; PIPELINE.process(s.toString()</span>
+<span class="fc" id="L119">                            .toLowerCase())</span>
+<span class="fc" id="L120">                    .get(CoreAnnotations.TokensAnnotation.class)</span>
+<span class="fc" id="L121">                    .stream()</span>
+<span class="fc" id="L122">                    .map(CoreLabel::word)</span>
+<span class="fc" id="L123">                    .collect(Collectors.toSet())</span>
+<span class="fc" id="L124">                    .forEach(word -&gt; {</span>
+<span class="fc bfc" id="L125" title="All 4 branches covered.">                        if (!PATTERN.matcher(word).find() &amp;&amp; !stoplist.contains(word)) {</span>
+<span class="fc" id="L126">                            frequencyCounter.add(word);</span>
+                        }
+<span class="fc" id="L128">                    }))</span>
+            );
+<span class="fc" id="L130">        }</span>
+<span class="fc" id="L131">        executorService.shutdown();</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">        for (Future&lt;?&gt; future : futures) {</span>
+<span class="fc" id="L133">            future.get();</span>
+<span class="fc" id="L134">        }</span>
+<span class="fc" id="L135">        try (FileWriter fileWriter = new FileWriter(context.outputTerms)) {</span>
+<span class="fc" id="L136">            fileWriter.write(encoder.encode(frequencyCounter.getMapSortedByValueAndKey(), context.countTerms));</span>
+        }
+<span class="fc" id="L138">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
