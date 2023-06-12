@@ -46,11 +46,6 @@ public class TermsDataSource extends DataSource<TermsDataEntity, Map<String, Int
     }
 
     /**
-     * The frequencyCounter field is used to count the frequency of the terms.
-     */
-    private final SynchronizedFrequencyCounter<String> frequencyCounter = new SynchronizedFrequencyCounter<>();
-
-    /**
      * The stoplist field is used to store the stoplist.
      */
     private final List<String> stoplist;
@@ -109,12 +104,13 @@ public class TermsDataSource extends DataSource<TermsDataEntity, Map<String, Int
         List<Future<?>> futures = new ArrayList<>(entities.size());
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime()
                 .availableProcessors());
+        SynchronizedFrequencyCounter<String> frequencyCounter = new SynchronizedFrequencyCounter<>();
         for (TermsDataEntity s : entities) {
-            futures.add(executorService.submit(() -> pipeline.process(s.toString()
-                            .toLowerCase())
+            futures.add(executorService.submit(() -> pipeline.process(s.toString())
                     .get(CoreAnnotations.TokensAnnotation.class)
                     .stream()
                     .map(context.lemma ? CoreLabel::lemma : CoreLabel::word)
+                    .map(String::toLowerCase)
                     .collect(Collectors.toSet())
                     .forEach(term -> {
                         if (!PATTERN.matcher(term).find() && !stoplist.contains(term)) {
