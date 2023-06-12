@@ -47,6 +47,7 @@ class CsvDataEntityTest {
     @Test
     void contains() {
         assertTrue(entity.contains("title"));
+        assertTrue(entity.contains("body"));
     }
 
     /**

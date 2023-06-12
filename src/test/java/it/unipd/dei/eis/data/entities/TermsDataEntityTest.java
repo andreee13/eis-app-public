@@ -27,5 +27,6 @@ public class TermsDataEntityTest {
     void contains(){
         TermsDataEntity t = new TermsDataEntity("title", "body");
         assertTrue(t.contains("title"));
+        assertTrue(t.contains("body"));
     }
 }
