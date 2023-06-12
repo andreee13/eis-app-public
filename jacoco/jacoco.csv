@@ -16,7 +16,7 @@ eis-app,it.unipd.dei.eis.data.sources,CsvDataSource,0,30,0,0,0,7,0,2,0,2
 eis-app,it.unipd.dei.eis.data.sources,TermsDataSource.new Properties() {...},0,8,0,0,0,3,0,1,0,1
 eis-app,it.unipd.dei.eis.data.sources,TheGuardianDataSource,36,190,10,12,5,42,10,6,0,5
 eis-app,it.unipd.dei.eis.core.constants,Outputs,0,63,0,8,0,10,0,7,0,3
-eis-app,it.unipd.dei.eis.data.entities,CsvDataEntity,24,50,4,0,3,17,5,2,3,2
+eis-app,it.unipd.dei.eis.data.entities,CsvDataEntity,6,68,3,1,0,20,2,5,0,5
 eis-app,it.unipd.dei.eis.data.entities,TheGuardianDataEntity.Response.Result.Fields,6,0,0,0,3,0,1,0,1,0
 eis-app,it.unipd.dei.eis.data.entities,JsonDataEntity,24,21,4,0,3,8,5,1,3,1
 eis-app,it.unipd.dei.eis.data.entities,TheGuardianDataEntity,6,0,0,0,3,0,1,0,1,0

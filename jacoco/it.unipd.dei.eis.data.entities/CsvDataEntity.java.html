@@ -92,7 +92,7 @@ public class CsvDataEntity extends DataEntity {
      */
     @Override
     public boolean contains(String s) {
-<span class="nc bnc" id="L95" title="All 4 branches missed.">        return title.contains(s) || body.contains(s);</span>
+<span class="pc bpc" id="L95" title="3 of 4 branches missed.">        return title.contains(s) || body.contains(s);</span>
     }
 
     /**
@@ -103,7 +103,7 @@ public class CsvDataEntity extends DataEntity {
      */
     @Override
     public boolean before(Date date) {
-<span class="nc" id="L106">        return this.date.before(date);</span>
+<span class="fc" id="L106">        return this.date.before(date);</span>
     }
 
     /**
@@ -114,7 +114,7 @@ public class CsvDataEntity extends DataEntity {
      */
     @Override
     public boolean after(Date date) {
-<span class="nc" id="L117">        return this.date.after(date);</span>
+<span class="fc" id="L117">        return this.date.after(date);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
