@@ -21,8 +21,11 @@ class TxtEncoderTest {
         map.put("key1", 1);
         map.put("key2", 2);
         map.put("key3", 3);
-        String s = new TxtEncoder().encode(map, 2);
-        String expectedString = "key1 1\nkey2 2\n";
-        assertEquals(expectedString, s);
+        String s1 = new TxtEncoder().encode(map, 2);
+        String expectedString1 = "key1 1\nkey2 2\n";
+        assertEquals(expectedString1, s1);
+        String s2 = new TxtEncoder().encode(map);
+        String expectedString2 = "key1 1\nkey2 2\nkey3 3\n";
+        assertEquals(expectedString2, s2);
     }
 }

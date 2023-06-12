@@ -5,11 +5,27 @@
   <artifactId>eis-app</artifactId>
   <version>1.0</version>
   <description>A Java application that uses the Stanford CoreNLP library to extract the most frequent terms from news articles</description>
+  <url>${site.url}</url>
   <build>
     <plugins>
       <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.10</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${maven.javadoc.plugin.version}</version>
+        <configuration>
+          <show>private</show>
+        </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
@@ -22,7 +38,7 @@
           <dependency>
             <groupId>io.github.devacfr.maven.skins</groupId>
             <artifactId>reflow-velocity-tools</artifactId>
-            <version>${reflow-velocity-tools.version}</version>
+            <version>${reflow.version}</version>
           </dependency>
         </dependencies>
       </plugin>
@@ -117,26 +133,42 @@
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${maven.javadoc.plugin.version}</version>
+        <configuration>
+          <show>private</show>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.10</version>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
       </plugin>
     </plugins>
   </reporting>
   <properties>
-    <maven.surefire.plugin.version>3.1.0</maven.surefire.plugin.version>
-    <maven.resources.plugin.version>3.3.1</maven.resources.plugin.version>
-    <maven.surefire.report.plugin.version>3.1.0</maven.surefire.report.plugin.version>
-    <commons.cli.version>1.5.0</commons.cli.version>
-    <reflow-velocity-tools.version>2.3.3</reflow-velocity-tools.version>
     <gson.version>2.10.1</gson.version>
-    <maven.compiler.target>8</maven.compiler.target>
+    <reflow.version>2.3.3</reflow.version>
     <okhttp.version>4.11.0</okhttp.version>
-    <maven.shade.plugin.version>3.4.1</maven.shade.plugin.version>
-    <stanford.corenlp.version>4.5.4</stanford.corenlp.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.javadoc.plugin.version>3.5.0</maven.javadoc.plugin.version>
-    <maven.site.plugin.version>4.0.0-M8</maven.site.plugin.version>
-    <junit.jupiter.engine.version>5.9.2</junit.jupiter.engine.version>
-    <junit.jupiter.api.version>5.10.0-M1</junit.jupiter.api.version>
-    <maven.compiler.source>8</maven.compiler.source>
+    <commons.cli.version>1.5.0</commons.cli.version>
+    <site.url>https://andreee13.github.io/eis-app</site.url>
+    <maven.resources.plugin.version>3.3.1</maven.resources.plugin.version>
     <commons.csv.version>1.10.0</commons.csv.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.surefire.plugin.version>3.1.0</maven.surefire.plugin.version>
+    <maven.compiler.source>8</maven.compiler.source>
+    <stanford.corenlp.version>4.5.4</stanford.corenlp.version>
+    <junit.jupiter.engine.version>5.9.2</junit.jupiter.engine.version>
+    <maven.javadoc.plugin.version>3.5.0</maven.javadoc.plugin.version>
+    <maven.compiler.target>8</maven.compiler.target>
+    <maven.shade.plugin.version>3.4.1</maven.shade.plugin.version>
+    <maven.site.plugin.version>4.0.0-M4</maven.site.plugin.version>
+    <maven.surefire.report.plugin.version>3.1.0</maven.surefire.report.plugin.version>
+    <junit.jupiter.api.version>5.10.0-M1</junit.jupiter.api.version>
   </properties>
 </project>

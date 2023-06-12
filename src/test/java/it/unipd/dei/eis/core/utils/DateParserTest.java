@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test class for the DateParser class.
@@ -28,7 +27,9 @@ class DateParserTest {
      */
     @Test
     void tryFormat() {
-        String s = DateParser.tryFormat(new Date());
-        assertNotNull(s);
+        String s1 = DateParser.tryFormat(new Date());
+        assertNotNull(s1);
+        String s2 = DateParser.tryFormat(null);
+        assertNull(s2);
     }
 }

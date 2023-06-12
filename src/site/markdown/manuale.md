@@ -77,7 +77,9 @@ Sono stati utilizzati i seguenti design pattern:
 
 ### Jar
 
-#### Requisiti minimi
+La build produce un file `jar` eseguibile.
+
+**Requisiti minimi**
 
 - _JDK 8_
 - _Maven 3.3.1_
@@ -88,7 +90,9 @@ $ mvn clean package -DskipTests
 
 ### Dockerfile
 
-#### Requisiti minimi
+La build produce un'immagine Docker.
+
+**Requisiti minimi**
 
 - _Docker 17.05_
 
@@ -101,6 +105,8 @@ $ docker build -t eis-app .
 ## Esecuzione
 
 ### Jar
+
+L'esecuzione richiede il file `jar` prodotto dalla sezione precedente.
 
     $ java -jar <jarfile> <source> [options]
 
@@ -130,6 +136,11 @@ $ docker build -t eis-app .
 
 ### Docker Compose
 
+Modificare il file `docker-compose.yml` con le opzioni desiderate ed eseguire il comando seguente.
+
+Non è necessario generare l'immagine Docker in precedenza poichè automaticamente costruita da Docker Compose se non
+presente nel sistema.
+
     $ docker-compose up
 
 ---
@@ -138,9 +149,14 @@ $ docker build -t eis-app .
 
 ### Test unitari
 
+I test unitari sono stati implementati con JUnit 5. Per eseguire i test di The Guardian API è necessario specificare la
+variabile d'ambiente `THE_GUARDIAN_API_KEY`.
+
     $ mvn test
 
 ### Report
+
+Il report dei test viene generato nella cartella `target/surefire-reports`.
 
     $ mvn surefire-report:report
 
@@ -150,19 +166,34 @@ $ docker build -t eis-app .
 
 ### Javadoc
 
+I Javadoc vengono generati in formato HTML nella cartella `target/site/apidocs`.
+
     $ mvn javadoc:javadoc
 
 #### Test
 
+I Javadoc dei test vengono generati in formato HTML nella cartella `target/site/testapidocs`.
+
     $ mvn javadoc:test-javadoc
 
+### Jacoco
+
+Il report di Jacoco viene generato nella cartella `target/site/jacoco`.
+
+    $ mvn jacoco:report
+
 ### Maven Site
+
+Tutta la documentazione completa, inclusi i report delle sezioni precedenti, possono essere generati in formato HTML nella
+cartella `target/site`.
 
     $ mvn site
 
 ---
 
 ## Librerie utilizzate
+
+Le librerie utilizzate sono:
 
 - [Apache Commons CLI v1.5.0](https://commons.apache.org/proper/commons-cli/): libreria Java per la gestione di opzioni
   da riga

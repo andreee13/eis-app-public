@@ -18,6 +18,7 @@ public class DownloadControllerTest {
         Context context = new ContextBuilder()
                 .setUseCase(UseCases.DOWNLOAD)
                 .setSource("src/test/resources/file.csv")
+                .setOutputArticles("articles.json")
                 .setCountArticles(10)
                 .build();
         new DownloadController().execute(context);

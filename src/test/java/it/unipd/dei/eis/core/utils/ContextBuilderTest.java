@@ -20,6 +20,7 @@ class ContextBuilderTest {
                 .setSource("file.csv")
                 .setCountArticles(1)
                 .setUseCase(UseCases.DOWNLOAD)
+                .setApiKey("key")
                 .build();
         assertEquals("file.csv", context.source);
     }
