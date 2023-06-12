@@ -19,7 +19,7 @@ jobs:
           java-version: '8'
           distribution: 'temurin'
           cache: maven
-      - name: Maven site
+      - name: Build with Maven
         env:
           THE_GUARDIAN_API_KEY: ${{ secrets.THE_GUARDIAN_API_KEY }}
         run: mvn clean -B site
@@ -28,12 +28,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./target/site
-      - name: Maven package
-        env:
-          THE_GUARDIAN_API_KEY: ${{ secrets.THE_GUARDIAN_API_KEY }}
-        run: mvn clean -B package
-      - name: Archive artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: app
-          path: target/*.jar
