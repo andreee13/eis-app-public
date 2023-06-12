@@ -2,11 +2,7 @@
 
 import it.unipd.dei.eis.core.common.Context;
 import it.unipd.dei.eis.domain.use_cases.UseCaseFactory;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.*;
 
 /**
  * Bootstrapper is the class that starts the application.
@@ -17,12 +13,12 @@ public class Bootstrapper {
     /**
      * The OPTIONS field contains the command line options.
      */
-<span class="fc" id="L20">    private static final Options OPTIONS = new Options();</span>
+<span class="fc" id="L16">    public static final Options OPTIONS = new Options();</span>
 
     /**
      * The PARSER field contains the command line parser.
      */
-<span class="fc" id="L25">    private static final DefaultParser PARSER = new DefaultParser();</span>
+<span class="fc" id="L21">    public static final DefaultParser PARSER = new DefaultParser();</span>
 
     /**
      * The HELP_MESSAGE field contains the help message.
@@ -30,80 +26,80 @@ public class Bootstrapper {
     private static final String HELP_MESSAGE = &quot;java -jar &lt;jarfile&gt; &lt;source&gt; [options]&quot;;
 
     static {
-<span class="fc" id="L33">        OPTIONS.addOption(Option.builder()</span>
-<span class="fc" id="L34">                .option(&quot;h&quot;)</span>
-<span class="fc" id="L35">                .longOpt(&quot;help&quot;)</span>
-<span class="fc" id="L36">                .desc(&quot;Print this message&quot;)</span>
-<span class="fc" id="L37">                .build());</span>
-<span class="fc" id="L38">        OPTIONS.addOption(Option.builder()</span>
-<span class="fc" id="L39">                .option(&quot;d&quot;)</span>
-<span class="fc" id="L40">                .longOpt(&quot;download&quot;)</span>
-<span class="fc" id="L41">                .desc(&quot;Download only&quot;)</span>
-<span class="fc" id="L42">                .build());</span>
-<span class="fc" id="L43">        OPTIONS.addOption(Option.builder()</span>
-<span class="fc" id="L44">                .option(&quot;e&quot;)</span>
-<span class="fc" id="L45">                .longOpt(&quot;extract&quot;)</span>
-<span class="fc" id="L46">                .desc(&quot;Extract only&quot;)</span>
-<span class="fc" id="L47">                .build());</span>
-<span class="fc" id="L48">        OPTIONS.addOption(Option.builder()</span>
-<span class="fc" id="L49">                .option(&quot;oa&quot;)</span>
-<span class="fc" id="L50">                .longOpt(&quot;output-articles&quot;)</span>
-<span class="fc" id="L51">                .desc(&quot;Output articles file name&quot;)</span>
-<span class="fc" id="L52">                .hasArg()</span>
-<span class="fc" id="L53">                .argName(&quot;file&quot;)</span>
-<span class="fc" id="L54">                .build());</span>
-<span class="fc" id="L55">        OPTIONS.addOption(Option.builder()</span>
-<span class="fc" id="L56">                .option(&quot;ot&quot;)</span>
-<span class="fc" id="L57">                .longOpt(&quot;output-terms&quot;)</span>
-<span class="fc" id="L58">                .desc(&quot;Output terms file name&quot;)</span>
-<span class="fc" id="L59">                .hasArg()</span>
-<span class="fc" id="L60">                .argName(&quot;file&quot;)</span>
-<span class="fc" id="L61">                .build());</span>
-<span class="fc" id="L62">        OPTIONS.addOption(Option.builder()</span>
-<span class="fc" id="L63">                .option(&quot;q&quot;)</span>
-<span class="fc" id="L64">                .longOpt(&quot;query&quot;)</span>
-<span class="fc" id="L65">                .desc(&quot;Search query&quot;)</span>
-<span class="fc" id="L66">                .hasArg()</span>
-<span class="fc" id="L67">                .argName(&quot;string&quot;)</span>
-<span class="fc" id="L68">                .build());</span>
-<span class="fc" id="L69">        OPTIONS.addOption(Option.builder()</span>
-<span class="fc" id="L70">                .option(&quot;ct&quot;)</span>
-<span class="fc" id="L71">                .longOpt(&quot;count-terms&quot;)</span>
-<span class="fc" id="L72">                .desc(&quot;Number of terms&quot;)</span>
-<span class="fc" id="L73">                .hasArg()</span>
-<span class="fc" id="L74">                .argName(&quot;integer&quot;)</span>
-<span class="fc" id="L75">                .type(Number.class)</span>
-<span class="fc" id="L76">                .build());</span>
-<span class="fc" id="L77">        OPTIONS.addOption(Option.builder()</span>
-<span class="fc" id="L78">                .option(&quot;ca&quot;)</span>
-<span class="fc" id="L79">                .longOpt(&quot;count-articles&quot;)</span>
-<span class="fc" id="L80">                .desc(&quot;Number of articles&quot;)</span>
-<span class="fc" id="L81">                .hasArg()</span>
-<span class="fc" id="L82">                .argName(&quot;integer&quot;)</span>
-<span class="fc" id="L83">                .type(Number.class)</span>
-<span class="fc" id="L84">                .build());</span>
-<span class="fc" id="L85">        OPTIONS.addOption(Option.builder()</span>
-<span class="fc" id="L86">                .option(&quot;f&quot;)</span>
-<span class="fc" id="L87">                .longOpt(&quot;from&quot;)</span>
-<span class="fc" id="L88">                .desc(&quot;From date&quot;)</span>
-<span class="fc" id="L89">                .hasArg()</span>
-<span class="fc" id="L90">                .argName(&quot;date&quot;)</span>
-<span class="fc" id="L91">                .build());</span>
-<span class="fc" id="L92">        OPTIONS.addOption(Option.builder()</span>
-<span class="fc" id="L93">                .option(&quot;t&quot;)</span>
-<span class="fc" id="L94">                .longOpt(&quot;to&quot;)</span>
-<span class="fc" id="L95">                .desc(&quot;To date&quot;)</span>
-<span class="fc" id="L96">                .hasArg()</span>
-<span class="fc" id="L97">                .argName(&quot;date&quot;)</span>
-<span class="fc" id="L98">                .build());</span>
-<span class="fc" id="L99">        OPTIONS.addOption(Option.builder()</span>
-<span class="fc" id="L100">                .option(&quot;k&quot;)</span>
-<span class="fc" id="L101">                .longOpt(&quot;api-key&quot;)</span>
-<span class="fc" id="L102">                .desc(&quot;API key&quot;)</span>
-<span class="fc" id="L103">                .hasArg()</span>
-<span class="fc" id="L104">                .argName(&quot;string&quot;)</span>
-<span class="fc" id="L105">                .build());</span>
-<span class="fc" id="L106">    }</span>
+<span class="fc" id="L29">        OPTIONS.addOption(Option.builder()</span>
+<span class="fc" id="L30">                .option(&quot;h&quot;)</span>
+<span class="fc" id="L31">                .longOpt(&quot;help&quot;)</span>
+<span class="fc" id="L32">                .desc(&quot;Print this message&quot;)</span>
+<span class="fc" id="L33">                .build());</span>
+<span class="fc" id="L34">        OPTIONS.addOption(Option.builder()</span>
+<span class="fc" id="L35">                .option(&quot;d&quot;)</span>
+<span class="fc" id="L36">                .longOpt(&quot;download&quot;)</span>
+<span class="fc" id="L37">                .desc(&quot;Download only&quot;)</span>
+<span class="fc" id="L38">                .build());</span>
+<span class="fc" id="L39">        OPTIONS.addOption(Option.builder()</span>
+<span class="fc" id="L40">                .option(&quot;e&quot;)</span>
+<span class="fc" id="L41">                .longOpt(&quot;extract&quot;)</span>
+<span class="fc" id="L42">                .desc(&quot;Extract only&quot;)</span>
+<span class="fc" id="L43">                .build());</span>
+<span class="fc" id="L44">        OPTIONS.addOption(Option.builder()</span>
+<span class="fc" id="L45">                .option(&quot;oa&quot;)</span>
+<span class="fc" id="L46">                .longOpt(&quot;output-articles&quot;)</span>
+<span class="fc" id="L47">                .desc(&quot;Output articles file name&quot;)</span>
+<span class="fc" id="L48">                .hasArg()</span>
+<span class="fc" id="L49">                .argName(&quot;file&quot;)</span>
+<span class="fc" id="L50">                .build());</span>
+<span class="fc" id="L51">        OPTIONS.addOption(Option.builder()</span>
+<span class="fc" id="L52">                .option(&quot;ot&quot;)</span>
+<span class="fc" id="L53">                .longOpt(&quot;output-terms&quot;)</span>
+<span class="fc" id="L54">                .desc(&quot;Output terms file name&quot;)</span>
+<span class="fc" id="L55">                .hasArg()</span>
+<span class="fc" id="L56">                .argName(&quot;file&quot;)</span>
+<span class="fc" id="L57">                .build());</span>
+<span class="fc" id="L58">        OPTIONS.addOption(Option.builder()</span>
+<span class="fc" id="L59">                .option(&quot;q&quot;)</span>
+<span class="fc" id="L60">                .longOpt(&quot;query&quot;)</span>
+<span class="fc" id="L61">                .desc(&quot;Search query&quot;)</span>
+<span class="fc" id="L62">                .hasArg()</span>
+<span class="fc" id="L63">                .argName(&quot;string&quot;)</span>
+<span class="fc" id="L64">                .build());</span>
+<span class="fc" id="L65">        OPTIONS.addOption(Option.builder()</span>
+<span class="fc" id="L66">                .option(&quot;ct&quot;)</span>
+<span class="fc" id="L67">                .longOpt(&quot;count-terms&quot;)</span>
+<span class="fc" id="L68">                .desc(&quot;Number of terms&quot;)</span>
+<span class="fc" id="L69">                .hasArg()</span>
+<span class="fc" id="L70">                .argName(&quot;integer&quot;)</span>
+<span class="fc" id="L71">                .type(Number.class)</span>
+<span class="fc" id="L72">                .build());</span>
+<span class="fc" id="L73">        OPTIONS.addOption(Option.builder()</span>
+<span class="fc" id="L74">                .option(&quot;ca&quot;)</span>
+<span class="fc" id="L75">                .longOpt(&quot;count-articles&quot;)</span>
+<span class="fc" id="L76">                .desc(&quot;Number of articles&quot;)</span>
+<span class="fc" id="L77">                .hasArg()</span>
+<span class="fc" id="L78">                .argName(&quot;integer&quot;)</span>
+<span class="fc" id="L79">                .type(Number.class)</span>
+<span class="fc" id="L80">                .build());</span>
+<span class="fc" id="L81">        OPTIONS.addOption(Option.builder()</span>
+<span class="fc" id="L82">                .option(&quot;f&quot;)</span>
+<span class="fc" id="L83">                .longOpt(&quot;from&quot;)</span>
+<span class="fc" id="L84">                .desc(&quot;From date&quot;)</span>
+<span class="fc" id="L85">                .hasArg()</span>
+<span class="fc" id="L86">                .argName(&quot;date&quot;)</span>
+<span class="fc" id="L87">                .build());</span>
+<span class="fc" id="L88">        OPTIONS.addOption(Option.builder()</span>
+<span class="fc" id="L89">                .option(&quot;t&quot;)</span>
+<span class="fc" id="L90">                .longOpt(&quot;to&quot;)</span>
+<span class="fc" id="L91">                .desc(&quot;To date&quot;)</span>
+<span class="fc" id="L92">                .hasArg()</span>
+<span class="fc" id="L93">                .argName(&quot;date&quot;)</span>
+<span class="fc" id="L94">                .build());</span>
+<span class="fc" id="L95">        OPTIONS.addOption(Option.builder()</span>
+<span class="fc" id="L96">                .option(&quot;k&quot;)</span>
+<span class="fc" id="L97">                .longOpt(&quot;api-key&quot;)</span>
+<span class="fc" id="L98">                .desc(&quot;API key&quot;)</span>
+<span class="fc" id="L99">                .hasArg()</span>
+<span class="fc" id="L100">                .argName(&quot;string&quot;)</span>
+<span class="fc" id="L101">                .build());</span>
+<span class="fc" id="L102">    }</span>
 
     /**
      * The args field contains the command line arguments.
@@ -115,27 +111,27 @@ public class Bootstrapper {
      *
      * @param args the command line arguments
      */
-<span class="fc" id="L118">    public Bootstrapper(String[] args) {</span>
-<span class="fc" id="L119">        this.args = args;</span>
-<span class="fc" id="L120">    }</span>
+<span class="fc" id="L114">    public Bootstrapper(String[] args) {</span>
+<span class="fc" id="L115">        this.args = args;</span>
+<span class="fc" id="L116">    }</span>
 
     /**
      * The launch method parses the command line arguments and calls the correct use case.
      */
     public void launch() {
         try {
-<span class="fc" id="L127">            Context context = Context.fromCommandLine(PARSER.parse(OPTIONS, args));</span>
-<span class="fc" id="L128">            UseCaseFactory.create(context.useCase)</span>
-<span class="fc" id="L129">                    .run(context);</span>
-<span class="fc" id="L130">        } catch (ParseException e) {</span>
-<span class="fc" id="L131">            new HelpFormatter().printHelp(</span>
+<span class="fc" id="L123">            Context context = Context.fromCommandLine(PARSER.parse(OPTIONS, args));</span>
+<span class="fc" id="L124">            UseCaseFactory.create(context.useCase)</span>
+<span class="fc" id="L125">                    .run(context);</span>
+<span class="fc" id="L126">        } catch (ParseException e) {</span>
+<span class="fc" id="L127">            new HelpFormatter().printHelp(</span>
                     HELP_MESSAGE,
                     OPTIONS
             );
-<span class="nc" id="L135">        } catch (RuntimeException e) {</span>
-<span class="nc" id="L136">            System.err.println(e.getMessage());</span>
-<span class="nc" id="L137">            System.exit(1);</span>
-<span class="fc" id="L138">        }</span>
-<span class="fc" id="L139">    }</span>
+<span class="nc" id="L131">        } catch (RuntimeException e) {</span>
+<span class="nc" id="L132">            System.err.println(e.getMessage());</span>
+<span class="nc" id="L133">            System.exit(1);</span>
+<span class="fc" id="L134">        }</span>
+<span class="fc" id="L135">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

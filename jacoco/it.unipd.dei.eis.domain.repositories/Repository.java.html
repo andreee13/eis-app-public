@@ -42,8 +42,8 @@ public abstract class Repository&lt;S extends DataSource&lt;E, ?&gt;, E extends 
      * @throws Exception                     if an error occurs
      */
     final public List&lt;M&gt; pull(Context context) throws Exception {
-<span class="pc bpc" id="L45" title="1 of 2 branches missed.">        if (isCached(context)) {</span>
-<span class="nc" id="L46">            return getCache(context);</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        if (isCached(context)) {</span>
+<span class="fc" id="L46">            return getCache(context);</span>
         }
 <span class="fc" id="L48">        List&lt;M&gt; models = pullData(context);</span>
 <span class="fc" id="L49">        putCache(context, models);</span>
