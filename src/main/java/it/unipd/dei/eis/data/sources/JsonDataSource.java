@@ -5,6 +5,7 @@ import it.unipd.dei.eis.data.codecs.JsonDecoder;
 import it.unipd.dei.eis.data.codecs.JsonEncoder;
 import it.unipd.dei.eis.data.entities.JsonDataEntity;
 
+import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -39,7 +40,7 @@ public class JsonDataSource extends DataSource<JsonDataEntity, Object> {
     @Override
     public List<JsonDataEntity> getData(Context context) throws Exception {
         return Arrays.asList((JsonDataEntity[]) Objects.requireNonNull(decoder)
-                .decode(Files.readString(Paths.get(context.source)), JsonDataEntity[].class));
+                .decode(new String(Files.readAllBytes(Paths.get(context.source))), JsonDataEntity[].class));
     }
 
     /**
@@ -49,10 +50,12 @@ public class JsonDataSource extends DataSource<JsonDataEntity, Object> {
      * @param data    the list of articles
      */
     @Override
-    public void setData(Context context, List<JsonDataEntity> data) throws Exception {
-        Files.writeString(
-                Paths.get(context.outputArticles),
-                Objects.requireNonNull(encoder).encode(data.toArray(), JsonDataEntity[].class)
-        );
+    public void setData(Context context, List<JsonDataEntity> data) {
+        try (FileWriter fileWriter = new FileWriter(context.outputArticles)) {
+            fileWriter.write(Objects.requireNonNull(encoder)
+                    .encode(data.toArray(), JsonDataEntity[].class));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

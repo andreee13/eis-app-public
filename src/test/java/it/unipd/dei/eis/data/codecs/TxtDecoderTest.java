@@ -27,8 +27,10 @@ public class TxtDecoderTest {
         expectedMap.put("nuclear", 10);
         expectedMap.put("gas", 5);
         Map<String, Integer> actualMap = new TxtDecoder().decode(
-                Files.readString(
-                        Paths.get("src/test/resources/terms.txt")
+                new String(
+                        Files.readAllBytes(
+                                Paths.get("src/test/resources/terms.txt")
+                        )
                 )
         );
         assertEquals(expectedMap, actualMap);

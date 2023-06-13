@@ -21,8 +21,10 @@ class JsonDecoderTest {
     @Test
     public void decode() throws Exception {
         JsonDataEntity[] data = (JsonDataEntity[]) new JsonDecoder().decode(
-                Files.readString(
-                        Paths.get("src/test/resources/articles.json")
+                new String(
+                        Files.readAllBytes(
+                                Paths.get("src/test/resources/articles.json")
+                        )
                 ),
                 JsonDataEntity[].class
         );

@@ -10,9 +10,8 @@ import it.unipd.dei.eis.data.codecs.TxtEncoder;
 import it.unipd.dei.eis.data.entities.TermsDataEntity;
 
 import java.io.BufferedReader;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -122,9 +121,8 @@ public class TermsDataSource extends DataSource<TermsDataEntity, Map<String, Int
             executorService.shutdownNow();
             throw new Exception("Maximum time exceeded, the process has been interrupted.");
         }
-        Files.writeString(
-                Paths.get(context.outputTerms),
-                encoder.encode(frequencyCounter.getMapSortedByValueAndKey(), context.countTerms)
-        );
+        try (FileWriter fileWriter = new FileWriter(context.outputTerms)) {
+            fileWriter.write(encoder.encode(frequencyCounter.getMapSortedByValueAndKey(), context.countTerms));
+        }
     }
 }
