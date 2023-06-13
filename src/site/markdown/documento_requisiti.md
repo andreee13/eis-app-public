@@ -145,7 +145,7 @@ sono stati implementati privilegi.
 
 ### Compatibilità
 
-Il sistema è supportato da tutti i sistemi operativi che supportano almeno _Java 8_.
+Il sistema è supportato da tutti i sistemi operativi che supportano almeno _Java 11_.
 
 ### Assunzioni
 

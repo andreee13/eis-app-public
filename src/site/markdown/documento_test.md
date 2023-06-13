@@ -120,7 +120,7 @@ criteri sono stati considerati raggiunti.
 
 **Requisiti minimi**
 
-- _JDK 8_
+- _JDK 11_
 - _Maven 3.3.1_
 
 ### Dati di test

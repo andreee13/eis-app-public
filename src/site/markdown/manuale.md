@@ -83,7 +83,7 @@ La build produce un file `jar` eseguibile.
 
 **Requisiti minimi**
 
-- _JDK 8_
+- _JDK 11_
 - _Maven 3.3.1_
 
 ```
@@ -255,8 +255,8 @@ Le librerie utilizzate sono:
 
 ## Note
 
-Il codice è stato scritto in Java 8 per una questione di compatibilità. Però, dopo aver effettuato vari test con differenti versioni del
-linguaggio, la versione scelta è stata la 11 per via di una differenza di performance in fase di estrazione.
+La sintassi del codice è compatibile con Java 8 però, dopo aver effettuato vari test con differenti versioni del
+linguaggio, la versione scelta è stata la 11 per via di una differenza di performance in fase di estrazione dei lemmi.
 
 Le features che sono state sfruttate sono:
 
@@ -265,8 +265,7 @@ Le features che sono state sfruttate sono:
 
 Di seguito è riportato un test che mostra a grandi linee la differenza di performance tra le due versioni.
 
-
-### Test delle performance
+### Test Java 8 vs Java 11
 
 #### Configurazione utilizzata
 
@@ -280,6 +279,10 @@ Di seguito è riportato un test che mostra a grandi linee la differenza di perfo
 
 #### Risultati
 
-**Java 8**: 13.9 secondi
+_Sono state effettuate 10 esecuzioni per versione di JDK._
 
-**Java 11**: 7.0 secondi
+| JDK                | Tempo medio  |
+|--------------------|--------------|
+| Eclipse Temurin 8  | 14.1 secondi |
+| Eclipse Temurin 11 | 7.2 secondi  |
+
