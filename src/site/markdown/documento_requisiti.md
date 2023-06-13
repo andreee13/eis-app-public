@@ -81,7 +81,7 @@ Sono possibili le seguenti specificazioni:
 - un numero massimo di termini da estrarre
 - nome file di output articoli
 - nome del file di output termini
-- estrarre lemmi o solo parole senza punteggiatura 
+- estrarre lemmi o solo parole senza punteggiatura
 
 #### Download
 
@@ -231,18 +231,14 @@ nuove modalità di memorizzazione degli articoli e nuove strutture per memorizza
 
 ![Use Cases Diagram](use_cases_diagram.svg)
 
-#### Descrizione
-
-Descrizione...
-
 #### Descrizione in linguaggio naturale strutturato
 
-|||
-|--------|---------|
-|Funzione|Effettuare operazioni su articoli di giornale|
-|Descrizione|L'utente finale è in grado di scaricare articoli, estrarre i termini più frequenti e visualizzare i risultati o effettuare entrambe le operazioni in sequenza|
-|Sorgente|The Guardian API, The New York Times CSV, File provenienti da un download precedente|
-|Opzioni supportate|Da specificare per eseguire una determinata operazione: fonte; nome file di output articoli [-oa]; filtri di ricerca [-q]; filtri temporali [-f] e [-t]; numero di articoli [-ca]; nome del file di output termini [-ot]; numero di parole da estrarre [-ct]; estrarre lemmi o solo parole senza punteggiatura [-l]|
-|Output|_file JSON_ contenente la lista degli articoli, quando è eseguito il download; _file txt_ contenente i termini più ricorrenti, quando è eseguita l'estrazione; _file JSON_ e _file txt_, quando sono eseguiti download ed estrazione in sequenza|
-|Azione|In base al comando ricevuto il programma procede al download degli articoli [-d], scaricandoli da testate giornalistiche tramite le fonti supportate e salvandoli in un formato comune; all'estrazione dei termini più ricorrenti [-e] in un file di testo da un articolo modellizzato, precedentemente scaricato; o al download e all'estrazione in sequenza, generando i rispettivi output|
-|Richiede|Fonte e opzioni supportate per il download; File da cui estrarre i termini e opzioni supportate per l'estrazione|
+|                    |                                                                                                                                                                                                                                                                                                                                                                                              |
+|--------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Funzione           | Effettuare operazioni su articoli di giornale                                                                                                                                                                                                                                                                                                                                                |
+| Descrizione        | L'utente finale è in grado di scaricare articoli, estrarre i termini più frequenti e visualizzare i risultati o effettuare entrambe le operazioni in sequenza                                                                                                                                                                                                                                |
+| Sorgente           | The Guardian API, The New York Times CSV, File provenienti da un download precedente                                                                                                                                                                                                                                                                                                         |
+| Opzioni supportate | Da specificare per eseguire una determinata operazione: fonte; nome file di output articoli [-oa]; filtri di ricerca [-q]; filtri temporali [-f] e [-t]; numero di articoli [-ca]; nome del file di output termini [-ot]; numero di parole da estrarre [-ct]; estrarre lemmi o solo parole senza punteggiatura [-l]                                                                          |
+| Output             | _file JSON_ contenente la lista degli articoli, quando è eseguito il download; _file txt_ contenente i termini più ricorrenti, quando è eseguita l'estrazione; _file JSON_ e _file txt_, quando sono eseguiti download ed estrazione in sequenza                                                                                                                                             |
+| Azione             | In base al comando ricevuto il programma procede al download degli articoli [-d], scaricandoli da testate giornalistiche tramite le fonti supportate e salvandoli in un formato comune; all'estrazione dei termini più ricorrenti [-e] in un file di testo da un articolo modellizzato, precedentemente scaricato; o al download e all'estrazione in sequenza, generando i rispettivi output |
+| Richiede           | Fonte e opzioni supportate per il download; File da cui estrarre i termini e opzioni supportate per l'estrazione                                                                                                                                                                                                                                                                             |

@@ -285,4 +285,3 @@ _Sono state effettuate 10 esecuzioni per versione di JDK._
 |--------------------|--------------|
 | Eclipse Temurin 8  | 14.1 secondi |
 | Eclipse Temurin 11 | 7.2 secondi  |
-
