@@ -14,8 +14,6 @@
     <properties>
         <java.version>11</java.version>
         <site.url>https://andreee13.github.io/eis-app</site.url>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.resources.plugin.version>3.3.1</maven.resources.plugin.version>
         <maven.surefire.report.plugin.version>3.1.0</maven.surefire.report.plugin.version>
@@ -73,7 +71,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <release>11</release>
+                    <release>${java.version}</release>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
             <plugin>
