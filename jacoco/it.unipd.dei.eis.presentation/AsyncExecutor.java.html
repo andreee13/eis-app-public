@@ -117,7 +117,7 @@ public class AsyncExecutor {
      * @param name     the name of the function
      */
     public synchronized void execute(Supplier&lt;Either&lt;Failure, Success&gt;&gt; supplier, String name) {
-<span class="fc" id="L120">        System.out.printf(&quot;%s:\n&quot;, name);</span>
+<span class="fc" id="L120">        System.out.printf(&quot;%s:%n&quot;, name);</span>
 <span class="fc" id="L121">        startTime = System.currentTimeMillis();</span>
 <span class="fc" id="L122">        loadingThread = getLoadingThread();</span>
 <span class="fc" id="L123">        loadingThread.start();</span>
@@ -128,7 +128,7 @@ public class AsyncExecutor {
 <span class="nc" id="L128">                abort(result.failure.exception);</span>
             }
 <span class="fc" id="L130">            loadingThread.interrupt();</span>
-<span class="fc" id="L131">            System.out.printf(ANSI_GREEN + &quot;\r[✓] Success • %s\n\n&quot;, getLoadingTime() + ANSI_RESET);</span>
+<span class="fc" id="L131">            System.out.printf(ANSI_GREEN + &quot;\r[✓] Success • %s%n%n&quot;, getLoadingTime() + ANSI_RESET);</span>
 <span class="nc" id="L132">        } catch (InterruptedException | ExecutionException e) {</span>
 <span class="nc" id="L133">            abort(e);</span>
 <span class="fc" id="L134">        }</span>

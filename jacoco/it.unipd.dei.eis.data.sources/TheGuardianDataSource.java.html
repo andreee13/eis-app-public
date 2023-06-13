@@ -103,8 +103,8 @@ public class TheGuardianDataSource extends DataSource&lt;TheGuardianDataEntity, 
 <span class="fc" id="L103">                        .addPathSegment(SEARCH_ENDPOINT)</span>
 <span class="fc" id="L104">                        .addQueryParameter(&quot;api-key&quot;, apiKey)</span>
 <span class="fc" id="L105">                        .addQueryParameter(&quot;format&quot;, RESPONSE_FORMAT)</span>
-<span class="pc bpc" id="L106" title="1 of 2 branches missed.">                        .addQueryParameter(&quot;show-fields&quot;, FIELDS)</span>
-<span class="fc" id="L107">                        .addQueryParameter(&quot;page-size&quot;, String.valueOf(tempIndex == context.countArticles / MAX_PAGE_SIZE ? context.countArticles % MAX_PAGE_SIZE : MAX_PAGE_SIZE))</span>
+<span class="fc" id="L106">                        .addQueryParameter(&quot;show-fields&quot;, FIELDS)</span>
+<span class="pc bpc" id="L107" title="1 of 2 branches missed.">                        .addQueryParameter(&quot;page-size&quot;, String.valueOf(tempIndex == context.countArticles / MAX_PAGE_SIZE ? context.countArticles % MAX_PAGE_SIZE : MAX_PAGE_SIZE))</span>
 <span class="fc" id="L108">                        .addQueryParameter(&quot;page&quot;, String.valueOf(tempIndex + 1));</span>
 <span class="pc bpc" id="L109" title="1 of 2 branches missed.">                if (context.query != null) {</span>
 <span class="fc" id="L110">                    urlBuilder.addQueryParameter(&quot;q&quot;, context.query);</span>

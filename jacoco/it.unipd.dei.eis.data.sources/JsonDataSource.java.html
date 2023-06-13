@@ -5,7 +5,6 @@ import it.unipd.dei.eis.data.codecs.JsonDecoder;
 import it.unipd.dei.eis.data.codecs.JsonEncoder;
 import it.unipd.dei.eis.data.entities.JsonDataEntity;
 
-import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -27,8 +26,8 @@ public class JsonDataSource extends DataSource&lt;JsonDataEntity, Object&gt; {
      * JsonDataSource constructor.
      */
     public JsonDataSource() {
-<span class="fc" id="L30">        super(ID, new JsonDecoder(), new JsonEncoder());</span>
-<span class="fc" id="L31">    }</span>
+<span class="fc" id="L29">        super(ID, new JsonDecoder(), new JsonEncoder());</span>
+<span class="fc" id="L30">    }</span>
 
     /**
      * Returns the list of entities from the JSON data.
@@ -39,8 +38,8 @@ public class JsonDataSource extends DataSource&lt;JsonDataEntity, Object&gt; {
      */
     @Override
     public List&lt;JsonDataEntity&gt; getData(Context context) throws Exception {
-<span class="fc" id="L42">        return Arrays.asList((JsonDataEntity[]) Objects.requireNonNull(decoder)</span>
-<span class="fc" id="L43">                .decode(new String(Files.readAllBytes(Paths.get(context.source))), JsonDataEntity[].class));</span>
+<span class="fc" id="L41">        return Arrays.asList((JsonDataEntity[]) Objects.requireNonNull(decoder)</span>
+<span class="fc" id="L42">                .decode(Files.readString(Paths.get(context.source)), JsonDataEntity[].class));</span>
     }
 
     /**
@@ -50,13 +49,11 @@ public class JsonDataSource extends DataSource&lt;JsonDataEntity, Object&gt; {
      * @param data    the list of articles
      */
     @Override
-    public void setData(Context context, List&lt;JsonDataEntity&gt; data) {
-<span class="fc" id="L54">        try (FileWriter fileWriter = new FileWriter(context.outputArticles)) {</span>
-<span class="fc" id="L55">            fileWriter.write(Objects.requireNonNull(encoder)</span>
-<span class="fc" id="L56">                    .encode(data.toArray(), JsonDataEntity[].class));</span>
-<span class="nc" id="L57">        } catch (Exception e) {</span>
-<span class="nc" id="L58">            throw new RuntimeException(e);</span>
-<span class="fc" id="L59">        }</span>
-<span class="fc" id="L60">    }</span>
+    public void setData(Context context, List&lt;JsonDataEntity&gt; data) throws Exception {
+<span class="fc" id="L53">        Files.writeString(</span>
+<span class="fc" id="L54">                Paths.get(context.outputArticles),</span>
+<span class="fc" id="L55">                Objects.requireNonNull(encoder).encode(data.toArray(), JsonDataEntity[].class)</span>
+        );
+<span class="fc" id="L57">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

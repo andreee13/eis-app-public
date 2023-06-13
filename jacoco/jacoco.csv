@@ -1,19 +1,19 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-eis-app,it.unipd.dei.eis.domain.controllers,DownloadController,0,71,0,0,0,13,0,2,0,2
+eis-app,it.unipd.dei.eis.domain.controllers,DownloadController,0,47,0,0,0,13,0,2,0,2
 eis-app,it.unipd.dei.eis.domain.controllers,Controller,0,6,0,0,0,3,0,1,0,1
-eis-app,it.unipd.dei.eis.domain.controllers,TermsExtractorController,0,79,0,0,0,13,0,2,0,2
+eis-app,it.unipd.dei.eis.domain.controllers,TermsExtractorController,0,49,0,0,0,13,0,2,0,2
 eis-app,it.unipd.dei.eis.core.utils,DateParser,0,20,0,0,0,7,0,3,0,3
-eis-app,it.unipd.dei.eis.core.utils,SynchronizedFrequencyCounter,0,45,0,0,0,9,0,3,0,3
+eis-app,it.unipd.dei.eis.core.utils,SynchronizedFrequencyCounter,0,37,0,0,0,9,0,3,0,3
 eis-app,it.unipd.dei.eis.core.utils,IntegerParser,0,7,0,0,0,3,0,1,0,1
 eis-app,it.unipd.dei.eis.core.utils,ContextBuilder,0,84,0,0,0,24,0,13,0,13
 eis-app,it.unipd.dei.eis.presentation,Bootstrapper,0,200,0,0,0,92,0,3,0,3
-eis-app,it.unipd.dei.eis.presentation,AsyncExecutor,18,240,2,12,5,47,2,13,0,8
+eis-app,it.unipd.dei.eis.presentation,AsyncExecutor,18,234,2,12,5,47,2,13,0,8
 eis-app,it.unipd.dei.eis.presentation,AsyncExecutor.new PrintStream() {...},0,18,0,0,0,3,0,2,0,2
 eis-app,it.unipd.dei.eis.data.sources,DataSource,40,84,0,6,8,31,5,9,5,6
-eis-app,it.unipd.dei.eis.data.sources,TermsDataSource,3,182,0,12,2,44,0,12,0,6
-eis-app,it.unipd.dei.eis.data.sources,JsonDataSource,6,59,0,0,2,9,0,3,0,3
+eis-app,it.unipd.dei.eis.data.sources,TermsDataSource,11,161,1,11,4,41,1,11,0,6
+eis-app,it.unipd.dei.eis.data.sources,JsonDataSource,0,53,0,0,0,8,0,3,0,3
 eis-app,it.unipd.dei.eis.data.sources,CsvDataSource,0,30,0,0,0,7,0,2,0,2
-eis-app,it.unipd.dei.eis.data.sources,TheGuardianDataSource,36,190,10,12,5,42,10,6,0,5
+eis-app,it.unipd.dei.eis.data.sources,TheGuardianDataSource,36,188,10,12,5,42,10,6,0,5
 eis-app,it.unipd.dei.eis.core.constants,Outputs,0,63,0,8,0,10,0,7,0,3
 eis-app,it.unipd.dei.eis.data.entities,CsvDataEntity,2,86,4,8,0,20,4,7,0,5
 eis-app,it.unipd.dei.eis.data.entities,TheGuardianDataEntity.Response.Result.Fields,6,0,0,0,3,0,1,0,1,0
@@ -27,7 +27,7 @@ eis-app,it.unipd.dei.eis,App,0,9,0,0,0,3,0,2,0,2
 eis-app,it.unipd.dei.eis.domain.models,ArticleModel,0,43,0,0,0,8,0,1,0,1
 eis-app,it.unipd.dei.eis.data.codecs,TxtDecoder,0,29,0,0,0,4,0,5,0,5
 eis-app,it.unipd.dei.eis.data.codecs,JsonEncoder,0,12,0,0,0,3,0,3,0,3
-eis-app,it.unipd.dei.eis.data.codecs,CsvDecoder,0,24,0,0,0,7,0,3,0,3
+eis-app,it.unipd.dei.eis.data.codecs,CsvDecoder,0,22,0,0,0,7,0,3,0,3
 eis-app,it.unipd.dei.eis.data.codecs,JsonDecoder,0,16,0,0,0,3,0,3,0,3
 eis-app,it.unipd.dei.eis.data.codecs,TxtEncoder,0,53,0,4,0,14,0,4,0,2
 eis-app,it.unipd.dei.eis.core.enums,UseCases,0,58,0,8,0,11,0,6,0,2
@@ -46,4 +46,4 @@ eis-app,it.unipd.dei.eis.core.common,Either,0,35,0,4,0,8,0,7,0,5
 eis-app,it.unipd.dei.eis.core.common,Success,0,3,0,0,0,1,0,1,0,1
 eis-app,it.unipd.dei.eis.core.common,Cache,0,25,0,0,0,6,0,4,0,4
 eis-app,it.unipd.dei.eis.core.common,Failure,0,28,0,0,0,12,0,3,0,3
-eis-app,it.unipd.dei.eis.core.common,Context,6,247,9,23,0,45,9,10,0,3
+eis-app,it.unipd.dei.eis.core.common,Context,6,235,9,23,0,47,9,10,0,3

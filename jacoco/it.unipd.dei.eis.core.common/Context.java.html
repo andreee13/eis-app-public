@@ -149,12 +149,12 @@ public class Context {
         }
 <span class="fc" id="L150">        return new Context(</span>
 <span class="fc" id="L151">                UseCases.fromCommandLine(cmd),</span>
-<span class="pc bpc" id="L152" title="2 of 4 branches missed.">                cmd.getArgs()[0],</span>
-                oa == null ? DefaultConfig.JSON_FILE_NAME : oa,
-                ot == null ? DefaultConfig.TXT_FILE_NAME : ot,
-<span class="pc bpc" id="L155" title="1 of 2 branches missed.">                cmd.getOptionValue(&quot;query&quot;),</span>
+<span class="fc" id="L152">                cmd.getArgs()[0],</span>
+<span class="pc bpc" id="L153" title="1 of 2 branches missed.">                oa == null ? DefaultConfig.JSON_FILE_NAME : oa,</span>
+<span class="pc bpc" id="L154" title="1 of 2 branches missed.">                ot == null ? DefaultConfig.TXT_FILE_NAME : ot,</span>
+<span class="fc" id="L155">                cmd.getOptionValue(&quot;query&quot;),</span>
 <span class="pc bpc" id="L156" title="1 of 2 branches missed.">                ca == null ? DefaultConfig.ARTICLES_COUNT : ca,</span>
-<span class="pc" id="L157">                ct == null ? DefaultConfig.TERMS_COUNT : ct,</span>
+<span class="pc bpc" id="L157" title="1 of 2 branches missed.">                ct == null ? DefaultConfig.TERMS_COUNT : ct,</span>
 <span class="fc" id="L158">                DateParser.tryParse(cmd.getOptionValue(&quot;from&quot;)),</span>
 <span class="fc" id="L159">                DateParser.tryParse(cmd.getOptionValue(&quot;to&quot;)),</span>
 <span class="fc" id="L160">                cmd.getOptionValue(&quot;api-key&quot;),</span>
