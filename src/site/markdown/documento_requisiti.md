@@ -233,11 +233,10 @@ nuove modalità di memorizzazione degli articoli e nuove strutture per memorizza
 
 #### Descrizione
 
-Descrizione
+Descrizione...
 
 #### Descrizione in linguaggio naturale strutturato
 
-Descrizione in linguaggio naturale strutturato
 |||
 |--------|---------|
 |Funzione|Effettuare operazioni su articoli di giornale|

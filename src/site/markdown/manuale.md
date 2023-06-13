@@ -187,7 +187,8 @@ Il report della copertura dei test JaCoCo viene generato nella cartella `target/
 
 ### Maven Site
 
-Tutta la documentazione completa, inclusi i report delle sezioni precedenti, possono essere generati in formato HTML nella
+Tutta la documentazione completa, inclusi i report delle sezioni precedenti, possono essere generati in formato HTML
+nella
 cartella `target/site`.
 
     $ mvn site
@@ -249,3 +250,36 @@ Le librerie utilizzate sono:
     - [Test](https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/Test.html):
       annotazione
       che permette di definire un metodo di test.
+
+---
+
+## Note
+
+Il codice è stato scritto in Java 8 per una questione di compatibilità. Però, dopo aver effettuato vari test con differenti versioni del
+linguaggio, la versione scelta è stata la 11 per via di una differenza di performance in fase di estrazione.
+
+Le features che sono state sfruttate sono:
+
+- il miglioramento del compilatore
+- la miglior gestione delle stringhe
+
+Di seguito è riportato un test che mostra a grandi linee la differenza di performance tra le due versioni.
+
+
+### Test delle performance
+
+#### Configurazione utilizzata
+
+**OS**: _Windows 11_
+
+**CPU**: _Intel Core i5-8600 @ 3.10 GHz_
+
+**RAM**: _16 GB 2400 MHz DDR4_
+
+    $ file.csv -ca 1000 -ct 50 -l 
+
+#### Risultati
+
+**Java 8**: 13.9 secondi
+
+**Java 11**: 7.0 secondi
