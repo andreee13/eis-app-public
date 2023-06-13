@@ -12,9 +12,10 @@
         A Java application that uses the Stanford CoreNLP library to extract the most frequent terms from news articles
     </description>
     <properties>
+        <java.version>11</java.version>
         <site.url>https://andreee13.github.io/eis-app</site.url>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.resources.plugin.version>3.3.1</maven.resources.plugin.version>
         <maven.surefire.report.plugin.version>3.1.0</maven.surefire.report.plugin.version>
@@ -67,6 +68,14 @@
     </reporting>
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <release>11</release>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>

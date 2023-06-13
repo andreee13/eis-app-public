@@ -117,7 +117,7 @@ public class AsyncExecutor {
      * @param name     the name of the function
      */
     public synchronized void execute(Supplier<Either<Failure, Success>> supplier, String name) {
-        System.out.printf("%s:\n", name);
+        System.out.printf("%s:%n", name);
         startTime = System.currentTimeMillis();
         loadingThread = getLoadingThread();
         loadingThread.start();
@@ -128,7 +128,7 @@ public class AsyncExecutor {
                 abort(result.failure.exception);
             }
             loadingThread.interrupt();
-            System.out.printf(ANSI_GREEN + "\r[✓] Success • %s\n\n", getLoadingTime() + ANSI_RESET);
+            System.out.printf(ANSI_GREEN + "\r[✓] Success • %s%n%n", getLoadingTime() + ANSI_RESET);
         } catch (InterruptedException | ExecutionException e) {
             abort(e);
         }

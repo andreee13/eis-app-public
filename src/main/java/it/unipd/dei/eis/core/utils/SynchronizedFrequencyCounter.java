@@ -1,9 +1,9 @@
 package it.unipd.dei.eis.core.utils;
 
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * SynchronizedFrequencyCounter is the class used to count the frequency of an object in a thread-safe way.
@@ -15,15 +15,15 @@ public class SynchronizedFrequencyCounter<T> {
     /**
      * The map field is used to store the frequency of an object.
      */
-    final private Map<T, Integer> map = new HashMap<>();
+    final private Map<T, Integer> map = new ConcurrentHashMap<>();
 
     /**
      * The add method is used to add an object to the map.
      *
      * @param object the object
      */
-    public synchronized void add(T object) {
-        map.put(object, map.getOrDefault(object, 0) + 1);
+    public void add(T object) {
+        map.merge(object, 1, Integer::sum);
     }
 
     /**

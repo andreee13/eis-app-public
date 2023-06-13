@@ -24,6 +24,9 @@ class AsyncExecutorTest {
 
     /**
      * Utility method to get an Either instance and simulate a long operation.
+     *
+     * @param success Whether the operation should be successful or not
+     * @return Either instance
      */
     private Either<Failure, Success> getEither(boolean success) {
         try {

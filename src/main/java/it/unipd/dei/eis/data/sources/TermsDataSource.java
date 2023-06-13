@@ -10,12 +10,13 @@ import it.unipd.dei.eis.data.codecs.TxtEncoder;
 import it.unipd.dei.eis.data.entities.TermsDataEntity;
 
 import java.io.BufferedReader;
-import java.io.FileWriter;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -101,12 +102,10 @@ public class TermsDataSource extends DataSource<TermsDataEntity, Map<String, Int
             properties.setProperty("annotators", "tokenize");
         }
         StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
-        List<Future<?>> futures = new ArrayList<>(entities.size());
-        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime()
-                .availableProcessors());
+        ExecutorService executorService = Executors.newWorkStealingPool();
         SynchronizedFrequencyCounter<String> frequencyCounter = new SynchronizedFrequencyCounter<>();
         for (TermsDataEntity s : entities) {
-            futures.add(executorService.submit(() -> pipeline.process(s.toString())
+            executorService.execute(() -> pipeline.process(s.toString())
                     .get(CoreAnnotations.TokensAnnotation.class)
                     .stream()
                     .map(context.lemma ? CoreLabel::lemma : CoreLabel::word)
@@ -116,15 +115,16 @@ public class TermsDataSource extends DataSource<TermsDataEntity, Map<String, Int
                         if (!PATTERN.matcher(term).find() && !stoplist.contains(term)) {
                             frequencyCounter.add(term);
                         }
-                    }))
-            );
+                    }));
         }
         executorService.shutdown();
-        for (Future<?> future : futures) {
-            future.get();
+        if (!executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS)) {
+            executorService.shutdownNow();
+            throw new Exception("Maximum time exceeded, the process has been interrupted.");
         }
-        try (FileWriter fileWriter = new FileWriter(context.outputTerms)) {
-            fileWriter.write(encoder.encode(frequencyCounter.getMapSortedByValueAndKey(), context.countTerms));
-        }
+        Files.writeString(
+                Paths.get(context.outputTerms),
+                encoder.encode(frequencyCounter.getMapSortedByValueAndKey(), context.countTerms)
+        );
     }
 }
