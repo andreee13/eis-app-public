@@ -10,9 +10,8 @@ import it.unipd.dei.eis.data.codecs.TxtEncoder;
 import it.unipd.dei.eis.data.entities.TermsDataEntity;
 
 import java.io.BufferedReader;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -33,7 +32,7 @@ public class TermsDataSource extends DataSource&lt;TermsDataEntity, Map&lt;Strin
     /**
      * The PATTERN is used to check if a word is a punctuation or other special symbols.
      */
-<span class="fc" id="L36">    private static final Pattern PATTERN = Pattern.compile(&quot;[\\p{Punct}–“”‑‘'…’—−·]&quot;);</span>
+<span class="fc" id="L35">    private static final Pattern PATTERN = Pattern.compile(&quot;[\\p{Punct}–“”‑‘'…’—−·]&quot;);</span>
 
     /**
      * The STOPLIST_FILE_NAME field is used to store the name of the file containing the stoplist.
@@ -41,10 +40,10 @@ public class TermsDataSource extends DataSource&lt;TermsDataEntity, Map&lt;Strin
     private static final String STOPLIST_FILE_NAME = &quot;stoplist.txt&quot;;
 
     static {
-<span class="fc" id="L44">        RedwoodConfiguration.current()</span>
-<span class="fc" id="L45">                .clear()</span>
-<span class="fc" id="L46">                .apply();</span>
-<span class="fc" id="L47">    }</span>
+<span class="fc" id="L43">        RedwoodConfiguration.current()</span>
+<span class="fc" id="L44">                .clear()</span>
+<span class="fc" id="L45">                .apply();</span>
+<span class="fc" id="L46">    }</span>
 
     /**
      * The stoplist field is used to store the stoplist.
@@ -56,9 +55,9 @@ public class TermsDataSource extends DataSource&lt;TermsDataEntity, Map&lt;Strin
      * It is used to initialize the data source.
      */
     public TermsDataSource() {
-<span class="fc" id="L59">        super(ID, new TxtEncoder());</span>
-<span class="fc" id="L60">        stoplist = getStoplist();</span>
-<span class="fc" id="L61">    }</span>
+<span class="fc" id="L58">        super(ID, new TxtEncoder());</span>
+<span class="fc" id="L59">        stoplist = getStoplist();</span>
+<span class="fc" id="L60">    }</span>
 
     /**
      * The getStoplist method is used to get the stoplist from the file.
@@ -67,20 +66,20 @@ public class TermsDataSource extends DataSource&lt;TermsDataEntity, Map&lt;Strin
      */
     private List&lt;String&gt; getStoplist() {
         try {
-<span class="fc" id="L70">            BufferedReader bufferedReader = new BufferedReader(</span>
+<span class="fc" id="L69">            BufferedReader bufferedReader = new BufferedReader(</span>
                     new InputStreamReader(
-<span class="fc" id="L72">                            Objects.requireNonNull(</span>
-<span class="fc" id="L73">                                    getClass().getClassLoader().getResourceAsStream(STOPLIST_FILE_NAME)</span>
+<span class="fc" id="L71">                            Objects.requireNonNull(</span>
+<span class="fc" id="L72">                                    getClass().getClassLoader().getResourceAsStream(STOPLIST_FILE_NAME)</span>
                             )
                     )
             );
-<span class="fc" id="L77">            List&lt;String&gt; stoplist = bufferedReader.lines()</span>
-<span class="fc" id="L78">                    .map(String::toLowerCase)</span>
-<span class="fc" id="L79">                    .collect(Collectors.toList());</span>
-<span class="fc" id="L80">            bufferedReader.close();</span>
-<span class="fc" id="L81">            return stoplist;</span>
-<span class="nc" id="L82">        } catch (Exception e) {</span>
-<span class="nc" id="L83">            return Collections.emptyList();</span>
+<span class="fc" id="L76">            List&lt;String&gt; stoplist = bufferedReader.lines()</span>
+<span class="fc" id="L77">                    .map(String::toLowerCase)</span>
+<span class="fc" id="L78">                    .collect(Collectors.toList());</span>
+<span class="fc" id="L79">            bufferedReader.close();</span>
+<span class="fc" id="L80">            return stoplist;</span>
+<span class="nc" id="L81">        } catch (Exception e) {</span>
+<span class="nc" id="L82">            return Collections.emptyList();</span>
         }
     }
 
@@ -95,37 +94,36 @@ public class TermsDataSource extends DataSource&lt;TermsDataEntity, Map&lt;Strin
      */
     @Override
     void setData(Context context, List&lt;TermsDataEntity&gt; entities) throws Exception {
-<span class="fc" id="L98">        Properties properties = new Properties();</span>
-<span class="fc bfc" id="L99" title="All 2 branches covered.">        if (context.lemma) {</span>
-<span class="fc" id="L100">            properties.setProperty(&quot;annotators&quot;, &quot;tokenize, pos, lemma&quot;);</span>
+<span class="fc" id="L97">        Properties properties = new Properties();</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">        if (context.lemma) {</span>
+<span class="fc" id="L99">            properties.setProperty(&quot;annotators&quot;, &quot;tokenize, pos, lemma&quot;);</span>
         } else {
-<span class="fc" id="L102">            properties.setProperty(&quot;annotators&quot;, &quot;tokenize&quot;);</span>
+<span class="fc" id="L101">            properties.setProperty(&quot;annotators&quot;, &quot;tokenize&quot;);</span>
         }
-<span class="fc" id="L104">        StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);</span>
-<span class="fc" id="L105">        ExecutorService executorService = Executors.newWorkStealingPool();</span>
-<span class="fc" id="L106">        SynchronizedFrequencyCounter&lt;String&gt; frequencyCounter = new SynchronizedFrequencyCounter&lt;&gt;();</span>
-<span class="fc bfc" id="L107" title="All 2 branches covered.">        for (TermsDataEntity s : entities) {</span>
-<span class="fc" id="L108">            executorService.execute(() -&gt; pipeline.process(s.toString())</span>
-<span class="fc" id="L109">                    .get(CoreAnnotations.TokensAnnotation.class)</span>
-<span class="fc" id="L110">                    .stream()</span>
-<span class="fc bfc" id="L111" title="All 2 branches covered.">                    .map(context.lemma ? CoreLabel::lemma : CoreLabel::word)</span>
-<span class="fc" id="L112">                    .map(String::toLowerCase)</span>
-<span class="fc" id="L113">                    .collect(Collectors.toSet())</span>
-<span class="fc" id="L114">                    .forEach(term -&gt; {</span>
-<span class="fc bfc" id="L115" title="All 4 branches covered.">                        if (!PATTERN.matcher(term).find() &amp;&amp; !stoplist.contains(term)) {</span>
-<span class="fc" id="L116">                            frequencyCounter.add(term);</span>
+<span class="fc" id="L103">        StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);</span>
+<span class="fc" id="L104">        ExecutorService executorService = Executors.newWorkStealingPool();</span>
+<span class="fc" id="L105">        SynchronizedFrequencyCounter&lt;String&gt; frequencyCounter = new SynchronizedFrequencyCounter&lt;&gt;();</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">        for (TermsDataEntity s : entities) {</span>
+<span class="fc" id="L107">            executorService.execute(() -&gt; pipeline.process(s.toString())</span>
+<span class="fc" id="L108">                    .get(CoreAnnotations.TokensAnnotation.class)</span>
+<span class="fc" id="L109">                    .stream()</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">                    .map(context.lemma ? CoreLabel::lemma : CoreLabel::word)</span>
+<span class="fc" id="L111">                    .map(String::toLowerCase)</span>
+<span class="fc" id="L112">                    .collect(Collectors.toSet())</span>
+<span class="fc" id="L113">                    .forEach(term -&gt; {</span>
+<span class="fc bfc" id="L114" title="All 4 branches covered.">                        if (!PATTERN.matcher(term).find() &amp;&amp; !stoplist.contains(term)) {</span>
+<span class="fc" id="L115">                            frequencyCounter.add(term);</span>
                         }
-<span class="fc" id="L118">                    }));</span>
-<span class="fc" id="L119">        }</span>
-<span class="fc" id="L120">        executorService.shutdown();</span>
-<span class="pc bpc" id="L121" title="1 of 2 branches missed.">        if (!executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS)) {</span>
-<span class="nc" id="L122">            executorService.shutdownNow();</span>
-<span class="nc" id="L123">            throw new Exception(&quot;Maximum time exceeded, the process has been interrupted.&quot;);</span>
+<span class="fc" id="L117">                    }));</span>
+<span class="fc" id="L118">        }</span>
+<span class="fc" id="L119">        executorService.shutdown();</span>
+<span class="pc bpc" id="L120" title="1 of 2 branches missed.">        if (!executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS)) {</span>
+<span class="nc" id="L121">            executorService.shutdownNow();</span>
+<span class="nc" id="L122">            throw new Exception(&quot;Maximum time exceeded, the process has been interrupted.&quot;);</span>
         }
-<span class="fc" id="L125">        Files.writeString(</span>
-<span class="fc" id="L126">                Paths.get(context.outputTerms),</span>
-<span class="fc" id="L127">                encoder.encode(frequencyCounter.getMapSortedByValueAndKey(), context.countTerms)</span>
-        );
-<span class="fc" id="L129">    }</span>
+<span class="fc" id="L124">        try (FileWriter fileWriter = new FileWriter(context.outputTerms)) {</span>
+<span class="fc" id="L125">            fileWriter.write(encoder.encode(frequencyCounter.getMapSortedByValueAndKey(), context.countTerms));</span>
+        }
+<span class="fc" id="L127">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

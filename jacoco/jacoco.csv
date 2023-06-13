@@ -10,8 +10,8 @@ eis-app,it.unipd.dei.eis.presentation,Bootstrapper,0,200,0,0,0,92,0,3,0,3
 eis-app,it.unipd.dei.eis.presentation,AsyncExecutor,18,234,2,12,5,47,2,13,0,8
 eis-app,it.unipd.dei.eis.presentation,AsyncExecutor.new PrintStream() {...},0,18,0,0,0,3,0,2,0,2
 eis-app,it.unipd.dei.eis.data.sources,DataSource,40,84,0,6,8,31,5,9,5,6
-eis-app,it.unipd.dei.eis.data.sources,TermsDataSource,11,161,1,11,4,41,1,11,0,6
-eis-app,it.unipd.dei.eis.data.sources,JsonDataSource,0,53,0,0,0,8,0,3,0,3
+eis-app,it.unipd.dei.eis.data.sources,TermsDataSource,11,160,1,11,4,40,1,11,0,6
+eis-app,it.unipd.dei.eis.data.sources,JsonDataSource,6,56,0,0,2,9,0,3,0,3
 eis-app,it.unipd.dei.eis.data.sources,CsvDataSource,0,30,0,0,0,7,0,2,0,2
 eis-app,it.unipd.dei.eis.data.sources,TheGuardianDataSource,36,188,10,12,5,42,10,6,0,5
 eis-app,it.unipd.dei.eis.core.constants,Outputs,0,63,0,8,0,10,0,7,0,3
