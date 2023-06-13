@@ -65,8 +65,8 @@ I **test della release** sono suddivisi in:
 ### Copertura di Test
 
 La copertura di test indica la percentuale del programma che è stata testata tramite l'esecuzione dei test. Nel contesto
-del nostro progetto software, abbiamo utilizzato il plugin jaCoCo per valutare la copertura dei test, ottenendo una
-percentuale del 92% del programma, il che indica una copertura piuttosto elevata.
+del progetto software, si è utilizzato il plugin jaCoCo per valutare la copertura dei test, ottenendo una
+percentuale del 92%, il che indica una copertura piuttosto elevata.
 
 Una copertura estesa offre diversi vantaggi:
 
