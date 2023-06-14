@@ -16,9 +16,10 @@ In questo documento vengono trattati in modo approfondito i requisiti del proget
 ponendo particolare attenzione a:
 
 - funzioni supportate
-- dipendenze da interfacce software e di comunicazione
+- dipendenze da interfacce hardware, software e di comunicazione
+- requisiti funzionali
 - limiti di progettazione
-- casi d'uso
+- casi d'uso e relativa descrizione
 
 ### Scopo
 
@@ -119,7 +120,8 @@ Esito, _file JSON_ contenente la lista degli articoli.
 
 #### Estrazione
 
-Il programma estrae in un file di testo i termini più ricorrenti da un articolo modellizzato, precedentemente scaricato.
+Il programma estrae in un file di testo i termini più ricorrenti da un articolo modellizzato, precedentemente scaricato,
+rimuovendo quelli contenuti nella stoplist predefinita.
 
 ##### Richiesta
 
@@ -151,7 +153,7 @@ sono stati implementati privilegi.
 
 ### Compatibilità
 
-Il sistema è supportato da tutti i sistemi operativi che supportano almeno _Java 8_.
+Il sistema è compatibile con tutti i sistemi operativi che supportano almeno _Java 8_.
 
 ### Assunzioni
 
@@ -166,7 +168,7 @@ Si assume che l'utente:
 
 In questa sezione verranno trattati i requisiti specifici del sistema. In particolare:
 
-- Interfacce esterne
+- Interfacce
 - Requisiti funzionali
 - Limiti di progettazione
 - Caratteristiche del software
