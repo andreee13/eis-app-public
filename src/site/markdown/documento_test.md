@@ -1,5 +1,7 @@
 # Documento di Test
 
+---
+
 ## Introduzione
 
 ### Scopo
@@ -31,6 +33,8 @@ Gli obiettivi di test includono:
 - Verificare la compatibilità del software con diversi sistemi operativi.
 - Confermare la corretta integrazione tra i moduli o i componenti del sistema.
 - Verificare la sicurezza del software e la protezione da potenziali vulnerabilità.
+
+---
 
 ## Strategia di Test
 
@@ -113,6 +117,7 @@ successo.
 Una volta testate con successo le componenti più critiche del sistema, e individuati e corretti difetti di progettazione
 o di implementazione che andavano a compromettere il funzionamento del sistema nella sua totalità di casi possibili, i
 criteri sono stati considerati raggiunti.
+---
 
 ## Ambiente di Test
 
