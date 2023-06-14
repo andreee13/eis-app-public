@@ -315,7 +315,7 @@ _Sono state effettuate 10 esecuzioni per versione di JDK._
 | OS               | Architettura | Eclipse Temurin 8 | Eclipse Temurin 11 | 
 |------------------|--------------|-------------------|--------------------|
 | Windows 11       | x64          | 14.1 secondi      | 7.2 secondi        | 
-| MacOS 13.4       | aarch64      | 59.6 secodi       | 11.9 secondi       | 
+| MacOS 13.4       | aarch64      | 59.6 secondi      | 11.9 secondi       | 
 | Oracle Linux 8.6 | aarch64      | 15.2 secondi      | 13.0 secondi       |
 
 > ⓘ️ JDK Eclipse Temurin 8 MacOS aarch64 non disponibile, è stata utilizzata la versione x64.
