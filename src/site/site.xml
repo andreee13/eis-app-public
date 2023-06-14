@@ -14,6 +14,7 @@
     </skin>
     <custom>
         <reflowSkin>
+            <highlightJs>true</highlightJs>
             <absoluteResourceURL>${this.site.url}</absoluteResourceURL>
             <header enabled="false"/>
             <breadcrumbs>false</breadcrumbs>
