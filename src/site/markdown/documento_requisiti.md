@@ -261,5 +261,4 @@ nuove modalità di memorizzazione degli articoli e nuove strutture per memorizza
 | Attori               |                                                                                                                                                                                                                                 |
 | Opzioni supportate   |                                                                                                                                                                                                                                                                                                          |
 | Stimolo              |                                                                             |
-| Risposta             | 
-|
+| Risposta             |                                                                                                                         |
