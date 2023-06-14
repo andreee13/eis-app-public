@@ -41,9 +41,9 @@ Le fonti attualmente supportate sono:
 I componenti software dell'architettura sono suddivisi in 4 layer, la cui interazione è bidirezionale. Partendo dal lato
 utente:
 
-- **UseCase**: contiene l'operazione da eseguire.
-- **Controller**: contiene gli elementi che permettono di interagire con l'utente. Interagisce con il livello superiore
-  tramite **Model**.
+- **UseCase**: contiene l'operazione da eseguire. Invoca **Controller** per iniziare la logica di esecuzione.
+- **Controller**: contiene gli elementi che permettono di gestire il flusso di esecuzione dell'operazione. Interagisce
+  con il livello superiore tramite **Model**.
 - **Repository**: contiene gli elementi che permettono di interagire con le fonti. Interagisce con il livello superiore
   tramite **Entity**.
 - **DataSource**: contiene gli elementi che permettono di interagire con i dati.
@@ -71,24 +71,26 @@ Sono stati utilizzati i seguenti design pattern:
 - **Flessibilità**: ogni layer dell'architettura è stato progettato per agevolare la manutenzione e l'estensione del
   programma, fornendo un'interfaccia comune per ogni componente.
 - **Modularità**: il software è stato progettato in modo da suddividere tutte le sue componenti in moduli indipendenti,
-  che svolgono un compito ben preciso.
+  che svolgono un compito ben preciso, senza dipendere da altri moduli.
 
 ---
 
 ## Build
 
-### Jar
+### Maven
 
 La build produce un file `jar` eseguibile.
 
 **Requisiti minimi**
 
-- _JDK 11_
+- _JDK 8_
 - _Maven 3.3.1_
 
+```bash
+mvn clean package -DskipTests
 ```
-$ mvn clean package -DskipTests
-```
+
+> ⓘ️ L'opzione `-DskipTests` permette di saltare l'esecuzione dei test e velocizzare la build.
 
 ### Dockerfile
 
@@ -96,11 +98,13 @@ La build produce un'immagine Docker.
 
 **Requisiti minimi**
 
-- _Docker 17.05_
+- _Docker 17.06.0_
 
+```bash
+docker build -t eis-app .
 ```
-$ docker build -t eis-app .
-```
+
+> ⓘ️ L'opzione `-t` permette di specificare il nome dell'immagine Docker.
 
 ---
 
@@ -110,9 +114,11 @@ $ docker build -t eis-app .
 
 L'esecuzione richiede il file `jar` prodotto dalla sezione precedente.
 
-    $ java -jar <jarfile> <source> [options]
-
+```bash
+java -jar <jarfile> <source> [options]
 ```
+
+```bash
 <source>                             Source (required)
 
     theguardian                      The Guardian API
@@ -120,7 +126,7 @@ L'esecuzione richiede il file `jar` prodotto dalla sezione precedente.
     path/to/file.csv                 Input file CSV
 ```
 
-```
+```bash
 [options]                            Options (optional)
 
     -ca,--count-articles <integer>   Number of articles (default 10)
@@ -137,14 +143,25 @@ L'esecuzione richiede il file `jar` prodotto dalla sezione precedente.
     -t,--to <date>                   To date
 ```
 
+> ⓘ️ In alternativa all'opzione `--api-key` è possibile specificare la variabile d'ambiente `THE_GUARDIAN_API_KEY` per
+> The Guardian API.
+
 ### Docker Compose
 
-Modificare il file `docker-compose.yml` con le opzioni desiderate ed eseguire il comando seguente.
+**Requisiti minimi**
 
-Non è necessario generare l'immagine Docker in precedenza poichè automaticamente costruita da Docker Compose se non
-presente nel sistema.
+- _Docker 17.06.0_
+- _Docker Compose 1.13.0_
 
-    $ docker-compose up
+Modificare il file `docker-compose.yml` con le opzioni desiderate seguendo la sintassi riportata nella sezione
+[Jar](#jar) ed eseguire il comando seguente.
+
+```bash
+docker compose up
+```
+
+> ⓘ️ Non è necessario generare l'immagine Docker in precedenza poichè automaticamente costruita da Docker Compose se non
+> già presente nel sistema.
 
 ---
 
@@ -152,16 +169,22 @@ presente nel sistema.
 
 ### Test unitari
 
-I test unitari sono stati implementati con JUnit 5. Per eseguire i test di The Guardian API è necessario specificare la
-variabile d'ambiente `THE_GUARDIAN_API_KEY`.
+I test unitari sono stati implementati con JUnit 5.
 
-    $ mvn test
+```bash
+mvn test
+```
+
+> ⓘ️ Per eseguire i test di The Guardian API è necessario specificare la
+> variabile d'ambiente `THE_GUARDIAN_API_KEY`.
 
 ### Report
 
 Il report dei test viene generato nella cartella `target/surefire-reports`.
 
-    $ mvn surefire-report:report
+```bash
+mvn surefire-report:report
+```
 
 ---
 
@@ -171,19 +194,25 @@ Il report dei test viene generato nella cartella `target/surefire-reports`.
 
 I Javadoc vengono generati in formato HTML nella cartella `target/site/apidocs`.
 
-    $ mvn javadoc:javadoc
+```bash
+mvn javadoc:javadoc
+```
 
 #### Test
 
 I Javadoc dei test vengono generati in formato HTML nella cartella `target/site/testapidocs`.
 
-    $ mvn javadoc:test-javadoc
+```bash
+mvn javadoc:test-javadoc
+```
 
 ### JaCoCo
 
 Il report della copertura dei test JaCoCo viene generato nella cartella `target/site/jacoco`.
 
-    $ mvn jacoco:report
+```bash
+mvn jacoco:report
+```
 
 ### Maven Site
 
@@ -191,7 +220,9 @@ Tutta la documentazione completa, inclusi i report delle sezioni precedenti, pos
 nella
 cartella `target/site`.
 
-    $ mvn site
+```bash
+mvn site
+```
 
 ---
 
@@ -255,33 +286,36 @@ Le librerie utilizzate sono:
 
 ## Note
 
-La sintassi del codice è compatibile con Java 8 però, dopo aver effettuato vari test con differenti versioni del
-linguaggio, la versione scelta è stata la 11 per via di una differenza di performance in fase di estrazione dei lemmi.
+Il progetto è compatibile con Java 8 però, dopo aver effettuato vari test con differenti versioni del
+linguaggio, la versione consigliata è la 11 o successiva per via di una differenza di performance in fase di estrazione
+dei lemmi.
 
-Le features che sono state sfruttate sono:
+Le features sfruttate dalle nuove versioni sono:
 
-- il miglioramento del compilatore
-- la miglior gestione delle stringhe
+- ottimizzazione del garbage collector
+- miglioramento del compilatore
+- miglior gestione delle stringhe
 
 Di seguito è riportato un test che mostra a grandi linee la differenza di performance tra le due versioni.
 
 ### Test Java 8 vs Java 11
 
-#### Configurazione utilizzata
+Il test consiste nel leggere un file The New York Times CSV contenente 1000 articoli ed estrarre 50 lemmi.
 
-**OS**: _Windows 11_
+#### Comando
 
-**CPU**: _Intel Core i5-8600 @ 3.10 GHz_
-
-**RAM**: _16 GB 2400 MHz DDR4_
-
-    $ file.csv -ca 1000 -ct 50 -l 
+```bash
+java -jar app.jar file.csv -ca 1000 -ct 50 -l
+```
 
 #### Risultati
 
 _Sono state effettuate 10 esecuzioni per versione di JDK._
 
-| JDK                | Tempo medio  |
-|--------------------|--------------|
-| Eclipse Temurin 8  | 14.1 secondi |
-| Eclipse Temurin 11 | 7.2 secondi  |
+| OS               | Architettura | Eclipse Temurin 8 | Eclipse Temurin 11 | 
+|------------------|--------------|-------------------|--------------------|
+| Windows 11       | x64          | 14.1 secondi      | 7.2 secondi        | 
+| MacOS 13.4       | aarch64      | 59.6 secodi       | 11.9 secondi       | 
+| Oracle Linux 8.6 | aarch64      | 15.2 secondi      | 13.0 secondi       |
+
+> ⓘ️ JDK Eclipse Temurin 8 MacOS aarch64 non disponibile, è stata utilizzata la versione x64.
