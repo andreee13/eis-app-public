@@ -1,10 +1,14 @@
 # Documento dei Requisiti
 
+---
+
 Versione: 1.0
 
 Data: 11 giugno 2023
 
 Standard: IEEE 830-1998
+
+---
 
 ## Introduzione
 
@@ -33,15 +37,15 @@ effettuare entrambe le operazioni in sequenza.
 - Il programma dispone i termini estratti nel file di testo in ordine alfabetico come criterio aggiuntivo.
 - _formato del file JSON di download_:
 
-```
+```json lines
 [
   {
-    "id": "int",
-    "title": "string",
-    "body": "string",
-    "date": "date",
-    "url": "string",
-    "source": "string"
+    "id": 0,
+    "title": "Title",
+    "body": "Body",
+    "date": "Jan 1, 2000 12:00:00 AM",
+    "url": "https://www.example.com",
+    "source": "SOURCE"
   },
   ...
 ]
@@ -49,7 +53,7 @@ effettuare entrambe le operazioni in sequenza.
 
 - _formato del file di testo di estrazione_:
 
-```
+```text
 termine: peso
 ```
 
@@ -147,7 +151,7 @@ sono stati implementati privilegi.
 
 ### Compatibilità
 
-Il sistema è supportato da tutti i sistemi operativi che supportano almeno _Java 11_.
+Il sistema è supportato da tutti i sistemi operativi che supportano almeno _Java 8_.
 
 ### Assunzioni
 

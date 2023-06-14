@@ -1,5 +1,7 @@
 # Design Model
 
+---
+
 ## Modello Strutturale Statico
 
 Il modello strutturale statico è stato realizzato utilizzando il diagramma delle classi UML.
@@ -11,11 +13,14 @@ Il modello strutturale statico è stato realizzato utilizzando il diagramma dell
 #### Descrizione
 
 Il diagramma mostra l'organizzazione di:
-- classi / classi astratte / interfacce
+
+- classi
+- classi astratte
+- interfacce
 - classi interne
 - campi
 - metodi
-- dipendenze da altre classi / classi astratte / interfacce
+- dipendenze
 - cardinalità
 
 ---
@@ -30,4 +35,6 @@ Il modello strutturale dinamico è stato realizzato utilizzando il diagramma del
 
 #### Descrizione
 
-Il diagramma rappresenta un esempio di download ed estrazione da un file CSV, con applicazione di filtri di ricerca e temporali.
+Il diagramma rappresenta un esempio di download ed estrazione da un file The New York Times CSV, con applicazione di
+filtri di ricerca e
+temporali.
