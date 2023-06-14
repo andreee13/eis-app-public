@@ -53,6 +53,8 @@ effettuare entrambe le operazioni in sequenza.
 termine: peso
 ```
 
+---
+
 ## Descrizione generale
 
 In questa sezione si affronta in modo estensivo la descrizione di:
@@ -154,6 +156,8 @@ Si assume che l'utente:
 - abbia una connessione ad internet
 - sappia interfacciarsi con un terminale
 
+---
+
 ## Requisiti specifici
 
 In questa sezione verranno trattati i requisiti specifici del sistema. In particolare:
@@ -224,6 +228,8 @@ Il sistema è stato progettato in modo da rispettare le richieste di aggiornabil
 Grazie all'utilizzo di design pattern che permettono di rendere il codice più flessibile, il sistema è predisposto a
 supportare nuove sorgenti,
 nuove modalità di memorizzazione degli articoli e nuove strutture per memorizzare i termini estratti.
+
+---
 
 ## Appendice
 

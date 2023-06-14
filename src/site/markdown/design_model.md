@@ -10,12 +10,15 @@ Il modello strutturale statico è stato realizzato utilizzando il diagramma dell
 
 #### Descrizione
 
-Il diagramma mostra l'organizzazione delle classi:
+Il diagramma mostra l'organizzazione di:
+- classi / classi astratte / interfacce
 - classi interne
 - campi
 - metodi
 - dipendenze da altre classi / classi astratte / interfacce
 - cardinalità
+
+---
 
 ## Modello Strutturale Dinamico
 

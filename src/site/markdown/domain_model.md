@@ -4,4 +4,7 @@
 
 ## Descrizione
 
-Descrizione...
+Il diagramma rappresenta le relazioni tra:
+- classi / classi astratte / interfacce
+- classi interne
+- campi
