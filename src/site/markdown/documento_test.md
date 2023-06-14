@@ -117,6 +117,7 @@ successo.
 Una volta testate con successo le componenti più critiche del sistema, e individuati e corretti difetti di progettazione
 o di implementazione che andavano a compromettere il funzionamento del sistema nella sua totalità di casi possibili, i
 criteri sono stati considerati raggiunti.
+
 ---
 
 ## Ambiente di Test
