@@ -14,14 +14,13 @@ Il modello strutturale statico è stato realizzato utilizzando il diagramma dell
 
 Il diagramma mostra l'organizzazione di:
 
-- classi
-- classi astratte
-- interfacce
-- classi interne
-- campi
-- metodi
-- dipendenze
-- cardinalità
+- Classi
+- Classi astratte
+- Interfacce
+- Campi
+- Metodi
+- Relazioni
+- Cardinalità
 
 ---
 

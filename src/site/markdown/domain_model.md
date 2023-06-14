@@ -6,10 +6,9 @@
 
 ## Descrizione
 
-Il diagramma rappresenta le relazioni tra:
+Il diagramma mostra l'organizzazione di:
 
-- classi
-- classi astratte
-- interfacce
-- classi interne
-- campi
+- Classi
+- Classi astratte
+- Interfacce
+- Campi
