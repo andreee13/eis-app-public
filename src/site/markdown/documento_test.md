@@ -65,8 +65,8 @@ I **test della release** sono suddivisi in:
 ### Copertura di Test
 
 La copertura di test indica la percentuale del programma che è stata testata tramite l'esecuzione dei test. Nel contesto
-del progetto software, si è utilizzato il plugin jaCoCo per valutare la copertura dei test, ottenendo una
-percentuale del 92%, il che indica una copertura piuttosto elevata.
+del progetto software, si è utilizzato il plugin JaCoCo per valutare la copertura dei test, ottenendo una
+percentuale del **92%**, il che indica una copertura piuttosto elevata.
 
 Una copertura estesa offre diversi vantaggi:
 
@@ -86,7 +86,7 @@ l'attività di test in modo efficace ed efficiente.
 Lo strumento di test utilizzato è JUnit, che permette di eseguire test di unità di lavoro in Java. Spesso un' unità di
 lavoro distinta è un singolo metodo.
 
-Tramite le Assertions di JUnit è possibile dichiarare con certezza che il risultato di un test sia uguale a quello
+Tramite le `Assertions` di JUnit è possibile dichiarare con certezza che il risultato di un test sia uguale a quello
 atteso, verificando che il codice funzioni correttamente, con l'ausilio di dati/risorse di test fittizi ma realistici.
 JUnit è stato scelto per la sua semplicità e per la sua integrazione con l'IDE IntelliJ IDEA, quest'ultimo utilizzato
 per lo sviluppo del progetto.
@@ -120,24 +120,20 @@ criteri sono stati considerati raggiunti.
 
 **Requisiti minimi**
 
-- _JDK 11_
+- _JDK 8_
 - _Maven 3.3.1_
 
 ### Dati di test
 
 I dati di test utilizzati sono statici, nelle forme di input predefiniti o dati di riferimento.
 
-La directory /src/test/resources contiene i file di test.
+La directory `/src/test/resources` contiene i file di test.
 
-In particolare, articles.json viene utilizzato per testare le funzionalità delle componenti legate all'elaborazione di
-dati JSON (come ad esempio la classe JsonRepositoryTest), mentre file.csv
-viene utilizzato per testare le funzionalità delle componenti legate all'elaborazione di dati CSV (come ad esempio la
-classe CsvRepositoryTest).
+In particolare, `articles.json` viene utilizzato per testare le funzionalità delle componenti legate all'elaborazione di
+dati JSON (come ad esempio la classe `JsonRepositoryTest`), mentre `file.csv` viene utilizzato per testare le
+funzionalità
+delle componenti legate all'elaborazione di dati CSV (come ad esempio la
+classe `CsvRepositoryTest`).
 
-Allo stesso modo, terms.txt viene utilizzato per testare le funzionalità delle componenti
-legate all'elaborazione di dati testuali (come ad esempio la classe TermsExtractionRepositoryTest).
-
-
-
-
-
+Allo stesso modo, `terms.txt` viene utilizzato per testare le funzionalità delle componenti
+legate all'elaborazione di dati testuali (come ad esempio la classe `TermsExtractionRepositoryTest`).

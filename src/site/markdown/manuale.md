@@ -1,5 +1,7 @@
 # Manuale
 
+---
+
 ## Panoramica
 
 Questo è un tool che permette di effettuare operazioni su articoli di giornale provenienti da più fonti.
@@ -134,7 +136,7 @@ java -jar <jarfile> <source> [options]
     -d,--download                    Download only
     -e,--extract                     Extract only
     -f,--from <date>                 From date
-    -h,--help                        Print this message
+    -h,--help                        Print help message
     -k,--api-key <string>            API key
     -l,--lemma                       Terms are lemmas
     -oa,--output-articles <file>     Output articles file name (default "articles.json")
@@ -301,8 +303,6 @@ Di seguito è riportato un test che mostra a grandi linee la differenza di perfo
 ### Test Java 8 vs Java 11
 
 Il test consiste nel leggere un file The New York Times CSV contenente 1000 articoli ed estrarre 50 lemmi.
-
-#### Comando
 
 ```bash
 java -jar app.jar file.csv -ca 1000 -ct 50 -l
